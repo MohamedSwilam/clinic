@@ -1,6 +1,5 @@
 <template>
     <div>
-        <vs-button vs-w="3" color="primary" type="filled" icon-pack="feather" icon="icon-plus" @click="download">Download PDF</vs-button>
         <div class="centerx" ref="content">
             <vs-row>
                 <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-w="9">
@@ -38,6 +37,7 @@
                                 <li @click="optionClicked(tr.id, 6)"><i class="fas fa-trash"></i>&nbsp;&nbsp; Delete</li>
                             </ul>
                         </vue-context>
+
                         <vs-tr :data="tr" :key="indextr">
                             <vs-td :data="indextr + 1">
                                 <div @contextmenu.prevent="openContext(tr.id)">
@@ -59,7 +59,7 @@
 
                             <vs-td :data="tr.dob">
                                 <div @contextmenu.prevent="openContext(tr.id)">
-                                {{ tr.dob }}
+                                    {{ tr.dob }}
                                 </div>
                             </vs-td>
 
@@ -86,10 +86,10 @@
                                 <div @contextmenu.prevent="openContext(tr.id)">
                                     <template v-for="status in patientStatus">
                                         <vs-chip v-if="
-                                        new Date().getTime()-new Date(tr.last_visit).getTime() > status.start_period
-                                        &&
-                                        new Date().getTime()-new Date(tr.last_visit).getTime() <= status.end_period
-                                        " :color="status.color">
+                                    new Date().getTime()-new Date(tr.last_visit).getTime() > status.start_period
+                                    &&
+                                    new Date().getTime()-new Date(tr.last_visit).getTime() <= status.end_period
+                                    " :color="status.color">
                                             <vx-tooltip color="warning" title="Last Visit" :text="tr.last_visit">
                                                 {{status.name}}
                                             </vx-tooltip>
@@ -98,6 +98,7 @@
                                 </div>
                             </vs-td>
                         </vs-tr>
+
                     </template>
                 </template>
             </vs-table>
@@ -108,10 +109,8 @@
 <script>
     import "@fortawesome/fontawesome-free/css/all.css";
     import "@fortawesome/fontawesome-free/js/all.js";
-    import router from '../../router'
     import { VueContext } from 'vue-context';
     import html2canvas from "html2canvas";
-    import jsPDF from 'jsPDF'
 
     export default {
         name: "Patient",
@@ -139,20 +138,9 @@
             }
         },
         methods: {
-            download () {
-                const doc = new jsPDF();
-                /** WITH CSS */
-                var canvasElement = document.createElement('canvas');
-                html2canvas(this.$refs.content, { canvas: canvasElement
-                }).then(function (canvas) {
-                    const img = canvas.toDataURL("image/png");
-                    doc.addImage(img,'JPEG',20,20);
-                    doc.save("sample.pdf");
-                });
-            },
             optionClicked(patientID, actionID) {
                 if(actionID == 3){
-                    router.push({name: 'add-appointment', params: {patient_id: patientID}});
+                    this.$router.push({name: 'add-appointment', params: {patient_id: patientID}});
                 }
                 this.$vs.notify({
                     title: 'Context Menu',
@@ -338,8 +326,43 @@
 </script>
 
 <style>
-    .txt-hover:hover{
+    .txt-hover:hover {
         cursor: pointer;
         color: black !important;
+    }
+
+    .v-context {
+        background: #fafafa;
+        border: 1px solid #bdbdbd;
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+        display: block;
+        margin: 0;
+        padding: 0;
+        position: fixed;
+        width: 250px;
+        z-index: 99999;
+    }
+
+    .v-context ul {
+        list-style: none;
+        padding: 10px 0;
+        margin: 0;
+        font-size: 12px;
+        font-weight: 600;
+    }
+
+    ul.bordered-items > li:not(:last-of-type):not([class*=shadow]) {
+        border-bottom: 1px solid #dae1e7;
+    }
+
+    .v-context ul li{
+        margin: 0;
+        padding: 10px 35px;
+        cursor: pointer;
+    }
+
+    .v-context ul li:hover {
+        background: #1e88e5;
+        color: #fafafa;
     }
 </style>

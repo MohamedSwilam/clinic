@@ -3,8 +3,8 @@
     Description: list Component
     Component Name: VxList
     ----------------------------------------------------------------------------------------
-    Item Name: Vuesax Admin - VueJS Dashboard Admin Template
-    Author: Pixinvent
+    Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
+      Author: Pixinvent
     Author URL: http://www.themeforest.net/user/pixinvent
 ========================================================================================== -->
 
@@ -34,5 +34,5 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@sass/vuesax/components/vxList.scss";
+@import "@sass/vuexy/components/vxList.scss";
 </style>

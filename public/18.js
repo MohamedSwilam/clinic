@@ -13,13 +13,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _fortawesome_fontawesome_free_css_all_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_fortawesome_fontawesome_free_css_all_css__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _fortawesome_fontawesome_free_js_all_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @fortawesome/fontawesome-free/js/all.js */ "./node_modules/@fortawesome/fontawesome-free/js/all.js");
 /* harmony import */ var _fortawesome_fontawesome_free_js_all_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_fortawesome_fontawesome_free_js_all_js__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../router */ "./resources/js/src/router.js");
-/* harmony import */ var vue_context__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-context */ "./node_modules/vue-context/dist/js/vue-context.js");
-/* harmony import */ var vue_context__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vue_context__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var html2canvas__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! html2canvas */ "./node_modules/html2canvas/dist/npm/index.js");
-/* harmony import */ var html2canvas__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(html2canvas__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var jsPDF__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! jsPDF */ "./node_modules/jsPDF/dist/jspdf.min.js");
-/* harmony import */ var jsPDF__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(jsPDF__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var vue_context__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-context */ "./node_modules/vue-context/dist/js/vue-context.js");
+/* harmony import */ var vue_context__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue_context__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var html2canvas__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! html2canvas */ "./node_modules/html2canvas/dist/npm/index.js");
+/* harmony import */ var html2canvas__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(html2canvas__WEBPACK_IMPORTED_MODULE_3__);
 //
 //
 //
@@ -127,8 +124,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
-
+//
 
 
 
@@ -136,7 +132,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Patient",
   components: {
-    VueContext: vue_context__WEBPACK_IMPORTED_MODULE_3__["VueContext"]
+    VueContext: vue_context__WEBPACK_IMPORTED_MODULE_2__["VueContext"]
   },
   mounted: function mounted() {
     this.getPatientsData(Date.now());
@@ -152,22 +148,9 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    download: function download() {
-      var doc = new jsPDF__WEBPACK_IMPORTED_MODULE_5___default.a();
-      /** WITH CSS */
-
-      var canvasElement = document.createElement('canvas');
-      html2canvas__WEBPACK_IMPORTED_MODULE_4___default()(this.$refs.content, {
-        canvas: canvasElement
-      }).then(function (canvas) {
-        var img = canvas.toDataURL("image/png");
-        doc.addImage(img, 'JPEG', 20, 20);
-        doc.save("sample.pdf");
-      });
-    },
     optionClicked: function optionClicked(patientID, actionID) {
       if (actionID == 3) {
-        _router__WEBPACK_IMPORTED_MODULE_2__["default"].push({
+        this.$router.push({
           name: 'add-appointment',
           params: {
             patient_id: patientID
@@ -358,7 +341,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, ".txt-hover:hover{\n  cursor: pointer;\n  color: black !important;\n}\n", ""]);
+exports.push([module.i, ".txt-hover:hover {\n  cursor: pointer;\n  color: black !important;\n}\n.v-context {\n  background: #fafafa;\n  border: 1px solid #bdbdbd;\n  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);\n  display: block;\n  margin: 0;\n  padding: 0;\n  position: fixed;\n  width: 250px;\n  z-index: 99999;\n}\n.v-context ul {\n  list-style: none;\n  padding: 10px 0;\n  margin: 0;\n  font-size: 12px;\n  font-weight: 600;\n}\nul.bordered-items > li:not(:last-of-type):not([class*=shadow]) {\n  border-bottom: 1px solid #dae1e7;\n}\n.v-context ul li{\n  margin: 0;\n  padding: 10px 35px;\n  cursor: pointer;\n}\n.v-context ul li:hover {\n  background: #1e88e5;\n  color: #fafafa;\n}\n", ""]);
 
 // exports
 
@@ -410,329 +393,250 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c(
-        "vs-button",
-        {
-          attrs: {
-            "vs-w": "3",
-            color: "primary",
-            type: "filled",
-            "icon-pack": "feather",
-            icon: "icon-plus"
-          },
-          on: { click: _vm.download }
-        },
-        [_vm._v("Download PDF")]
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        { ref: "content", staticClass: "centerx" },
-        [
-          _c(
-            "vs-row",
-            [
-              _c(
-                "vs-col",
-                {
-                  attrs: {
-                    "vs-type": "flex",
-                    "vs-justify": "center",
-                    "vs-align": "center",
-                    "vs-w": "9"
-                  }
-                },
-                [
-                  _c("b", { staticClass: "text-left vx-col w-full" }, [
-                    _vm._v(
-                      _vm._s(_vm.patients.length) +
-                        " results found in " +
-                        _vm._s(_vm.resultTime) +
-                        "ms"
-                    )
-                  ])
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "vs-col",
-                {
-                  attrs: {
-                    "vs-type": "flex",
-                    "vs-justify": "center",
-                    "vs-align": "center",
-                    "vs-w": "3"
-                  }
-                },
-                [
-                  _c(
-                    "vs-button",
-                    {
-                      attrs: {
-                        "vs-w": "3",
-                        color: "primary",
-                        type: "filled",
-                        "icon-pack": "feather",
-                        icon: "icon-plus"
-                      }
-                    },
-                    [_vm._v("New Patient")]
+  return _c("div", [
+    _c(
+      "div",
+      { ref: "content", staticClass: "centerx" },
+      [
+        _c(
+          "vs-row",
+          [
+            _c(
+              "vs-col",
+              {
+                attrs: {
+                  "vs-type": "flex",
+                  "vs-justify": "center",
+                  "vs-align": "center",
+                  "vs-w": "9"
+                }
+              },
+              [
+                _c("b", { staticClass: "text-left vx-col w-full" }, [
+                  _vm._v(
+                    _vm._s(_vm.patients.length) +
+                      " results found in " +
+                      _vm._s(_vm.resultTime) +
+                      "ms"
                   )
-                ],
-                1
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "vs-row",
-            [
-              _c(
-                "vs-col",
-                {
-                  attrs: {
-                    "vs-type": "flex",
-                    "vs-justify": "center",
-                    "vs-align": "center",
-                    "vs-w": "12"
-                  }
-                },
-                [
-                  _c("vs-input", {
-                    staticClass: "is-label-placeholder w-full",
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "vs-col",
+              {
+                attrs: {
+                  "vs-type": "flex",
+                  "vs-justify": "center",
+                  "vs-align": "center",
+                  "vs-w": "3"
+                }
+              },
+              [
+                _c(
+                  "vs-button",
+                  {
                     attrs: {
-                      "vs-w": "9",
+                      "vs-w": "3",
+                      color: "primary",
+                      type: "filled",
                       "icon-pack": "feather",
-                      icon: "icon-search",
-                      "label-placeholder": _vm.$t("Search") || "Search"
-                    },
-                    model: {
-                      value: _vm.searchText,
-                      callback: function($$v) {
-                        _vm.searchText = $$v
-                      },
-                      expression: "searchText"
+                      icon: "icon-plus"
                     }
-                  })
-                ],
-                1
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c("div", { staticClass: "vx-col w-full mb-base" }),
-          _vm._v(" "),
-          _vm.patients.length > 0
-            ? _c(
-                "vs-table",
-                {
-                  attrs: {
-                    multiple: "",
-                    "max-items": "50",
-                    pagination: "",
-                    data: _vm.patients
                   },
-                  scopedSlots: _vm._u(
-                    [
-                      {
-                        key: "default",
-                        fn: function(ref) {
-                          var data = ref.data
-                          return [
-                            _vm._l(data, function(tr, indextr) {
-                              return [
-                                _c(
-                                  "vue-context",
-                                  { ref: "patient-" + tr.id, refInFor: true },
-                                  [
-                                    _c(
-                                      "ul",
-                                      { staticClass: "bordered-items p-0" },
-                                      [
-                                        _c(
-                                          "li",
-                                          {
-                                            on: {
-                                              click: function($event) {
-                                                return _vm.optionClicked(
-                                                  tr.id,
-                                                  1
-                                                )
-                                              }
+                  [_vm._v("New Patient")]
+                )
+              ],
+              1
+            )
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "vs-row",
+          [
+            _c(
+              "vs-col",
+              {
+                attrs: {
+                  "vs-type": "flex",
+                  "vs-justify": "center",
+                  "vs-align": "center",
+                  "vs-w": "12"
+                }
+              },
+              [
+                _c("vs-input", {
+                  staticClass: "is-label-placeholder w-full",
+                  attrs: {
+                    "vs-w": "9",
+                    "icon-pack": "feather",
+                    icon: "icon-search",
+                    "label-placeholder": _vm.$t("Search") || "Search"
+                  },
+                  model: {
+                    value: _vm.searchText,
+                    callback: function($$v) {
+                      _vm.searchText = $$v
+                    },
+                    expression: "searchText"
+                  }
+                })
+              ],
+              1
+            )
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "vx-col w-full mb-base" }),
+        _vm._v(" "),
+        _vm.patients.length > 0
+          ? _c(
+              "vs-table",
+              {
+                attrs: {
+                  multiple: "",
+                  "max-items": "50",
+                  pagination: "",
+                  data: _vm.patients
+                },
+                scopedSlots: _vm._u(
+                  [
+                    {
+                      key: "default",
+                      fn: function(ref) {
+                        var data = ref.data
+                        return [
+                          _vm._l(data, function(tr, indextr) {
+                            return [
+                              _c(
+                                "vue-context",
+                                { ref: "patient-" + tr.id, refInFor: true },
+                                [
+                                  _c(
+                                    "ul",
+                                    { staticClass: "bordered-items p-0" },
+                                    [
+                                      _c(
+                                        "li",
+                                        {
+                                          on: {
+                                            click: function($event) {
+                                              return _vm.optionClicked(tr.id, 1)
                                             }
-                                          },
-                                          [
-                                            _c("i", {
-                                              staticClass: "fas fa-eye"
-                                            }),
-                                            _vm._v("   View")
-                                          ]
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "li",
-                                          {
-                                            on: {
-                                              click: function($event) {
-                                                return _vm.optionClicked(
-                                                  tr.id,
-                                                  2
-                                                )
-                                              }
+                                          }
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass: "fas fa-eye"
+                                          }),
+                                          _vm._v("   View")
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "li",
+                                        {
+                                          on: {
+                                            click: function($event) {
+                                              return _vm.optionClicked(tr.id, 2)
                                             }
-                                          },
-                                          [
-                                            _c("i", {
-                                              staticClass: "fas fa-user-edit"
-                                            }),
-                                            _vm._v("   Edit")
-                                          ]
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "li",
-                                          {
-                                            on: {
-                                              click: function($event) {
-                                                return _vm.optionClicked(
-                                                  tr.public_id,
-                                                  3
-                                                )
-                                              }
+                                          }
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass: "fas fa-user-edit"
+                                          }),
+                                          _vm._v("   Edit")
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "li",
+                                        {
+                                          on: {
+                                            click: function($event) {
+                                              return _vm.optionClicked(
+                                                tr.public_id,
+                                                3
+                                              )
                                             }
-                                          },
-                                          [
-                                            _c("i", {
-                                              staticClass: "fas fa-edit"
-                                            }),
-                                            _vm._v("   Reserve Appointment")
-                                          ]
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "li",
-                                          {
-                                            on: {
-                                              click: function($event) {
-                                                return _vm.optionClicked(
-                                                  tr.id,
-                                                  4
-                                                )
-                                              }
+                                          }
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass: "fas fa-edit"
+                                          }),
+                                          _vm._v("   Reserve Appointment")
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "li",
+                                        {
+                                          on: {
+                                            click: function($event) {
+                                              return _vm.optionClicked(tr.id, 4)
                                             }
-                                          },
-                                          [
-                                            _c("i", {
-                                              staticClass: "fas fa-share"
-                                            }),
-                                            _vm._v("   Send")
-                                          ]
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "li",
-                                          {
-                                            on: {
-                                              click: function($event) {
-                                                return _vm.optionClicked(
-                                                  tr.id,
-                                                  5
-                                                )
-                                              }
+                                          }
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass: "fas fa-share"
+                                          }),
+                                          _vm._v("   Send")
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "li",
+                                        {
+                                          on: {
+                                            click: function($event) {
+                                              return _vm.optionClicked(tr.id, 5)
                                             }
-                                          },
-                                          [
-                                            _c("i", {
-                                              staticClass: "fas fa-file-csv"
-                                            }),
-                                            _vm._v("   Export CSV")
-                                          ]
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "li",
-                                          {
-                                            on: {
-                                              click: function($event) {
-                                                return _vm.optionClicked(
-                                                  tr.id,
-                                                  6
-                                                )
-                                              }
+                                          }
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass: "fas fa-file-csv"
+                                          }),
+                                          _vm._v("   Export CSV")
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "li",
+                                        {
+                                          on: {
+                                            click: function($event) {
+                                              return _vm.optionClicked(tr.id, 6)
                                             }
-                                          },
-                                          [
-                                            _c("i", {
-                                              staticClass: "fas fa-trash"
-                                            }),
-                                            _vm._v("   Delete")
-                                          ]
-                                        )
-                                      ]
-                                    )
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "vs-tr",
-                                  { key: indextr, attrs: { data: tr } },
-                                  [
-                                    _c(
-                                      "vs-td",
-                                      { attrs: { data: indextr + 1 } },
-                                      [
-                                        _c(
-                                          "div",
-                                          {
-                                            on: {
-                                              contextmenu: function($event) {
-                                                $event.preventDefault()
-                                                return _vm.openContext(tr.id)
-                                              }
-                                            }
-                                          },
-                                          [
-                                            _vm._v(
-                                              "\n                                " +
-                                                _vm._s(indextr + 1) +
-                                                "\n                            "
-                                            )
-                                          ]
-                                        )
-                                      ]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "vs-td",
-                                      { attrs: { data: tr.public_id } },
-                                      [
-                                        _c(
-                                          "div",
-                                          {
-                                            on: {
-                                              contextmenu: function($event) {
-                                                $event.preventDefault()
-                                                return _vm.openContext(tr.id)
-                                              }
-                                            }
-                                          },
-                                          [
-                                            _vm._v(
-                                              "\n                                " +
-                                                _vm._s(tr.public_id) +
-                                                "\n                            "
-                                            )
-                                          ]
-                                        )
-                                      ]
-                                    ),
-                                    _vm._v(" "),
-                                    _c("vs-td", { attrs: { data: tr.name } }, [
+                                          }
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass: "fas fa-trash"
+                                          }),
+                                          _vm._v("   Delete")
+                                        ]
+                                      )
+                                    ]
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "vs-tr",
+                                { key: indextr, attrs: { data: tr } },
+                                [
+                                  _c(
+                                    "vs-td",
+                                    { attrs: { data: indextr + 1 } },
+                                    [
                                       _c(
                                         "div",
                                         {
@@ -746,14 +650,18 @@ var render = function() {
                                         [
                                           _vm._v(
                                             "\n                                " +
-                                              _vm._s(tr.name) +
+                                              _vm._s(indextr + 1) +
                                               "\n                            "
                                           )
                                         ]
                                       )
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("vs-td", { attrs: { data: tr.dob } }, [
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "vs-td",
+                                    { attrs: { data: tr.public_id } },
+                                    [
                                       _c(
                                         "div",
                                         {
@@ -766,253 +674,280 @@ var render = function() {
                                         },
                                         [
                                           _vm._v(
-                                            "\n                            " +
-                                              _vm._s(tr.dob) +
+                                            "\n                                " +
+                                              _vm._s(tr.public_id) +
                                               "\n                            "
                                           )
                                         ]
                                       )
-                                    ]),
-                                    _vm._v(" "),
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("vs-td", { attrs: { data: tr.name } }, [
                                     _c(
-                                      "vs-td",
-                                      { attrs: { data: tr.telephones } },
+                                      "div",
+                                      {
+                                        on: {
+                                          contextmenu: function($event) {
+                                            $event.preventDefault()
+                                            return _vm.openContext(tr.id)
+                                          }
+                                        }
+                                      },
                                       [
-                                        _c(
-                                          "div",
-                                          {
-                                            on: {
-                                              contextmenu: function($event) {
-                                                $event.preventDefault()
-                                                return _vm.openContext(tr.id)
-                                              }
-                                            }
-                                          },
-                                          [
-                                            _vm._l(tr.telephones, function(
-                                              telephone,
-                                              index
-                                            ) {
-                                              return [
-                                                _vm._v(
-                                                  "\n                                    " +
-                                                    _vm._s(telephone)
-                                                ),
-                                                index !=
-                                                tr.telephones.length - 1
-                                                  ? [_vm._v(", ")]
-                                                  : _vm._e()
-                                              ]
-                                            })
-                                          ],
-                                          2
-                                        )
-                                      ]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "vs-td",
-                                      { attrs: { data: tr.payment } },
-                                      [
-                                        _c(
-                                          "div",
-                                          {
-                                            on: {
-                                              contextmenu: function($event) {
-                                                $event.preventDefault()
-                                                return _vm.openContext(tr.id)
-                                              }
-                                            }
-                                          },
-                                          [
-                                            tr.payment.percentage == 100
-                                              ? [
-                                                  _c("i", {
-                                                    staticClass: "fas fa-check"
-                                                  }),
-                                                  _vm._v(" "),
-                                                  _c("b", [_vm._v("Complete")])
-                                                ]
-                                              : [
-                                                  _c("b", [
-                                                    _vm._v(
-                                                      _vm._s(tr.payment.paid)
-                                                    )
-                                                  ]),
-                                                  _vm._v(" Out of "),
-                                                  _c("b", [
-                                                    _vm._v(
-                                                      _vm._s(tr.payment.total)
-                                                    )
-                                                  ])
-                                                ],
-                                            _vm._v(" "),
-                                            _c("br"),
-                                            _vm._v(" "),
-                                            tr.payment.percentage == 100
-                                              ? _c("vs-progress", {
-                                                  attrs: {
-                                                    percent:
-                                                      tr.payment.percentage,
-                                                    color: "success"
-                                                  }
-                                                })
-                                              : tr.payment.percentage > 25
-                                              ? _c("vs-progress", {
-                                                  attrs: {
-                                                    percent:
-                                                      tr.payment.percentage,
-                                                    color: "warning"
-                                                  }
-                                                })
-                                              : tr.payment.percentage <= 25
-                                              ? _c("vs-progress", {
-                                                  attrs: {
-                                                    percent:
-                                                      tr.payment.percentage,
-                                                    color: "danger"
-                                                  }
-                                                })
-                                              : _vm._e()
-                                          ],
-                                          2
-                                        )
-                                      ]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "vs-td",
-                                      { attrs: { data: tr.last_visit } },
-                                      [
-                                        _c(
-                                          "div",
-                                          {
-                                            on: {
-                                              contextmenu: function($event) {
-                                                $event.preventDefault()
-                                                return _vm.openContext(tr.id)
-                                              }
-                                            }
-                                          },
-                                          [
-                                            _vm._l(_vm.patientStatus, function(
-                                              status
-                                            ) {
-                                              return [
-                                                new Date().getTime() -
-                                                  new Date(
-                                                    tr.last_visit
-                                                  ).getTime() >
-                                                  status.start_period &&
-                                                new Date().getTime() -
-                                                  new Date(
-                                                    tr.last_visit
-                                                  ).getTime() <=
-                                                  status.end_period
-                                                  ? _c(
-                                                      "vs-chip",
-                                                      {
-                                                        attrs: {
-                                                          color: status.color
-                                                        }
-                                                      },
-                                                      [
-                                                        _c(
-                                                          "vx-tooltip",
-                                                          {
-                                                            attrs: {
-                                                              color: "warning",
-                                                              title:
-                                                                "Last Visit",
-                                                              text:
-                                                                tr.last_visit
-                                                            }
-                                                          },
-                                                          [
-                                                            _vm._v(
-                                                              "\n                                            " +
-                                                                _vm._s(
-                                                                  status.name
-                                                                ) +
-                                                                "\n                                        "
-                                                            )
-                                                          ]
-                                                        )
-                                                      ],
-                                                      1
-                                                    )
-                                                  : _vm._e()
-                                              ]
-                                            })
-                                          ],
-                                          2
+                                        _vm._v(
+                                          "\n                                " +
+                                            _vm._s(tr.name) +
+                                            "\n                            "
                                         )
                                       ]
                                     )
-                                  ],
-                                  1
-                                )
-                              ]
-                            })
-                          ]
-                        }
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("vs-td", { attrs: { data: tr.dob } }, [
+                                    _c(
+                                      "div",
+                                      {
+                                        on: {
+                                          contextmenu: function($event) {
+                                            $event.preventDefault()
+                                            return _vm.openContext(tr.id)
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n                                " +
+                                            _vm._s(tr.dob) +
+                                            "\n                            "
+                                        )
+                                      ]
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "vs-td",
+                                    { attrs: { data: tr.telephones } },
+                                    [
+                                      _c(
+                                        "div",
+                                        {
+                                          on: {
+                                            contextmenu: function($event) {
+                                              $event.preventDefault()
+                                              return _vm.openContext(tr.id)
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _vm._l(tr.telephones, function(
+                                            telephone,
+                                            index
+                                          ) {
+                                            return [
+                                              _vm._v(
+                                                "\n                                    " +
+                                                  _vm._s(telephone)
+                                              ),
+                                              index != tr.telephones.length - 1
+                                                ? [_vm._v(", ")]
+                                                : _vm._e()
+                                            ]
+                                          })
+                                        ],
+                                        2
+                                      )
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("vs-td", { attrs: { data: tr.payment } }, [
+                                    _c(
+                                      "div",
+                                      {
+                                        on: {
+                                          contextmenu: function($event) {
+                                            $event.preventDefault()
+                                            return _vm.openContext(tr.id)
+                                          }
+                                        }
+                                      },
+                                      [
+                                        tr.payment.percentage == 100
+                                          ? [
+                                              _c("i", {
+                                                staticClass: "fas fa-check"
+                                              }),
+                                              _vm._v(" "),
+                                              _c("b", [_vm._v("Complete")])
+                                            ]
+                                          : [
+                                              _c("b", [
+                                                _vm._v(_vm._s(tr.payment.paid))
+                                              ]),
+                                              _vm._v(" Out of "),
+                                              _c("b", [
+                                                _vm._v(_vm._s(tr.payment.total))
+                                              ])
+                                            ],
+                                        _vm._v(" "),
+                                        _c("br"),
+                                        _vm._v(" "),
+                                        tr.payment.percentage == 100
+                                          ? _c("vs-progress", {
+                                              attrs: {
+                                                percent: tr.payment.percentage,
+                                                color: "success"
+                                              }
+                                            })
+                                          : tr.payment.percentage > 25
+                                          ? _c("vs-progress", {
+                                              attrs: {
+                                                percent: tr.payment.percentage,
+                                                color: "warning"
+                                              }
+                                            })
+                                          : tr.payment.percentage <= 25
+                                          ? _c("vs-progress", {
+                                              attrs: {
+                                                percent: tr.payment.percentage,
+                                                color: "danger"
+                                              }
+                                            })
+                                          : _vm._e()
+                                      ],
+                                      2
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "vs-td",
+                                    { attrs: { data: tr.last_visit } },
+                                    [
+                                      _c(
+                                        "div",
+                                        {
+                                          on: {
+                                            contextmenu: function($event) {
+                                              $event.preventDefault()
+                                              return _vm.openContext(tr.id)
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _vm._l(_vm.patientStatus, function(
+                                            status
+                                          ) {
+                                            return [
+                                              new Date().getTime() -
+                                                new Date(
+                                                  tr.last_visit
+                                                ).getTime() >
+                                                status.start_period &&
+                                              new Date().getTime() -
+                                                new Date(
+                                                  tr.last_visit
+                                                ).getTime() <=
+                                                status.end_period
+                                                ? _c(
+                                                    "vs-chip",
+                                                    {
+                                                      attrs: {
+                                                        color: status.color
+                                                      }
+                                                    },
+                                                    [
+                                                      _c(
+                                                        "vx-tooltip",
+                                                        {
+                                                          attrs: {
+                                                            color: "warning",
+                                                            title: "Last Visit",
+                                                            text: tr.last_visit
+                                                          }
+                                                        },
+                                                        [
+                                                          _vm._v(
+                                                            "\n                                            " +
+                                                              _vm._s(
+                                                                status.name
+                                                              ) +
+                                                              "\n                                        "
+                                                          )
+                                                        ]
+                                                      )
+                                                    ],
+                                                    1
+                                                  )
+                                                : _vm._e()
+                                            ]
+                                          })
+                                        ],
+                                        2
+                                      )
+                                    ]
+                                  )
+                                ],
+                                1
+                              )
+                            ]
+                          })
+                        ]
                       }
-                    ],
-                    null,
-                    false,
-                    3531323238
-                  ),
-                  model: {
-                    value: _vm.selected,
-                    callback: function($$v) {
-                      _vm.selected = $$v
-                    },
-                    expression: "selected"
-                  }
-                },
-                [
-                  _c(
-                    "template",
-                    { slot: "thead" },
-                    [
-                      _c("vs-th", [_vm._v("#")]),
-                      _vm._v(" "),
-                      _c("vs-th", { attrs: { "sort-key": "public_id" } }, [
-                        _vm._v("ID")
-                      ]),
-                      _vm._v(" "),
-                      _c("vs-th", { attrs: { "sort-key": "name" } }, [
-                        _vm._v("Name")
-                      ]),
-                      _vm._v(" "),
-                      _c("vs-th", { attrs: { "sort-key": "dob" } }, [
-                        _vm._v("Age")
-                      ]),
-                      _vm._v(" "),
-                      _c("vs-th", { attrs: { "sort-key": "telephones" } }, [
-                        _vm._v("Telephones")
-                      ]),
-                      _vm._v(" "),
-                      _c("vs-th", { attrs: { "sort-key": "payment" } }, [
-                        _vm._v("Payment")
-                      ]),
-                      _vm._v(" "),
-                      _c("vs-th", { attrs: { "sort-key": "last_visit" } }, [
-                        _vm._v("Status")
-                      ])
-                    ],
-                    1
-                  )
-                ],
-                2
-              )
-            : _vm._e()
-        ],
-        1
-      )
-    ],
-    1
-  )
+                    }
+                  ],
+                  null,
+                  false,
+                  993391718
+                ),
+                model: {
+                  value: _vm.selected,
+                  callback: function($$v) {
+                    _vm.selected = $$v
+                  },
+                  expression: "selected"
+                }
+              },
+              [
+                _c(
+                  "template",
+                  { slot: "thead" },
+                  [
+                    _c("vs-th", [_vm._v("#")]),
+                    _vm._v(" "),
+                    _c("vs-th", { attrs: { "sort-key": "public_id" } }, [
+                      _vm._v("ID")
+                    ]),
+                    _vm._v(" "),
+                    _c("vs-th", { attrs: { "sort-key": "name" } }, [
+                      _vm._v("Name")
+                    ]),
+                    _vm._v(" "),
+                    _c("vs-th", { attrs: { "sort-key": "dob" } }, [
+                      _vm._v("Age")
+                    ]),
+                    _vm._v(" "),
+                    _c("vs-th", { attrs: { "sort-key": "telephones" } }, [
+                      _vm._v("Telephones")
+                    ]),
+                    _vm._v(" "),
+                    _c("vs-th", { attrs: { "sort-key": "payment" } }, [
+                      _vm._v("Payment")
+                    ]),
+                    _vm._v(" "),
+                    _c("vs-th", { attrs: { "sort-key": "last_visit" } }, [
+                      _vm._v("Status")
+                    ])
+                  ],
+                  1
+                )
+              ],
+              2
+            )
+          : _vm._e()
+      ],
+      1
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true

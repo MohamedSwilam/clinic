@@ -22,17 +22,12 @@
 export default {
   name: 'vx-input-group',
   props: {
-    prependClasses: {
-      type: String,
-    },
-    appendClasses: {
-      type: String,
-    }
+    prependClasses : { type: String },
+    appendClasses  : { type: String }
   }
 }
 </script>
 
-
 <style lang="scss">
-@import "@sass/vuesax/components/vxInputGroup.scss";
+@import "@sass/vuexy/components/vxInputGroup.scss";
 </style>

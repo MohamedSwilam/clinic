@@ -25,6 +25,9 @@ Vue.use(Router);
 const router = new Router({
     mode: 'history',
     base: '/',
+    scrollBehavior () {
+        return { x: 0, y: 0 }
+    },
     routes: [
         {
             // =============================================================================
@@ -40,35 +43,16 @@ const router = new Router({
                     path: '/',
                     name: 'home',
                     component: () => import('./views/Home.vue'),
-                },
-                {
-                    path: '/todo',
-                    name: 'todo',
-                    component: () => import('./views/todo/Todo.vue'),
                     meta: {
                         breadcrumb: [
-                            { title: 'Home', url: '/', i18n: 'Home' },
-                            { title: 'Todo', active: true, i18n: 'Todo' },
+                            { title: 'Home', url: '/', i18n: 'Home', active: true },
                         ],
-                        pageTitle: 'Todo',
-                        pageTitle_i18n: 'Todo',
+                        pageTitle: 'Home',
+                        pageTitle_i18n: 'Home',
                         rule: 'editor'
                     }
                 },
-                {
-                    path: '/email',
-                    name: 'email',
-                    component: () => import('./views/email/Email.vue'),
-                    meta: {
-                        breadcrumb: [
-                            { title: 'Home', url: '/', i18n: 'Home' },
-                            { title: 'Email', active: true, i18n: 'Email' },
-                        ],
-                        pageTitle: 'Email',
-                        pageTitle_i18n: 'Email',
-                        rule: 'editor'
-                    }
-                },
+
                 {
                     path: '/employee',
                     name: 'employee',
@@ -245,12 +229,12 @@ const router = new Router({
     ],
 });
 
-router.afterEach(() => {
-    // Remove initial loading
-    const appLoading = document.getElementById('loading-bg')
-    if (appLoading) {
-        appLoading.style.display = "none";
-    }
-});
+// router.afterEach(() => {
+//     // Remove initial loading
+//     const appLoading = document.getElementById('loading-bg')
+//     if (appLoading) {
+//         appLoading.style.display = "none";
+//     }
+// });
 
 export default router

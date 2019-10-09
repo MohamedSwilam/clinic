@@ -5,7 +5,6 @@
     @mouseleave="mouseleavex"
     @mouseenter="mouseenterx"
     @mouseup="destroy"  >
-
     <transition name="tooltip-fade">
       <div
         v-show="active"
@@ -111,12 +110,13 @@ export default {
         top: `${topx}px`,
         width: `${widthx}px`
       }
-
     },
     destroy() {
         this.active = false
         this.$nextTick(()=>{
-            utils.removeBody(this.$refs.vstooltip)
+            if(this.active) {
+              utils.removeBody(this.$refs.vstooltip)
+            }
         })
     },
   }
