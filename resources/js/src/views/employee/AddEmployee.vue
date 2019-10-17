@@ -186,7 +186,7 @@
 
                 <br>
 
-                <div class="vx-row" v-if="salaryType == 0">
+                <div class="vx-row" v-if="salaryType === 0">
                     <div class="centerx">
                         <vs-row>
                             <vs-col vs-w="3">

@@ -21,73 +21,45 @@
 
 export default [
     {
-        url: "/",
+        url: "/dashboard",
         name: "Home",
         slug: "home",
         icon: "HomeIcon",
         i18n: "Home",
     },
     {
-        url: "/employee",
+        url: "/dashboard/employee",
         name: "Employee",
         slug: "employee",
         icon: "UsersIcon",
         i18n: "Employee"
     },
     {
-        url: "/patient",
+        url: "/dashboard/patient",
         name: "Patient",
         slug: "patient",
         icon: "UserIcon",
         i18n: "Patient"
     },
     {
-        url: "/appointment",
+        url: "/dashboard/appointment",
         name: "Appointment",
         slug: "appointment",
         icon: "EditIcon",
         i18n: "Appointment"
     },
     {
-        url: "/invoice",
+        url: "/dashboard/invoice",
         name: "Invoice",
         slug: "invoice",
         icon: "FileIcon",
         i18n: "Invoice"
     },
     {
-        url: "/calendar",
+        url: "/dashboard/calendar",
         name: "Calendar",
         slug: "calendar",
         icon: "CalendarIcon",
         i18n: "Calendar"
-    },
-    {
-        url: "/lab",
-        name: "Lab",
-        slug: "lab",
-        icon: "ThermometerIcon",
-        i18n: "Lab"
-    },
-    {
-        url: "/settings",
-        name: "Settings",
-        slug: "settings",
-        icon: "SettingsIcon",
-        i18n: "Settings",
-        submenu: [
-            {
-                url: '/settings/theme',
-                name: "Theme Customizer",
-                slug: "theme",
-                i18n: "Theme"
-            },
-            {
-                url: '/settings/privacy',
-                name: "Privacy",
-                slug: "privacy",
-                i18n: "Privacy"
-            },
-        ]
     }
 ]

@@ -33,19 +33,19 @@ const router = new Router({
             // =============================================================================
             // MAIN LAYOUT ROUTES
             // =============================================================================
-            path: '',
+            path: '/dashboard',
             component: () => import('./layouts/main/Main.vue'),
             children: [
                 // =============================================================================
                 // Theme Routes
                 // =============================================================================
                 {
-                    path: '/',
+                    path: '/dashboard',
                     name: 'home',
                     component: () => import('./views/Home.vue'),
                     meta: {
                         breadcrumb: [
-                            { title: 'Home', url: '/', i18n: 'Home', active: true },
+                            { title: 'Home', url: '/dashboard', i18n: 'Home', active: true },
                         ],
                         pageTitle: 'Home',
                         pageTitle_i18n: 'Home',
@@ -54,12 +54,12 @@ const router = new Router({
                 },
 
                 {
-                    path: '/employee',
+                    path: '/dashboard/employee',
                     name: 'employee',
                     component: () => import('./views/employee/Employee.vue'),
                     meta: {
                         breadcrumb: [
-                            { title: 'Home', url: '/', i18n: 'Home' },
+                            { title: 'Home', url: '/dashboard', i18n: 'Home' },
                             { title: 'Employee', active: true, i18n: 'Employee' },
                         ],
                         pageTitle: 'Employee',
@@ -68,13 +68,13 @@ const router = new Router({
                     }
                 },
                 {
-                    path: '/employee/add-employee',
+                    path: '/dashboard/employee/add-employee',
                     name: 'add-employee',
                     component: () => import('./views/employee/AddEmployee.vue'),
                     meta: {
                         breadcrumb: [
-                            { title: 'Home', url: '/', i18n: 'Home' },
-                            { title: 'Employee', url: '/employee', i18n: 'Employee' },
+                            { title: 'Home', url: '/dashboard', i18n: 'Home' },
+                            { title: 'Employee', url: '/dashboard/employee', i18n: 'Employee' },
                             { title: 'Add Employee', active: true, i18n: 'AddEmployee' },
                         ],
                         pageTitle: 'Add Employee',
@@ -83,12 +83,12 @@ const router = new Router({
                     }
                 },
                 {
-                    path: '/patient',
+                    path: '/dashboard/patient',
                     name: 'patient',
                     component: () => import('./views/patient/Patient.vue'),
                     meta: {
                         breadcrumb: [
-                            { title: 'Home', url: '/', i18n: 'Home' },
+                            { title: 'Home', url: '/dashboard', i18n: 'Home' },
                             { title: 'Patient', active: true, i18n: 'Patient' },
                         ],
                         pageTitle: 'Patient',
@@ -97,12 +97,12 @@ const router = new Router({
                     }
                 },
                 {
-                    path: '/appointment',
+                    path: '/dashboard/appointment',
                     name: 'appointment',
                     component: () => import('./views/appointment/Appointment.vue'),
                     meta: {
                         breadcrumb: [
-                            { title: 'Home', url: '/', i18n: 'Home' },
+                            { title: 'Home', url: '/dashboard', i18n: 'Home' },
                             { title: 'Appointment', active: true, i18n: 'Appointment' },
                         ],
                         pageTitle: 'Appointment',
@@ -111,13 +111,13 @@ const router = new Router({
                     }
                 },
                 {
-                    path: '/appointment/add-appointment/:patient_id',
+                    path: '/dashboard/appointment/add-appointment/:patient_id',
                     name: 'add-appointment',
                     component: () => import('./views/appointment/AddAppointment.vue'),
                     meta: {
                         breadcrumb: [
-                            { title: 'Home', url: '/', i18n: 'Home' },
-                            { title: 'Appointment', url: '/appointment', i18n: 'Appointment' },
+                            { title: 'Home', url: '/dashboard', i18n: 'Home' },
+                            { title: 'Appointment', url: '/dashboard/appointment', i18n: 'Appointment' },
                             { title: 'Add Appointment', active: true, i18n: 'AddAppointment' },
                         ],
                         pageTitle: 'Add Appointment',
@@ -126,12 +126,12 @@ const router = new Router({
                     }
                 },
                 {
-                    path: '/invoice',
+                    path: '/dashboard/invoice',
                     name: 'invoice',
                     component: () => import('./views/Page2.vue'),
                     meta: {
                         breadcrumb: [
-                            { title: 'Home', url: '/', i18n: 'Home' },
+                            { title: 'Home', url: '/dashboard', i18n: 'Home' },
                             { title: 'Invoice', active: true, i18n: 'Invoice' },
                         ],
                         pageTitle: 'Invoice',
@@ -140,60 +140,16 @@ const router = new Router({
                     }
                 },
                 {
-                    path: '/calendar',
+                    path: '/dashboard/calendar',
                     name: 'calendar',
                     component: () => import('./views/calendar/Calendar.vue'),
                     meta: {
                         breadcrumb: [
-                            { title: 'Home', url: '/', i18n: 'Home' },
+                            { title: 'Home', url: '/dashboard', i18n: 'Home' },
                             { title: 'Calendar', active: true, i18n: 'Calendar' },
                         ],
                         pageTitle: 'Calendar',
                         pageTitle_i18n: 'Calendar',
-                        rule: 'editor'
-                    }
-                },
-                {
-                    path: '/lab',
-                    name: 'lab',
-                    component: () => import('./views/lab/Lab.vue'),
-                    meta: {
-                        breadcrumb: [
-                            { title: 'Home', url: '/', i18n: 'Home' },
-                            { title: 'Lab', active: true, i18n: 'Lab' },
-                        ],
-                        pageTitle: 'Lab',
-                        pageTitle_i18n: 'Lab',
-                        rule: 'editor'
-                    }
-                },
-                {
-                    path: '/settings/theme',
-                    name: 'theme',
-                    component: () => import('./views/Page2.vue'),
-                    meta: {
-                        breadcrumb: [
-                            { title: 'Home', url: '/', i18n: 'Home' },
-                            { title: 'Settings', active: true, i18n: 'Settings' },
-                            { title: 'Theme', active: true, i18n: 'Theme' },
-                        ],
-                        pageTitle: 'Theme',
-                        pageTitle_i18n: 'Theme',
-                        rule: 'editor'
-                    }
-                },
-                {
-                    path: '/settings/privacy',
-                    name: 'privacy',
-                    component: () => import('./views/Page2.vue'),
-                    meta: {
-                        breadcrumb: [
-                            { title: 'Home', url: '/', i18n: 'Home' },
-                            { title: 'Settings', active: true, i18n: 'Settings' },
-                            { title: 'Privacy', active: true, i18n: 'Privacy' },
-                        ],
-                        pageTitle: 'Privacy',
-                        pageTitle_i18n: 'Privacy',
                         rule: 'editor'
                     }
                 }

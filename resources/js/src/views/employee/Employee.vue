@@ -6,7 +6,7 @@
                     <b class="text-left vx-col w-full">{{employees.length}} results found in {{resultTime}}ms</b>
                 </vs-col>
                 <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-w="3">
-                    <vs-button to="/employee/add-employee" vs-w="3" color="primary" type="filled" icon-pack="feather" icon="icon-user-plus">&nbsp;&nbsp;Add Employee</vs-button>
+                    <vs-button to="/dashboard/employee/add-employee" vs-w="3" color="primary" type="filled" icon-pack="feather" icon="icon-user-plus">&nbsp;&nbsp;Add Employee</vs-button>
                 </vs-col>
             </vs-row>
             <vs-row>

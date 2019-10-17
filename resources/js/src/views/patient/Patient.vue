@@ -23,7 +23,6 @@
                     <vs-th sort-key="dob">Age</vs-th>
                     <vs-th sort-key="telephones">Telephones</vs-th>
                     <vs-th sort-key="payment">Payment</vs-th>
-                    <vs-th sort-key="last_visit">Status</vs-th>
                 </template>
                 <template slot-scope="{data}">
                     <template v-for="(tr, indextr) in data">
@@ -32,8 +31,6 @@
                                 <li @click="optionClicked(tr.id, 1)"><i class="fas fa-eye"></i>&nbsp;&nbsp; View</li>
                                 <li @click="optionClicked(tr.id, 2)"><i class="fas fa-user-edit"></i>&nbsp;&nbsp; Edit</li>
                                 <li @click="optionClicked(tr.public_id, 3)"><i class="fas fa-edit"></i>&nbsp;&nbsp; Reserve Appointment</li>
-                                <li @click="optionClicked(tr.id, 4)"><i class="fas fa-share"></i>&nbsp;&nbsp; Send</li>
-                                <li @click="optionClicked(tr.id, 5)"><i class="fas fa-file-csv"></i>&nbsp;&nbsp; Export CSV</li>
                                 <li @click="optionClicked(tr.id, 6)"><i class="fas fa-trash"></i>&nbsp;&nbsp; Delete</li>
                             </ul>
                         </vue-context>
@@ -79,22 +76,6 @@
                                     <vs-progress v-if="tr.payment.percentage == 100" :percent="tr.payment.percentage" color="success"></vs-progress>
                                     <vs-progress v-else-if="tr.payment.percentage > 25" :percent="tr.payment.percentage" color="warning"></vs-progress>
                                     <vs-progress v-else-if="tr.payment.percentage <= 25" :percent="tr.payment.percentage" color="danger"></vs-progress>
-                                </div>
-                            </vs-td>
-
-                            <vs-td :data="tr.last_visit">
-                                <div @contextmenu.prevent="openContext(tr.id)">
-                                    <template v-for="status in patientStatus">
-                                        <vs-chip v-if="
-                                    new Date().getTime()-new Date(tr.last_visit).getTime() > status.start_period
-                                    &&
-                                    new Date().getTime()-new Date(tr.last_visit).getTime() <= status.end_period
-                                    " :color="status.color">
-                                            <vx-tooltip color="warning" title="Last Visit" :text="tr.last_visit">
-                                                {{status.name}}
-                                            </vx-tooltip>
-                                        </vs-chip>
-                                    </template>
                                 </div>
                             </vs-td>
                         </vs-tr>

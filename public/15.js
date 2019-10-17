@@ -5,312 +5,9 @@
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/appointment/Appointment.vue?vue&type=script&lang=js& ***!
   \*********************************************************************************************************************************************************************************/
 /*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _fortawesome_fontawesome_free_css_all_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @fortawesome/fontawesome-free/css/all.css */ "./node_modules/@fortawesome/fontawesome-free/css/all.css");
-/* harmony import */ var _fortawesome_fontawesome_free_css_all_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_fortawesome_fontawesome_free_css_all_css__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _fortawesome_fontawesome_free_js_all_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @fortawesome/fontawesome-free/js/all.js */ "./node_modules/@fortawesome/fontawesome-free/js/all.js");
-/* harmony import */ var _fortawesome_fontawesome_free_js_all_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_fortawesome_fontawesome_free_js_all_js__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var vue_context__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-context */ "./node_modules/vue-context/dist/js/vue-context.js");
-/* harmony import */ var vue_context__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue_context__WEBPACK_IMPORTED_MODULE_2__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  name: "Appointment",
-  components: {
-    VueContext: vue_context__WEBPACK_IMPORTED_MODULE_2__["VueContext"]
-  },
-  mounted: function mounted() {
-    this.getAppointmentsData(Date.now());
-  },
-  data: function data() {
-    return {
-      selected: [],
-      'tableList': ['vs-th: Component', 'vs-tr: Component', 'vs-td: Component', 'thread: Slot', 'tbody: Slot', 'header: Slot'],
-      searchText: "",
-      resultTime: 0,
-      appointments: [],
-      appointmentStatus: []
-    };
-  },
-  methods: {
-    optionClicked: function optionClicked(appointmentID, text) {
-      this.$vs.notify({
-        title: 'Context Menu',
-        text: text,
-        icon: 'feather',
-        iconPack: 'icon-alert-circle',
-        color: 'primary'
-      });
-    },
-    getAppointmentsData: function getAppointmentsData(InitialTime) {
-      this.appointmentStatus = [{
-        name: 'Active',
-        color: 'success',
-        start_period: '0',
-        end_period: '16000000000'
-      }, {
-        name: 'In-Active',
-        color: 'danger',
-        start_period: '16000000001',
-        end_period: '99999999999999'
-      }];
-      this.appointments = [{
-        id: 1,
-        name: "Phil Gray",
-        public_id: "p-105",
-        dob: "18/10/1997",
-        telephones: ["01096436702", "01113689783"],
-        payment: {
-          paid: 200,
-          total: 1000,
-          percentage: 200 * 100 / 1000
-        },
-        last_visit: '2019-5-01 15:30:00'
-      }, {
-        id: 2,
-        name: "Irene Baker",
-        public_id: "p-116",
-        dob: "05/09/1989",
-        telephones: ["01116568369"],
-        payment: {
-          paid: 750,
-          total: 750,
-          percentage: 750 * 100 / 750
-        },
-        last_visit: '2018-5-13 15:30:00'
-      }, {
-        id: 3,
-        name: "Evan White",
-        public_id: "p-118",
-        dob: "16/03/1991",
-        telephones: ["01096123366", "01115696966"],
-        payment: {
-          paid: 950,
-          total: 950,
-          percentage: 950 * 100 / 950
-        },
-        last_visit: '2018-5-13 15:30:00'
-      }, {
-        id: 4,
-        name: "Sonia Clark",
-        public_id: "p-120",
-        dob: "04/12/1975",
-        telephones: ["01086123445", "01007865613"],
-        payment: {
-          paid: 700,
-          total: 800,
-          percentage: 700 * 100 / 800
-        },
-        last_visit: '2019-5-01 15:30:00'
-      }, {
-        id: 5,
-        name: "Phil Gray",
-        public_id: "p-121",
-        dob: "18/10/1997",
-        telephones: ["01096436702", "01113689783"],
-        payment: {
-          paid: 300,
-          total: 1250,
-          percentage: 300 * 100 / 1250
-        },
-        last_visit: '2019-5-01 15:30:00'
-      }, {
-        id: 6,
-        name: "Irene Baker",
-        public_id: "p-122",
-        dob: "05/09/1989",
-        telephones: ["01116568369"],
-        payment: {
-          paid: 1250,
-          total: 1250,
-          percentage: 1250 * 100 / 1250
-        },
-        last_visit: '2018-5-13 15:30:00'
-      }, {
-        id: 7,
-        name: "Evan White",
-        public_id: "p-123",
-        dob: "16/03/1991",
-        telephones: ["01096123366", "01115696966"],
-        payment: {
-          paid: 700,
-          total: 800,
-          percentage: 700 * 100 / 800
-        },
-        last_visit: '2019-5-01 15:30:00'
-      }, {
-        id: 8,
-        name: "Sonia Clark",
-        public_id: "p-124",
-        dob: "04/12/1975",
-        telephones: ["01086123445", "01007865613"],
-        payment: {
-          paid: 1000,
-          total: 1000,
-          percentage: 1000 * 100 / 1000
-        },
-        last_visit: '2018-5-13 15:30:00'
-      }];
-      this.resultTime = Date.now() - InitialTime;
-    },
-    copyToClipboard: function copyToClipboard(text) {
-      if (window.clipboardData && window.clipboardData.setData) {
-        // IE specific code path to prevent textarea being shown while dialog is visible.
-        this.onCopy();
-        return clipboardData.setData("Text", text);
-      } else if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
-        var textarea = document.createElement("textarea");
-        textarea.textContent = text;
-        textarea.style.position = "fixed"; // Prevent scrolling to bottom of page in MS Edge.
-
-        document.body.appendChild(textarea);
-        textarea.select();
-
-        try {
-          this.onCopy();
-          return document.execCommand("copy"); // Security exception may be thrown by some browsers.
-        } catch (ex) {
-          this.onError();
-          return false;
-        } finally {
-          document.body.removeChild(textarea);
-        }
-      }
-    },
-    onCopy: function onCopy() {
-      this.$vs.notify({
-        title: 'Success!',
-        text: 'Text copied successfully.',
-        color: 'success',
-        iconPack: 'feather',
-        position: 'bottom-right',
-        icon: 'icon-check-circle'
-      });
-    },
-    onError: function onError() {
-      this.$vs.notify({
-        title: 'Failed!',
-        text: 'Error in copying text.',
-        color: 'danger',
-        iconPack: 'feather',
-        position: 'bottom-right',
-        icon: 'icon-alert-circle'
-      });
-    },
-    openContext: function openContext(id) {
-      this.$refs["appointment-".concat(id)][0].open();
-    }
-  }
-});
+throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: C:\\wamp64\\www\\clinic\\resources\\js\\src\\views\\appointment\\Appointment.vue: Unexpected token, expected \",\" (130:20)\n\n\u001b[0m \u001b[90m 128 | \u001b[39m                {\u001b[0m\n\u001b[0m \u001b[90m 129 | \u001b[39m                    type\u001b[33m:\u001b[39m \u001b[32m''\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 130 | \u001b[39m                    id \u001b[33m:\u001b[39m \u001b[35m1\u001b[39m\u001b[33m,\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m     | \u001b[39m                    \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 131 | \u001b[39m                    name\u001b[33m:\u001b[39m \u001b[32m\"Phil Gray\"\u001b[39m\u001b[33m,\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 132 | \u001b[39m                    public_id\u001b[33m:\u001b[39m \u001b[32m\"p-105\"\u001b[39m\u001b[33m,\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 133 | \u001b[39m                    dob\u001b[33m:\u001b[39m \u001b[32m\"18/10/1997\"\u001b[39m\u001b[33m,\u001b[39m\u001b[0m\n    at Parser.raise (C:\\wamp64\\www\\clinic\\node_modules\\@babel\\parser\\lib\\index.js:6400:17)\n    at Parser.unexpected (C:\\wamp64\\www\\clinic\\node_modules\\@babel\\parser\\lib\\index.js:7728:16)\n    at Parser.expect (C:\\wamp64\\www\\clinic\\node_modules\\@babel\\parser\\lib\\index.js:7714:28)\n    at Parser.parseObj (C:\\wamp64\\www\\clinic\\node_modules\\@babel\\parser\\lib\\index.js:9249:14)\n    at Parser.parseExprAtom (C:\\wamp64\\www\\clinic\\node_modules\\@babel\\parser\\lib\\index.js:8883:28)\n    at Parser.parseExprSubscripts (C:\\wamp64\\www\\clinic\\node_modules\\@babel\\parser\\lib\\index.js:8507:23)\n    at Parser.parseMaybeUnary (C:\\wamp64\\www\\clinic\\node_modules\\@babel\\parser\\lib\\index.js:8487:21)\n    at Parser.parseExprOps (C:\\wamp64\\www\\clinic\\node_modules\\@babel\\parser\\lib\\index.js:8353:23)\n    at Parser.parseMaybeConditional (C:\\wamp64\\www\\clinic\\node_modules\\@babel\\parser\\lib\\index.js:8326:23)\n    at Parser.parseMaybeAssign (C:\\wamp64\\www\\clinic\\node_modules\\@babel\\parser\\lib\\index.js:8273:21)\n    at Parser.parseExprListItem (C:\\wamp64\\www\\clinic\\node_modules\\@babel\\parser\\lib\\index.js:9590:18)\n    at Parser.parseExprList (C:\\wamp64\\www\\clinic\\node_modules\\@babel\\parser\\lib\\index.js:9564:22)\n    at Parser.parseExprAtom (C:\\wamp64\\www\\clinic\\node_modules\\@babel\\parser\\lib\\index.js:8869:32)\n    at Parser.parseExprSubscripts (C:\\wamp64\\www\\clinic\\node_modules\\@babel\\parser\\lib\\index.js:8507:23)\n    at Parser.parseMaybeUnary (C:\\wamp64\\www\\clinic\\node_modules\\@babel\\parser\\lib\\index.js:8487:21)\n    at Parser.parseExprOps (C:\\wamp64\\www\\clinic\\node_modules\\@babel\\parser\\lib\\index.js:8353:23)\n    at Parser.parseMaybeConditional (C:\\wamp64\\www\\clinic\\node_modules\\@babel\\parser\\lib\\index.js:8326:23)\n    at Parser.parseMaybeAssign (C:\\wamp64\\www\\clinic\\node_modules\\@babel\\parser\\lib\\index.js:8273:21)\n    at Parser.parseMaybeAssign (C:\\wamp64\\www\\clinic\\node_modules\\@babel\\parser\\lib\\index.js:8312:25)\n    at Parser.parseExpression (C:\\wamp64\\www\\clinic\\node_modules\\@babel\\parser\\lib\\index.js:8221:23)\n    at Parser.parseStatementContent (C:\\wamp64\\www\\clinic\\node_modules\\@babel\\parser\\lib\\index.js:10061:23)\n    at Parser.parseStatement (C:\\wamp64\\www\\clinic\\node_modules\\@babel\\parser\\lib\\index.js:9932:17)\n    at Parser.parseBlockOrModuleBlockBody (C:\\wamp64\\www\\clinic\\node_modules\\@babel\\parser\\lib\\index.js:10508:25)\n    at Parser.parseBlockBody (C:\\wamp64\\www\\clinic\\node_modules\\@babel\\parser\\lib\\index.js:10495:10)\n    at Parser.parseBlock (C:\\wamp64\\www\\clinic\\node_modules\\@babel\\parser\\lib\\index.js:10479:10)\n    at Parser.parseFunctionBody (C:\\wamp64\\www\\clinic\\node_modules\\@babel\\parser\\lib\\index.js:9523:24)\n    at Parser.parseFunctionBodyAndFinish (C:\\wamp64\\www\\clinic\\node_modules\\@babel\\parser\\lib\\index.js:9493:10)\n    at Parser.parseMethod (C:\\wamp64\\www\\clinic\\node_modules\\@babel\\parser\\lib\\index.js:9447:10)\n    at Parser.parseObjectMethod (C:\\wamp64\\www\\clinic\\node_modules\\@babel\\parser\\lib\\index.js:9363:19)\n    at Parser.parseObjPropValue (C:\\wamp64\\www\\clinic\\node_modules\\@babel\\parser\\lib\\index.js:9405:23)\n    at Parser.parseObjectMember (C:\\wamp64\\www\\clinic\\node_modules\\@babel\\parser\\lib\\index.js:9329:10)\n    at Parser.parseObj (C:\\wamp64\\www\\clinic\\node_modules\\@babel\\parser\\lib\\index.js:9253:25)\n    at Parser.parseExprAtom (C:\\wamp64\\www\\clinic\\node_modules\\@babel\\parser\\lib\\index.js:8883:28)\n    at Parser.parseExprSubscripts (C:\\wamp64\\www\\clinic\\node_modules\\@babel\\parser\\lib\\index.js:8507:23)\n    at Parser.parseMaybeUnary (C:\\wamp64\\www\\clinic\\node_modules\\@babel\\parser\\lib\\index.js:8487:21)\n    at Parser.parseExprOps (C:\\wamp64\\www\\clinic\\node_modules\\@babel\\parser\\lib\\index.js:8353:23)");
 
 /***/ }),
 
@@ -326,7 +23,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, ".txt-hover:hover{\n  cursor: pointer;\n  color: black !important;\n}\n", ""]);
+exports.push([module.i, ".txt-hover:hover{\n  cursor: pointer;\n  color: black !important;\n}\n.v-context ul li{\n  margin: 0;\n  padding: 10px 35px;\n  cursor: pointer;\n}\n.v-context ul li:hover {\n  background: #1e88e5;\n  color: #fafafa;\n}\n", ""]);
 
 // exports
 
@@ -560,46 +257,6 @@ var render = function() {
                                         },
                                         [
                                           _c("i", {
-                                            staticClass: "fas fa-share"
-                                          }),
-                                          _vm._v("   Send")
-                                        ]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "li",
-                                        {
-                                          on: {
-                                            click: function($event) {
-                                              return _vm.optionClicked(
-                                                tr.id,
-                                                $event.target.innerText
-                                              )
-                                            }
-                                          }
-                                        },
-                                        [
-                                          _c("i", {
-                                            staticClass: "fas fa-file-csv"
-                                          }),
-                                          _vm._v("   Export CSV")
-                                        ]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "li",
-                                        {
-                                          on: {
-                                            click: function($event) {
-                                              return _vm.optionClicked(
-                                                tr.id,
-                                                $event.target.innerText
-                                              )
-                                            }
-                                          }
-                                        },
-                                        [
-                                          _c("i", {
                                             staticClass: "fas fa-trash"
                                           }),
                                           _vm._v("   Delete")
@@ -798,78 +455,7 @@ var render = function() {
                                       ],
                                       2
                                     )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c(
-                                    "vs-td",
-                                    { attrs: { data: tr.last_visit } },
-                                    [
-                                      _c(
-                                        "div",
-                                        {
-                                          on: {
-                                            contextmenu: function($event) {
-                                              $event.preventDefault()
-                                              return _vm.openContext(tr.id)
-                                            }
-                                          }
-                                        },
-                                        [
-                                          _vm._l(
-                                            _vm.appointmentStatus,
-                                            function(status) {
-                                              return [
-                                                new Date().getTime() -
-                                                  new Date(
-                                                    tr.last_visit
-                                                  ).getTime() >
-                                                  status.start_period &&
-                                                new Date().getTime() -
-                                                  new Date(
-                                                    tr.last_visit
-                                                  ).getTime() <=
-                                                  status.end_period
-                                                  ? _c(
-                                                      "vs-chip",
-                                                      {
-                                                        attrs: {
-                                                          color: status.color
-                                                        }
-                                                      },
-                                                      [
-                                                        _c(
-                                                          "vx-tooltip",
-                                                          {
-                                                            attrs: {
-                                                              color: "warning",
-                                                              title:
-                                                                "Last Visit",
-                                                              text:
-                                                                tr.last_visit
-                                                            }
-                                                          },
-                                                          [
-                                                            _vm._v(
-                                                              "\n                                            " +
-                                                                _vm._s(
-                                                                  status.name
-                                                                ) +
-                                                                "\n                                        "
-                                                            )
-                                                          ]
-                                                        )
-                                                      ],
-                                                      1
-                                                    )
-                                                  : _vm._e()
-                                              ]
-                                            }
-                                          )
-                                        ],
-                                        2
-                                      )
-                                    ]
-                                  )
+                                  ])
                                 ],
                                 1
                               )
@@ -881,7 +467,7 @@ var render = function() {
                   ],
                   null,
                   false,
-                  147969496
+                  1786154795
                 ),
                 model: {
                   value: _vm.selected,
@@ -916,10 +502,6 @@ var render = function() {
                     _vm._v(" "),
                     _c("vs-th", { attrs: { "sort-key": "payment" } }, [
                       _vm._v("Payment")
-                    ]),
-                    _vm._v(" "),
-                    _c("vs-th", { attrs: { "sort-key": "last_visit" } }, [
-                      _vm._v("Status")
                     ])
                   ],
                   1

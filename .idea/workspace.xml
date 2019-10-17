@@ -2,162 +2,33 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7057e2a6-18a3-46a5-89d0-55636d5c3a47" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/.htaccess" beforeDir="false" afterPath="$PROJECT_DIR$/public/.htaccess" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/10.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/10.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/11.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/11.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/12.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/12.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/13.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/13.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/14.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/14.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/15.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/15.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/16.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/16.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/17.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/17.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/18.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/18.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/19.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/19.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/2.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/2.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/24.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/24.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/3.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/3.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/4.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/4.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/5.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/5.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/6.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/6.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/7.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/7.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/8.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/8.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/app.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/iconfont.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/iconfont.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/main.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/9.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/9.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/robots.txt" beforeDir="false" afterPath="$PROJECT_DIR$/public/robots.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/css/iconfont.css" beforeDir="false" afterPath="$PROJECT_DIR$/resources/assets/css/iconfont.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/resources/assets/css/main.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/images/pages/vuesax-login-bg.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/resources/assets/images/pages/vuexy-login-bg.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/scss/main.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/assets/scss/main.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/scss/vuesax/_customClasses.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/scss/vuesax/_extraComponents.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/scss/vuesax/_fixesVuesax.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/scss/vuesax/_layout.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/scss/vuesax/_misc.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/scss/vuesax/_routerAnimations.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/scss/vuesax/_tailwindFix.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/scss/vuesax/_themes.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/scss/vuesax/_transitions.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/scss/vuesax/_typography.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/scss/vuesax/_variables.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/scss/vuesax/apps/calendar.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/scss/vuesax/apps/email.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/scss/vuesax/apps/todo.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/scss/vuesax/components/featherIcon.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/scss/vuesax/components/vxAutoSuggest.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/scss/vuesax/components/vxCard.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/scss/vuesax/components/vxList.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/scss/vuesax/components/vxSidebar.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/scss/vuesax/components/vxSidebarGroup.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/scss/vuesax/extraComponents/_charts.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/scss/vuesax/extraComponents/_datePicker.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/scss/vuesax/extraComponents/_formWizard.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/scss/vuesax/extraComponents/_quillEditor.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/scss/vuesax/layout/_footer.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/scss/vuesax/layout/_layoutCommon.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/scss/vuesax/layout/_layoutModern.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/scss/vuesax/layout/_theNavbar.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/scss/vuesax/pages/colors.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/scss/vuesax/pages/dropdown.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/scss/vuesax/pages/grid.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/scss/vuesax/pages/loading.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/scss/vuesax/pages/profile.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/scss/vuesax/pages/search.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/scss/vuesax/pages/sidebar.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/scss/vuesax/pages/switch.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/scss/vuesax/themes/_themeDark.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/scss/vuesax/themes/_themeSemiDark.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/utils/color.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/assets/utils/color.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/utils/easing.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/assets/utils/easing.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/utils/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/assets/utils/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/utils/theme.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/assets/utils/theme.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/src/App.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/src/components/ChangeTimeDurationDropdown.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/src/components/ChangeTimeDurationDropdown.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/src/components/FeatherIcon.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/src/components/FeatherIcon.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/src/components/VxTour.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/src/components/VxTour.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/src/components/statistics-cards/StatisticsCardLine.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/src/components/statistics-cards/StatisticsCardLine.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/src/components/vx-auto-suggest/VxAutoSuggest.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/src/components/vx-auto-suggest/VxAutoSuggest.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/src/components/vx-card/VxCard.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/src/components/vx-card/VxCard.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/src/components/vx-input-group/VxInputGroup.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/src/components/vx-input-group/VxInputGroup.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/src/components/vx-list/VxList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/src/components/vx-list/VxList.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/src/globalComponents.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/src/globalComponents.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/src/i18n/i18n.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/src/i18n/i18n.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/src/layouts/components/TheFooter.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/src/layouts/components/TheFooter.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/src/layouts/components/TheNavbar.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/src/layouts/components/VxBreadcrumb.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/src/layouts/components/VxBreadcrumb.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/src/layouts/components/customizer/TheCustomizer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/src/layouts/components/customizer/TheCustomizer.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/src/layouts/components/navbarSearchAndPinList.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/src/layouts/components/vx-sidebar/sidebarItems.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/src/layouts/components/vx-sidebar/sidebarItems.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/src/layouts/components/vx-tooltip/VxTooltip.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/src/layouts/components/vx-tooltip/VxTooltip.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/src/layouts/full-page/FullPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/src/layouts/full-page/FullPage.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/src/layouts/main/Main.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/src/layouts/main/Main.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/src/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/src/layouts/components/vertical-nav-menu/navMenuItems.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/src/layouts/components/vertical-nav-menu/navMenuItems.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/src/router.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/src/router.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/src/store/actions.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/src/store/actions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/src/store/getters.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/src/store/getters.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/src/store/mutations.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/src/store/mutations.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/src/store/state.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/src/store/state.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/src/store/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/src/store/store.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/src/views/email/Email.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/src/views/email/EmailSidebar.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/src/views/email/EmailView.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/src/views/email/MailItem.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/src/views/email/mails.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/src/views/appointment/Appointment.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/src/views/appointment/Appointment.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/src/views/employee/AddEmployee.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/src/views/employee/AddEmployee.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/src/views/employee/Employee.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/src/views/employee/Employee.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/src/views/lab/Lab.vue" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/src/views/patient/Patient.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/src/views/patient/Patient.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/src/views/todo/Todo.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/src/views/todo/TodoAddNew.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/src/views/todo/TodoEdit.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/src/views/todo/TodoFilters.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/src/views/todo/TodoItem.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/themeConfig.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/themeConfig.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/lang/en/passwords.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/passwords.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/lang/en/validation.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/validation.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sass/main.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sass/main.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sass/vuesax/_customClasses.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sass/vuesax/_extraComponents.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sass/vuesax/_fixesVuesax.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sass/vuesax/_layout.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sass/vuesax/_misc.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sass/vuesax/_routerAnimations.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sass/vuesax/_tailwindFix.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sass/vuesax/_themes.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sass/vuesax/_transitions.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sass/vuesax/_typography.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sass/vuesax/_variables.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sass/vuesax/apps/chat.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sass/vuesax/apps/email.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sass/vuesax/apps/simple-calendar.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sass/vuesax/apps/todo.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sass/vuesax/components/featherIcon.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sass/vuesax/components/vxAutoSuggest.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sass/vuesax/components/vxCard.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sass/vuesax/components/vxInputGroup.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sass/vuesax/components/vxList.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sass/vuesax/components/vxSidebar.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sass/vuesax/components/vxSidebarGroup.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sass/vuesax/extraComponents/_charts.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sass/vuesax/extraComponents/_contextMenu.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sass/vuesax/extraComponents/_datePicker.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sass/vuesax/extraComponents/_datetimePicker.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sass/vuesax/extraComponents/_formWizard.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sass/vuesax/extraComponents/_quillEditor.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sass/vuesax/extraComponents/_vueSelect.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sass/vuesax/extraComponents/agGridStyleOverride.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sass/vuesax/extraComponents/autocomplete.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sass/vuesax/extraComponents/tree.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sass/vuesax/layout/_footer.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sass/vuesax/layout/_layoutCommon.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sass/vuesax/layout/_layoutModern.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sass/vuesax/layout/_theNavbar.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sass/vuesax/pages/colors.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sass/vuesax/pages/dropdown.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sass/vuesax/pages/grid.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sass/vuesax/pages/loading.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sass/vuesax/pages/profile.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sass/vuesax/pages/search.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sass/vuesax/pages/sidebar.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sass/vuesax/pages/switch.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sass/vuesax/themes/_themeDark.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sass/vuesax/themes/_themeSemiDark.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/application.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/application.blade.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -171,80 +42,45 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/js/src/layouts/components/vx-sidebar/sidebarItems.js">
+        <entry file="file://$PROJECT_DIR$/resources/js/src/views/employee/Employee.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="748">
-              <caret line="56" column="6" selection-start-line="56" selection-start-column="6" selection-end-line="56" selection-end-column="6" />
+            <state relative-caret-position="17">
+              <caret line="8" column="45" selection-start-line="8" selection-start-column="45" selection-end-line="8" selection-end-column="45" />
               <folding>
-                <element signature="n#!!doc" expanded="true" />
+                <element signature="e#536#542#0" expanded="true" />
+                <element signature="e#542#548#0" expanded="true" />
+                <element signature="e#3775#3825#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/js/src/views/pages/Login.vue">
+        <entry file="file://$PROJECT_DIR$/resources/js/src/views/patient/Patient.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="232">
+              <caret line="338" column="4" selection-start-line="338" selection-start-column="4" selection-end-line="347" selection-end-column="5" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/js/src/views/appointment/AddAppointment.vue">
           <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/js/src/layouts/full-page/FullPage.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="15" selection-start-line="15" selection-end-line="15" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/js/src/router.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="407">
-              <caret line="230" selection-start-line="230" selection-end-line="230" />
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-                <element signature="e#914#936#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/js/src/layouts/components/vertical-nav-menu/navMenuItems.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="56" column="6" selection-start-line="56" selection-start-column="6" selection-end-line="56" selection-end-column="6" />
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/resources/js/src/views/patient/Patient.vue">
+        <entry file="file://$PROJECT_DIR$/resources/js/src/views/appointment/Appointment.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="40" column="57" lean-forward="true" selection-start-line="40" selection-start-column="57" selection-end-line="40" selection-end-column="57" />
+            <state relative-caret-position="305">
+              <caret line="56" column="197" selection-start-line="56" selection-start-column="197" selection-end-line="56" selection-end-column="197" />
               <folding>
-                <element signature="e#6501#6552#0" expanded="true" />
+                <element signature="e#1955#1961#0" expanded="true" />
+                <element signature="e#1961#1967#0" expanded="true" />
+                <element signature="e#2102#2108#0" expanded="true" />
+                <element signature="e#2531#2537#0" expanded="true" />
+                <element signature="e#2537#2543#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../vuesax/v4/vuexy-admin-v4.0/vuexy-vuejs-laravel-admin/full-version/resources/js/src/layouts/main/Main.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-17" />
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/js/src/layouts/components/navbar/TheNavbarVertical.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="476">
-              <caret line="57" selection-start-line="57" selection-end-line="57" />
             </state>
           </provider>
         </entry>
@@ -264,8 +100,14 @@
       <find>clientY</find>
       <find>jsPDF</find>
       <find>download</find>
-      <find>VueContext</find>
+      <find>goo</find>
+      <find>stat</find>
+      <find>appointmentStatus</find>
+      <find>appointement</find>
     </findStrings>
+    <replaceStrings>
+      <replace>appointment</replace>
+    </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -290,14 +132,16 @@
         <option value="$PROJECT_DIR$/resources/assets/scss/main.scss" />
         <option value="$PROJECT_DIR$/resources/js/src/layouts/components/vx-sidebar/sidebarItems.js" />
         <option value="$PROJECT_DIR$/resources/js/src/layouts/components/navbar/navbarSearchAndPinList.js" />
-        <option value="$PROJECT_DIR$/resources/js/src/views/employee/Employee.vue" />
         <option value="$PROJECT_DIR$/resources/js/src/i18n/i18n.js" />
         <option value="$PROJECT_DIR$/../vuesax/v4/vuexy-admin-v4.0/vuexy-vuejs-laravel-admin/full-version/resources/js/src/layouts/components/navbar/TheNavbarVertical.vue" />
         <option value="$PROJECT_DIR$/resources/js/src/layouts/components/navbar/TheNavbarVertical.vue" />
-        <option value="$PROJECT_DIR$/resources/js/src/router.js" />
-        <option value="$PROJECT_DIR$/resources/js/src/layouts/components/vertical-nav-menu/navMenuItems.js" />
         <option value="$PROJECT_DIR$/node_modules/vue-context/dist/js/vue-context.js" />
+        <option value="$PROJECT_DIR$/resources/js/src/layouts/components/vertical-nav-menu/navMenuItems.js" />
+        <option value="$PROJECT_DIR$/resources/js/src/router.js" />
+        <option value="$PROJECT_DIR$/resources/js/src/views/employee/Employee.vue" />
+        <option value="$PROJECT_DIR$/resources/js/src/views/employee/AddEmployee.vue" />
         <option value="$PROJECT_DIR$/resources/js/src/views/patient/Patient.vue" />
+        <option value="$PROJECT_DIR$/resources/js/src/views/appointment/Appointment.vue" />
       </list>
     </option>
   </component>
@@ -430,7 +274,31 @@
               <item name="resources" type="462c0819:PsiDirectoryNode" />
               <item name="js" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="clinic" type="b2602c69:ProjectViewProjectNode" />
+              <item name="clinic" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="appointment" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="clinic" type="b2602c69:ProjectViewProjectNode" />
+              <item name="clinic" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="patient" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="clinic" type="b2602c69:ProjectViewProjectNode" />
+              <item name="clinic" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -485,18 +353,20 @@
       <updated>1569699382990</updated>
       <workItem from="1569699384276" duration="5294000" />
       <workItem from="1570245739453" duration="57000" />
-      <workItem from="1570372262418" duration="12739000" />
+      <workItem from="1570372262418" duration="12982000" />
+      <workItem from="1570681287788" duration="263000" />
+      <workItem from="1571327893711" duration="4256000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="18090000" />
+    <option name="totallyTimeSpent" value="22852000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25718608" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2647504" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -522,36 +392,16 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/resources/assets/images/raty/star-half-2.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/assets/images/raty/star-on-2.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/assets/css/iconfont.css">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/assets/utils/color.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/js/src/store/actions.js">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/js/src/components/actions.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/js/src/components/actions.js" />
     <entry file="file://$PROJECT_DIR$/resources/js/src/components/excel/ImportExcel.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-357" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/js/src/layouts/components/navbarSearchAndPinList.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="1" selection-end-line="16" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/js/src/layouts/components/navbarSearchAndPinList.js" />
     <entry file="file://$USER_HOME$/Desktop/testv4/resources/js/src/layouts/full-page/FullPage.vue">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -580,13 +430,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="178">
           <caret line="79" column="20" selection-start-line="79" selection-start-column="14" selection-end-line="79" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/application.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="17" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
         </state>
       </provider>
     </entry>
@@ -708,16 +551,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/js/src/views/employee/Employee.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="526">
-          <caret line="133" column="20" selection-start-line="133" selection-start-column="20" selection-end-line="133" selection-end-column="20" />
-          <folding>
-            <element signature="e#3775#3825#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/js/src/i18n/ar/ar.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
@@ -757,21 +590,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../vuesax/v4/vuexy-admin-v4.0/vuexy-vuejs-laravel-admin/full-version/resources/js/src/layouts/main/Main.vue">
+    <entry file="file://$PROJECT_DIR$/node_modules/vue-context/dist/js/vue-context.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-17" />
+        <state relative-caret-position="202">
+          <caret column="118796" selection-start-column="118796" selection-end-column="118796" />
+        </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/js/src/layouts/components/navbar/TheNavbarVertical.vue">
+    <entry file="file://$PROJECT_DIR$/node_modules/vuesax/dist/vuesax.common.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="57" selection-start-line="57" selection-end-line="57" />
+        <state relative-caret-position="186">
+          <caret line="10430" column="4" selection-start-line="10430" selection-start-column="4" selection-end-line="10430" selection-end-column="4" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/js/src/layouts/components/vx-sidebar/sidebarItems.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="748">
+        <state relative-caret-position="646">
           <caret line="56" column="6" selection-start-line="56" selection-start-column="6" selection-end-line="56" selection-end-column="6" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
@@ -789,10 +624,37 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/../vuesax/v4/vuexy-admin-v4.0/vuexy-vuejs-laravel-admin/full-version/resources/js/src/layouts/main/Main.vue">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/js/src/layouts/components/navbar/TheNavbarVertical.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="969">
+          <caret line="57" selection-start-line="57" selection-end-line="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/js/src/layouts/components/vertical-nav-menu/navMenuItems.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="594">
+          <caret line="63" column="5" selection-start-line="63" selection-start-column="5" selection-end-line="63" selection-end-column="5" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/application.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="393">
+          <caret line="29" lean-forward="true" selection-start-line="29" selection-end-line="29" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/resources/js/src/router.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="407">
-          <caret line="230" selection-start-line="230" selection-end-line="230" />
+        <state relative-caret-position="226">
+          <caret line="147" column="61" selection-start-line="147" selection-start-column="61" selection-end-line="147" selection-end-column="61" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="e#914#936#0" expanded="true" />
@@ -800,36 +662,63 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/js/src/layouts/components/vertical-nav-menu/navMenuItems.js">
+    <entry file="file://$PROJECT_DIR$/resources/js/src/components/google/GoogleAutocomplete.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="56" column="6" selection-start-line="56" selection-start-column="6" selection-end-line="56" selection-end-column="6" />
+        <state relative-caret-position="186">
+          <caret line="22" column="14" selection-start-line="22" selection-start-column="14" selection-end-line="22" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/js/src/views/employee/AddEmployee.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="331">
+          <caret line="56" column="34" lean-forward="true" selection-start-line="56" selection-start-column="34" selection-end-line="56" selection-end-column="34" />
           <folding>
-            <element signature="n#!!doc" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#vx-card#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#div#0;n#div#1;n#vx-card#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="e#1753#1759#0" expanded="true" />
+            <element signature="e#1759#1765#0" expanded="true" />
+            <element signature="n#style#0;n#input#0;n#div#0;n#div#0;n#div#0;n#div#3;n#vx-card#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#4;n#vx-card#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#1;n#vx-card#0;n#div#1;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="e#9848#9854#0" expanded="true" />
+            <element signature="e#9854#9860#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/vue-context/dist/js/vue-context.js">
+    <entry file="file://$PROJECT_DIR$/resources/js/src/views/employee/Employee.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="202">
-          <caret column="118796" selection-start-column="118796" selection-end-column="118796" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/vuesax/dist/vuesax.common.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="10430" column="4" selection-start-line="10430" selection-start-column="4" selection-end-line="10430" selection-end-column="4" />
+        <state relative-caret-position="17">
+          <caret line="8" column="45" selection-start-line="8" selection-start-column="45" selection-end-line="8" selection-end-column="45" />
+          <folding>
+            <element signature="e#536#542#0" expanded="true" />
+            <element signature="e#542#548#0" expanded="true" />
+            <element signature="e#3775#3825#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/js/src/views/patient/Patient.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="40" column="57" lean-forward="true" selection-start-line="40" selection-start-column="57" selection-end-line="40" selection-end-column="57" />
+        <state relative-caret-position="232">
+          <caret line="338" column="4" selection-start-line="338" selection-start-column="4" selection-end-line="347" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/js/src/views/appointment/AddAppointment.vue">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/js/src/views/appointment/Appointment.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="305">
+          <caret line="56" column="197" selection-start-line="56" selection-start-column="197" selection-end-line="56" selection-end-column="197" />
           <folding>
-            <element signature="e#6501#6552#0" expanded="true" />
+            <element signature="e#1955#1961#0" expanded="true" />
+            <element signature="e#1961#1967#0" expanded="true" />
+            <element signature="e#2102#2108#0" expanded="true" />
+            <element signature="e#2531#2537#0" expanded="true" />
+            <element signature="e#2537#2543#0" expanded="true" />
           </folding>
         </state>
       </provider>
