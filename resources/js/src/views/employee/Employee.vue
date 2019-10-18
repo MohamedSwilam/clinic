@@ -6,7 +6,7 @@
                     <b class="text-left vx-col w-full">{{employees.length}} results found in {{resultTime}}ms</b>
                 </vs-col>
                 <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-w="3">
-                    <vs-button to="/employee/add-employee" vs-w="3" color="primary" type="filled" icon-pack="feather" icon="icon-user-plus">&nbsp;&nbsp;Add Employee</vs-button>
+                    <vs-button to="/dashboard/employee/add-employee" vs-w="3" color="primary" type="filled" icon-pack="feather" icon="icon-user-plus">&nbsp;&nbsp;Add Employee</vs-button>
                 </vs-col>
             </vs-row>
             <vs-row>
@@ -120,6 +120,7 @@
                 ];
                 this.resultTime = Date.now() - InitialTime;
             },
+
             copyToClipboard(text) {
                 if (window.clipboardData && window.clipboardData.setData) {
                     // IE specific code path to prevent textarea being shown while dialog is visible.
@@ -130,7 +131,7 @@
                     var textarea = document.createElement("textarea");
                     textarea.textContent = text;
                     textarea.style.position = "fixed";  // Prevent scrolling to bottom of page in MS Edge.
-                    document.body.appendChild(textarea);
+                        document.body.appendChild(textarea);
                     textarea.select();
                     try {
                         this.onCopy();
@@ -151,7 +152,7 @@
                     iconPack: 'feather',
                     position: 'bottom-right',
                     icon: 'icon-check-circle'
-                })
+                });
             },
             onError() {
                 this.$vs.notify({

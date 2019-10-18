@@ -18,81 +18,62 @@
             <vs-table multiple v-model="selected" max-items="50" pagination :data="appointments" v-if="appointments.length > 0">
                 <template slot="thead">
                     <vs-th>#</vs-th>
-                    <vs-th sort-key="public_id">ID</vs-th>
-                    <vs-th sort-key="name">Name</vs-th>
-                    <vs-th sort-key="dob">Age</vs-th>
-                    <vs-th sort-key="telephones">Telephones</vs-th>
-                    <vs-th sort-key="payment">Payment</vs-th>
-                    <vs-th sort-key="last_visit">Status</vs-th>
+                    <vs-th>ID</vs-th>
+                    <vs-th>Name</vs-th>
+                    <vs-th sort-key="duration">Duration</vs-th>
+                    <vs-th>Telephones</vs-th>
+                    <vs-th>Payment</vs-th>
                 </template>
                 <template slot-scope="{data}">
-                    <template v-for="(tr, indextr) in data">
-                        <vue-context :ref="`appointment-${tr.id}`">
+                    <template v-for="(appointment, indextr) in appointments">
+                        <vue-context :ref="`appointment-${appointment.id}`">
                             <ul class="bordered-items p-0">
-                                <li @click="optionClicked(tr.id, $event.target.innerText)"><i class="fas fa-eye"></i>&nbsp;&nbsp; View</li>
-                                <li @click="optionClicked(tr.id, $event.target.innerText)"><i class="fas fa-edit"></i>&nbsp;&nbsp; Edit</li>
-                                <li @click="optionClicked(tr.id, $event.target.innerText)"><i class="fas fa-share"></i>&nbsp;&nbsp; Send</li>
-                                <li @click="optionClicked(tr.id, $event.target.innerText)"><i class="fas fa-file-csv"></i>&nbsp;&nbsp; Export CSV</li>
-                                <li @click="optionClicked(tr.id, $event.target.innerText)"><i class="fas fa-trash"></i>&nbsp;&nbsp; Delete</li>
+                                <li @click="optionClicked(appointment.id, $event.target.innerText)"><i class="fas fa-eye"></i>&nbsp;&nbsp; View</li>
+                                <li @click="optionClicked(appointment.id, $event.target.innerText)"><i class="fas fa-edit"></i>&nbsp;&nbsp; Edit</li>
+                                <li @click="optionClicked(appointment.id, $event.target.innerText)"><i class="fas fa-trash"></i>&nbsp;&nbsp; Delete</li>
                             </ul>
                         </vue-context>
-                        <vs-tr :data="tr" :key="indextr">
+                        <vs-tr :key="indextr">
                             <vs-td :data="indextr + 1">
-                                <div @contextmenu.prevent="openContext(tr.id)">
+                                <div @contextmenu.prevent="openContext(appointment.id)">
                                     {{ indextr + 1 }}
                                 </div>
                             </vs-td>
 
-                            <vs-td :data="tr.public_id">
-                                <div @contextmenu.prevent="openContext(tr.id)">
-                                    {{ tr.public_id }}
+                            <vs-td>
+                                <div @contextmenu.prevent="openContext(appointment.id)">
+                                    {{ appointment.patient.public_id }}
                                 </div>
                             </vs-td>
 
-                            <vs-td :data="tr.name">
-                                <div @contextmenu.prevent="openContext(tr.id)">
-                                    {{ tr.name }}
+                            <vs-td>
+                                <div @contextmenu.prevent="openContext(appointment.id)">
+                                    {{ appointment.patient.name }}
                                 </div>
                             </vs-td>
 
-                            <vs-td :data="tr.dob">
-                                <div @contextmenu.prevent="openContext(tr.id)">
-                                    {{ tr.dob }}
+                            <vs-td>
+                                <div @contextmenu.prevent="openContext(appointment.id)">
+                                    {{appointment.duration.getUTCDay()}}/{{appointment.duration.getUTCMonth()}}/{{appointment.duration.getUTCFullYear()}} {{appointment.duration.toLocaleTimeString()}}
                                 </div>
                             </vs-td>
 
-                            <vs-td :data="tr.telephones">
-                                <div @contextmenu.prevent="openContext(tr.id)">
-                                    <template v-for="(telephone, index) in tr.telephones">
-                                        {{ telephone }}<template v-if="index != tr.telephones.length-1">, </template>
+                            <vs-td>
+                                <div @contextmenu.prevent="openContext(appointment.id)">
+                                    <template v-for="(telephone, index) in appointment.patient.telephones">
+                                        {{ telephone }}<template v-if="index !== appointment.patient.telephones.length-1">, </template>
                                     </template>
                                 </div>
                             </vs-td>
 
-                            <vs-td :data="tr.payment">
-                                <div @contextmenu.prevent="openContext(tr.id)">
-                                    <template v-if="tr.payment.percentage == 100"><i class="fas fa-check"></i> <b>Complete</b></template>
-                                    <template v-else><b>{{tr.payment.paid}}</b> Out of <b>{{tr.payment.total}}</b></template>
+                            <vs-td>
+                                <div @contextmenu.prevent="openContext(appointment.id)">
+                                    <template v-if="appointment.patient.payment.percentage === 100"><i class="fas fa-check"></i> <b>Complete</b></template>
+                                    <template v-else><b>{{appointment.patient.payment.paid}}</b> Out of <b>{{appointment.patient.payment.total}}</b></template>
                                     <br>
-                                    <vs-progress v-if="tr.payment.percentage == 100" :percent="tr.payment.percentage" color="success"></vs-progress>
-                                    <vs-progress v-else-if="tr.payment.percentage > 25" :percent="tr.payment.percentage" color="warning"></vs-progress>
-                                    <vs-progress v-else-if="tr.payment.percentage <= 25" :percent="tr.payment.percentage" color="danger"></vs-progress>
-                                </div>
-                            </vs-td>
-
-                            <vs-td :data="tr.last_visit">
-                                <div @contextmenu.prevent="openContext(tr.id)">
-                                    <template v-for="status in appointmentStatus">
-                                        <vs-chip v-if="
-                                        new Date().getTime()-new Date(tr.last_visit).getTime() > status.start_period
-                                        &&
-                                        new Date().getTime()-new Date(tr.last_visit).getTime() <= status.end_period
-                                        " :color="status.color">
-                                            <vx-tooltip color="warning" title="Last Visit" :text="tr.last_visit">
-                                                {{status.name}}
-                                            </vx-tooltip>
-                                        </vs-chip>
-                                    </template>
+                                    <vs-progress v-if="appointment.patient.payment.percentage === 100" :percent="appointment.patient.payment.percentage" color="success"></vs-progress>
+                                    <vs-progress v-else-if="appointment.patient.payment.percentage > 25" :percent="appointment.patient.payment.percentage" color="warning"></vs-progress>
+                                    <vs-progress v-else-if="appointment.patient.payment.percentage <= 25" :percent="appointment.patient.payment.percentage" color="danger"></vs-progress>
                                 </div>
                             </vs-td>
                         </vs-tr>
@@ -129,7 +110,6 @@
                 searchText: "",
                 resultTime: 0,
                 appointments: [],
-                appointmentStatus: []
             }
         },
         methods: {
@@ -144,124 +124,154 @@
             },
 
             getAppointmentsData(InitialTime){
-                this.appointmentStatus = [
-                    {
-                        name: 'Active',
-                        color: 'success',
-                        start_period: '0',
-                        end_period: '16000000000'
-                    },
-                    {
-                        name: 'In-Active',
-                        color: 'danger',
-                        start_period: '16000000001',
-                        end_period: '99999999999999',
-                    }
-                ];
                 this.appointments = [
                     {
-                        id : 1,
-                        name: "Phil Gray",
-                        public_id: "p-105",
-                        dob: "18/10/1997",
-                        telephones: ["01096436702", "01113689783"],
-                        payment: {
-                            paid: 200,
-                            total: 1000,
-                            percentage: (200*100)/1000
+                        id: 1,
+                        type: 'Reservation Type1',
+                        duration: new Date(),
+                        doctor: {
+                            id: 1,
+                            name: 'Irene Baker'
                         },
-                        last_visit: '2019-5-01 15:30:00',
+                        patient: {
+                            id : 1,
+                            name: "Phil Gray",
+                            public_id: "p-105",
+                            dob: "18/10/1997",
+                            telephones: ["01096436702", "01113689783"],
+                            payment: {
+                                paid: 200,
+                                total: 1000,
+                                percentage: (200*100)/1000
+                            },
+                        },
                     },
                     {
-                        id : 2,
-                        name: "Irene Baker",
-                        public_id: "p-116",
-                        dob: "05/09/1989",
-                        telephones: ["01116568369"],
-                        payment: {
-                            paid: 750,
-                            total: 750,
-                            percentage: (750*100)/750
+                        id: 2,
+                        type: 'Reservation Type1',
+                        duration: new Date(),
+                        doctor: {
+                            id: 1,
+                            name: 'Irene Baker'
                         },
-                        last_visit: '2018-5-13 15:30:00',
+                        patient: {
+                            id : 1,
+                            name: "Phil Gray",
+                            public_id: "p-106",
+                            dob: "18/10/1997",
+                            telephones: ["01096436702", "01113689783"],
+                            payment: {
+                                paid: 500,
+                                total: 800,
+                                percentage: (500*100)/800
+                            },
+                        },
                     },
                     {
-                        id : 3,
-                        name: "Evan White",
-                        public_id: "p-118",
-                        dob: "16/03/1991",
-                        telephones: ["01096123366", "01115696966"],
-                        payment: {
-                            paid: 950,
-                            total: 950,
-                            percentage: (950*100)/950
+                        id: 3,
+                        type: 'Reservation Type1',
+                        duration: new Date(),
+                        doctor: {
+                            id: 1,
+                            name: 'Irene Baker'
                         },
-                        last_visit: '2018-5-13 15:30:00',
+                        patient: {
+                            id : 1,
+                            name: "Phil Gray",
+                            public_id: "p-105",
+                            dob: "18/10/1997",
+                            telephones: ["01096436702", "01113689783"],
+                            payment: {
+                                paid: 900,
+                                total: 900,
+                                percentage: (900*100)/900
+                            },
+                        },
                     },
                     {
-                        id : 4,
-                        name: "Sonia Clark",
-                        public_id: "p-120",
-                        dob: "04/12/1975",
-                        telephones: ["01086123445", "01007865613"],
-                        payment: {
-                            paid: 700,
-                            total: 800,
-                            percentage: (700*100)/800
+                        id: 4,
+                        type: 'Reservation Type1',
+                        duration: new Date(),
+                        doctor: {
+                            id: 1,
+                            name: 'Irene Baker'
                         },
-                        last_visit: '2019-5-01 15:30:00',
-                    },{
-                        id : 5,
-                        name: "Phil Gray",
-                        public_id: "p-121",
-                        dob: "18/10/1997",
-                        telephones: ["01096436702", "01113689783"],
-                        payment: {
-                            paid: 300,
-                            total: 1250,
-                            percentage: (300*100)/1250
+                        patient: {
+                            id : 1,
+                            name: "Phil Gray",
+                            public_id: "p-107",
+                            dob: "18/10/1997",
+                            telephones: ["01096436702", "01113689783"],
+                            payment: {
+                                paid: 200,
+                                total: 1000,
+                                percentage: (200*100)/1000
+                            },
                         },
-                        last_visit: '2019-5-01 15:30:00',
                     },
                     {
-                        id : 6,
-                        name: "Irene Baker",
-                        public_id: "p-122",
-                        dob: "05/09/1989",
-                        telephones: ["01116568369"],
-                        payment: {
-                            paid: 1250,
-                            total: 1250,
-                            percentage: (1250*100)/1250
+                        id: 5,
+                        type: 'Reservation Type1',
+                        duration: new Date(),
+                        doctor: {
+                            id: 1,
+                            name: 'Irene Baker'
                         },
-                        last_visit: '2018-5-13 15:30:00',
+                        patient: {
+                            id : 1,
+                            name: "Phil Gray",
+                            public_id: "p-108",
+                            dob: "18/10/1997",
+                            telephones: ["01096436702", "01113689783"],
+                            payment: {
+                                paid: 200,
+                                total: 1000,
+                                percentage: (200*100)/1000
+                            },
+                        },
                     },
                     {
-                        id : 7,
-                        name: "Evan White",
-                        public_id: "p-123",
-                        dob: "16/03/1991",
-                        telephones: ["01096123366", "01115696966"],
-                        payment: {
-                            paid: 700,
-                            total: 800,
-                            percentage: (700*100)/800
+                        id: 6,
+                        type: 'Reservation Type1',
+                        duration: new Date(),
+                        doctor: {
+                            id: 1,
+                            name: 'Irene Baker'
                         },
-                        last_visit: '2019-5-01 15:30:00',
+                        patient: {
+                            id : 1,
+                            name: "Phil Gray",
+                            public_id: "p-109",
+                            dob: "18/10/1997",
+                            telephones: ["01096436702", "01113689783"],
+                            payment: {
+                                paid: 700,
+                                total: 1000,
+                                percentage: (700*100)/1000
+                            },
+                        },
                     },
                     {
-                        id : 8,
-                        name: "Sonia Clark",
-                        public_id: "p-124",
-                        dob: "04/12/1975",
-                        telephones: ["01086123445", "01007865613"],
-                        payment: {
-                            paid: 1000,
-                            total: 1000,
-                            percentage: (1000*100)/1000
+                        id: 7,
+                        type: 'Reservation Type2',
+                        duration: new Date(),
+                        doctor: {
+                            id: 1,
+                            name: 'Irene Baker'
                         },
-                        last_visit: '2018-5-13 15:30:00',
-                    }
+                        patient: {
+                            id : 2,
+                            name: "Phil Gray",
+                            public_id: "p-110",
+                            dob: "18/10/1997",
+                            telephones: ["01096436702", "01113689783"],
+                            payment: {
+                                paid: 200,
+                                total: 1000,
+                                percentage: (200*100)/1000
+                            },
+                        },
+                    },
                 ];
                 this.resultTime = Date.now() - InitialTime;
             },
@@ -321,5 +331,16 @@
     .txt-hover:hover{
         cursor: pointer;
         color: black !important;
+    }
+
+    .v-context ul li{
+        margin: 0;
+        padding: 10px 35px;
+        cursor: pointer;
+    }
+
+    .v-context ul li:hover {
+        background: #1e88e5;
+        color: #fafafa;
     }
 </style>

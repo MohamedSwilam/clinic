@@ -52,6 +52,10 @@ import router from './router'
 // Vuex Store
 import store from './store/store'
 
+// Vuejs - Vue wrapper for hammerjs
+import { VueHammer } from 'vue2-hammer';
+Vue.use(VueHammer);
+
 // i18n
 import i18n from './i18n/i18n'
 
@@ -97,3 +101,20 @@ new Vue({
     i18n,
     render: h => h(App)
 }).$mount('#app')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

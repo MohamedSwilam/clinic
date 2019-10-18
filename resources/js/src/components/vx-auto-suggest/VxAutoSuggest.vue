@@ -101,7 +101,11 @@ export default{
 			else this.searchQuery = '';
 		},
 		filteredData() {
-			this.currentSelected = 0;
+      // this.currentSelected = 0;
+      if(this.currentSelected < 0 && this.filteredData.length) {
+        this.currentSelected = 0;
+      }
+
 
 			// Prevent selecting if first item in list dont have url e.g. 'No Reult'
 			if(this.filteredData[0]){
@@ -190,5 +194,5 @@ export default{
 </script>
 
 <style lang="scss">
-@import "@sass/vuesax/components/vxAutoSuggest.scss";
+@import "@sass/vuexy/components/vxAutoSuggest.scss";
 </style>

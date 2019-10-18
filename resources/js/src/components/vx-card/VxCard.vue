@@ -3,8 +3,8 @@
     Description: Card Component
     Component Name: VxCard
     ----------------------------------------------------------------------------------------
-    Item Name: Vuesax Admin - VueJS Dashboard Admin Template
-    Author: Pixinvent
+    Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
+      Author: Pixinvent
     Author URL: http://www.themeforest.net/user/pixinvent
 ========================================================================================== -->
 
@@ -13,13 +13,15 @@
         {'overflow-hidden': tempHidden},
         {'no-shadow': noShadow},
         {'rounded-none': noRadius},
-        {'card-border': cardBorder} ]" :style="cardStyles">
+        {'card-border': cardBorder},
+        cardClasses ]" :style="cardStyles"
+        v-on="$listeners">
         <div class="vx-card__header" v-if="hasHeader">
 
             <!-- card title -->
             <div class="vx-card__title">
-                <h4 v-if="this.$props.title">{{ title }}</h4>
-                <h6 v-if="this.$props.subtitle" class="text-grey">{{ subtitle }}</h6>
+                <h4 v-if="this.$props.title" :style="titleStyles" :class="titleClasses">{{ title }}</h4>
+                <h6 v-if="this.$props.subtitle" :style="subtitleStyles" :class="subtitleClasses">{{ subtitle }}</h6>
             </div>
 
             <!-- card actions -->
@@ -67,6 +69,7 @@
 
 <script>
 import Prism from 'vue-prism-component'
+import _color from '@assets/utils/color.js'
 
 export default{
     name: 'vx-card',
@@ -112,6 +115,34 @@ export default{
         removeCardAction: {
             default: false,
             type: Boolean
+        },
+        headerBackground: {
+          default: '',
+          type: String
+        },
+        // bodyBackground: {
+        //   default: '',
+        //   type: String
+        // },
+        // headerbackground: {
+        //   default: '',
+        //   type: String
+        // },
+        cardBackground: {
+          default: '',
+          type: String
+        },
+        contentColor: {
+          default: '',
+          type: String
+        },
+        titleColor: {
+          default: '',
+          type: String
+        },
+        subtitleColor: {
+          default: '#b8c2cc',
+          type: String
         }
     },
     data() {
@@ -135,11 +166,60 @@ export default{
             return { maxHeight: this.maxHeight }
         },
         cardStyles() {
-            return { maxHeight: this.cardMaxHeight }
+            let obj = { maxHeight: this.cardMaxHeight }
+            if (!_color.isColor(this.cardBackground)) obj.background = _color.getColor(this.cardBackground)
+            if (!_color.isColor(this.contentColor)) obj.color = _color.getColor(this.contentColor)
+            return obj
         },
         codeContainerStyles() {
             return { maxHeight: this.codeContainerMaxHeight }
-        }
+        },
+        cardClasses() {
+          let str = '';
+
+          // Add bg class
+          if(_color.isColor(this.cardBackground)) {
+            str += ` bg-${this.cardBackground}`
+          }
+
+          // add content color
+          if (_color.isColor(this.contentColor)){
+            str += ` text-${this.contentColor}`
+          }
+
+          return str.trim()
+        },
+        titleStyles() {
+          return {
+            color: _color.getColor(this.titleColor)
+          }
+        },
+        titleClasses() {
+          let str = '';
+
+          // add content color
+          if(_color.isColor(this.titleColor)) {
+            str += ` text-${this.titleColor}`
+          }
+
+          return str.trim()
+        },
+        subtitleStyles() {
+          let obj = {}
+          if (!_color.isColor(this.subtitleColor)) obj.color = _color.getColor(this.subtitleColor)
+
+          return obj
+        },
+        subtitleClasses() {
+          let str = '';
+
+          // add content color
+          if(_color.isColor(this.subtitleColor)) {
+            str += ` text-${this.subtitleColor}`
+          }
+
+          return str.trim()
+        },
     },
     methods: {
         toggleContent() {
@@ -162,15 +242,18 @@ export default{
             this.$emit("toggleCollapse", this.isContentCollapsed);
         },
         refreshcard() {
-            this.tempHidden = true;
             this.$vs.loading({
                 container: this.$refs.content,
                 scale: 0.5,
             });
+            this.tempHidden = true;
+            this.$emit("refresh", this);
+        },
+        removeRefreshAnimation(time=100) {
             setTimeout( ()=> {
                 this.$vs.loading.close(this.$refs.content)
                 this.tempHidden = false;
-            }, 3000)
+            }, time)
         },
         removeCard() {
             let scrollHeight = this.$refs.card.scrollHeight
@@ -179,6 +262,7 @@ export default{
             setTimeout(() => {
                 this.cardMaxHeight = `0px`
             }, 50)
+            this.$emit("remove");
         },
         toggleCode() {
             this.tempHidden = true;
@@ -206,5 +290,5 @@ export default{
 </script>
 
 <style lang="scss">
-@import "@sass/vuesax/components/vxCard.scss";
+@import "@sass/vuexy/components/vxCard.scss";
 </style>

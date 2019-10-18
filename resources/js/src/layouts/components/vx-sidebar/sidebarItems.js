@@ -28,13 +28,6 @@ export default [
         i18n: "Home",
     },
     {
-        url: "/todo",
-        name: "Todo",
-        slug: "todo",
-        icon: "CheckSquareIcon",
-        i18n: "Todo",
-    },
-    {
         url: "/employee",
         name: "Employee",
         slug: "employee",
@@ -61,13 +54,6 @@ export default [
         slug: "invoice",
         icon: "FileIcon",
         i18n: "Invoice"
-    },
-    {
-        url: "/email",
-        name: "Email",
-        slug: "email",
-        icon: "MailIcon",
-        i18n: "Email",
     },
     {
         url: "/calendar",

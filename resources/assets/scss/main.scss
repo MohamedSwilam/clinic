@@ -7,20 +7,20 @@
   Author URL: http://www.themeforest.net/user/pixinvent
 ==========================================================================================*/
 
-@import "vuesax/variables";
+@import "vuexy/variables";
 
-@import "vuesax/layout";
-@import "vuesax/typography";
-@import "vuesax/misc";
-@import "vuesax/extraComponents";
-@import "vuesax/themes";
-@import "vuesax/routerAnimations";
-@import "vuesax/transitions";
+@import "vuexy/layout";
+@import "vuexy/typography";
+@import "vuexy/misc";
+@import "vuexy/extraComponents";
+@import "vuexy/themes";
+@import "vuexy/routerAnimations";
+@import "vuexy/transitions";
 
-@import "vuesax/customClasses";
+@import "vuexy/customClasses";
 
-// Vuesax fixes and enhancments
-@import "vuesax/fixesVuesax";
+// vuexy fixes and enhancments
+@import "vuexy/fixesVuesax";
 
 // Tailwind Fixes
-@import "vuesax/tailwindFix";
+@import "vuexy/tailwindFix";
