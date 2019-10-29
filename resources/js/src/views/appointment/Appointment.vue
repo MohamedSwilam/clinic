@@ -6,7 +6,7 @@
                     <b class="text-left vx-col w-full">{{appointments.length}} results found in {{resultTime}}ms</b>
                 </vs-col>
                 <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-w="3">
-                    <vs-button vs-w="3" color="primary" type="filled" icon-pack="feather" icon="icon-plus" to="/appointment/add-appointment/new">New Appointment</vs-button>
+                    <vs-button vs-w="3" color="primary" type="filled" icon-pack="feather" icon="icon-plus" to="/dashboard/appointment/add-appointment/new">New Appointment</vs-button>
                 </vs-col>
             </vs-row>
             <vs-row>

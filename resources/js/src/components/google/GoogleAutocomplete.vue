@@ -11,7 +11,7 @@
                 :value="address"
                 :selectFirstOnEnter="true"
                 @place_changed="placeChanged"></gmap-autocomplete>
-            <span class="input-span-placeholder vs-input--placeholder normal normal vs-placeholder-label">{{placeHolder}}</span>
+            <span class="input-span-placeholder vs-input--placeholder normal normal vs-placeholder-label">{{placeholder}}</span>
             <i class="vs-icon notranslate icon-scale icon-inputx notranslate vs-input--icon feather icon-map-pin null"></i><!---->
         </div>
         <span></span>
@@ -25,7 +25,7 @@
             address: {
                 type: String,
             },
-            placeHolder: {
+            placeholder: {
                 type: String,
                 default: 'Search for your address',
             }
