@@ -56,7 +56,7 @@ const router = new Router({
                 {
                     path: '/dashboard/employee',
                     name: 'employee',
-                    component: () => import('./views/employee/Employee.vue'),
+                    component: () => import('./views/employee/browse.vue'),
                     meta: {
                         breadcrumb: [
                             { title: 'Home', url: '/dashboard', i18n: 'Home' },
@@ -68,9 +68,9 @@ const router = new Router({
                     }
                 },
                 {
-                    path: '/dashboard/employee/add-employee',
+                    path: '/dashboard/employee/create',
                     name: 'add-employee',
-                    component: () => import('./views/employee/AddEmployee.vue'),
+                    component: () => import('./views/employee/create.vue'),
                     meta: {
                         breadcrumb: [
                             { title: 'Home', url: '/dashboard', i18n: 'Home' },
@@ -79,6 +79,36 @@ const router = new Router({
                         ],
                         pageTitle: 'Add Employee',
                         pageTitle_i18n: 'AddEmployee',
+                        rule: 'editor'
+                    }
+                },
+                {
+                    path: '/dashboard/employee/:id',
+                    name: 'view-employee',
+                    component: () => import('./views/employee/view.vue'),
+                    meta: {
+                        breadcrumb: [
+                            { title: 'Home', url: '/dashboard', i18n: 'Home' },
+                            { title: 'Employee', url: '/dashboard/employee', i18n: 'Employee' },
+                            { title: 'Profile', active: true, i18n: 'EmployeeProfile' },
+                        ],
+                        pageTitle: 'Edit Employee',
+                        pageTitle_i18n: 'editEmployee',
+                        rule: 'editor'
+                    }
+                },
+                {
+                    path: '/dashboard/employee/:id/edit',
+                    name: 'edit-employee',
+                    component: () => import('./views/employee/edit.vue'),
+                    meta: {
+                        breadcrumb: [
+                            { title: 'Home', url: '/dashboard', i18n: 'Home' },
+                            { title: 'Employee', url: '/dashboard/employee', i18n: 'Employee' },
+                            { title: 'Edit Employee', active: true, i18n: 'editEmployee' },
+                        ],
+                        pageTitle: 'Edit Employee',
+                        pageTitle_i18n: 'editEmployee',
                         rule: 'editor'
                     }
                 },
@@ -152,7 +182,58 @@ const router = new Router({
                         pageTitle_i18n: 'Calendar',
                         rule: 'editor'
                     }
-                }
+                },
+                {
+                    path: '/dashboard/role',
+                    name: 'role',
+                    component: () => import('./views/Role/Roles.vue'),
+                    meta: {
+                        breadcrumb: [
+                            { title: 'Home', url: '/dashboard'},
+                            { title: 'Roles', active: true}
+                        ],
+                        pageTitle: "Roles",
+                    }
+                },
+                {
+                    path: '/dashboard/role/create',
+                    name: 'create-role',
+                    component: () => import('./views/Role/Create.vue'),
+                    meta: {
+                        breadcrumb: [
+                            { title: 'Home', url: '/dashboard'},
+                            { title: 'Roles', url: '/dashboard/role'},
+                            { title: 'Create Role', active: true}
+                        ],
+                        pageTitle: "Create Role",
+                    }
+                },
+                {
+                    path: '/dashboard/role/:id',
+                    name: 'view-role',
+                    component: () => import('./views/Role/View.vue'),
+                    meta: {
+                        breadcrumb: [
+                            { title: 'Home', url: '/dashboard'},
+                            { title: 'Roles', url: '/dashboard/role'},
+                            { title: 'Role Information', active: true}
+                        ],
+                        pageTitle: "Role Information",
+                    }
+                },
+                {
+                    path: '/dashboard/role/edit/:id',
+                    name: 'edit-role',
+                    component: () => import('./views/Role/Edit.vue'),
+                    meta: {
+                        breadcrumb: [
+                            { title: 'Home', url: '/dashboard'},
+                            { title: 'Roles', url: '/dashboard/role'},
+                            { title: 'Edit Role', active: true}
+                        ],
+                        pageTitle: "Edit Role",
+                    }
+                },
             ],
         },
         // =============================================================================

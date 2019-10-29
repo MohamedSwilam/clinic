@@ -15,7 +15,7 @@ export default {
                 country = item.long_name.toLowerCase();
                 return;
             }
-        })
+        });
 
         return country;
     },
@@ -51,7 +51,7 @@ export default {
                 city = item.long_name.toLowerCase();
                 return;
             }
-        })
+        });
 
         return city;
     },
@@ -70,7 +70,7 @@ export default {
                 district = item.long_name.toLowerCase();
                 return;
             }
-        })
+        });
 
         return district;
     },
@@ -88,7 +88,7 @@ export default {
                 neighbourhood = item.long_name.toLowerCase();
                 return;
             }
-        })
+        });
 
         return neighbourhood;
     },
@@ -106,7 +106,7 @@ export default {
                 streetName = item.long_name.toLowerCase();
                 return;
             }
-        })
+        });
 
         return streetName;
     }

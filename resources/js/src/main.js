@@ -1,13 +1,4 @@
-/*=========================================================================================
-  File Name: main.js
-  Description: main vue(js) file
-  ----------------------------------------------------------------------------------------
-  Item Name: Vuesax Admin - VueJS Dashboard Admin Template
-  Author: Pixinvent
-  Author URL: hhttp://www.themeforest.net/user/pixinvent
-==========================================================================================*/
 
-import moment from 'moment';
 import Vue from 'vue'
 import App from './App.vue'
 
@@ -25,7 +16,7 @@ Vue.use(require('vue-moment'));
 
 // axios
 import axios from 'axios'
-Vue.prototype.$http = axios
+Vue.prototype.$http = axios;
 
 // Theme Configurations
 import '../themeConfig.js'
@@ -52,14 +43,14 @@ import router from './router'
 // Vuex Store
 import store from './store/store'
 
-// Vuejs - Vue wrapper for hammerjs
+// Vue wrapper for hammerjs
 import { VueHammer } from 'vue2-hammer';
 Vue.use(VueHammer);
 
 // i18n
 import i18n from './i18n/i18n'
 
-// Vuesax Admin Filters
+// Filters
 import './filters/filters'
 
 
@@ -79,28 +70,28 @@ import * as VueGoogleMaps from 'vue2-google-maps'
 Vue.use(VueGoogleMaps, {
     load: {
         // Add your API key here
-        key: 'AIzaSyDiX3dztQ_1R_eY4tsMPeL9s-10Jkg9PZQ',
+        key: 'AIzaSyC1qDLZ8CXn--s1m3mFQfirZi8mI0KgMmo',
         libraries: 'places', // This is required if you use the Auto complete plug-in
     },
 });
 
 
 // PrismJS
-import 'prismjs'
-import 'prismjs/themes/prism-tomorrow.css'
+import 'prismjs';
+import 'prismjs/themes/prism-tomorrow.css';
 
 
 // Feather font icon
-require('../../assets/css/iconfont.css')
+require('../../assets/css/iconfont.css');
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
 new Vue({
     router,
     store,
     i18n,
     render: h => h(App)
-}).$mount('#app')
+}).$mount('#app');
 
 
 

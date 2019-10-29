@@ -61,5 +61,18 @@ export default [
         slug: "calendar",
         icon: "CalendarIcon",
         i18n: "Calendar"
+    },
+    {
+        name: "Settings",
+        icon: "SettingsIcon",
+        i18n: "Settings",
+        submenu: [
+            {
+                url: '/dashboard/role',
+                name: "Roles & Permissions",
+                slug: "role",
+                i18n: "Roles"
+            }
+        ]
     }
 ]
