@@ -29,7 +29,8 @@ class UsersTableSeeder extends Seeder
             ],
         ];
         foreach ($users as $user){
-            User::create($user);
+            $temp = User::create($user);
+            $temp->assignRole('super_admin');
         }
     }
 }
