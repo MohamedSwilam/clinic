@@ -44,4 +44,11 @@ class User extends Authenticatable
     {
         $query->where('name', $name);
     }
+
+    public function scopeEmployees($query)
+    {
+        return $query->whereHas('roles', function ($q) {
+            $q->whereIn('name', ['doctor', 'receptionist', 'assistant_doctor', 'accountant']);
+        });
+    }
 }
