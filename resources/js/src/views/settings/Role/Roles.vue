@@ -4,7 +4,7 @@
         <vx-card title="Roles List">
 			<vs-table search :data="roles">
                 <template slot="header">
-                    <vs-button size="small" to="/dashboard/role/create" icon-pack="feather" icon="icon-plus" type="filled">Create Role</vs-button>
+                    <vs-button size="small" to="/dashboard/settings/role/create" icon-pack="feather" icon="icon-plus" type="filled">Create Role</vs-button>
                 </template>
 		      	<template slot="thead">
 			        <vs-th sort-key="id">ID</vs-th>
@@ -25,10 +25,10 @@
 			          		<vs-row>
 			          			<div class="flex mb-4">
 									  <div class="w-1/3">
-											<vs-button @click="hideTooltip" :to="`/dashboard/role/${role.id}`" radius color="primary" type="border" icon-pack="feather" icon="icon-eye"></vs-button>
+											<vs-button :to="`/dashboard/settings/role/${role.id}`" radius color="primary" type="border" icon-pack="feather" icon="icon-eye"></vs-button>
 									  </div>
 									  <div class="w-1/3" style="margin: 0 10px;">
-											<vs-button @click="hideTooltip" :to="`/dashboard/role/edit/${role.id}`" radius color="warning" type="border" icon-pack="feather" icon="icon-edit"></vs-button>
+											<vs-button :to="`/dashboard/settings/role/edit/${role.id}`" radius color="warning" type="border" icon-pack="feather" icon="icon-edit"></vs-button>
 									  </div>
 									  <div class="w-1/3">
 											<vs-button radius color="danger" type="border" icon-pack="feather" icon="icon-trash" @click="confirmDeleteRole(role)"></vs-button>
@@ -99,15 +99,6 @@ export default {
   		{
             this.vs_alert ('Success', 'Role Successfully Deleted.', 'success');
   		},
-
-		//Hide Tool Tip After Navigation
-		hideTooltip()
-		{
-			let el = document.getElementsByClassName('vs-tooltip');
-			while (el.length > 0) {
-				el[0].parentNode.removeChild(el[0]);
-			}
-		},
 
 		//Vuesax alert
 		vs_alert (title, text, color)
