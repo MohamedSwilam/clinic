@@ -4,8 +4,7 @@
             <tab-content title="Patient Information" class="mb-5" icon="feather icon-user" :before-change="validateStep1">
                 <!-- tab 1 content -->
                 <form data-vv-scope="step-1">
-                    <div class="vx-row" v-if="patientID == 'new'">
-
+                    <div class="vx-row" v-if="patientID === 'new'">
                         <vs-row>
                             <vs-col vs-lg="6" vs-sm="12" vs-xs="12" class="mb-5 pl-5">
                                 <vs-input icon-pack="feather" icon="icon-user" label-placeholder="First Name" v-model="firstName" class="w-full" name="first_name" v-validate="'required|alpha'" />
@@ -28,7 +27,7 @@
                                 </div>
                             </vs-col>
                             <vs-col vs-lg="6" vs-sm="12" vs-xs="12" class="mb-5 pl-5">
-                                <vs-input icon-pack="feather" icon="icon-map-pin" label-placeholder="Address" v-model="address.address_text" class="w-full" name="address_text" v-validate="'alpha'" />
+                                <vs-input icon-pack="feather" icon="icon-map-pin" label-placeholder="Address" v-model="address.address_text" class="w-full" name="address_text"/>
                                 <span class="text-danger">{{ errors.first('step-1.address_text') }}</span>
                             </vs-col>
                             <vs-col vs-lg="6" vs-sm="12" vs-xs="12" class="mb-5 pl-5">
@@ -89,17 +88,12 @@
                                 <span class="text-danger">{{ errors.first('step-1.email') }}</span>
                             </vs-col>
                             <vs-col vs-lg="6" vs-sm="12" vs-xs="12" class="mb-5 pl-5">
-                                <vs-input icon-pack="feather" icon="icon-mail" label-placeholder="Email" v-model="email" class="w-full" name="email" v-validate="'email'" />
-                                <span class="text-danger">{{ errors.first('step-1.email') }}</span>
+                                <vs-input icon-pack="feather" icon="icon-briefcase" label-placeholder="Occupation" v-model="occupation" class="w-full" name="occupation" />
+                                <span class="text-danger">{{ errors.first('step-1.occupation') }}</span>
                             </vs-col>
                             <vs-col vs-lg="6" vs-sm="12" vs-xs="12" class="mb-5 pl-5">
-
-                            </vs-col>
-                            <vs-col vs-lg="6" vs-sm="12" vs-xs="12" class="mb-5 pl-5">
-
-                            </vs-col>
-                            <vs-col vs-lg="6" vs-sm="12" vs-xs="12" class="mb-5 pl-5">
-
+                                <vs-input icon-pack="feather" icon="icon-git-branch" label-placeholder="Referred From" v-model="referred_from" class="w-full" name="referred_from" />
+                                <span class="text-danger">{{ errors.first('step-1.referred_from') }}</span>
                             </vs-col>
                         </vs-row>
                     </div>
@@ -133,9 +127,7 @@
                             <vs-col vs-lg="6" vs-sm="12" vs-xs="12" class="mb-5">
                                 <b>Referred From: </b> No body
                             </vs-col>
-
                         </vs-row>
-
                     </div>
                 </form>
             </tab-content>
@@ -144,16 +136,47 @@
             <tab-content title="Appointment" class="mb-5" icon="feather icon-edit" :before-change="validateStep2">
                 <form data-vv-scope="step-2">
                     <div class="vx-row">
-                        <div class="vx-col w-1/2">
-                            <vs-input size="large" label="Proposal Title" v-model="proposalTitle" class="w-full mt-5" name="proposal_title" v-validate="'required|alpha'" />
-                            <span class="text-danger">{{ errors.first('step-2.proposal_title') }}</span>
-
-                            <vs-input size="large" label="Job Title"  v-model="jobTitle" class="w-full mt-5" name="job_title" v-validate="'required|alpha'" />
-                            <span class="text-danger">{{ errors.first('step-2.job_title') }}</span>
-                        </div>
-                        <div class="vx-col w-1/2 mt-10">
-                            <vs-textarea v-model="textarea" label="Short discription" class="h-full" />
-                        </div>
+                        <vs-row>
+                            <vs-col vs-lg="6" vs-sm="12" vs-xs="12" class="mb-5 pl-5">
+                                <vs-select
+                                    class="w-full"
+                                    label="Reservation Type"
+                                    v-model="reservation_type"
+                                >
+                                    <vs-select-item :key="index" :value="type.id" :text="type.title" v-for="(type, index) in reservation_types" />
+                                </vs-select>
+                            </vs-col>
+                            <vs-col vs-lg="6" vs-sm="12" vs-xs="12" class="mb-5 pl-5 pt-1">
+                                <div class="vs-component vs-con-input-label vs-input w-full vs-input-primary is-label-placeholder">
+                                    <div class="vs-con-input">
+                                        <input v-model="reservation_date" required type="date" class="vs-inputx vs-input--input normal hasIcon hasValue dob-input" style="border: 1px solid rgba(0, 0, 0, 0.2);">
+                                        <span class="input-span-placeholder vs-input--placeholder normal normal vs-placeholder-label">
+                                    Reservation Date
+                                    </span>
+                                        <i class="vs-icon notranslate icon-scale icon-inputx notranslate vs-input--icon feather icon-calendar null"></i>
+                                    </div>
+                                    <span></span>
+                                </div>
+                            </vs-col>
+                            <vs-col vs-lg="6" vs-sm="12" vs-xs="12" class="mb-5 pl-5">
+                                <vs-select
+                                    class="w-full"
+                                    label="Doctor"
+                                    v-model="reservation_doctor"
+                                >
+                                    <vs-select-item :key="index" :value="doctor.id" :text="doctor.name" v-for="(doctor, index) in doctors" />
+                                </vs-select>
+                            </vs-col>
+                            <vs-col vs-lg="6" vs-sm="12" vs-xs="12" class="mb-5 pl-5">
+                                <vs-select
+                                    class="w-full"
+                                    label="Reservation Duration"
+                                    v-model="reservation_duration"
+                                >
+                                    <vs-select-item :key="index" :value="duration.id" :text="duration.duration" v-for="(duration, index) in durations" />
+                                </vs-select>
+                            </vs-col>
+                        </vs-row>
                     </div>
                 </form>
             </tab-content>
@@ -162,27 +185,45 @@
             <tab-content title="Payment" class="mb-5" icon="feather icon-dollar-sign" :before-change="validateStep3">
                 <form data-vv-scope="step-3">
                     <div class="vx-row">
-                        <div class="vx-col w-1/2">
-                            <vs-input size="large" label="Event Name" v-model="eventName" class="w-full mt-5" name="event_name" v-validate="'required|alpha'" />
-                            <span class="text-danger">{{ errors.first('step-3.event_name') }}</span>
-                        </div>
-                        <div class="vx-col w-1/2">
-                            <vs-select v-model="city" class="w-full select-large mt-5" label="Event Location">
-                                <vs-select-item :key="index" :value="item.value" :text="item.text" v-for="(item,index) in cityOptions" class="w-full" />
-                            </vs-select>
-                        </div>
-                        <div class="vx-col w-1/2 mt-5">
-                            <vs-select v-model="status" class="w-full select-large" label="Event Status">
-                                <vs-select-item :key="index" :value="item.value" :text="item.text" v-for="(item,index) in statusOptions" class="w-full" />
-                            </vs-select>
-                        </div>
-                        <div class="vx-col w-1/2 mt-8">
-                            <div class="demo-alignment">
-                                <span>Requirements:</span>
-                                <vs-checkbox>Staffing</vs-checkbox>
-                                <vs-checkbox>Catering</vs-checkbox>
-                            </div>
-                        </div>
+                        <vs-row>
+                            <vs-col vs-lg="12" vs-sm="12" vs-xs="12" class="mb-5">
+                                <vs-table :data="['','']">
+                                    <template slot="thead">
+                                        <vs-th>Title</vs-th>
+                                        <vs-th>Cost</vs-th>
+                                        <vs-th>Discount</vs-th>
+                                        <vs-th>Total</vs-th>
+                                    </template>
+
+                                    <template slot-scope="{data}">
+                                        <vs-tr>
+                                            <vs-td>Operation</vs-td>
+                                            <vs-td>5000 EGP</vs-td>
+                                            <vs-td>0%</vs-td>
+                                            <vs-td>5000 EGP</vs-td>
+                                        </vs-tr>
+                                        <vs-tr>
+                                            <vs-td>Old Payments</vs-td>
+                                            <vs-td>600 EGP</vs-td>
+                                            <vs-td>-</vs-td>
+                                            <vs-td>5000 EGP</vs-td>
+                                        </vs-tr>
+                                        <vs-tr>
+                                            <vs-td></vs-td>
+                                            <vs-td></vs-td>
+                                            <vs-td><b>TOTAL: </b></vs-td>
+                                            <vs-td>5600 EGP</vs-td>
+                                        </vs-tr>
+                                    </template>
+                                </vs-table>
+                            </vs-col>
+                            <vs-col vs-lg="12" vs-sm="12" vs-xs="12" class="mb-5" vs-justify="center" vs-align="center">
+                                <vs-input-number min="0" max="5600" v-model="amount_to_pay" label="Amount To Pay:" :step="50"/>
+                            </vs-col>
+                            <vs-col vs-lg="12" vs-sm="12" vs-xs="12" class="mb-5" vs-justify="center" vs-align="center">
+                                <b>Remaining: </b>{{5600-amount_to_pay}}
+                            </vs-col>
+                        </vs-row>
                     </div>
                 </form>
             </tab-content>
@@ -193,7 +234,6 @@
 <script>
     import { FormWizard, TabContent } from 'vue-form-wizard'
     import 'vue-form-wizard/dist/vue-form-wizard.min.css'
-
     // For custom error message
     import { Validator } from 'vee-validate';
     const dict = {
@@ -220,18 +260,13 @@
             },
         }
     };
-
     // register custom messages
     Validator.localize('en', dict);
-
     export default {
         name: "AddAppointment",
-        mounted() {
-
-        },
         created() {
             this.patientID = this.$route.params.patient_id;
-            if(this.patientID != 'new'){
+            if(this.patientID !== 'new'){
                 this.startIndex = 1;
                 this.getPatientData(this.patientID);
             }
@@ -239,18 +274,65 @@
         data() {
             return {
                 startIndex: 0,
-                searchText: "",
                 firstName: "",
                 lastName: "",
                 Telephones: [
                     '01096436702',
                     '01116436790',
                 ],
+                reservation_type: 1,
+                reservation_date: '',
+                reservation_doctor: 1,
+                reservation_duration: 1,
+                amount_to_pay: 0,
+                durations: [
+                    {
+                        id: 1,
+                        duration: '8:00AM - 10:00AM'
+                    },
+                    {
+                        id: 2,
+                        duration: '10:00AM - 12:00PM'
+                    },
+                    {
+                        id: 3,
+                        duration: '12:00PM - 2:00PM'
+                    }
+                ],
+                doctors: [
+                    {
+                        id: 1,
+                        name: 'Doctor Name 1'
+                    },
+                    {
+                        id: 2,
+                        name: 'Doctor Name 2'
+                    },
+                    {
+                        id: 3,
+                        name: 'Doctor Name 3'
+                    },
+                    {
+                        id: 4,
+                        name: 'Doctor Name 4'
+                    }
+                ],
+                reservation_types:[
+                    {
+                        id: 1,
+                        title: 'Reveal'
+                    },
+                    {
+                        id: 2,
+                        title: 'Operation'
+                    }
+                ],
                 Telephone: "",
                 city: "",
                 email: "",
                 martial_status: "",
                 referred_from: "",
+                occupation: "",
                 address: {
                     address_text: '',
                     country: '',
@@ -258,23 +340,6 @@
                 },
                 DOB: null,
                 gender: 1,
-                proposalTitle: "",
-                jobTitle: "",
-                textarea: "",
-                eventName: "",
-                eventLocation: "san-francisco",
-                status: "plannning",
-                statusOptions: [
-                    { text: "Plannning", value: "plannning" },
-                    { text: "In Progress", value: "in progress" },
-                    { text: "Finished", value: "finished" },
-                ],
-                LocationOptions: [
-                    { text: "New York", value: "new-york" },
-                    { text: "Chicago", value: "chicago" },
-                    { text: "San Francisco", value: "san-francisco" },
-                    { text: "Boston", value: "boston" },
-                ],
                 cities: [
                     {
                         id: 1,
@@ -317,9 +382,7 @@
         },
         methods: {
             getPatientData(patientID){
-                patient
             },
-
             validateStep1() {
                 return new Promise((resolve, reject) => {
                     this.$validator.validateAll('step-1').then(result => {
@@ -346,7 +409,7 @@
                 return new Promise((resolve, reject) => {
                     this.$validator.validateAll("step-3").then(result => {
                         if (result) {
-                            alert("Form submitted!");
+                            this.vs_alert ('Done', 'Reservation has been placed successfully', 'success', 'icon-check');
                             resolve(true)
                         } else {
                             reject("correct all values");
@@ -354,11 +417,9 @@
                     })
                 })
             },
-
             removeTelephone (e, item) {
                 this.Telephones.splice(this.Telephones.indexOf(item), 1)
             },
-
             addTelephone (e) {
                 e.preventDefault();
                 let item = this.Telephone;
@@ -366,6 +427,17 @@
                     this.Telephones.push(item);
                     this.Telephone = "";
                 }
+            },
+            //Vuesax alert
+            vs_alert (title, text, color, icon)
+            {
+                this.$vs.notify({
+                    title: title,
+                    text: text,
+                    color: color,
+                    iconPack: 'feather',
+                    icon: icon
+                });
             }
         },
         components: {
@@ -380,11 +452,9 @@
         padding-bottom: 7px !important;
         padding-top: 7px !important;
     }
-
     input[type=date]:invalid::-webkit-datetime-edit {
         color: rgb(220, 220, 220) !important;
     }
-
     .input-btn {
         position: relative;
         top: 17px;
@@ -392,13 +462,14 @@
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
     }
-
     .gender-container{
         padding-top: 9px !important;
     }
-
     .gender-placeholder {
         -webkit-transform: translate(-3px,-90%)!important;
         transform: translate(-3px,-70%)!important;
+    }
+    .vs-input-number {
+        width: fit-content;
     }
 </style>

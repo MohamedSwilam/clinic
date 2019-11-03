@@ -49,29 +49,21 @@ export default [
         i18n: "Appointment"
     },
     {
-        url: "/dashboard/invoice",
-        name: "Invoice",
-        slug: "invoice",
-        icon: "FileIcon",
-        i18n: "Invoice"
-    },
-    {
-        url: "/dashboard/calendar",
-        name: "Calendar",
-        slug: "calendar",
-        icon: "CalendarIcon",
-        i18n: "Calendar"
-    },
-    {
         name: "Settings",
         icon: "SettingsIcon",
         i18n: "Settings",
         submenu: [
             {
-                url: '/dashboard/role',
+                url: '/dashboard/settings/role',
                 name: "Roles & Permissions",
                 slug: "role",
                 i18n: "Roles"
+            },
+            {
+                url: '/dashboard/settings/reservation',
+                name: "Reservations",
+                slug: "reservation",
+                i18n: "reservation"
             }
         ]
     }

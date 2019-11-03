@@ -127,6 +127,51 @@ const router = new Router({
                     }
                 },
                 {
+                    path: '/dashboard/patient/create',
+                    name: 'create-patient',
+                    component: () => import('./views/patient/create.vue'),
+                    meta: {
+                        breadcrumb: [
+                            { title: 'Home', url: '/dashboard', i18n: 'Home' },
+                            { title: 'Patient', i18n: 'Patient', url: '/dashboard/patient' },
+                            { title: 'Create', active: true, i18n: 'CreatePatient' },
+                        ],
+                        pageTitle: 'Create Patient',
+                        pageTitle_i18n: 'CreatePatient',
+                        rule: 'editor'
+                    }
+                },
+                {
+                    path: '/dashboard/patient/:id/edit',
+                    name: 'edit-patient',
+                    component: () => import('./views/patient/edit.vue'),
+                    meta: {
+                        breadcrumb: [
+                            { title: 'Home', url: '/dashboard', i18n: 'Home' },
+                            { title: 'Patient', i18n: 'Patient', url: '/dashboard/patient' },
+                            { title: 'Edit', active: true, i18n: 'EditPatient' },
+                        ],
+                        pageTitle: 'Edit Patient',
+                        pageTitle_i18n: 'EditPatient',
+                        rule: 'editor'
+                    }
+                },
+                {
+                    path: '/dashboard/patient/:id',
+                    name: 'profile-patient',
+                    component: () => import('./views/patient/profile.vue'),
+                    meta: {
+                        breadcrumb: [
+                            { title: 'Home', url: '/dashboard', i18n: 'Home' },
+                            { title: 'Patient', i18n: 'Patient', url: '/dashboard/patient' },
+                            { title: 'Profile', active: true, i18n: 'profile' },
+                        ],
+                        pageTitle: 'Profile',
+                        pageTitle_i18n: 'Profile',
+                        rule: 'editor'
+                    }
+                },
+                {
                     path: '/dashboard/appointment',
                     name: 'appointment',
                     component: () => import('./views/appointment/Appointment.vue'),
@@ -184,54 +229,113 @@ const router = new Router({
                     }
                 },
                 {
-                    path: '/dashboard/role',
+                    path: '/dashboard/settings/role',
                     name: 'role',
-                    component: () => import('./views/Role/Roles.vue'),
+                    component: () => import('./views/settings/Role/Roles.vue'),
                     meta: {
                         breadcrumb: [
                             { title: 'Home', url: '/dashboard'},
+                            { title: 'Settings'},
                             { title: 'Roles', active: true}
                         ],
                         pageTitle: "Roles",
                     }
                 },
                 {
-                    path: '/dashboard/role/create',
+                    path: '/dashboard/settings/role/create',
                     name: 'create-role',
-                    component: () => import('./views/Role/Create.vue'),
+                    component: () => import('./views/settings/Role/Create.vue'),
                     meta: {
                         breadcrumb: [
                             { title: 'Home', url: '/dashboard'},
-                            { title: 'Roles', url: '/dashboard/role'},
+                            { title: 'Settings'},
+                            { title: 'Roles', url: '/dashboard/settings/role'},
                             { title: 'Create Role', active: true}
                         ],
                         pageTitle: "Create Role",
                     }
                 },
                 {
-                    path: '/dashboard/role/:id',
+                    path: '/dashboard/settings/role/:id',
                     name: 'view-role',
-                    component: () => import('./views/Role/View.vue'),
+                    component: () => import('./views/settings/Role/View.vue'),
                     meta: {
                         breadcrumb: [
                             { title: 'Home', url: '/dashboard'},
-                            { title: 'Roles', url: '/dashboard/role'},
+                            { title: 'Settings'},
+                            { title: 'Roles', url: '/dashboard/settings/role'},
                             { title: 'Role Information', active: true}
                         ],
                         pageTitle: "Role Information",
                     }
                 },
                 {
-                    path: '/dashboard/role/edit/:id',
+                    path: '/dashboard/settings/role/edit/:id',
                     name: 'edit-role',
-                    component: () => import('./views/Role/Edit.vue'),
+                    component: () => import('./views/settings/Role/Edit.vue'),
                     meta: {
                         breadcrumb: [
                             { title: 'Home', url: '/dashboard'},
-                            { title: 'Roles', url: '/dashboard/role'},
+                            { title: 'Settings'},
+                            { title: 'Roles', url: '/dashboard/settings/role'},
                             { title: 'Edit Role', active: true}
                         ],
                         pageTitle: "Edit Role",
+                    }
+                },
+                {
+                    path: '/dashboard/settings/reservation',
+                    name: 'browse-reservation',
+                    component: () => import('./views/settings/reservation/browse.vue'),
+                    meta: {
+                        breadcrumb: [
+                            { title: 'Home', url: '/dashboard'},
+                            { title: 'Settings'},
+                            { title: 'Reservation', active: true}
+                        ],
+                        pageTitle: "Reservation Settings",
+                    }
+                },
+                {
+                    path: '/dashboard/settings/reservation/create',
+                    name: 'create-reservation',
+                    component: () => import('./views/settings/reservation/create.vue'),
+                    meta: {
+                        breadcrumb: [
+                            { title: 'Home', url: '/dashboard'},
+                            { title: 'Settings'},
+                            { title: 'Reservation', url: '/dashboard/settings/reservation'},
+                            { title: 'Create', active: true}
+                        ],
+                        pageTitle: "Create Reservation Type",
+                    }
+                },
+                {
+                    path: '/dashboard/settings/reservation/edit/:id',
+                    name: 'edit-reservation',
+                    component: () => import('./views/settings/reservation/edit.vue'),
+                    meta: {
+                        breadcrumb: [
+                            { title: 'Home', url: '/dashboard'},
+                            { title: 'Settings'},
+                            { title: 'Reservation', url: '/dashboard/settings/reservation'},
+                            { title: 'Edit', active: true}
+                        ],
+                        pageTitle: "Edit Reservation Type",
+                    }
+                },
+                {
+                    path: '/dashboard/settings/reservation-duration/create',
+                    name: 'create-reservation-duration',
+                    component: () => import('./views/settings/reservation/create-duration.vue'),
+                    meta: {
+                        breadcrumb: [
+                            { title: 'Home', url: '/dashboard'},
+                            { title: 'Settings'},
+                            { title: 'Reservation', url: '/dashboard/settings/reservation'},
+                            { title: 'Create Duration', active: true}
+                        ],
+                        pageTitle: "Create Reservation Duration",
                     }
                 },
             ],
