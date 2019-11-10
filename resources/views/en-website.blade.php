@@ -25,7 +25,7 @@
     <!-- Responsive CSS -->
     <link rel="stylesheet" href="{{ asset(mix('css/website/responsive.css'))}}">
 
-    <title>GoldMedi - Medical, Health Care and Doctor Clinic Template</title>
+    <title>Dental Clinic</title>
 </head>
 
 <body data-spy="scroll" data-offset="70">

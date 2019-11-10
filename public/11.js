@@ -156,6 +156,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "viewData",
   mounted: function mounted() {
@@ -344,8 +363,8 @@ __webpack_require__.r(__webpack_exports__);
         },
         status: {
           id: 4,
-          title: 'Finished',
-          color: 'success'
+          title: 'Missed',
+          color: 'dark'
         }
       }];
     }
@@ -728,87 +747,6 @@ var render = function() {
                                         )
                                       ]),
                                       _vm._v(" "),
-                                      _c("vs-td", [
-                                        _c(
-                                          "div",
-                                          {
-                                            on: {
-                                              contextmenu: function($event) {
-                                                $event.preventDefault()
-                                                return _vm.openContext(
-                                                  appointment.id
-                                                )
-                                              }
-                                            }
-                                          },
-                                          [
-                                            appointment.patient.payment
-                                              .percentage === 100
-                                              ? [
-                                                  _c("i", {
-                                                    staticClass: "fas fa-check"
-                                                  }),
-                                                  _vm._v(" "),
-                                                  _c("b", [_vm._v("Complete")])
-                                                ]
-                                              : [
-                                                  _c("b", [
-                                                    _vm._v(
-                                                      _vm._s(
-                                                        appointment.patient
-                                                          .payment.paid
-                                                      )
-                                                    )
-                                                  ]),
-                                                  _vm._v(" Out of "),
-                                                  _c("b", [
-                                                    _vm._v(
-                                                      _vm._s(
-                                                        appointment.patient
-                                                          .payment.total
-                                                      )
-                                                    )
-                                                  ])
-                                                ],
-                                            _vm._v(" "),
-                                            _c("br"),
-                                            _vm._v(" "),
-                                            appointment.patient.payment
-                                              .percentage === 100
-                                              ? _c("vs-progress", {
-                                                  attrs: {
-                                                    percent:
-                                                      appointment.patient
-                                                        .payment.percentage,
-                                                    color: "success"
-                                                  }
-                                                })
-                                              : appointment.patient.payment
-                                                  .percentage > 25
-                                              ? _c("vs-progress", {
-                                                  attrs: {
-                                                    percent:
-                                                      appointment.patient
-                                                        .payment.percentage,
-                                                    color: "warning"
-                                                  }
-                                                })
-                                              : appointment.patient.payment
-                                                  .percentage <= 25
-                                              ? _c("vs-progress", {
-                                                  attrs: {
-                                                    percent:
-                                                      appointment.patient
-                                                        .payment.percentage,
-                                                    color: "danger"
-                                                  }
-                                                })
-                                              : _vm._e()
-                                          ],
-                                          2
-                                        )
-                                      ]),
-                                      _vm._v(" "),
                                       _c(
                                         "vs-td",
                                         [
@@ -827,9 +765,217 @@ var render = function() {
                                           )
                                         ],
                                         1
+                                      ),
+                                      _vm._v(" "),
+                                      _c("vs-td", [
+                                        _c(
+                                          "div",
+                                          { staticClass: "flex mb-4" },
+                                          [
+                                            _c(
+                                              "div",
+                                              { staticClass: "w-1/3 pl-2" },
+                                              [
+                                                _c("vs-button", {
+                                                  attrs: {
+                                                    to:
+                                                      "/dashboard/patient/" +
+                                                      appointment.patient
+                                                        .public_id,
+                                                    radius: "",
+                                                    color: "primary",
+                                                    type: "border",
+                                                    "icon-pack": "feather",
+                                                    icon: "icon-eye"
+                                                  }
+                                                })
+                                              ],
+                                              1
+                                            ),
+                                            _vm._v(" "),
+                                            _c(
+                                              "div",
+                                              { staticClass: "w-1/3 pl-2" },
+                                              [
+                                                _c("vs-button", {
+                                                  attrs: {
+                                                    to:
+                                                      "/dashboard/patient/" +
+                                                      appointment.patient
+                                                        .public_id +
+                                                      "/edit",
+                                                    radius: "",
+                                                    color: "warning",
+                                                    type: "border",
+                                                    "icon-pack": "feather",
+                                                    icon: "icon-edit"
+                                                  }
+                                                })
+                                              ],
+                                              1
+                                            ),
+                                            _vm._v(" "),
+                                            _c(
+                                              "div",
+                                              { staticClass: "w-1/3 pl-2" },
+                                              [
+                                                _c("vs-button", {
+                                                  attrs: {
+                                                    radius: "",
+                                                    color: "danger",
+                                                    type: "border",
+                                                    "icon-pack": "feather",
+                                                    icon: "icon-trash"
+                                                  },
+                                                  on: {
+                                                    click: function($event) {
+                                                      return _vm.confirmDeleteAppointement(
+                                                        appointment
+                                                      )
+                                                    }
+                                                  }
+                                                })
+                                              ],
+                                              1
+                                            )
+                                          ]
+                                        )
+                                      ]),
+                                      _vm._v(" "),
+                                      _c(
+                                        "template",
+                                        {
+                                          staticClass: "expand-user",
+                                          slot: "expand"
+                                        },
+                                        [
+                                          _c(
+                                            "div",
+                                            {
+                                              staticClass:
+                                                "con-expand-users w-full"
+                                            },
+                                            [
+                                              _c(
+                                                "vs-list",
+                                                [
+                                                  _c("vs-list-item", {
+                                                    attrs: {
+                                                      "icon-pack": "feather",
+                                                      icon: "icon-arrow-right",
+                                                      title:
+                                                        "Appointment Information"
+                                                    }
+                                                  }),
+                                                  _vm._v(" "),
+                                                  _c("vs-list-item", {
+                                                    attrs: {
+                                                      "icon-pack": "feather",
+                                                      icon: "icon-arrow-right",
+                                                      title:
+                                                        "Appointment Information"
+                                                    }
+                                                  }),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "vs-list-item",
+                                                    {
+                                                      attrs: {
+                                                        "icon-pack": "feather",
+                                                        icon:
+                                                          "icon-arrow-right",
+                                                        title: "Update Status"
+                                                      }
+                                                    },
+                                                    [
+                                                      _c(
+                                                        "vs-button",
+                                                        {
+                                                          attrs: {
+                                                            size: "small",
+                                                            color: "primary",
+                                                            type:
+                                                              appointment.status
+                                                                .title ==
+                                                              "Coming"
+                                                                ? "filled"
+                                                                : "border",
+                                                            "icon-pack":
+                                                              "feather"
+                                                          }
+                                                        },
+                                                        [_vm._v("Coming")]
+                                                      ),
+                                                      _vm._v(" "),
+                                                      _c(
+                                                        "vs-button",
+                                                        {
+                                                          attrs: {
+                                                            size: "small",
+                                                            color: "danger",
+                                                            type:
+                                                              appointment.status
+                                                                .title ==
+                                                              "Inside"
+                                                                ? "filled"
+                                                                : "border",
+                                                            "icon-pack":
+                                                              "feather"
+                                                          }
+                                                        },
+                                                        [_vm._v("Inside")]
+                                                      ),
+                                                      _vm._v(" "),
+                                                      _c(
+                                                        "vs-button",
+                                                        {
+                                                          attrs: {
+                                                            size: "small",
+                                                            color: "warning",
+                                                            type:
+                                                              appointment.status
+                                                                .title ==
+                                                              "Postponed"
+                                                                ? "filled"
+                                                                : "border",
+                                                            "icon-pack":
+                                                              "feather"
+                                                          }
+                                                        },
+                                                        [_vm._v("Postponed")]
+                                                      ),
+                                                      _vm._v(" "),
+                                                      _c(
+                                                        "vs-button",
+                                                        {
+                                                          attrs: {
+                                                            size: "small",
+                                                            color: "success",
+                                                            type:
+                                                              appointment.status
+                                                                .title ==
+                                                              "Finished"
+                                                                ? "filled"
+                                                                : "border",
+                                                            "icon-pack":
+                                                              "feather"
+                                                          }
+                                                        },
+                                                        [_vm._v("Finished")]
+                                                      )
+                                                    ],
+                                                    1
+                                                  )
+                                                ],
+                                                1
+                                              )
+                                            ],
+                                            1
+                                          )
+                                        ]
                                       )
                                     ],
-                                    1
+                                    2
                                   )
                                 ]
                               })
@@ -839,7 +985,7 @@ var render = function() {
                       ],
                       null,
                       false,
-                      3924992554
+                      3769268058
                     )
                   },
                   [
@@ -1026,9 +1172,9 @@ var render = function() {
                         _vm._v(" "),
                         _c("vs-th", [_vm._v("Telephones")]),
                         _vm._v(" "),
-                        _c("vs-th", [_vm._v("Payment")]),
+                        _c("vs-th", [_vm._v("Status")]),
                         _vm._v(" "),
-                        _c("vs-th", [_vm._v("Status")])
+                        _c("vs-th", [_vm._v("Action")])
                       ],
                       1
                     )
