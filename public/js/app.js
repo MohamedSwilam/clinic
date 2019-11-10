@@ -106037,13 +106037,13 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     // PAGES
     // =============================================================================
     {
-      path: '/login',
+      path: '/dashboard/login',
       name: 'pageLogin',
       component: function component() {
         return __webpack_require__.e(/*! import() */ 4).then(__webpack_require__.bind(null, /*! ./views/pages/Login.vue */ "./resources/js/src/views/pages/Login.vue"));
       }
     }, {
-      path: '/pages/error-404',
+      path: '/dashboard/error-404',
       name: 'pageError404',
       component: function component() {
         return __webpack_require__.e(/*! import() */ 24).then(__webpack_require__.bind(null, /*! ./views/pages/Error404.vue */ "./resources/js/src/views/pages/Error404.vue"));

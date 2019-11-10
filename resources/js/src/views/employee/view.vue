@@ -85,8 +85,8 @@
                         <vs-th>Name</vs-th>
                         <vs-th sort-key="duration">Duration</vs-th>
                         <vs-th>Telephones</vs-th>
-                        <vs-th>Payment</vs-th>
                         <vs-th>Status</vs-th>
+                        <vs-th>Action</vs-th>
                     </template>
                     <template slot-scope="{data}">
                         <template v-for="(appointment, index) in appointments">
@@ -122,20 +122,39 @@
                                         </template>
                                     </div>
                                 </vs-td>
-
-                                <vs-td>
-                                    <div @contextmenu.prevent="openContext(appointment.id)">
-                                        <template v-if="appointment.patient.payment.percentage === 100"><i class="fas fa-check"></i> <b>Complete</b></template>
-                                        <template v-else><b>{{appointment.patient.payment.paid}}</b> Out of <b>{{appointment.patient.payment.total}}</b></template>
-                                        <br>
-                                        <vs-progress v-if="appointment.patient.payment.percentage === 100" :percent="appointment.patient.payment.percentage" color="success"></vs-progress>
-                                        <vs-progress v-else-if="appointment.patient.payment.percentage > 25" :percent="appointment.patient.payment.percentage" color="warning"></vs-progress>
-                                        <vs-progress v-else-if="appointment.patient.payment.percentage <= 25" :percent="appointment.patient.payment.percentage" color="danger"></vs-progress>
-                                    </div>
-                                </vs-td>
                                 <vs-td>
                                     <vs-chip :color="appointment.status.color">{{appointment.status.title}}</vs-chip>
                                 </vs-td>
+
+                                <vs-td>
+                                    <div class="flex mb-4">
+                                        <div class="w-1/3 pl-2">
+                                            <vs-button :to="`/dashboard/patient/${appointment.patient.public_id}`" radius color="primary" type="border" icon-pack="feather" icon="icon-eye"></vs-button>
+                                        </div>
+                                        <div class="w-1/3 pl-2">
+                                            <vs-button :to="`/dashboard/patient/${appointment.patient.public_id}/edit`" radius color="warning" type="border" icon-pack="feather" icon="icon-edit"></vs-button>
+                                        </div>
+                                        <div class="w-1/3 pl-2">
+                                            <vs-button radius color="danger" type="border" icon-pack="feather" icon="icon-trash" @click="confirmDeleteAppointement(appointment)"></vs-button>
+                                        </div>
+                                    </div>
+                                </vs-td>
+
+                                <template class="expand-user" slot="expand">
+                                    <div class="con-expand-users w-full">
+                                        <vs-list>
+                                            <vs-list-item icon-pack="feather" icon="icon-arrow-right" :title="'Appointment Information'"></vs-list-item>
+                                            <vs-list-item icon-pack="feather" icon="icon-arrow-right" :title="'Appointment Information'"></vs-list-item>
+                                            <vs-list-item icon-pack="feather" icon="icon-arrow-right" :title="'Update Status'">
+                                                <vs-button size="small" color="primary" :type="appointment.status.title=='Coming'?'filled':'border'" icon-pack="feather">Coming</vs-button>
+                                                <vs-button size="small" color="danger" :type="appointment.status.title=='Inside'?'filled':'border'" icon-pack="feather">Inside</vs-button>
+                                                <vs-button size="small" color="warning" :type="appointment.status.title=='Postponed'?'filled':'border'" icon-pack="feather">Postponed</vs-button>
+                                                <vs-button size="small" color="success" :type="appointment.status.title=='Finished'?'filled':'border'" icon-pack="feather">Finished</vs-button>
+                                            </vs-list-item>
+                                        </vs-list>
+                                    </div>
+                                </template>
+
                             </vs-tr>
                         </template>
                     </template>
@@ -355,8 +374,8 @@
                         },
                         status: {
                             id: 4,
-                            title: 'Finished',
-                            color: 'success'
+                            title: 'Missed',
+                            color: 'dark'
                         },
                     },
                 ];

@@ -1,85 +1,148 @@
 <template>
     <div>
-        <div class="centerx">
-            <vs-row>
-                <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-w="9">
-                    <b class="text-left vx-col w-full">{{appointments.length}} results found in {{resultTime}}ms</b>
-                </vs-col>
-                <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-w="3">
-                    <vs-button vs-w="3" color="primary" type="filled" icon-pack="feather" icon="icon-plus" to="/dashboard/appointment/add-appointment/new">New Appointment</vs-button>
-                </vs-col>
-            </vs-row>
-            <vs-row>
-                <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-w="12">
-                    <vs-input vs-w="9" icon-pack="feather" icon="icon-search" :label-placeholder="$t('Search') || 'Search'" v-model="searchText" class="is-label-placeholder w-full" />
-                </vs-col>
-            </vs-row>
-            <div class="vx-col w-full mb-base"></div>
-            <vs-table multiple v-model="selected" max-items="50" pagination :data="appointments" v-if="appointments.length > 0">
-                <template slot="thead">
-                    <vs-th>#</vs-th>
-                    <vs-th>ID</vs-th>
-                    <vs-th>Name</vs-th>
-                    <vs-th sort-key="duration">Duration</vs-th>
-                    <vs-th>Telephones</vs-th>
-                    <vs-th>Payment</vs-th>
-                </template>
-                <template slot-scope="{data}">
-                    <template v-for="(appointment, indextr) in appointments">
-                        <vue-context :ref="`appointment-${appointment.id}`">
-                            <ul class="bordered-items p-0">
-                                <li @click="optionClicked(appointment.id, $event.target.innerText)"><i class="fas fa-eye"></i>&nbsp;&nbsp; View</li>
-                                <li @click="optionClicked(appointment.id, $event.target.innerText)"><i class="fas fa-edit"></i>&nbsp;&nbsp; Edit</li>
-                                <li @click="optionClicked(appointment.id, $event.target.innerText)"><i class="fas fa-trash"></i>&nbsp;&nbsp; Delete</li>
-                            </ul>
-                        </vue-context>
-                        <vs-tr :key="indextr">
-                            <vs-td :data="indextr + 1">
-                                <div @contextmenu.prevent="openContext(appointment.id)">
-                                    {{ indextr + 1 }}
-                                </div>
-                            </vs-td>
+        <div class="vx-col w-full mb-base">
+            <vx-card title="Appointments" collapseAction>
+                <vs-table :sst="true"
+                          @search="handleSearch"
+                          @change-page="handleChangePage"
+                          @sort="handleSort"
+                          max-items="50" search pagination
+                          :data="appointments"
+                          v-if="appointments.length > 0">
 
-                            <vs-td>
-                                <div @contextmenu.prevent="openContext(appointment.id)">
-                                    {{ appointment.patient.public_id }}
-                                </div>
-                            </vs-td>
+                    <template slot="header">
+                        <div class="con-select-example">
+                            <!--<vs-select-->
+                                <!--autocomplete-->
+                                <!--class="selectExample"-->
+                                <!--label="Filter"-->
+                                <!--v-model="filterData"-->
+                                <!--icon-pack="feather"-->
+                                <!--icon="icon-filter"-->
+                            <!--&gt;-->
+                                <!--<div>-->
+                                    <!--<vs-select-group :title="'Duration'">-->
+                                        <!--<vs-select-item value="today" text="Today"/>-->
+                                        <!--<vs-select-item value="Tomorrow" text="Tomorrow"/>-->
+                                        <!--<vs-select-item value="This Week" text="This Week"/>-->
+                                        <!--<vs-select-item value="This Month" text="This Month"/>-->
+                                    <!--</vs-select-group>-->
+                                <!--</div>-->
+                                <!--<div>-->
+                                    <!--<vs-select-group :title="'Status'">-->
+                                        <!--<vs-select-item value="Coming" text="Coming"/>-->
+                                        <!--<vs-select-item value="Inside" text="Inside"/>-->
+                                        <!--<vs-select-item value="Postponed" text="Postponed"/>-->
+                                        <!--<vs-select-item value="Finished" text="Finished"/>-->
+                                    <!--</vs-select-group>-->
+                                <!--</div>-->
+                                <!--<div>-->
+                                    <!--<vs-select-group :title="'Gender'">-->
+                                        <!--<vs-select-item value="Male" text="Male"/>-->
+                                        <!--<vs-select-item value="Female" text="Female"/>-->
+                                    <!--</vs-select-group>-->
+                                <!--</div>-->
+                                <!--<div>-->
+                                    <!--<vs-select-group :title="'Payments'">-->
+                                        <!--<vs-select-item value="Less Paid" text="Less Paid"/>-->
+                                        <!--<vs-select-item value="Most Paid" text="Most Paid"/>-->
+                                        <!--<vs-select-item value="Complete" text="Complete"/>-->
+                                    <!--</vs-select-group>-->
+                                <!--</div>-->
+                            <!--</vs-select>-->
+                            <vs-button size="small" to="/dashboard/appointment/add-appointment/new" icon-pack="feather" icon="icon-plus">Add Appointment</vs-button>
 
-                            <vs-td>
-                                <div @contextmenu.prevent="openContext(appointment.id)">
-                                    {{ appointment.patient.name }}
-                                </div>
-                            </vs-td>
-
-                            <vs-td>
-                                <div @contextmenu.prevent="openContext(appointment.id)">
-                                    {{appointment.duration.getUTCDay()}}/{{appointment.duration.getUTCMonth()}}/{{appointment.duration.getUTCFullYear()}} {{appointment.duration.toLocaleTimeString()}}
-                                </div>
-                            </vs-td>
-
-                            <vs-td>
-                                <div @contextmenu.prevent="openContext(appointment.id)">
-                                    <template v-for="(telephone, index) in appointment.patient.telephones">
-                                        {{ telephone }}<template v-if="index !== appointment.patient.telephones.length-1">, </template>
-                                    </template>
-                                </div>
-                            </vs-td>
-
-                            <vs-td>
-                                <div @contextmenu.prevent="openContext(appointment.id)">
-                                    <template v-if="appointment.patient.payment.percentage === 100"><i class="fas fa-check"></i> <b>Complete</b></template>
-                                    <template v-else><b>{{appointment.patient.payment.paid}}</b> Out of <b>{{appointment.patient.payment.total}}</b></template>
-                                    <br>
-                                    <vs-progress v-if="appointment.patient.payment.percentage === 100" :percent="appointment.patient.payment.percentage" color="success"></vs-progress>
-                                    <vs-progress v-else-if="appointment.patient.payment.percentage > 25" :percent="appointment.patient.payment.percentage" color="warning"></vs-progress>
-                                    <vs-progress v-else-if="appointment.patient.payment.percentage <= 25" :percent="appointment.patient.payment.percentage" color="danger"></vs-progress>
-                                </div>
-                            </vs-td>
-                        </vs-tr>
+                        </div>
                     </template>
-                </template>
-            </vs-table>
+                    <template slot="thead">
+                        <vs-th>#</vs-th>
+                        <vs-th>ID</vs-th>
+                        <vs-th>Name</vs-th>
+                        <vs-th sort-key="duration">Duration</vs-th>
+                        <vs-th>Telephones</vs-th>
+                        <vs-th>Status</vs-th>
+                        <vs-th>Action</vs-th>
+                    </template>
+                    <template slot-scope="{data}">
+                        <template v-for="(appointment, index) in appointments">
+                            <vs-tr :key="index">
+                                <vs-td :data="index + 1">
+                                    <div @contextmenu.prevent="openContext(appointment.id)">
+                                        {{ index + 1 }}
+                                    </div>
+                                </vs-td>
+
+                                <vs-td>
+                                    <div @contextmenu.prevent="openContext(appointment.id)">
+                                        {{ appointment.patient.public_id }}
+                                    </div>
+                                </vs-td>
+
+                                <vs-td>
+                                    <div @contextmenu.prevent="openContext(appointment.id)">
+                                        {{ appointment.patient.name }}
+                                    </div>
+                                </vs-td>
+
+                                <vs-td>
+                                    <div @contextmenu.prevent="openContext(appointment.id)">
+                                        {{appointment.duration.getUTCDay()}}/{{appointment.duration.getUTCMonth()}}/{{appointment.duration.getUTCFullYear()}} {{appointment.duration.toLocaleTimeString()}}
+                                    </div>
+                                </vs-td>
+
+                                <vs-td>
+                                    <div @contextmenu.prevent="openContext(appointment.id)">
+                                        <template v-for="(telephone, index) in appointment.patient.telephones">
+                                            {{ telephone }}<template v-if="index !== appointment.patient.telephones.length-1">, </template>
+                                        </template>
+                                    </div>
+                                </vs-td>
+                                <vs-td>
+                                    <vs-chip :color="appointment.status.color">{{appointment.status.title}}</vs-chip>
+                                </vs-td>
+
+                                <vs-td>
+                                    <div class="flex mb-4">
+                                        <div class="w-1/3 pl-2">
+                                            <vs-button :to="`/dashboard/patient/${appointment.patient.public_id}`" radius color="primary" type="border" icon-pack="feather" icon="icon-eye"></vs-button>
+                                        </div>
+                                        <div class="w-1/3 pl-2">
+                                            <vs-button :to="`/dashboard/patient/${appointment.patient.public_id}/edit`" radius color="warning" type="border" icon-pack="feather" icon="icon-edit"></vs-button>
+                                        </div>
+                                        <div class="w-1/3 pl-2">
+                                            <vs-button radius color="danger" type="border" icon-pack="feather" icon="icon-trash" @click="confirmDeleteAppointement(appointment)"></vs-button>
+                                        </div>
+                                    </div>
+                                </vs-td>
+
+                                <template class="expand-user" slot="expand">
+                                    <div class="con-expand-users w-full">
+                                        <vs-list>
+                                            <vs-list-item icon-pack="feather" icon="icon-arrow-right" :title="'Payments'">
+                                                <template v-if="appointment.patient.payment.percentage===100"><i class="fas fa-check"></i> <b>Complete</b></template>
+                                                <template v-else><b>{{appointment.patient.payment.paid}}</b> Out of <b>{{appointment.patient.payment.total}}</b></template>
+                                                <br>
+                                                <vs-progress v-if="appointment.patient.payment.percentage === 100" :percent="appointment.patient.payment.percentage" color="success"></vs-progress>
+                                                <vs-progress v-else-if="appointment.patient.payment.percentage > 25" :percent="appointment.patient.payment.percentage" color="warning"></vs-progress>
+                                                <vs-progress v-else-if="appointment.patient.payment.percentage <= 25" :percent="appointment.patient.payment.percentage" color="danger"></vs-progress>
+                                            </vs-list-item>
+                                            <vs-list-item icon-pack="feather" icon="icon-arrow-right" :title="'Appointment Information'"></vs-list-item>
+                                            <vs-list-item icon-pack="feather" icon="icon-arrow-right" :title="'Appointment Information'"></vs-list-item>
+                                            <vs-list-item icon-pack="feather" icon="icon-arrow-right" :title="'Update Status'">
+                                                <vs-button size="small" color="primary" :type="appointment.status.title=='Coming'?'filled':'border'" icon-pack="feather">Coming</vs-button>
+                                                <vs-button size="small" color="danger" :type="appointment.status.title=='Inside'?'filled':'border'" icon-pack="feather">Inside</vs-button>
+                                                <vs-button size="small" color="warning" :type="appointment.status.title=='Postponed'?'filled':'border'" icon-pack="feather">Postponed</vs-button>
+                                                <vs-button size="small" color="success" :type="appointment.status.title=='Finished'?'filled':'border'" icon-pack="feather">Finished</vs-button>
+                                            </vs-list-item>
+                                        </vs-list>
+                                    </div>
+                                </template>
+
+                            </vs-tr>
+                        </template>
+                    </template>
+                </vs-table>
+            </vx-card>
         </div>
     </div>
 </template>
@@ -145,6 +208,11 @@
                                 percentage: (200*100)/1000
                             },
                         },
+                        status: {
+                            id: 1,
+                            title: 'Coming',
+                            color: 'primary'
+                        }
                     },
                     {
                         id: 2,
@@ -166,6 +234,11 @@
                                 percentage: (500*100)/800
                             },
                         },
+                        status: {
+                            id: 2,
+                            title: 'Inside',
+                            color: 'danger'
+                        }
                     },
                     {
                         id: 3,
@@ -187,6 +260,11 @@
                                 percentage: (900*100)/900
                             },
                         },
+                        status: {
+                            id: 3,
+                            title: 'Postponed',
+                            color: 'warning'
+                        }
                     },
                     {
                         id: 4,
@@ -206,7 +284,12 @@
                                 paid: 200,
                                 total: 1000,
                                 percentage: (200*100)/1000
-                            },
+                            }
+                        },
+                        status: {
+                            id: 4,
+                            title: 'Finished',
+                            color: 'success'
                         },
                     },
                     {
@@ -229,6 +312,11 @@
                                 percentage: (200*100)/1000
                             },
                         },
+                        status: {
+                            id: 4,
+                            title: 'Finished',
+                            color: 'success'
+                        }
                     },
                     {
                         id: 6,
@@ -250,6 +338,11 @@
                                 percentage: (700*100)/1000
                             },
                         },
+                        status: {
+                            id: 4,
+                            title: 'Finished',
+                            color: 'success'
+                        },
                     },
                     {
                         id: 7,
@@ -270,6 +363,11 @@
                                 total: 1000,
                                 percentage: (200*100)/1000
                             },
+                        },
+                        status: {
+                            id: 4,
+                            title: 'Missed',
+                            color: 'dark'
                         },
                     },
                 ];

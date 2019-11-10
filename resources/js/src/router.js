@@ -351,12 +351,12 @@ const router = new Router({
                 // PAGES
                 // =============================================================================
                 {
-                    path: '/login',
+                    path: '/dashboard/login',
                     name: 'pageLogin',
                     component: () => import('./views/pages/Login.vue')
                 },
                 {
-                    path: '/pages/error-404',
+                    path: '/dashboard/error-404',
                     name: 'pageError404',
                     component: () => import('./views/pages/Error404.vue')
                 },

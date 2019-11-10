@@ -11,6 +11,8 @@
 |
 */
 
-Route::view('/', 'website')->name('welcome');
+Route::view('/', 'en-website')->name('welcome');
+Route::view('/en', 'en-website')->name('welcome');
+Route::view('/ar', 'ar-website')->name('welcome');
 Route::get('/dashboard', 'ApplicationController')->where('any', '.*');
 Route::get('/dashboard/{any}', 'ApplicationController')->where('any', '.*');
