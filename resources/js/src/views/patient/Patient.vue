@@ -1,105 +1,83 @@
 <template>
     <div>
-        <div class="centerx" ref="content">
-            <vs-row>
-                <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-w="9">
-                    <b class="text-left vx-col w-full">{{patients.length}} results found in {{resultTime}}ms</b>
-                </vs-col>
-                <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-w="3">
-                    <vs-button vs-w="3" color="primary" type="filled" icon-pack="feather" icon="icon-plus">New Patient</vs-button>
-                </vs-col>
-            </vs-row>
-            <vs-row>
-                <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-w="12">
-                    <vs-input vs-w="9" icon-pack="feather" icon="icon-search" :label-placeholder="$t('Search') || 'Search'" v-model="searchText" class="is-label-placeholder w-full" />
-                </vs-col>
-            </vs-row>
-            <div class="vx-col w-full mb-base"></div>
-            <vs-table multiple v-model="selected" max-items="50" pagination :data="patients" v-if="patients.length > 0">
+        <vx-card title='Patients List' collapse-action>
+            <vs-table search :data="patients">
+                <template slot="header">
+                    <vs-button size="small" to="/dashboard/patient/create" icon-pack="feather" icon="icon-plus" type="filled">New Patient</vs-button>
+                </template>
                 <template slot="thead">
                     <vs-th>#</vs-th>
                     <vs-th sort-key="public_id">ID</vs-th>
                     <vs-th sort-key="name">Name</vs-th>
-                    <vs-th sort-key="dob">Age</vs-th>
-                    <vs-th sort-key="telephones">Telephones</vs-th>
-                    <vs-th sort-key="payment">Payment</vs-th>
+                    <vs-th sort-key="age">Birth Date</vs-th>
+                    <vs-th>Telephones</vs-th>
+                    <vs-th sort-key="payment_percentage">Payment</vs-th>
+                    <vs-th>Action</vs-th>
                 </template>
                 <template slot-scope="{data}">
-                    <template v-for="(tr, indextr) in data">
-                        <vue-context :ref="`patient-${tr.id}`">
-                            <ul class="bordered-items p-0">
-                                <li @click="optionClicked(tr.id, 1)"><i class="fas fa-eye"></i>&nbsp;&nbsp; View</li>
-                                <li @click="optionClicked(tr.id, 2)"><i class="fas fa-user-edit"></i>&nbsp;&nbsp; Edit</li>
-                                <li @click="optionClicked(tr.public_id, 3)"><i class="fas fa-edit"></i>&nbsp;&nbsp; Reserve Appointment</li>
-                                <li @click="optionClicked(tr.id, 6)"><i class="fas fa-trash"></i>&nbsp;&nbsp; Delete</li>
-                            </ul>
-                        </vue-context>
+                    <vs-tr :key="index" v-for="(patient, index) in patients">
+                        <vs-td :data="index+1">
+                            {{ index+1 }}
+                        </vs-td>
 
-                        <vs-tr :data="tr" :key="indextr">
-                            <vs-td :data="indextr + 1">
-                                <div @contextmenu.prevent="openContext(tr.id)">
-                                    {{ indextr + 1 }}
+                        <vs-td :data="patient.public_id">
+                            {{ patient.public_id}}
+                        </vs-td>
+
+                        <vs-td :data="patient.name">
+                            {{ patient.name}}
+                        </vs-td>
+
+                        <vs-td :data="patient.dob">
+                            {{ patient.dob}}
+                        </vs-td>
+
+                        <vs-td>
+                            <template v-for="(telephone, telephone_index) in patient.telephones">
+                                {{ telephone }}<template v-if="telephone_index !== patient.telephones.length-1">, </template>
+                            </template>
+                        </vs-td>
+
+                        <vs-td :data="patient.counter">
+                            <template v-if="patient.payment_percentage===100"><i class="fas fa-check"></i> <b>Complete</b></template>
+                            <template v-else><b>{{patient.payment.paid}}</b> Out of <b>{{patient.payment.total}}</b></template>
+                            <br>
+                            <vs-progress v-if="patient.payment_percentage === 100" :percent="patient.payment_percentage" color="success"></vs-progress>
+                            <vs-progress v-else-if="patient.payment_percentage > 25" :percent="patient.payment_percentage" color="warning"></vs-progress>
+                            <vs-progress v-else-if="patient.payment_percentage <= 25" :percent="patient.payment_percentage" color="danger"></vs-progress>
+                        </vs-td>
+
+                        <vs-td>
+                            <vs-row>
+                                <div class="flex mb-4">
+                                    <div class="w-1/4 pl-2">
+                                        <vs-button :to="`/dashboard/patient/${patient.public_id}`" radius color="primary" type="border" icon-pack="feather" icon="icon-eye"></vs-button>
+                                    </div>
+                                    <div class="w-1/4 pl-2">
+                                        <vs-button @click="reserveAppointement(patient.public_id)" radius color="dark" type="border" icon-pack="feather" icon="icon-edit-2"></vs-button>
+                                    </div>
+                                    <div class="w-1/4 pl-2">
+                                        <vs-button :to="`/dashboard/patient/${patient.public_id}/edit`" radius color="warning" type="border" icon-pack="feather" icon="icon-edit"></vs-button>
+                                    </div>
+                                    <div class="w-1/4 pl-2">
+                                        <vs-button radius color="danger" type="border" icon-pack="feather" icon="icon-trash" @click="confirmDeletePatient(patient)"></vs-button>
+                                    </div>
                                 </div>
-                            </vs-td>
-
-                            <vs-td :data="tr.public_id">
-                                <div @contextmenu.prevent="openContext(tr.id)">
-                                    {{ tr.public_id }}
-                                </div>
-                            </vs-td>
-
-                            <vs-td :data="tr.name">
-                                <div @contextmenu.prevent="openContext(tr.id)">
-                                    {{ tr.name }}
-                                </div>
-                            </vs-td>
-
-                            <vs-td :data="tr.dob">
-                                <div @contextmenu.prevent="openContext(tr.id)">
-                                    {{ tr.dob }}
-                                </div>
-                            </vs-td>
-
-                            <vs-td :data="tr.telephones">
-                                <div @contextmenu.prevent="openContext(tr.id)">
-                                    <template v-for="(telephone, index) in tr.telephones">
-                                        {{ telephone }}<template v-if="index != tr.telephones.length-1">, </template>
-                                    </template>
-                                </div>
-                            </vs-td>
-
-                            <vs-td :data="tr.payment">
-                                <div @contextmenu.prevent="openContext(tr.id)">
-                                    <template v-if="tr.payment.percentage == 100"><i class="fas fa-check"></i> <b>Complete</b></template>
-                                    <template v-else><b>{{tr.payment.paid}}</b> Out of <b>{{tr.payment.total}}</b></template>
-                                    <br>
-                                    <vs-progress v-if="tr.payment.percentage == 100" :percent="tr.payment.percentage" color="success"></vs-progress>
-                                    <vs-progress v-else-if="tr.payment.percentage > 25" :percent="tr.payment.percentage" color="warning"></vs-progress>
-                                    <vs-progress v-else-if="tr.payment.percentage <= 25" :percent="tr.payment.percentage" color="danger"></vs-progress>
-                                </div>
-                            </vs-td>
-                        </vs-tr>
-
-                    </template>
+                            </vs-row>
+                        </vs-td>
+                    </vs-tr>
                 </template>
             </vs-table>
-        </div>
+        </vx-card>
     </div>
 </template>
 
 <script>
-    import "@fortawesome/fontawesome-free/css/all.css";
-    import "@fortawesome/fontawesome-free/js/all.js";
-    import { VueContext } from 'vue-context';
-    import html2canvas from "html2canvas";
 
     export default {
         name: "Patient",
-        components: {
-            VueContext
-        },
         mounted() {
-            this.getPatientsData(Date.now());
+            this.getPatientsData();
         },
         data: function (){
             return {
@@ -114,39 +92,16 @@
                 ],
                 searchText: "",
                 resultTime: 0,
-                patients: [],
-                patientStatus: []
+                patients: []
             }
         },
         methods: {
-            optionClicked(patientID, actionID) {
-                if(actionID == 3){
-                    this.$router.push({name: 'add-appointment', params: {patient_id: patientID}});
-                }
-                this.$vs.notify({
-                    title: 'Context Menu',
-                    text: patientID,
-                    icon: 'feather',
-                    iconPack: 'icon-alert-circle',
-                    color: 'primary'
-                })
+            reserveAppointement(patientID)
+            {
+                this.$router.push({name: 'add-appointment', params: {patient_id: patientID}});
             },
 
-            getPatientsData(InitialTime){
-                this.patientStatus = [
-                    {
-                        name: 'Active',
-                        color: 'success',
-                        start_period: '0',
-                        end_period: '16000000000'
-                    },
-                    {
-                        name: 'In-Active',
-                        color: 'danger',
-                        start_period: '16000000001',
-                        end_period: '99999999999999',
-                    }
-                ];
+            getPatientsData(){
                 this.patients = [
                     {
                         id : 1,
@@ -154,12 +109,11 @@
                         public_id: "p-105",
                         dob: "18/10/1997",
                         telephones: ["01096436702", "01113689783"],
+                        payment_percentage: (200*100)/1000,
                         payment: {
                             paid: 200,
-                            total: 1000,
-                            percentage: (200*100)/1000
+                            total: 1000
                         },
-                        last_visit: '2019-5-01 15:30:00',
                     },
                     {
                         id : 2,
@@ -167,12 +121,11 @@
                         public_id: "p-116",
                         dob: "05/09/1989",
                         telephones: ["01116568369"],
+                        payment_percentage: (750*100)/750,
                         payment: {
                             paid: 750,
                             total: 750,
-                            percentage: (750*100)/750
                         },
-                        last_visit: '2018-5-13 15:30:00',
                     },
                     {
                         id : 3,
@@ -180,12 +133,11 @@
                         public_id: "p-118",
                         dob: "16/03/1991",
                         telephones: ["01096123366", "01115696966"],
+                        payment_percentage: (950*100)/950,
                         payment: {
                             paid: 950,
-                            total: 950,
-                            percentage: (950*100)/950
+                            total: 950
                         },
-                        last_visit: '2018-5-13 15:30:00',
                     },
                     {
                         id : 4,
@@ -193,24 +145,22 @@
                         public_id: "p-120",
                         dob: "04/12/1975",
                         telephones: ["01086123445", "01007865613"],
+                        payment_percentage: (700*100)/800,
                         payment: {
                             paid: 700,
                             total: 800,
-                            percentage: (700*100)/800
                         },
-                        last_visit: '2019-5-01 15:30:00',
                     },{
                         id : 5,
                         name: "Phil Gray",
                         public_id: "p-121",
                         dob: "18/10/1997",
                         telephones: ["01096436702", "01113689783"],
+                        payment_percentage: (300*100)/1250,
                         payment: {
                             paid: 300,
                             total: 1250,
-                            percentage: (300*100)/1250
                         },
-                        last_visit: '2019-5-01 15:30:00',
                     },
                     {
                         id : 6,
@@ -218,12 +168,11 @@
                         public_id: "p-122",
                         dob: "05/09/1989",
                         telephones: ["01116568369"],
+                        payment_percentage: (1250*100)/1250,
                         payment: {
                             paid: 1250,
                             total: 1250,
-                            percentage: (1250*100)/1250
                         },
-                        last_visit: '2018-5-13 15:30:00',
                     },
                     {
                         id : 7,
@@ -231,12 +180,11 @@
                         public_id: "p-123",
                         dob: "16/03/1991",
                         telephones: ["01096123366", "01115696966"],
+                        payment_percentage: (700*100)/800,
                         payment: {
                             paid: 700,
                             total: 800,
-                            percentage: (700*100)/800
-                        },
-                        last_visit: '2019-5-01 15:30:00',
+                        }
                     },
                     {
                         id : 8,
@@ -244,106 +192,47 @@
                         public_id: "p-124",
                         dob: "04/12/1975",
                         telephones: ["01086123445", "01007865613"],
+                        payment_percentage: (1000*100)/1000,
                         payment: {
                             paid: 1000,
                             total: 1000,
-                            percentage: (1000*100)/1000
-                        },
-                        last_visit: '2018-5-13 15:30:00',
+                        }
                     }
                 ];
-                this.resultTime = Date.now() - InitialTime;
             },
 
-            copyToClipboard(text) {
-                if (window.clipboardData && window.clipboardData.setData) {
-                    // IE specific code path to prevent textarea being shown while dialog is visible.
-                    this.onCopy();
-                    return clipboardData.setData("Text", text);
-
-                } else if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
-                    var textarea = document.createElement("textarea");
-                    textarea.textContent = text;
-                    textarea.style.position = "fixed";  // Prevent scrolling to bottom of page in MS Edge.
-                    document.body.appendChild(textarea);
-                    textarea.select();
-                    try {
-                        this.onCopy();
-                        return document.execCommand("copy");  // Security exception may be thrown by some browsers.
-                    } catch (ex) {
-                        this.onError();
-                        return false;
-                    } finally {
-                        document.body.removeChild(textarea);
-                    }
-                }
-            },
-            onCopy() {
-                this.$vs.notify({
-                    title: 'Success!',
-                    text: 'Text copied successfully.',
-                    color: 'success',
-                    iconPack: 'feather',
-                    position: 'bottom-right',
-                    icon: 'icon-check-circle'
-                })
-            },
-            onError() {
-                this.$vs.notify({
-                    title: 'Failed!',
-                    text: 'Error in copying text.',
+            confirmDeletePatient(patinet)
+            {
+                this.patientIdToDelete = patinet.id;
+                this.$vs.dialog({
+                    type: 'confirm',
                     color: 'danger',
-                    iconPack: 'feather',
-                    position: 'bottom-right',
-                    icon: 'icon-alert-circle'
-                })
+                    title: `Are you sure!`,
+                    text: 'This data can not be retrieved again.',
+                    accept: this.deletePatient
+                });
             },
 
-            openContext(id) {
-                this.$refs[`patient-${id}`][0].open();
+            deletePatient()
+            {
+                this.vs_alert('Success', 'Reservation Duration Successfully Deleted.', 'success', 'icon-check');
+            },
+
+            //Vuesax alert
+            vs_alert (title, text, color, icon)
+            {
+                this.$vs.notify({
+                    title: title,
+                    text: text,
+                    color: color,
+                    iconPack: 'feather',
+                    icon: icon
+                });
             }
         }
     }
 </script>
 
 <style>
-    .txt-hover:hover {
-        cursor: pointer;
-        color: black !important;
-    }
 
-    .v-context {
-        background: #fafafa;
-        border: 1px solid #bdbdbd;
-        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
-        display: block;
-        margin: 0;
-        padding: 0;
-        position: fixed;
-        width: 250px;
-        z-index: 99999;
-    }
-
-    .v-context ul {
-        list-style: none;
-        padding: 10px 0;
-        margin: 0;
-        font-size: 12px;
-        font-weight: 600;
-    }
-
-    ul.bordered-items > li:not(:last-of-type):not([class*=shadow]) {
-        border-bottom: 1px solid #dae1e7;
-    }
-
-    .v-context ul li{
-        margin: 0;
-        padding: 10px 35px;
-        cursor: pointer;
-    }
-
-    .v-context ul li:hover {
-        background: #1e88e5;
-        color: #fafafa;
-    }
 </style>

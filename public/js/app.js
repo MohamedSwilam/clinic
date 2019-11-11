@@ -104276,7 +104276,7 @@ module.exports = "/fonts/feather.eot?931c9e74d0b20947054bfe6a5b74a838";
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/fonts/feather.svg?0e5daf6bac4f17e400266545070b108e";
+module.exports = "/fonts/feather.svg?90f969db293a9077b0555139e6c9b20e";
 
 /***/ }),
 
@@ -105302,51 +105302,37 @@ __webpack_require__.r(__webpack_exports__);
   }, {
     index: 1,
     label: 'Employee',
-    url: '/employee',
+    url: '/dashboard/employee',
     labelIcon: 'UsersIcon',
     i18n: "Employee",
     highlightAction: true
   }, {
     index: 2,
     label: 'Patient',
-    url: '/patient',
+    url: '/dashboard/patient',
     labelIcon: 'UserIcon',
     i18n: "Patient",
     highlightAction: true
   }, {
     index: 3,
     label: 'Appointment',
-    url: '/appointment',
+    url: '/dashboard/appointment',
     labelIcon: 'EditIcon',
     i18n: "Appointment",
     highlightAction: true
   }, {
     index: 4,
-    label: 'Invoice',
-    url: '/invoice',
-    labelIcon: 'FileIcon',
-    i18n: "Invoice",
+    label: 'Roles & Permissions',
+    url: '/dashboard/settings/role',
+    labelIcon: 'ShieldIcon',
+    i18n: "Settings",
     highlightAction: true
   }, {
     index: 5,
-    label: 'Calendar',
-    url: '/calendar',
-    labelIcon: 'CalendarIcon',
-    i18n: "Calendar",
-    highlightAction: true
-  }, {
-    index: 6,
-    label: 'Theme Customizer',
-    url: '/settings/theme',
-    labelIcon: 'PackageIcon',
-    i18n: "Theme",
-    highlightAction: true
-  }, {
-    index: 7,
-    label: 'Privacy',
-    url: '/settings/privacy',
-    labelIcon: 'ShieldIcon',
-    i18n: "Privacy",
+    label: 'Reservations',
+    url: '/dashboard/settings/reservation',
+    labelIcon: 'SettingsIcon',
+    i18n: "Settings",
     highlightAction: true
   }]
 });
@@ -105586,7 +105572,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     // =============================================================================
     path: '/dashboard',
     component: function component() {
-      return Promise.all(/*! import() */[__webpack_require__.e(5), __webpack_require__.e(3)]).then(__webpack_require__.bind(null, /*! ./layouts/main/Main.vue */ "./resources/js/src/layouts/main/Main.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(3), __webpack_require__.e(2)]).then(__webpack_require__.bind(null, /*! ./layouts/main/Main.vue */ "./resources/js/src/layouts/main/Main.vue"));
     },
     children: [// =============================================================================
     // Theme Routes
@@ -105595,7 +105581,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/dashboard',
       name: 'home',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 22).then(__webpack_require__.bind(null, /*! ./views/Home.vue */ "./resources/js/src/views/Home.vue"));
+        return __webpack_require__.e(/*! import() */ 27).then(__webpack_require__.bind(null, /*! ./views/Home.vue */ "./resources/js/src/views/Home.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -105612,7 +105598,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/dashboard/employee',
       name: 'employee',
       component: function component() {
-        return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(12)]).then(__webpack_require__.bind(null, /*! ./views/employee/browse.vue */ "./resources/js/src/views/employee/browse.vue"));
+        return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(8)]).then(__webpack_require__.bind(null, /*! ./views/employee/browse.vue */ "./resources/js/src/views/employee/browse.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -105632,7 +105618,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/dashboard/employee/create',
       name: 'add-employee',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 13).then(__webpack_require__.bind(null, /*! ./views/employee/create.vue */ "./resources/js/src/views/employee/create.vue"));
+        return __webpack_require__.e(/*! import() */ 9).then(__webpack_require__.bind(null, /*! ./views/employee/create.vue */ "./resources/js/src/views/employee/create.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -105656,7 +105642,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/dashboard/employee/:id',
       name: 'view-employee',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 15).then(__webpack_require__.bind(null, /*! ./views/employee/view.vue */ "./resources/js/src/views/employee/view.vue"));
+        return __webpack_require__.e(/*! import() */ 11).then(__webpack_require__.bind(null, /*! ./views/employee/view.vue */ "./resources/js/src/views/employee/view.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -105680,7 +105666,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/dashboard/employee/:id/edit',
       name: 'edit-employee',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 14).then(__webpack_require__.bind(null, /*! ./views/employee/edit.vue */ "./resources/js/src/views/employee/edit.vue"));
+        return __webpack_require__.e(/*! import() */ 10).then(__webpack_require__.bind(null, /*! ./views/employee/edit.vue */ "./resources/js/src/views/employee/edit.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -105704,7 +105690,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/dashboard/patient',
       name: 'patient',
       component: function component() {
-        return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(4), __webpack_require__.e(16)]).then(__webpack_require__.bind(null, /*! ./views/patient/Patient.vue */ "./resources/js/src/views/patient/Patient.vue"));
+        return __webpack_require__.e(/*! import() */ 19).then(__webpack_require__.bind(null, /*! ./views/patient/Patient.vue */ "./resources/js/src/views/patient/Patient.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -105721,10 +105707,82 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
         rule: 'editor'
       }
     }, {
+      path: '/dashboard/patient/create',
+      name: 'create-patient',
+      component: function component() {
+        return __webpack_require__.e(/*! import() */ 12).then(__webpack_require__.bind(null, /*! ./views/patient/create.vue */ "./resources/js/src/views/patient/create.vue"));
+      },
+      meta: {
+        breadcrumb: [{
+          title: 'Home',
+          url: '/dashboard',
+          i18n: 'Home'
+        }, {
+          title: 'Patient',
+          i18n: 'Patient',
+          url: '/dashboard/patient'
+        }, {
+          title: 'Create',
+          active: true,
+          i18n: 'CreatePatient'
+        }],
+        pageTitle: 'Create Patient',
+        pageTitle_i18n: 'CreatePatient',
+        rule: 'editor'
+      }
+    }, {
+      path: '/dashboard/patient/:id/edit',
+      name: 'edit-patient',
+      component: function component() {
+        return __webpack_require__.e(/*! import() */ 13).then(__webpack_require__.bind(null, /*! ./views/patient/edit.vue */ "./resources/js/src/views/patient/edit.vue"));
+      },
+      meta: {
+        breadcrumb: [{
+          title: 'Home',
+          url: '/dashboard',
+          i18n: 'Home'
+        }, {
+          title: 'Patient',
+          i18n: 'Patient',
+          url: '/dashboard/patient'
+        }, {
+          title: 'Edit',
+          active: true,
+          i18n: 'EditPatient'
+        }],
+        pageTitle: 'Edit Patient',
+        pageTitle_i18n: 'EditPatient',
+        rule: 'editor'
+      }
+    }, {
+      path: '/dashboard/patient/:id',
+      name: 'profile-patient',
+      component: function component() {
+        return __webpack_require__.e(/*! import() */ 20).then(__webpack_require__.bind(null, /*! ./views/patient/profile.vue */ "./resources/js/src/views/patient/profile.vue"));
+      },
+      meta: {
+        breadcrumb: [{
+          title: 'Home',
+          url: '/dashboard',
+          i18n: 'Home'
+        }, {
+          title: 'Patient',
+          i18n: 'Patient',
+          url: '/dashboard/patient'
+        }, {
+          title: 'Profile',
+          active: true,
+          i18n: 'profile'
+        }],
+        pageTitle: 'Profile',
+        pageTitle_i18n: 'Profile',
+        rule: 'editor'
+      }
+    }, {
       path: '/dashboard/appointment',
       name: 'appointment',
       component: function component() {
-        return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(10)]).then(__webpack_require__.bind(null, /*! ./views/appointment/Appointment.vue */ "./resources/js/src/views/appointment/Appointment.vue"));
+        return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(29), __webpack_require__.e(6)]).then(__webpack_require__.bind(null, /*! ./views/appointment/Appointment.vue */ "./resources/js/src/views/appointment/Appointment.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -105744,7 +105802,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/dashboard/appointment/add-appointment/:patient_id',
       name: 'add-appointment',
       component: function component() {
-        return Promise.all(/*! import() */[__webpack_require__.e(20), __webpack_require__.e(9)]).then(__webpack_require__.bind(null, /*! ./views/appointment/AddAppointment.vue */ "./resources/js/src/views/appointment/AddAppointment.vue"));
+        return Promise.all(/*! import() */[__webpack_require__.e(25), __webpack_require__.e(5)]).then(__webpack_require__.bind(null, /*! ./views/appointment/AddAppointment.vue */ "./resources/js/src/views/appointment/AddAppointment.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -105768,7 +105826,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/dashboard/invoice',
       name: 'invoice',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 23).then(__webpack_require__.bind(null, /*! ./views/Page2.vue */ "./resources/js/src/views/Page2.vue"));
+        return __webpack_require__.e(/*! import() */ 28).then(__webpack_require__.bind(null, /*! ./views/Page2.vue */ "./resources/js/src/views/Page2.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -105788,7 +105846,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/dashboard/calendar',
       name: 'calendar',
       component: function component() {
-        return Promise.all(/*! import() */[__webpack_require__.e(2), __webpack_require__.e(11)]).then(__webpack_require__.bind(null, /*! ./views/calendar/Calendar.vue */ "./resources/js/src/views/calendar/Calendar.vue"));
+        return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(7)]).then(__webpack_require__.bind(null, /*! ./views/calendar/Calendar.vue */ "./resources/js/src/views/calendar/Calendar.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -105805,15 +105863,17 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
         rule: 'editor'
       }
     }, {
-      path: '/dashboard/role',
+      path: '/dashboard/settings/role',
       name: 'role',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 17).then(__webpack_require__.bind(null, /*! ./views/Role/Roles.vue */ "./resources/js/src/views/Role/Roles.vue"));
+        return __webpack_require__.e(/*! import() */ 21).then(__webpack_require__.bind(null, /*! ./views/settings/Role/Roles.vue */ "./resources/js/src/views/settings/Role/Roles.vue"));
       },
       meta: {
         breadcrumb: [{
           title: 'Home',
           url: '/dashboard'
+        }, {
+          title: 'Settings'
         }, {
           title: 'Roles',
           active: true
@@ -105821,18 +105881,20 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
         pageTitle: "Roles"
       }
     }, {
-      path: '/dashboard/role/create',
+      path: '/dashboard/settings/role/create',
       name: 'create-role',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 7).then(__webpack_require__.bind(null, /*! ./views/Role/Create.vue */ "./resources/js/src/views/Role/Create.vue"));
+        return __webpack_require__.e(/*! import() */ 14).then(__webpack_require__.bind(null, /*! ./views/settings/Role/Create.vue */ "./resources/js/src/views/settings/Role/Create.vue"));
       },
       meta: {
         breadcrumb: [{
           title: 'Home',
           url: '/dashboard'
         }, {
+          title: 'Settings'
+        }, {
           title: 'Roles',
-          url: '/dashboard/role'
+          url: '/dashboard/settings/role'
         }, {
           title: 'Create Role',
           active: true
@@ -105840,18 +105902,20 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
         pageTitle: "Create Role"
       }
     }, {
-      path: '/dashboard/role/:id',
+      path: '/dashboard/settings/role/:id',
       name: 'view-role',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 18).then(__webpack_require__.bind(null, /*! ./views/Role/View.vue */ "./resources/js/src/views/Role/View.vue"));
+        return __webpack_require__.e(/*! import() */ 22).then(__webpack_require__.bind(null, /*! ./views/settings/Role/View.vue */ "./resources/js/src/views/settings/Role/View.vue"));
       },
       meta: {
         breadcrumb: [{
           title: 'Home',
           url: '/dashboard'
         }, {
+          title: 'Settings'
+        }, {
           title: 'Roles',
-          url: '/dashboard/role'
+          url: '/dashboard/settings/role'
         }, {
           title: 'Role Information',
           active: true
@@ -105859,23 +105923,106 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
         pageTitle: "Role Information"
       }
     }, {
-      path: '/dashboard/role/edit/:id',
+      path: '/dashboard/settings/role/edit/:id',
       name: 'edit-role',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 8).then(__webpack_require__.bind(null, /*! ./views/Role/Edit.vue */ "./resources/js/src/views/Role/Edit.vue"));
+        return __webpack_require__.e(/*! import() */ 15).then(__webpack_require__.bind(null, /*! ./views/settings/Role/Edit.vue */ "./resources/js/src/views/settings/Role/Edit.vue"));
       },
       meta: {
         breadcrumb: [{
           title: 'Home',
           url: '/dashboard'
         }, {
+          title: 'Settings'
+        }, {
           title: 'Roles',
-          url: '/dashboard/role'
+          url: '/dashboard/settings/role'
         }, {
           title: 'Edit Role',
           active: true
         }],
         pageTitle: "Edit Role"
+      }
+    }, {
+      path: '/dashboard/settings/reservation',
+      name: 'browse-reservation',
+      component: function component() {
+        return __webpack_require__.e(/*! import() */ 23).then(__webpack_require__.bind(null, /*! ./views/settings/reservation/browse.vue */ "./resources/js/src/views/settings/reservation/browse.vue"));
+      },
+      meta: {
+        breadcrumb: [{
+          title: 'Home',
+          url: '/dashboard'
+        }, {
+          title: 'Settings'
+        }, {
+          title: 'Reservation',
+          active: true
+        }],
+        pageTitle: "Reservation Settings"
+      }
+    }, {
+      path: '/dashboard/settings/reservation/create',
+      name: 'create-reservation',
+      component: function component() {
+        return __webpack_require__.e(/*! import() */ 17).then(__webpack_require__.bind(null, /*! ./views/settings/reservation/create.vue */ "./resources/js/src/views/settings/reservation/create.vue"));
+      },
+      meta: {
+        breadcrumb: [{
+          title: 'Home',
+          url: '/dashboard'
+        }, {
+          title: 'Settings'
+        }, {
+          title: 'Reservation',
+          url: '/dashboard/settings/reservation'
+        }, {
+          title: 'Create',
+          active: true
+        }],
+        pageTitle: "Create Reservation Type"
+      }
+    }, {
+      path: '/dashboard/settings/reservation/edit/:id',
+      name: 'edit-reservation',
+      component: function component() {
+        return __webpack_require__.e(/*! import() */ 18).then(__webpack_require__.bind(null, /*! ./views/settings/reservation/edit.vue */ "./resources/js/src/views/settings/reservation/edit.vue"));
+      },
+      meta: {
+        breadcrumb: [{
+          title: 'Home',
+          url: '/dashboard'
+        }, {
+          title: 'Settings'
+        }, {
+          title: 'Reservation',
+          url: '/dashboard/settings/reservation'
+        }, {
+          title: 'Edit',
+          active: true
+        }],
+        pageTitle: "Edit Reservation Type"
+      }
+    }, {
+      path: '/dashboard/settings/reservation-duration/create',
+      name: 'create-reservation-duration',
+      component: function component() {
+        return __webpack_require__.e(/*! import() */ 16).then(__webpack_require__.bind(null, /*! ./views/settings/reservation/create-duration.vue */ "./resources/js/src/views/settings/reservation/create-duration.vue"));
+      },
+      meta: {
+        breadcrumb: [{
+          title: 'Home',
+          url: '/dashboard'
+        }, {
+          title: 'Settings'
+        }, {
+          title: 'Reservation',
+          url: '/dashboard/settings/reservation'
+        }, {
+          title: 'Create Duration',
+          active: true
+        }],
+        pageTitle: "Create Reservation Duration"
       }
     }]
   }, // =============================================================================
@@ -105884,22 +106031,22 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   {
     path: '',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 21).then(__webpack_require__.bind(null, /*! ./layouts/full-page/FullPage.vue */ "./resources/js/src/layouts/full-page/FullPage.vue"));
+      return __webpack_require__.e(/*! import() */ 26).then(__webpack_require__.bind(null, /*! ./layouts/full-page/FullPage.vue */ "./resources/js/src/layouts/full-page/FullPage.vue"));
     },
     children: [// =============================================================================
     // PAGES
     // =============================================================================
     {
-      path: '/login',
+      path: '/dashboard/login',
       name: 'pageLogin',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 6).then(__webpack_require__.bind(null, /*! ./views/pages/Login.vue */ "./resources/js/src/views/pages/Login.vue"));
+        return __webpack_require__.e(/*! import() */ 4).then(__webpack_require__.bind(null, /*! ./views/pages/Login.vue */ "./resources/js/src/views/pages/Login.vue"));
       }
     }, {
-      path: '/pages/error-404',
+      path: '/dashboard/error-404',
       name: 'pageError404',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 19).then(__webpack_require__.bind(null, /*! ./views/pages/Error404.vue */ "./resources/js/src/views/pages/Error404.vue"));
+        return __webpack_require__.e(/*! import() */ 24).then(__webpack_require__.bind(null, /*! ./views/pages/Error404.vue */ "./resources/js/src/views/pages/Error404.vue"));
       }
     }]
   }, // Redirect to 404 page, if no match found
@@ -106322,9 +106469,9 @@ var themeConfig = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\Work\Clinic\clinic\resources\js\app.js */"./resources/js/app.js");
-__webpack_require__(/*! D:\Work\Clinic\clinic\resources\sass\app.scss */"./resources/sass/app.scss");
-module.exports = __webpack_require__(/*! D:\Work\Clinic\clinic\resources\assets\css\main.css */"./resources/assets/css/main.css");
+__webpack_require__(/*! C:\wamp64\www\clinic\resources\js\app.js */"./resources/js/app.js");
+__webpack_require__(/*! C:\wamp64\www\clinic\resources\sass\app.scss */"./resources/sass/app.scss");
+module.exports = __webpack_require__(/*! C:\wamp64\www\clinic\resources\assets\css\main.css */"./resources/assets/css/main.css");
 
 
 /***/ })
