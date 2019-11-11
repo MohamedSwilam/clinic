@@ -22,6 +22,21 @@ class EmployeePolicy
 
     public function index()
     {
-        return request()->user()->hasAnyRole(['super_admin', 'admin']);
+        return request()->user()->hasPermissionTo('view-user');
+    }
+
+    public function store()
+    {
+        return request()->user()->hasPermissionTo('create-user');
+    }
+
+    public function update()
+    {
+        return request()->user()->hasPermissionTo('edit-user');
+    }
+
+    public function destroy()
+    {
+        return request()->user()->hasPermissionTo('delete-user');
     }
 }

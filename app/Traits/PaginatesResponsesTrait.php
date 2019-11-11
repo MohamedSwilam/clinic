@@ -9,45 +9,44 @@ trait PaginatesResponsesTrait
     /**
      * Create an HTTP response that represents the object with pagination.
      *
-     * @param Request $request
      * @return Collection
      */
-    public function toPaginatedResponse($request)
+    public function toPaginatedResponse()
     {
         // Add pagination to the query builder.
-        $this->buildPagination($request);
+        $this->buildPagination();
         // Respond with the transformed paginated date.
         return $this->builder;
     }
+
     /**
      * Check if the request has a pagination value.
      *
-     * @param  Request  $request
      * @return bool
      */
-    protected function hasPagination($request)
+    protected function hasPagination()
     {
-        return $request->has('paginate');
+        return request()->has('paginate');
     }
 
     /**
      * Add paginate to the eloquent query builder.
      *
-     * @param Request $request
      * @return void
      */
-    protected function buildPagination($request)
+    protected function buildPagination()
     {
-        $this->builder = $this->builder->paginate($this->getPagination($request));
+        $this->builder = $this->builder->paginate($this->getPagination(request()));
     }
+
     /**
      * Get the paginate value.
      *
-     * @param  Request $request
+     * @param $reqest
      * @return int
      */
-    protected function getPagination($request)
+    protected function getPagination($reqest)
     {
-        return $request->input('paginate');
+        return request()->input('paginate');
     }
 }

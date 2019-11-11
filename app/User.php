@@ -19,7 +19,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'first_name', 'last_name', 'birth_date', 'email', 'password', 'address', 'city', 'country', 'phone', 'gender', 'image', 'email_verified_at'
     ];
 
     /**
@@ -47,8 +47,8 @@ class User extends Authenticatable
 
     public function scopeEmployees($query)
     {
-        return $query->whereHas('roles', function ($q) {
-            $q->whereIn('name', ['doctor', 'receptionist', 'assistant_doctor', 'accountant']);
+        return $query->whereHas('roles', function ($query) {
+            $query->whereIn('name', ['doctor', 'receptionist', 'assistant_doctor', 'accountant']);
         });
     }
 }
