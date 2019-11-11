@@ -16,18 +16,15 @@ class LoginController extends Controller
         $login_credentials = $request->validated();
 
         if (!Auth::attempt($login_credentials)){
-            return response()->json([
-                'data' => [],
-                'message' => 'incorrect email or password'
-            ]);
+            return $this->respond('incorrect email or password', [], 401);
         }
 
         $user = $request->user();
 
-        return response()->json([
+        return $this->respond("login credentials correct", [
             'user' => $user,
             'access_token' => $user->createToken('token')->accessToken,
             'token_type' => 'Bearer',
-        ]);
+        ], 200);
     }
 }

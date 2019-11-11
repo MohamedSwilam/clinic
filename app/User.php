@@ -6,10 +6,12 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Passport\HasApiTokens;
+use Spatie\Permission\Traits\HasPermissions;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, Notifiable;
+    use HasApiTokens, Notifiable, HasPermissions, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -17,7 +19,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'first_name', 'last_name', 'birth_date', 'email', 'password', 'address', 'city', 'country', 'phone', 'gender', 'image', 'email_verified_at'
     ];
 
     /**
@@ -41,5 +43,12 @@ class User extends Authenticatable
     public function scopeName($query, $name)
     {
         $query->where('name', $name);
+    }
+
+    public function scopeEmployees($query)
+    {
+        return $query->whereHas('roles', function ($query) {
+            $query->whereIn('name', ['doctor', 'receptionist', 'assistant_doctor', 'accountant']);
+        });
     }
 }

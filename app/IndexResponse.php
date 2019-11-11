@@ -31,38 +31,38 @@ class IndexResponse
     {
         $this->builder = $builder;
     }
+
     /**
      * Create an HTTP response that represents the object.
      *
-     * @param  Request  $request
      * @return Collection
      */
-    public function execute($request)
+    public function execute()
     {
         $this
-            ->buildFilters($request)
-            ->buildSorting($request);
-        if ($this->hasPagination($request)) {
-            return $this->toPaginatedResponse($request);
+            ->buildFilters()
+            ->buildSorting();
+        if ($this->hasPagination()) {
+            return $this->toPaginatedResponse();
         }
         return $this->builder->get();
     }
+
     /**
      * Add sorting to the query builder.
      *
-     * @param $request
      * @return $this
      */
-    protected function buildSorting($request)
+    protected function buildSorting()
     {
-        if ($request->has('latest')) {
+        if (request()->has('latest')) {
             $this->builder = $this->builder->latest('created_at');
         }
-        if ($request->has('sortAsc')) {
-            $this->builder = $this->builder->orderBy($request->sortAsc, 'asc');
+        if (request()->has('sortAsc')) {
+            $this->builder = $this->builder->orderBy(request()->sortAsc, 'asc');
         }
-        if ($request->has('sortDesc')) {
-            $this->builder = $this->builder->orderBy($request->sortDesc, 'desc');
+        if (request()->has('sortDesc')) {
+            $this->builder = $this->builder->orderBy(request()->sortDesc, 'desc');
         }
         return $this;
     }

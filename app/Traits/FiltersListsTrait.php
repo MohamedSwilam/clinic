@@ -5,12 +5,11 @@ trait FiltersListsTrait
     /**
      * Build query scope filters if exist.
      *
-     * @param $request
      * @return $this
      */
-    protected function buildFilters($request)
+    protected function buildFilters()
     {
-        foreach ($this->getFilters($request) as $filter => $value) {
+        foreach ($this->getFilters() as $filter => $value) {
             $this->attachFilter($filter, $value);
         }
         return $this;
@@ -20,9 +19,9 @@ trait FiltersListsTrait
      *
      * @return array
      */
-    private function getFilters($request)
+    private function getFilters()
     {
-        return $request->except(['query', 'paginate']);
+        return request()->except(['query', 'paginate']);
     }
     /**
      * Attach filter to query builder.

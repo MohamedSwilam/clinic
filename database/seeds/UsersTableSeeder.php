@@ -14,14 +14,16 @@ class UsersTableSeeder extends Seeder
     {
         $users = [
             [
-                'name' => 'Abdulrahman Rashwan',
+                'first_name' => 'Abdulrahman',
+                'last_name' => 'Rashwan',
                 'email' => 'abdo.ra.1997@gmail.com',
                 'password' => bcrypt('password'),
                 'email_verified_at' => now(),
                 'remember_token' => Str::random(10),
             ],
             [
-                'name' => 'Mohamed Swailam',
+                'first_name' => 'Mohamed',
+                'last_name' => 'Swailam',
                 'email' => 'm.swilam@equinesolutions.co',
                 'password' => bcrypt('password'),
                 'email_verified_at' => now(),
@@ -29,7 +31,8 @@ class UsersTableSeeder extends Seeder
             ],
         ];
         foreach ($users as $user){
-            User::create($user);
+            $temp = User::create($user);
+            $temp->assignRole('super_admin');
         }
     }
 }
