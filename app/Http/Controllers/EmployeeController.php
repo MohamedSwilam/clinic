@@ -3,15 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\EmployeeRequest;
-use App\Http\Requests\UpdateEmplyeeRequest;
 use App\IndexResponse;
 use App\Transformers\UserTransformer;
 use App\User;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class EmployeeController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @return JsonResponse
+     * @throws AuthorizationException
+     */
     public function index()
     {
         $this->authorize('index', User::class);
@@ -25,6 +32,13 @@ class EmployeeController extends Controller
         );
     }
 
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param EmployeeRequest $request
+     * @return JsonResponse
+     * @throws AuthorizationException
+     */
     public function store(EmployeeRequest $request)
     {
         $this->authorize('store', User::class);
@@ -41,7 +55,15 @@ class EmployeeController extends Controller
         return $this->respond('Employee Created Successfully', fractal($user, new UserTransformer()));
     }
 
-    public function update(UpdateEmplyeeRequest $request, $id)
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param EmployeeRequest $request
+     * @param int $id
+     * @return JsonResponse
+     * @throws AuthorizationException
+     */
+    public function update(EmployeeRequest $request, $id)
     {
         $this->authorize('update', User::class);
 
@@ -61,6 +83,13 @@ class EmployeeController extends Controller
         return $this->respond('Employee Updated Successfully', fractal($user, new UserTransformer()));
     }
 
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param int $id
+     * @return JsonResponse
+     * @throws AuthorizationException
+     */
     public function destroy($id)
     {
         $this->authorize('destroy', User::class);

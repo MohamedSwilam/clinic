@@ -90,6 +90,11 @@ class RolesAndPermissionsSeeder extends Seeder
                     'display_name' => 'Create Role',
                 ],
                 [
+                    'name' => 'view-role',
+                    'guard_name' => 'api',
+                    'display_name' => 'View Role',
+                ],
+                [
                     'name' => 'assign-role',
                     'guard_name' => 'api',
                     'display_name' => 'Assign Role',
@@ -106,6 +111,11 @@ class RolesAndPermissionsSeeder extends Seeder
                 ],
             ],
             'Permission' => [
+                [
+                    'name' => 'view-permission',
+                    'guard_name' => 'api',
+                    'display_name' => 'View Permission',
+                ],
                 [
                     'name' => 'assign-permission',
                     'guard_name' => 'api',
@@ -156,8 +166,9 @@ class RolesAndPermissionsSeeder extends Seeder
         DB::table('permissions')->delete();
         DB::table('permissions')->truncate();
 
-        foreach ($permissions as $permission_group){
+        foreach ($permissions as $group_key => $permission_group){
             foreach ($permission_group as $key=>$permission){
+                $permission['group'] = $group_key;
                 Permission::create($permission);
             }
         }
