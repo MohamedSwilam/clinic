@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Patient;
 use App\Policies\EmployeePolicy;
+use App\Policies\PatientPolicy;
 use App\Policies\PermissionPolicy;
 use App\Policies\RolePolicy;
 use App\User;
@@ -24,6 +26,7 @@ class AuthServiceProvider extends ServiceProvider
         User::class => EmployeePolicy::class,
         Role::class => RolePolicy::class,
         Permission::class => PermissionPolicy::class,
+        Patient::class => PatientPolicy::class,
     ];
 
     /**

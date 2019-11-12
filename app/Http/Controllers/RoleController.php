@@ -53,9 +53,13 @@ class RoleController extends Controller
     {
         $this->authorize('store', Role::class);
 
-        $role = Role::create($request->all());
-
-        return $this->respond('Role Created Successfully', fractal($role, new RoleTransformer()));
+        return $this->respond(
+            'Role Created Successfully',
+            fractal(
+                Role::create($request->all()),
+                new RoleTransformer()
+            )
+        );
     }
 
     /**
@@ -96,7 +100,10 @@ class RoleController extends Controller
 
         $role->update($request->all());
 
-        return $this->respond('Role Updated Successfully', fractal($role, new RoleTransformer()));
+        return $this->respond(
+            'Role Updated Successfully',
+            fractal($role, new RoleTransformer())
+        );
     }
 
     /**
