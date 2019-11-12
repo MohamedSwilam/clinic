@@ -52,7 +52,10 @@ class EmployeeController extends Controller
 
         $user->assignRole($request->role);
 
-        return $this->respond('Employee Created Successfully', fractal($user, new UserTransformer()));
+        return $this->respond(
+            'Employee Created Successfully',
+            fractal($user, new UserTransformer())
+        );
     }
 
     /**
@@ -80,7 +83,10 @@ class EmployeeController extends Controller
             $user->syncRoles($request->role);
         }
 
-        return $this->respond('Employee Updated Successfully', fractal($user, new UserTransformer()));
+        return $this->respond(
+            'Employee Updated Successfully',
+            fractal($user, new UserTransformer())
+        );
     }
 
     /**
