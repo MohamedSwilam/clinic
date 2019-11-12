@@ -23,19 +23,38 @@ class EmployeeRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|min:8',
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'birth_date' => 'required|date',
-            'address' => 'required',
-            'city' => '',
-            'country' => '',
-            'phone' => 'required|min:11|max:11',
-            'gender' => 'required',
-            'image' => 'image|max:1024|mimes:jpeg,png',
-            'role' => 'required|exists:roles,name'
-        ];
+        $segments = request()->segments();
+        if (sizeof($segments) == 2){
+            return [
+                'email' => 'required|email|unique:users,email',
+                'password' => 'required|min:8',
+                'first_name' => 'required',
+                'last_name' => 'required',
+                'birth_date' => 'required|date',
+                'address' => 'required',
+                'city' => '',
+                'country' => '',
+                'phone' => 'required|min:11|max:11',
+                'gender' => 'required',
+                'image' => 'image|max:1024|mimes:jpeg,png',
+                'role' => 'required|exists:roles,name'
+            ];
+        }
+        else if (sizeof($segments) == 3){
+            return [
+                'email' => 'email|unique:users,email,'.$segments[2],
+                'password' => 'min:8',
+                'first_name' => '',
+                'last_name' => '',
+                'birth_date' => 'date',
+                'address' => '',
+                'city' => '',
+                'country' => '',
+                'phone' => 'min:11|max:11',
+                'gender' => '',
+                'image' => 'image|max:1024|mimes:jpeg,png',
+                'role' => 'exists:roles,name'
+            ];
+        }
     }
 }

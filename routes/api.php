@@ -21,5 +21,16 @@ Route::middleware('auth:api')->resource('users', 'UserController');
 
 Route::post('login', 'loginController@login');
 
-Route::middleware('auth:api')->post('employee/{id}', 'EmployeeController@update');
-Route::middleware('auth:api')->resource('employee', 'EmployeeController');
+Route::group(['prefix' => 'employee', 'middleware' => 'auth:api'], function () {
+    Route::post('{id}', 'EmployeeController@update');
+    Route::delete('{id}', 'EmployeeController@destroy');
+    Route::resource('', 'EmployeeController');
+});
+
+Route::group(['prefix' => 'role', 'middleware' => 'auth:api'], function () {
+    Route::post('{id}', 'RoleController@update');
+    Route::delete('{id}', 'RoleController@destroy');
+    Route::resource('', 'RoleController');
+});
+
+Route::middleware('auth:api')->get('permission', 'PermissionController@index');
