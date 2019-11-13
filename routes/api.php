@@ -35,10 +35,14 @@ Route::group(['prefix' => 'role', 'middleware' => 'auth:api'], function () {
 
 Route::middleware('auth:api')->get('permission', 'PermissionController@index');
 
-
-
 Route::group(['prefix' => 'patient', 'middleware' => 'auth:api'], function () {
     Route::post('{id}', 'PatientController@update');
     Route::delete('{id}', 'PatientController@destroy');
     Route::resource('', 'PatientController');
+});
+
+Route::group(['prefix' => 'reservation-type', 'middleware' => 'auth:api'], function () {
+    Route::post('{id}', 'ReservationTypeController@update');
+    Route::delete('{id}', 'ReservationTypeController@destroy');
+    Route::resource('', 'ReservationTypeController');
 });

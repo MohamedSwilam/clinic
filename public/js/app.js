@@ -106469,9 +106469,9 @@ var themeConfig = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\Work\Clinic\clinic\resources\js\app.js */"./resources/js/app.js");
-__webpack_require__(/*! D:\Work\Clinic\clinic\resources\sass\app.scss */"./resources/sass/app.scss");
-module.exports = __webpack_require__(/*! D:\Work\Clinic\clinic\resources\assets\css\main.css */"./resources/assets/css/main.css");
+__webpack_require__(/*! C:\Program Files\JetBrains\PhpStorm 2019.2.3\plugins\Clinic\clinic\resources\js\app.js */"./resources/js/app.js");
+__webpack_require__(/*! C:\Program Files\JetBrains\PhpStorm 2019.2.3\plugins\Clinic\clinic\resources\sass\app.scss */"./resources/sass/app.scss");
+module.exports = __webpack_require__(/*! C:\Program Files\JetBrains\PhpStorm 2019.2.3\plugins\Clinic\clinic\resources\assets\css\main.css */"./resources/assets/css/main.css");
 
 
 /***/ })
