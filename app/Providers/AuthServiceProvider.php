@@ -6,7 +6,9 @@ use App\Patient;
 use App\Policies\EmployeePolicy;
 use App\Policies\PatientPolicy;
 use App\Policies\PermissionPolicy;
+use App\Policies\ReservationTypePolicy;
 use App\Policies\RolePolicy;
+use App\ReservationType;
 use App\User;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -27,6 +29,7 @@ class AuthServiceProvider extends ServiceProvider
         Role::class => RolePolicy::class,
         Permission::class => PermissionPolicy::class,
         Patient::class => PatientPolicy::class,
+        ReservationType::class => ReservationTypePolicy::class,
     ];
 
     /**

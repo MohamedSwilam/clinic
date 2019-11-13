@@ -56,7 +56,7 @@ class RoleController extends Controller
         return $this->respond(
             'Role Created Successfully',
             fractal(
-                Role::create($request->all()),
+                Role::create($request->validated()),
                 new RoleTransformer()
             )
         );
@@ -98,7 +98,7 @@ class RoleController extends Controller
 
         $role = Role::findById($id);
 
-        $role->update($request->all());
+        $role->update($request->validated());
 
         return $this->respond(
             'Role Updated Successfully',
