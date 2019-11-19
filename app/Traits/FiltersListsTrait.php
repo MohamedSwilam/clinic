@@ -54,8 +54,7 @@ trait FiltersListsTrait
      */
     private function isValidFilter($filter, $value)
     {
-        return
-            $this->filterExists($filter) &&
+        return $this->filterExists($filter) &&
             !empty($value);
     }
     /**

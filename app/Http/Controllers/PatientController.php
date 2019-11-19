@@ -47,7 +47,7 @@ class PatientController extends Controller
         return $this->respond(
             'Patient Created Successfully',
             fractal(
-                Patient::create($request->all()),
+                Patient::create($request->validated()),
                 new PatientTransformer()
             )
         );
@@ -78,7 +78,7 @@ class PatientController extends Controller
 
         $patient = Patient::find($id);
 
-        $patient->update($request->all());
+        $patient->update($request->validated());
 
         return $this->respond(
             'Patient Updated Successfully',

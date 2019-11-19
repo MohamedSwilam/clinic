@@ -15,15 +15,15 @@ class LoginController extends Controller
     {
         $login_credentials = $request->validated();
 
-        if (!Auth::attempt($login_credentials)){
+        if (!Auth::guard('web')->attempt($login_credentials)){
             return $this->respond('incorrect email or password', [], 401);
         }
 
-        $user = $request->user();
+        $user = User::where('email', $login_credentials['email'])->first();
 
         return $this->respond("login credentials correct", [
             'user' => $user,
-            'access_token' => $user->createToken('token')->accessToken,
+            'access_token' => $user->createToken('token'),
             'token_type' => 'Bearer',
         ], 200);
     }
