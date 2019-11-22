@@ -104276,7 +104276,7 @@ module.exports = "/fonts/feather.eot?931c9e74d0b20947054bfe6a5b74a838";
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/fonts/feather.svg?0e5daf6bac4f17e400266545070b108e";
+module.exports = "/fonts/feather.svg?90f969db293a9077b0555139e6c9b20e";
 
 /***/ }),
 
@@ -104642,6 +104642,34 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_App_vue_vue_type_template_id_7201f370___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ "./resources/js/src/axios.js":
+/*!***********************************!*\
+  !*** ./resources/js/src/axios.js ***!
+  \***********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+// axios
+
+var domain = "127.0.0.1";
+/* harmony default export */ __webpack_exports__["default"] = (axios__WEBPACK_IMPORTED_MODULE_0___default.a.create({
+  // `baseURL` will be prepended to `url` unless `url` is absolute.
+  // It can be convenient to set `baseURL` for an instance of axios to pass relative URLs
+  // to methods of that instance.
+  baseURL: 'https://127.0.0.1/api/',
+  // `timeout` specifies the number of milliseconds before the request times out.
+  // If the request takes longer than `timeout`, the request will be aborted.
+  timeout: 2000 // default is `0` (no timeout)
+  // You can add your headers here
+
+}));
 
 /***/ }),
 
@@ -105112,6 +105140,101 @@ vue_select__WEBPACK_IMPORTED_MODULE_7___default.a.props.components["default"] = 
 };
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vue_select__WEBPACK_IMPORTED_MODULE_7___default.a);
+
+/***/ }),
+
+/***/ "./resources/js/src/http/axios/index.js":
+/*!**********************************************!*\
+  !*** ./resources/js/src/http/axios/index.js ***!
+  \**********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _axios_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../axios.js */ "./resources/js/src/axios.js");
+
+/* harmony default export */ __webpack_exports__["default"] = (_axios_js__WEBPACK_IMPORTED_MODULE_0__["default"]);
+
+/***/ }),
+
+/***/ "./resources/js/src/http/requests/auth/jwt/index.js":
+/*!**********************************************************!*\
+  !*** ./resources/js/src/http/requests/auth/jwt/index.js ***!
+  \**********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _axios_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../axios/index.js */ "./resources/js/src/http/axios/index.js");
+/* harmony import */ var _store_store_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../store/store.js */ "./resources/js/src/store/store.js");
+
+ // Token Refresh
+
+var isAlreadyFetchingAccessToken = false;
+var subscribers = [];
+
+function onAccessTokenFetched(access_token) {
+  subscribers = subscribers.filter(function (callback) {
+    return callback(access_token);
+  });
+}
+
+function addSubscriber(callback) {
+  subscribers.push(callback);
+}
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  init: function init() {
+    _axios_index_js__WEBPACK_IMPORTED_MODULE_0__["default"].interceptors.response.use(function (response) {
+      return response;
+    }, function (error) {
+      // const { config, response: { status } } = error
+      var config = error.config,
+          response = error.response;
+      var originalRequest = config; // if (status === 401) {
+
+      if (response && response.status === 401) {
+        if (!isAlreadyFetchingAccessToken) {
+          isAlreadyFetchingAccessToken = true;
+          _store_store_js__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch("auth/fetchAccessToken").then(function (access_token) {
+            isAlreadyFetchingAccessToken = false;
+            onAccessTokenFetched(access_token);
+          });
+        }
+
+        var retryOriginalRequest = new Promise(function (resolve) {
+          addSubscriber(function (access_token) {
+            originalRequest.headers.Authorization = 'Bearer ' + access_token;
+            resolve(Object(_axios_index_js__WEBPACK_IMPORTED_MODULE_0__["default"])(originalRequest));
+          });
+        });
+        return retryOriginalRequest;
+      }
+
+      return Promise.reject(error);
+    });
+  },
+  login: function login(email, pwd) {
+    return _axios_index_js__WEBPACK_IMPORTED_MODULE_0__["default"].post("/api/auth/login", {
+      email: email,
+      password: pwd
+    });
+  },
+  registerUser: function registerUser(name, email, pwd) {
+    return _axios_index_js__WEBPACK_IMPORTED_MODULE_0__["default"].post("/api/auth/register", {
+      displayName: name,
+      email: email,
+      password: pwd
+    });
+  },
+  refreshToken: function refreshToken() {
+    return _axios_index_js__WEBPACK_IMPORTED_MODULE_0__["default"].post("/api/auth/refresh-token", {
+      accessToken: localStorage.getItem("accessToKen")
+    });
+  }
+});
 
 /***/ }),
 
@@ -106037,7 +106160,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     // PAGES
     // =============================================================================
     {
-      path: '/dashboard/login',
+      path: '/login',
       name: 'pageLogin',
       component: function component() {
         return __webpack_require__.e(/*! import() */ 4).then(__webpack_require__.bind(null, /*! ./views/pages/Login.vue */ "./resources/js/src/views/pages/Login.vue"));
@@ -106129,6 +106252,173 @@ var actions = {
 
 /***/ }),
 
+/***/ "./resources/js/src/store/auth/moduleAuth.js":
+/*!***************************************************!*\
+  !*** ./resources/js/src/store/auth/moduleAuth.js ***!
+  \***************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _moduleAuthState_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./moduleAuthState.js */ "./resources/js/src/store/auth/moduleAuthState.js");
+/* harmony import */ var _moduleAuthMutations_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./moduleAuthMutations.js */ "./resources/js/src/store/auth/moduleAuthMutations.js");
+/* harmony import */ var _moduleAuthActions_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./moduleAuthActions.js */ "./resources/js/src/store/auth/moduleAuthActions.js");
+/* harmony import */ var _moduleAuthGetters_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./moduleAuthGetters.js */ "./resources/js/src/store/auth/moduleAuthGetters.js");
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  namespaced: true,
+  state: _moduleAuthState_js__WEBPACK_IMPORTED_MODULE_0__["default"],
+  mutations: _moduleAuthMutations_js__WEBPACK_IMPORTED_MODULE_1__["default"],
+  actions: _moduleAuthActions_js__WEBPACK_IMPORTED_MODULE_2__["default"],
+  getters: _moduleAuthGetters_js__WEBPACK_IMPORTED_MODULE_3__["default"]
+});
+
+/***/ }),
+
+/***/ "./resources/js/src/store/auth/moduleAuthActions.js":
+/*!**********************************************************!*\
+  !*** ./resources/js/src/store/auth/moduleAuthActions.js ***!
+  \**********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _http_requests_auth_jwt_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../http/requests/auth/jwt/index.js */ "./resources/js/src/http/requests/auth/jwt/index.js");
+/* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/router */ "./resources/js/src/router.js");
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  // JWT
+  loginJWT: function loginJWT(_ref, payload) {
+    var commit = _ref.commit;
+    return new Promise(function (resolve, reject) {
+      _http_requests_auth_jwt_index_js__WEBPACK_IMPORTED_MODULE_0__["default"].login(payload.userDetails.email, payload.userDetails.password).then(function (response) {
+        // If there's user data in response
+        if (response.data.userData) {
+          // Navigate User to homepage
+          _router__WEBPACK_IMPORTED_MODULE_1__["default"].push(_router__WEBPACK_IMPORTED_MODULE_1__["default"].currentRoute.query.to || '/'); // Set accessToken
+
+          localStorage.setItem("accessToken", response.data.accessToken); // Update user details
+
+          commit('UPDATE_USER_INFO', response.data.userData, {
+            root: true
+          }); // Set bearer token in axios
+
+          commit("SET_BEARER", response.data.accessToken);
+          resolve(response);
+        } else {
+          reject({
+            message: "Wrong Email or Password"
+          });
+        }
+      })["catch"](function (error) {
+        reject(error);
+      });
+    });
+  },
+  registerUserJWT: function registerUserJWT(_ref2, payload) {
+    var commit = _ref2.commit;
+    var _payload$userDetails = payload.userDetails,
+        displayName = _payload$userDetails.displayName,
+        email = _payload$userDetails.email,
+        password = _payload$userDetails.password,
+        confirmPassword = _payload$userDetails.confirmPassword;
+    return new Promise(function (resolve, reject) {
+      // Check confirm password
+      if (password !== confirmPassword) {
+        reject({
+          message: "Password doesn't match. Please try again."
+        });
+      }
+
+      _http_requests_auth_jwt_index_js__WEBPACK_IMPORTED_MODULE_0__["default"].registerUser(displayName, email, password).then(function (response) {
+        // Redirect User
+        _router__WEBPACK_IMPORTED_MODULE_1__["default"].push(_router__WEBPACK_IMPORTED_MODULE_1__["default"].currentRoute.query.to || '/'); // Update data in localStorage
+
+        localStorage.setItem("accessToken", response.data.accessToken);
+        commit('UPDATE_USER_INFO', response.data.userData, {
+          root: true
+        });
+        resolve(response);
+      })["catch"](function (error) {
+        reject(error);
+      });
+    });
+  },
+  fetchAccessToken: function fetchAccessToken() {
+    return new Promise(function (resolve) {
+      _http_requests_auth_jwt_index_js__WEBPACK_IMPORTED_MODULE_0__["default"].refreshToken().then(function (response) {
+        resolve(response);
+      });
+    });
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/src/store/auth/moduleAuthGetters.js":
+/*!**********************************************************!*\
+  !*** ./resources/js/src/store/auth/moduleAuthGetters.js ***!
+  \**********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({});
+
+/***/ }),
+
+/***/ "./resources/js/src/store/auth/moduleAuthMutations.js":
+/*!************************************************************!*\
+  !*** ./resources/js/src/store/auth/moduleAuthMutations.js ***!
+  \************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _http_axios_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../http/axios/index.js */ "./resources/js/src/http/axios/index.js");
+/*=========================================================================================
+  File Name: moduleAuthMutations.js
+  Description: Auth Module Mutations
+  ----------------------------------------------------------------------------------------
+  Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
+  Author: Pixinvent
+  Author URL: http://www.themeforest.net/user/pixinvent
+==========================================================================================*/
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  SET_BEARER: function SET_BEARER(state, accessToken) {
+    _http_axios_index_js__WEBPACK_IMPORTED_MODULE_0__["default"].defaults.headers.common['Authorization'] = 'Bearer ' + accessToken;
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/src/store/auth/moduleAuthState.js":
+/*!********************************************************!*\
+  !*** ./resources/js/src/store/auth/moduleAuthState.js ***!
+  \********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  isUserLoggedIn: function isUserLoggedIn() {
+    var isAuthenticated = new Date(Date.now()) < new Date(localStorage.getItem(tokenExpiryKey)) && localStorage.getItem(localStorageKey) === 'true';
+    return localStorage.getItem('userInfo') && isAuthenticated;
+  }
+});
+
+/***/ }),
+
 /***/ "./resources/js/src/store/getters.js":
 /*!*******************************************!*\
   !*** ./resources/js/src/store/getters.js ***!
@@ -106202,7 +106492,7 @@ var mutations = {
   UPDATE_STARRED_PAGE: function UPDATE_STARRED_PAGE(state, payload) {
     // find item index in search list state
     var index = state.navbarSearchAndPinList.data.findIndex(function (item) {
-      return item.index == payload.index;
+      return item.index === payload.index;
     }); // update the main list
 
     state.navbarSearchAndPinList.data[index].highlightAction = payload.val; // if val is true add it to starred else remove
@@ -106212,7 +106502,7 @@ var mutations = {
     } else {
       // find item index from starred pages
       var _index = state.starredPages.findIndex(function (item) {
-        return item.index == payload.index;
+        return item.index === payload.index;
       }); // remove item using index
 
 
@@ -106360,6 +106650,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _getters__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./getters */ "./resources/js/src/store/getters.js");
 /* harmony import */ var _mutations__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./mutations */ "./resources/js/src/store/mutations.js");
 /* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./actions */ "./resources/js/src/store/actions.js");
+/* harmony import */ var _auth_moduleAuth_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./auth/moduleAuth.js */ "./resources/js/src/store/auth/moduleAuth.js");
 /*=========================================================================================
   File Name: store.js
   Description: Vuex store
@@ -106375,11 +106666,15 @@ __webpack_require__.r(__webpack_exports__);
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
+
 /* harmony default export */ __webpack_exports__["default"] = (new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   getters: _getters__WEBPACK_IMPORTED_MODULE_3__["default"],
   mutations: _mutations__WEBPACK_IMPORTED_MODULE_4__["default"],
   state: _state__WEBPACK_IMPORTED_MODULE_2__["default"],
   actions: _actions__WEBPACK_IMPORTED_MODULE_5__["default"],
+  modules: {
+    auth: _auth_moduleAuth_js__WEBPACK_IMPORTED_MODULE_6__["default"]
+  },
   strict: "development" !== 'production'
 }));
 
@@ -106469,9 +106764,9 @@ var themeConfig = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Program Files\JetBrains\PhpStorm 2019.2.3\plugins\Clinic\clinic\resources\js\app.js */"./resources/js/app.js");
-__webpack_require__(/*! C:\Program Files\JetBrains\PhpStorm 2019.2.3\plugins\Clinic\clinic\resources\sass\app.scss */"./resources/sass/app.scss");
-module.exports = __webpack_require__(/*! C:\Program Files\JetBrains\PhpStorm 2019.2.3\plugins\Clinic\clinic\resources\assets\css\main.css */"./resources/assets/css/main.css");
+__webpack_require__(/*! C:\wamp64\www\clinic\resources\js\app.js */"./resources/js/app.js");
+__webpack_require__(/*! C:\wamp64\www\clinic\resources\sass\app.scss */"./resources/sass/app.scss");
+module.exports = __webpack_require__(/*! C:\wamp64\www\clinic\resources\assets\css\main.css */"./resources/assets/css/main.css");
 
 
 /***/ })

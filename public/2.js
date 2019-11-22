@@ -1408,34 +1408,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -1635,8 +1607,10 @@ __webpack_require__.r(__webpack_exports__);
       return 'Just Now';
     },
     logout: function logout() {
-      // This is just for demo Purpose. If user clicks on logout -> redirect
-      this.$router.push('/pages/login')["catch"](function () {});
+      if (localStorage.getItem("accessToken")) {
+        localStorage.removeItem("accessToken");
+        this.$router.push('/login')["catch"](function () {});
+      }
     },
     outside: function outside() {
       this.showBookmarkPagesDropdown = false;
@@ -5431,7 +5405,7 @@ var render = function() {
                       "div",
                       {
                         staticClass:
-                          "\r\n                        checkout-footer\r\n                        fixed\r\n                        bottom-0\r\n                        rounded-b-lg\r\n                        text-primary\r\n                        w-full\r\n                        p-2\r\n                        font-semibold\r\n                        text-center\r\n                        border\r\n                        border-b-0\r\n                        border-l-0\r\n                        border-r-0\r\n                        border-solid\r\n                        d-theme-border-grey-light\r\n                        cursor-pointer"
+                          "\n                        checkout-footer\n                        fixed\n                        bottom-0\n                        rounded-b-lg\n                        text-primary\n                        w-full\n                        p-2\n                        font-semibold\n                        text-center\n                        border\n                        border-b-0\n                        border-l-0\n                        border-r-0\n                        border-solid\n                        d-theme-border-grey-light\n                        cursor-pointer"
                       },
                       [_c("span", [_vm._v("View All Notifications")])]
                     )
@@ -5518,118 +5492,6 @@ var render = function() {
                                     _vm._v(" "),
                                     _c("span", { staticClass: "ml-2" }, [
                                       _vm._v("Profile")
-                                    ])
-                                  ],
-                                  1
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "li",
-                                  {
-                                    staticClass:
-                                      "flex py-2 px-4 cursor-pointer hover:bg-primary hover:text-white",
-                                    on: {
-                                      click: function($event) {
-                                        _vm.$router
-                                          .push("/apps/email")
-                                          .catch(function() {})
-                                      }
-                                    }
-                                  },
-                                  [
-                                    _c("feather-icon", {
-                                      attrs: {
-                                        icon: "MailIcon",
-                                        svgClasses: "w-4 h-4"
-                                      }
-                                    }),
-                                    _vm._v(" "),
-                                    _c("span", { staticClass: "ml-2" }, [
-                                      _vm._v("Inbox")
-                                    ])
-                                  ],
-                                  1
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "li",
-                                  {
-                                    staticClass:
-                                      "flex py-2 px-4 cursor-pointer hover:bg-primary hover:text-white",
-                                    on: {
-                                      click: function($event) {
-                                        _vm.$router
-                                          .push("/apps/todo")
-                                          .catch(function() {})
-                                      }
-                                    }
-                                  },
-                                  [
-                                    _c("feather-icon", {
-                                      attrs: {
-                                        icon: "CheckSquareIcon",
-                                        svgClasses: "w-4 h-4"
-                                      }
-                                    }),
-                                    _vm._v(" "),
-                                    _c("span", { staticClass: "ml-2" }, [
-                                      _vm._v("Tasks")
-                                    ])
-                                  ],
-                                  1
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "li",
-                                  {
-                                    staticClass:
-                                      "flex py-2 px-4 cursor-pointer hover:bg-primary hover:text-white",
-                                    on: {
-                                      click: function($event) {
-                                        _vm.$router
-                                          .push("/apps/chat")
-                                          .catch(function() {})
-                                      }
-                                    }
-                                  },
-                                  [
-                                    _c("feather-icon", {
-                                      attrs: {
-                                        icon: "MessageSquareIcon",
-                                        svgClasses: "w-4 h-4"
-                                      }
-                                    }),
-                                    _vm._v(" "),
-                                    _c("span", { staticClass: "ml-2" }, [
-                                      _vm._v("Chat")
-                                    ])
-                                  ],
-                                  1
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "li",
-                                  {
-                                    staticClass:
-                                      "flex py-2 px-4 cursor-pointer hover:bg-primary hover:text-white",
-                                    on: {
-                                      click: function($event) {
-                                        _vm.$router
-                                          .push("/apps/eCommerce/wish-list")
-                                          .catch(function() {})
-                                      }
-                                    }
-                                  },
-                                  [
-                                    _c("feather-icon", {
-                                      attrs: {
-                                        icon: "HeartIcon",
-                                        svgClasses: "w-4 h-4"
-                                      }
-                                    }),
-                                    _vm._v(" "),
-                                    _c("span", { staticClass: "ml-2" }, [
-                                      _vm._v("Wish List")
                                     ])
                                   ],
                                   1
