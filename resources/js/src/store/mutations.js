@@ -39,10 +39,10 @@ const mutations = {
   UPDATE_STARRED_PAGE(state, payload) {
 
     // find item index in search list state
-    const index = state.navbarSearchAndPinList.data.findIndex((item) => item.index == payload.index)
+    const index = state.navbarSearchAndPinList.data.findIndex((item) => item.index === payload.index);
 
     // update the main list
-    state.navbarSearchAndPinList.data[index].highlightAction = payload.val
+    state.navbarSearchAndPinList.data[index].highlightAction = payload.val;
 
     // if val is true add it to starred else remove
     if (payload.val) {
@@ -50,7 +50,7 @@ const mutations = {
     }
     else {
       // find item index from starred pages
-      const index = state.starredPages.findIndex((item) => item.index == payload.index)
+      const index = state.starredPages.findIndex((item) => item.index === payload.index);
 
       // remove item using index
       state.starredPages.splice(index, 1)
@@ -60,18 +60,18 @@ const mutations = {
   // Navbar-Vertical
 
   ARRANGE_STARRED_PAGES_LIMITED(state, list) {
-    const starredPagesMore = state.starredPages.slice(10)
+    const starredPagesMore = state.starredPages.slice(10);
     state.starredPages     = list.concat(starredPagesMore)
   },
   ARRANGE_STARRED_PAGES_MORE(state, list) {
-    let downToUp                 = false
-    let lastItemInStarredLimited = state.starredPages[10]
-    const starredPagesLimited    = state.starredPages.slice(0, 10)
-    state.starredPages           = starredPagesLimited.concat(list)
+    let downToUp                 = false;
+    let lastItemInStarredLimited = state.starredPages[10];
+    const starredPagesLimited    = state.starredPages.slice(0, 10);
+    state.starredPages           = starredPagesLimited.concat(list);
 
     state.starredPages.slice(0, 10).map((i) => {
       if (list.indexOf(i) > -1) downToUp = true
-    })
+    });
 
     if (!downToUp) {
       state.starredPages.splice(10, 0, lastItemInStarredLimited)
@@ -98,13 +98,13 @@ const mutations = {
   UPDATE_USER_INFO(state, payload) {
 
     // Get Data localStorage
-    let userInfo = JSON.parse(localStorage.getItem("userInfo")) || state.AppActiveUser
+    let userInfo = JSON.parse(localStorage.getItem("userInfo")) || state.AppActiveUser;
 
     for (const property of Object.keys(payload)) {
 
       if (payload[property] != null) {
         // If some of user property is null - user default property defined in state.AppActiveUser
-        state.AppActiveUser[property] = payload[property]
+        state.AppActiveUser[property] = payload[property];
 
         // Update key in localStorage
         userInfo[property] = payload[property]
@@ -115,7 +115,7 @@ const mutations = {
     // Store data in localStorage
     localStorage.setItem("userInfo", JSON.stringify(userInfo))
   },
-}
+};
 
 export default mutations
 

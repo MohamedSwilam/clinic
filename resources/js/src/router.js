@@ -351,7 +351,7 @@ const router = new Router({
                 // PAGES
                 // =============================================================================
                 {
-                    path: '/dashboard/login',
+                    path: '/login',
                     name: 'pageLogin',
                     component: () => import('./views/pages/Login.vue')
                 },
