@@ -105,31 +105,31 @@ return [
             'display_name' => 'Assign Permission',
         ],
     ],
-    'Reservation Type' => [
+    'Reservation' => [
         [
-            'name' => 'create-reservation-type',
+            'name' => 'create-reservation',
             'guard_name' => 'api',
-            'display_name' => 'Create Reservation Type',
+            'display_name' => 'Create Reservation',
         ],
         [
-            'name' => 'view-reservation-type',
+            'name' => 'view-reservation',
             'guard_name' => 'api',
-            'display_name' => 'View Reservation Type',
+            'display_name' => 'View Reservation',
         ],
         [
-            'name' => 'assign-reservation-type',
+            'name' => 'assign-reservation',
             'guard_name' => 'api',
-            'display_name' => 'Assign Reservation Type',
+            'display_name' => 'Assign Reservation',
         ],
         [
-            'name' => 'edit-reservation-type',
+            'name' => 'edit-reservation',
             'guard_name' => 'api',
-            'display_name' => 'Edit Reservation Type',
+            'display_name' => 'Edit Reservation',
         ],
         [
-            'name' => 'delete-reservation-type',
+            'name' => 'delete-reservation',
             'guard_name' => 'api',
-            'display_name' => 'Delete Reservation Type',
+            'display_name' => 'Delete Reservation',
         ],
     ],
 ];

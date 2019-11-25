@@ -46,3 +46,9 @@ Route::group(['prefix' => 'reservation-type', 'middleware' => 'auth:api'], funct
     Route::delete('{id}', 'ReservationTypeController@destroy');
     Route::resource('', 'ReservationTypeController');
 });
+
+Route::group(['prefix' => 'reservation-duration', 'middleware' => 'auth:api'], function () {
+    Route::post('{id}', 'ReservationDurationController@update');
+    Route::delete('{id}', 'ReservationDurationController@destroy');
+    Route::resource('', 'ReservationDurationController');
+});
