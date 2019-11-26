@@ -6,6 +6,7 @@ use App\Http\Requests\LoginRequest;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpFoundation\Response;
 use Laravel\Passport\Passport;
 use League\OAuth2\Server\CryptKey;
 
@@ -16,7 +17,8 @@ class LoginController extends Controller
         $login_credentials = $request->validated();
 
         if (!Auth::guard('web')->attempt($login_credentials)){
-            return $this->respond('incorrect email or password', [], 401);
+            return response()->json(['error' => 'Incorrect email or password'], Response::HTTP_UNAUTHORIZED);
+//            return $this->respond('Incorrect email or password', [], Response::HTTP_UNAUTHORIZED);
         }
 
         $user = User::where('email', $login_credentials['email'])->first();

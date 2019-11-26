@@ -9,28 +9,36 @@ export default {
       return new Promise((resolve, reject) => {
         jwt.login(payload.userDetails.email, payload.userDetails.password)
           .then(response => {
-
+              console.log(response);
             // If there's user data in response
-            if(response.data.userData) {
-              // Navigate User to homepage
-              router.push(router.currentRoute.query.to || '/');
+            if(response.data.data.user) {
+                // Navigate User to homepage
+                router.push(router.currentRoute.query.to || '/dashboard');
 
-              // Set accessToken
-              localStorage.setItem("accessToken", response.data.accessToken);
+                // Set accessToken
+                localStorage.setItem("accessToken", response.data.data.access_token.accessToken);
 
-              // Update user details
-              commit('UPDATE_USER_INFO', response.data.userData, {root: true});
+                // Set Expiry Date
+                localStorage.setItem('tokenExpiry', new Date(response.data.data.access_token.token.expires_at)*1);
 
-              // Set bearer token in axios
-              commit("SET_BEARER", response.data.accessToken);
+                // Set loggedIn True
+                localStorage.setItem('loggedIn', 'true');
 
-              resolve(response)
+                // Update user details
+                commit('UPDATE_USER_INFO', response.data.data.user, {root: true});
+
+                // Set bearer token in axios
+                commit("SET_BEARER", response.data.data.access_token.accessToken);
+
+                resolve(response)
             }else {
               reject({message: "Wrong Email or Password"})
             }
 
           })
-          .catch(error => { reject(error) })
+          .catch(error => {
+              reject(error);
+          })
       })
     },
     registerUserJWT({ commit }, payload) {

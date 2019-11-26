@@ -104657,17 +104657,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 // axios
+ // const domain = "127.0.0.1";
 
-var domain = "127.0.0.1";
 /* harmony default export */ __webpack_exports__["default"] = (axios__WEBPACK_IMPORTED_MODULE_0___default.a.create({
   // `baseURL` will be prepended to `url` unless `url` is absolute.
   // It can be convenient to set `baseURL` for an instance of axios to pass relative URLs
   // to methods of that instance.
-  baseURL: 'https://127.0.0.1/api/',
+  baseURL: '/api/',
   // `timeout` specifies the number of milliseconds before the request times out.
   // If the request takes longer than `timeout`, the request will be aborted.
-  timeout: 2000 // default is `0` (no timeout)
-  // You can add your headers here
+  timeout: 2000,
+  // default is `0` (no timeout)
+  headers: {
+    'X-Requested-With': 'XMLHttpRequest'
+  } // You can add your headers here
 
 }));
 
@@ -105217,7 +105220,7 @@ function addSubscriber(callback) {
     });
   },
   login: function login(email, pwd) {
-    return _axios_index_js__WEBPACK_IMPORTED_MODULE_0__["default"].post("/api/auth/login", {
+    return _axios_index_js__WEBPACK_IMPORTED_MODULE_0__["default"].post("login", {
       email: email,
       password: pwd
     });
@@ -105721,7 +105724,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/dashboard/employee',
       name: 'employee',
       component: function component() {
-        return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(8)]).then(__webpack_require__.bind(null, /*! ./views/employee/browse.vue */ "./resources/js/src/views/employee/browse.vue"));
+        return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(7)]).then(__webpack_require__.bind(null, /*! ./views/employee/browse.vue */ "./resources/js/src/views/employee/browse.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -105741,7 +105744,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/dashboard/employee/create',
       name: 'add-employee',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 9).then(__webpack_require__.bind(null, /*! ./views/employee/create.vue */ "./resources/js/src/views/employee/create.vue"));
+        return __webpack_require__.e(/*! import() */ 8).then(__webpack_require__.bind(null, /*! ./views/employee/create.vue */ "./resources/js/src/views/employee/create.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -105765,7 +105768,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/dashboard/employee/:id',
       name: 'view-employee',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 11).then(__webpack_require__.bind(null, /*! ./views/employee/view.vue */ "./resources/js/src/views/employee/view.vue"));
+        return __webpack_require__.e(/*! import() */ 10).then(__webpack_require__.bind(null, /*! ./views/employee/view.vue */ "./resources/js/src/views/employee/view.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -105789,7 +105792,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/dashboard/employee/:id/edit',
       name: 'edit-employee',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 10).then(__webpack_require__.bind(null, /*! ./views/employee/edit.vue */ "./resources/js/src/views/employee/edit.vue"));
+        return __webpack_require__.e(/*! import() */ 9).then(__webpack_require__.bind(null, /*! ./views/employee/edit.vue */ "./resources/js/src/views/employee/edit.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -105833,7 +105836,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/dashboard/patient/create',
       name: 'create-patient',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 12).then(__webpack_require__.bind(null, /*! ./views/patient/create.vue */ "./resources/js/src/views/patient/create.vue"));
+        return __webpack_require__.e(/*! import() */ 11).then(__webpack_require__.bind(null, /*! ./views/patient/create.vue */ "./resources/js/src/views/patient/create.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -105857,7 +105860,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/dashboard/patient/:id/edit',
       name: 'edit-patient',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 13).then(__webpack_require__.bind(null, /*! ./views/patient/edit.vue */ "./resources/js/src/views/patient/edit.vue"));
+        return __webpack_require__.e(/*! import() */ 12).then(__webpack_require__.bind(null, /*! ./views/patient/edit.vue */ "./resources/js/src/views/patient/edit.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -105905,7 +105908,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/dashboard/appointment',
       name: 'appointment',
       component: function component() {
-        return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(29), __webpack_require__.e(6)]).then(__webpack_require__.bind(null, /*! ./views/appointment/Appointment.vue */ "./resources/js/src/views/appointment/Appointment.vue"));
+        return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(29), __webpack_require__.e(5)]).then(__webpack_require__.bind(null, /*! ./views/appointment/Appointment.vue */ "./resources/js/src/views/appointment/Appointment.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -105925,7 +105928,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/dashboard/appointment/add-appointment/:patient_id',
       name: 'add-appointment',
       component: function component() {
-        return Promise.all(/*! import() */[__webpack_require__.e(25), __webpack_require__.e(5)]).then(__webpack_require__.bind(null, /*! ./views/appointment/AddAppointment.vue */ "./resources/js/src/views/appointment/AddAppointment.vue"));
+        return Promise.all(/*! import() */[__webpack_require__.e(25), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, /*! ./views/appointment/AddAppointment.vue */ "./resources/js/src/views/appointment/AddAppointment.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -105969,7 +105972,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/dashboard/calendar',
       name: 'calendar',
       component: function component() {
-        return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(7)]).then(__webpack_require__.bind(null, /*! ./views/calendar/Calendar.vue */ "./resources/js/src/views/calendar/Calendar.vue"));
+        return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(6)]).then(__webpack_require__.bind(null, /*! ./views/calendar/Calendar.vue */ "./resources/js/src/views/calendar/Calendar.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -106007,7 +106010,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/dashboard/settings/role/create',
       name: 'create-role',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 14).then(__webpack_require__.bind(null, /*! ./views/settings/Role/Create.vue */ "./resources/js/src/views/settings/Role/Create.vue"));
+        return __webpack_require__.e(/*! import() */ 13).then(__webpack_require__.bind(null, /*! ./views/settings/Role/Create.vue */ "./resources/js/src/views/settings/Role/Create.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -106049,7 +106052,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/dashboard/settings/role/edit/:id',
       name: 'edit-role',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 15).then(__webpack_require__.bind(null, /*! ./views/settings/Role/Edit.vue */ "./resources/js/src/views/settings/Role/Edit.vue"));
+        return __webpack_require__.e(/*! import() */ 14).then(__webpack_require__.bind(null, /*! ./views/settings/Role/Edit.vue */ "./resources/js/src/views/settings/Role/Edit.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -106088,7 +106091,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/dashboard/settings/reservation/create',
       name: 'create-reservation',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 17).then(__webpack_require__.bind(null, /*! ./views/settings/reservation/create.vue */ "./resources/js/src/views/settings/reservation/create.vue"));
+        return __webpack_require__.e(/*! import() */ 16).then(__webpack_require__.bind(null, /*! ./views/settings/reservation/create.vue */ "./resources/js/src/views/settings/reservation/create.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -106109,7 +106112,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/dashboard/settings/reservation/edit/:id',
       name: 'edit-reservation',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 18).then(__webpack_require__.bind(null, /*! ./views/settings/reservation/edit.vue */ "./resources/js/src/views/settings/reservation/edit.vue"));
+        return __webpack_require__.e(/*! import() */ 17).then(__webpack_require__.bind(null, /*! ./views/settings/reservation/edit.vue */ "./resources/js/src/views/settings/reservation/edit.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -106130,7 +106133,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/dashboard/settings/reservation-duration/create',
       name: 'create-reservation-duration',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 16).then(__webpack_require__.bind(null, /*! ./views/settings/reservation/create-duration.vue */ "./resources/js/src/views/settings/reservation/create-duration.vue"));
+        return __webpack_require__.e(/*! import() */ 15).then(__webpack_require__.bind(null, /*! ./views/settings/reservation/create-duration.vue */ "./resources/js/src/views/settings/reservation/create-duration.vue"));
       },
       meta: {
         breadcrumb: [{
@@ -106160,10 +106163,10 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     // PAGES
     // =============================================================================
     {
-      path: '/login',
+      path: '/dashboard/login',
       name: 'pageLogin',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 4).then(__webpack_require__.bind(null, /*! ./views/pages/Login.vue */ "./resources/js/src/views/pages/Login.vue"));
+        return __webpack_require__.e(/*! import() */ 18).then(__webpack_require__.bind(null, /*! ./views/pages/Login.vue */ "./resources/js/src/views/pages/Login.vue"));
       }
     }, {
       path: '/dashboard/error-404',
@@ -106298,18 +106301,23 @@ __webpack_require__.r(__webpack_exports__);
     var commit = _ref.commit;
     return new Promise(function (resolve, reject) {
       _http_requests_auth_jwt_index_js__WEBPACK_IMPORTED_MODULE_0__["default"].login(payload.userDetails.email, payload.userDetails.password).then(function (response) {
-        // If there's user data in response
-        if (response.data.userData) {
+        console.log(response); // If there's user data in response
+
+        if (response.data.data.user) {
           // Navigate User to homepage
-          _router__WEBPACK_IMPORTED_MODULE_1__["default"].push(_router__WEBPACK_IMPORTED_MODULE_1__["default"].currentRoute.query.to || '/'); // Set accessToken
+          _router__WEBPACK_IMPORTED_MODULE_1__["default"].push(_router__WEBPACK_IMPORTED_MODULE_1__["default"].currentRoute.query.to || '/dashboard'); // Set accessToken
 
-          localStorage.setItem("accessToken", response.data.accessToken); // Update user details
+          localStorage.setItem("accessToken", response.data.data.access_token.accessToken); // Set Expiry Date
 
-          commit('UPDATE_USER_INFO', response.data.userData, {
+          localStorage.setItem('tokenExpiry', new Date(response.data.data.access_token.token.expires_at) * 1); // Set loggedIn True
+
+          localStorage.setItem('loggedIn', 'true'); // Update user details
+
+          commit('UPDATE_USER_INFO', response.data.data.user, {
             root: true
           }); // Set bearer token in axios
 
-          commit("SET_BEARER", response.data.accessToken);
+          commit("SET_BEARER", response.data.data.access_token.accessToken);
           resolve(response);
         } else {
           reject({
@@ -106412,7 +106420,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   isUserLoggedIn: function isUserLoggedIn() {
-    var isAuthenticated = new Date(Date.now()) < new Date(localStorage.getItem(tokenExpiryKey)) && localStorage.getItem(localStorageKey) === 'true';
+    var isAuthenticated = new Date(Date.now()) < new Date(localStorage.getItem('tokenExpiry')) && localStorage.getItem('loggedIn') === 'true';
     return localStorage.getItem('userInfo') && isAuthenticated;
   }
 });

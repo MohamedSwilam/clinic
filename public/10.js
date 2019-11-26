@@ -1,8 +1,8 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[10],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/employee/edit.vue?vue&type=script&lang=js&":
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/employee/view.vue?vue&type=script&lang=js&":
 /*!***********************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/employee/edit.vue?vue&type=script&lang=js& ***!
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/employee/view.vue?vue&type=script&lang=js& ***!
   \***********************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -134,121 +134,248 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "edit",
+  name: "viewData",
   mounted: function mounted() {
-    this.getData();
+    this.getAppointments();
   },
   data: function data() {
     return {
-      EmployeeRoles: [{
-        text: 'Administrator',
-        value: 1
-      }, {
-        text: 'Doctor',
-        value: 2
-      }, {
-        text: 'Assistant Doctor',
-        value: 3
-      }, {
-        text: 'Receptionist',
-        value: 4
-      }, {
-        text: 'Accountant',
-        value: 5
-      }],
-      SelectedEmployeeType: 1,
-      FirstName: "",
-      LastName: "",
-      Telephone: "",
-      Email: "",
-      Telephones: ['01096436702', '01116436790'],
-      DOB: null,
-      gender: 1,
-      imageData: "/images/avatar-s-11.png",
-      address: {
-        city: '',
-        country: '',
-        address_text: ''
-      },
-      cities: [{
-        id: 1,
-        name: 'Cairo',
-        countries: [{
-          id: 1,
-          name: 'Heliopolis'
-        }, {
-          id: 2,
-          name: 'Maadi'
-        }, {
-          id: 3,
-          name: 'Nasr City'
-        }]
-      }, {
-        id: 2,
-        name: 'Alexandria',
-        countries: [{
-          id: 4,
-          name: 'Alex1'
-        }, {
-          id: 5,
-          name: 'Alex2'
-        }, {
-          id: 6,
-          name: 'Alex3'
-        }]
-      }]
+      appointments: [],
+      filterData: []
     };
   },
   methods: {
-    getData: function getData() {
-      this.FirstName = 'Phil';
-      this.LastName = 'Gray';
-      this.Email = 'Phil_Gray@hotmail.com';
-      this.DOB = '1997-10-18';
-      this.address.city = 'Cairo';
-      this.address.address_text = 'Cairo, Maddi';
-      this.address.country = 'Maadi';
-    },
-    previewImage: function previewImage(event) {
-      var _this = this;
-
-      // Reference to the DOM input element
-      var input = event.target; // Ensure that you have a file before attempting to read it
-
-      if (input.files && input.files[0]) {
-        // create a new FileReader to read this image and convert to base64 format
-        var reader = new FileReader(); // Define a callback function to run, when FileReader finishes its job
-
-        reader.onload = function (e) {
-          // Note: arrow function used here, so that "this.imageData" refers to the imageData of Vue component
-          // Read image as base64 and set to imageData
-          _this.imageData = e.target.result;
-        }; // Start the reader job - read file as a data url (base64 format)
-
-
-        reader.readAsDataURL(input.files[0]);
-      }
-    },
-    removeTelephone: function removeTelephone(item) {
-      this.Telephones.splice(this.Telephones.indexOf(item), 1);
-    },
-    addTelephone: function addTelephone() {
-      var item = this.Telephone;
-
-      if (item != '') {
-        this.Telephones.push(item);
-        this.Telephone = "";
-      }
+    handleSearch: function handleSearch() {},
+    handleChangePage: function handleChangePage() {},
+    handleSort: function handleSort() {},
+    getAppointments: function getAppointments() {
+      this.appointments = [{
+        id: 1,
+        type: 'Reservation Type1',
+        duration: new Date(),
+        doctor: {
+          id: 1,
+          name: 'Irene Baker'
+        },
+        patient: {
+          id: 1,
+          name: "Phil Gray",
+          public_id: "p-105",
+          dob: "18/10/1997",
+          telephones: ["01096436702", "01113689783"],
+          payment: {
+            paid: 200,
+            total: 1000,
+            percentage: 200 * 100 / 1000
+          }
+        },
+        status: {
+          id: 1,
+          title: 'Coming',
+          color: 'primary'
+        }
+      }, {
+        id: 2,
+        type: 'Reservation Type1',
+        duration: new Date(),
+        doctor: {
+          id: 1,
+          name: 'Irene Baker'
+        },
+        patient: {
+          id: 1,
+          name: "Phil Gray",
+          public_id: "p-106",
+          dob: "18/10/1997",
+          telephones: ["01096436702", "01113689783"],
+          payment: {
+            paid: 500,
+            total: 800,
+            percentage: 500 * 100 / 800
+          }
+        },
+        status: {
+          id: 2,
+          title: 'Inside',
+          color: 'danger'
+        }
+      }, {
+        id: 3,
+        type: 'Reservation Type1',
+        duration: new Date(),
+        doctor: {
+          id: 1,
+          name: 'Irene Baker'
+        },
+        patient: {
+          id: 1,
+          name: "Phil Gray",
+          public_id: "p-105",
+          dob: "18/10/1997",
+          telephones: ["01096436702", "01113689783"],
+          payment: {
+            paid: 900,
+            total: 900,
+            percentage: 900 * 100 / 900
+          }
+        },
+        status: {
+          id: 3,
+          title: 'Postponed',
+          color: 'warning'
+        }
+      }, {
+        id: 4,
+        type: 'Reservation Type1',
+        duration: new Date(),
+        doctor: {
+          id: 1,
+          name: 'Irene Baker'
+        },
+        patient: {
+          id: 1,
+          name: "Phil Gray",
+          public_id: "p-107",
+          dob: "18/10/1997",
+          telephones: ["01096436702", "01113689783"],
+          payment: {
+            paid: 200,
+            total: 1000,
+            percentage: 200 * 100 / 1000
+          }
+        },
+        status: {
+          id: 4,
+          title: 'Finished',
+          color: 'success'
+        }
+      }, {
+        id: 5,
+        type: 'Reservation Type1',
+        duration: new Date(),
+        doctor: {
+          id: 1,
+          name: 'Irene Baker'
+        },
+        patient: {
+          id: 1,
+          name: "Phil Gray",
+          public_id: "p-108",
+          dob: "18/10/1997",
+          telephones: ["01096436702", "01113689783"],
+          payment: {
+            paid: 200,
+            total: 1000,
+            percentage: 200 * 100 / 1000
+          }
+        },
+        status: {
+          id: 4,
+          title: 'Finished',
+          color: 'success'
+        }
+      }, {
+        id: 6,
+        type: 'Reservation Type1',
+        duration: new Date(),
+        doctor: {
+          id: 1,
+          name: 'Irene Baker'
+        },
+        patient: {
+          id: 1,
+          name: "Phil Gray",
+          public_id: "p-109",
+          dob: "18/10/1997",
+          telephones: ["01096436702", "01113689783"],
+          payment: {
+            paid: 700,
+            total: 1000,
+            percentage: 700 * 100 / 1000
+          }
+        },
+        status: {
+          id: 4,
+          title: 'Finished',
+          color: 'success'
+        }
+      }, {
+        id: 7,
+        type: 'Reservation Type2',
+        duration: new Date(),
+        doctor: {
+          id: 1,
+          name: 'Irene Baker'
+        },
+        patient: {
+          id: 2,
+          name: "Phil Gray",
+          public_id: "p-110",
+          dob: "18/10/1997",
+          telephones: ["01096436702", "01113689783"],
+          payment: {
+            paid: 200,
+            total: 1000,
+            percentage: 200 * 100 / 1000
+          }
+        },
+        status: {
+          id: 4,
+          title: 'Missed',
+          color: 'dark'
+        }
+      }];
     }
   }
 });
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/employee/edit.vue?vue&type=style&index=0&lang=css&":
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/employee/view.vue?vue&type=style&index=0&lang=css&":
 /*!******************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader??ref--7-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/employee/edit.vue?vue&type=style&index=0&lang=css& ***!
+  !*** ./node_modules/css-loader??ref--7-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/employee/view.vue?vue&type=style&index=0&lang=css& ***!
   \******************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
@@ -258,22 +385,22 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, ".dob-input{\n  padding-bottom: 7px !important;\n  padding-top: 7px !important;\n}\ninput[type=date]:invalid::-webkit-datetime-edit {\n  color: rgb(220, 220, 220) !important;\n}\n.gender-container{\n  padding-top: 9px !important;\n}\n.gender-placeholder {\n  transform: translate(-3px,-70%)!important;\n}\n.image-preview {\n  font-family: \"Helvetica Neue\",Helvetica,Arial,sans-serif;\n  padding-right: 20px;\n  top: 6px;\n  position: relative;\n}\n#img-upload {\n  display: none;\n}\nimg.preview {\n  width: 55px;\n  height: 55px;\n  border-radius: 50%;\n  background-color: white;\n  border: 1px solid #DDD;\n  padding: 5px;\n}\n.input-btn {\n  position: relative;\n  top: 17px;\n  left: -33px;\n  border-top-left-radius: 0;\n  border-bottom-left-radius: 0;\n}\n.vs-input-number {\n  width: -webkit-fit-content;\n  width: -moz-fit-content;\n  width: fit-content;\n}\n", ""]);
+exports.push([module.i, ".selectExample {\n  margin: 10px;\n}\n.con-select-example {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.con-select .vs-select {\n  width: 100%\n}\n@media (max-width: 550px) {\n.con-select {\n    flex-direction: column;\n}\n.con-select .vs-select {\n    width: 100%\n}\n}\n", ""]);
 
 // exports
 
 
 /***/ }),
 
-/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/employee/edit.vue?vue&type=style&index=0&lang=css&":
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/employee/view.vue?vue&type=style&index=0&lang=css&":
 /*!**********************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--7-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/employee/edit.vue?vue&type=style&index=0&lang=css& ***!
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--7-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/employee/view.vue?vue&type=style&index=0&lang=css& ***!
   \**********************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(/*! !../../../../../node_modules/css-loader??ref--7-1!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--7-2!../../../../../node_modules/vue-loader/lib??vue-loader-options!./edit.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/employee/edit.vue?vue&type=style&index=0&lang=css&");
+var content = __webpack_require__(/*! !../../../../../node_modules/css-loader??ref--7-1!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--7-2!../../../../../node_modules/vue-loader/lib??vue-loader-options!./view.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/employee/view.vue?vue&type=style&index=0&lang=css&");
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -295,9 +422,9 @@ if(false) {}
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/employee/edit.vue?vue&type=template&id=05e944b1&":
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/employee/view.vue?vue&type=template&id=24996868&":
 /*!***************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/employee/edit.vue?vue&type=template&id=05e944b1& ***!
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/employee/view.vue?vue&type=template&id=24996868& ***!
   \***************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -317,517 +444,105 @@ var render = function() {
       [
         _c(
           "vx-card",
-          { attrs: { title: "Personal Information" } },
+          { attrs: { title: "Personal Information", collapseAction: "" } },
           [
-            _c("div", { staticClass: "vx-row" }, [
-              _c(
-                "div",
-                { staticClass: "vx-col w-full mb-6" },
-                [
-                  _c(
-                    "vs-select",
-                    {
-                      staticClass: "w-full",
-                      attrs: {
-                        label: "Employee Role",
-                        autocomplete: "",
-                        "label-placeholder": "Employee Role",
-                        "icon-pack": "feather",
-                        icon: "icon-chevron-down",
-                        color: "primary"
-                      },
-                      model: {
-                        value: _vm.SelectedEmployeeType,
-                        callback: function($$v) {
-                          _vm.SelectedEmployeeType = $$v
-                        },
-                        expression: "SelectedEmployeeType"
-                      }
-                    },
-                    _vm._l(_vm.EmployeeRoles, function(item, index) {
-                      return _c("vs-select-item", {
-                        key: index,
-                        attrs: { value: item.value, text: item.text }
-                      })
-                    }),
-                    1
-                  )
-                ],
-                1
-              )
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "vx-row" }, [
-              _c("div", { staticClass: "vx-col sm:w-1/2 w-full mb-6" }, [
-                _vm.imageData.length > 0
-                  ? _c(
-                      "div",
+            _c(
+              "vs-row",
+              [
+                _c(
+                  "vs-row",
+                  { staticClass: "mb-5" },
+                  [
+                    _c(
+                      "vs-col",
                       {
-                        staticClass: "image-preview",
-                        staticStyle: { display: "inline-flex" }
+                        attrs: {
+                          "vs-type": "flex",
+                          "vs-justify": "center",
+                          "vs-align": "center",
+                          "vs-w": "12"
+                        }
                       },
                       [
                         _c("img", {
-                          staticClass: "preview",
-                          attrs: { alt: "employee photo", src: _vm.imageData }
+                          attrs: {
+                            src: "/images/avatar-s-3.png",
+                            alt: "Employee Photo"
+                          }
                         })
                       ]
                     )
-                  : _vm._e(),
+                  ],
+                  1
+                ),
                 _vm._v(" "),
                 _c(
-                  "div",
-                  {
-                    staticStyle: {
-                      display: "inline-flex",
-                      position: "relative",
-                      top: "-15px"
-                    }
-                  },
+                  "vs-row",
+                  { staticClass: "mb-2" },
                   [
-                    _c("input", {
-                      attrs: {
-                        id: "img-upload",
-                        type: "file",
-                        accept: "image/*"
-                      },
-                      on: { change: _vm.previewImage }
-                    }),
-                    _vm._v(" "),
                     _c(
-                      "vs-button",
+                      "vs-col",
                       {
                         attrs: {
-                          size: "small",
-                          "icon-pack": "feather",
-                          icon: "icon-upload",
-                          type: "gradient",
-                          onclick:
-                            "document.getElementById('img-upload').click()"
+                          "vs-type": "flex",
+                          "vs-justify": "center",
+                          "vs-align": "center",
+                          "vs-w": "12"
                         }
                       },
-                      [_vm._v("Upload Employee Photo")]
+                      [
+                        _vm._v(
+                          "\n                        Phil Gray\n                    "
+                        )
+                      ]
                     )
                   ],
                   1
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "vx-col sm:w-1/2 w-full mb-6" }, [
+                ),
+                _vm._v(" "),
                 _c(
-                  "div",
-                  {
-                    staticClass:
-                      "vs-component vs-con-input-label vs-input w-full vs-input-primary is-label-placeholder"
-                  },
+                  "vs-row",
+                  { staticClass: "mb-2" },
                   [
                     _c(
-                      "div",
-                      { staticClass: "gender-container" },
-                      [
-                        _c(
-                          "vs-radio",
-                          {
-                            attrs: { "vs-value": "1" },
-                            model: {
-                              value: _vm.gender,
-                              callback: function($$v) {
-                                _vm.gender = $$v
-                              },
-                              expression: "gender"
-                            }
-                          },
-                          [_vm._v("Male")]
-                        ),
-                        _vm._v(
-                          "\n                              \n                            "
-                        ),
-                        _c(
-                          "vs-radio",
-                          {
-                            attrs: { "vs-value": "0" },
-                            model: {
-                              value: _vm.gender,
-                              callback: function($$v) {
-                                _vm.gender = $$v
-                              },
-                              expression: "gender"
-                            }
-                          },
-                          [_vm._v("Female")]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "span",
-                          {
-                            staticClass:
-                              "input-span-placeholder vs-input--placeholder normal normal vs-placeholder-label gender-placeholder"
-                          },
-                          [
-                            _vm._v(
-                              "\n                            Gender\n                            "
-                            )
-                          ]
-                        )
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c("span")
-                  ]
-                )
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "vx-row" }, [
-              _c(
-                "div",
-                { staticClass: "vx-col sm:w-1/2 w-full mb-6" },
-                [
-                  _c("vs-input", {
-                    staticClass: "w-full",
-                    attrs: {
-                      "icon-pack": "feather",
-                      icon: "icon-user",
-                      "label-placeholder": "First Name"
-                    },
-                    model: {
-                      value: _vm.FirstName,
-                      callback: function($$v) {
-                        _vm.FirstName = $$v
-                      },
-                      expression: "FirstName"
-                    }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "vx-col sm:w-1/2 w-full mb-6" },
-                [
-                  _c("vs-input", {
-                    staticClass: "w-full",
-                    attrs: {
-                      "icon-pack": "feather",
-                      icon: "icon-user",
-                      "label-placeholder": "Last Name"
-                    },
-                    model: {
-                      value: _vm.LastName,
-                      callback: function($$v) {
-                        _vm.LastName = $$v
-                      },
-                      expression: "LastName"
-                    }
-                  })
-                ],
-                1
-              )
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "vx-row" }, [
-              _c("div", { staticClass: "vx-col sm:w-1/2 w-full mb-6" }, [
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "vs-component vs-con-input-label vs-input w-full vs-input-primary is-label-placeholder"
-                  },
-                  [
-                    _c("div", { staticClass: "vs-con-input" }, [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.DOB,
-                            expression: "DOB"
-                          }
-                        ],
-                        staticClass:
-                          "vs-inputx vs-input--input normal hasIcon hasValue dob-input",
-                        staticStyle: { border: "1px solid rgba(0, 0, 0, 0.2)" },
-                        attrs: { required: "", type: "date" },
-                        domProps: { value: _vm.DOB },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.DOB = $event.target.value
-                          }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "span",
-                        {
-                          staticClass:
-                            "input-span-placeholder vs-input--placeholder normal normal vs-placeholder-label"
-                        },
-                        [
-                          _vm._v(
-                            "\n                            Date of birth\n                            "
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c("i", {
-                        staticClass:
-                          "vs-icon notranslate icon-scale icon-inputx notranslate vs-input--icon feather icon-calendar null"
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("span")
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "vx-col sm:w-1/2 w-full mb-6" },
-                [
-                  _c("vs-input", {
-                    staticClass: "w-full",
-                    attrs: {
-                      "icon-pack": "feather",
-                      icon: "icon-map-pin",
-                      "label-placeholder": "Address"
-                    },
-                    model: {
-                      value: _vm.address.address_text,
-                      callback: function($$v) {
-                        _vm.$set(_vm.address, "address_text", $$v)
-                      },
-                      expression: "address.address_text"
-                    }
-                  })
-                ],
-                1
-              )
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "vx-row" }, [
-              _c(
-                "div",
-                { staticClass: "vx-col sm:w-1/2 w-full mb-6" },
-                [
-                  _c(
-                    "vs-select",
-                    {
-                      staticClass: "w-full",
-                      attrs: { label: "City" },
-                      model: {
-                        value: _vm.address.city,
-                        callback: function($$v) {
-                          _vm.$set(_vm.address, "city", $$v)
-                        },
-                        expression: "address.city"
-                      }
-                    },
-                    _vm._l(_vm.cities, function(city, index) {
-                      return _c("vs-select-item", {
-                        key: index,
-                        attrs: { value: city, text: city.name }
-                      })
-                    }),
-                    1
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "vx-col sm:w-1/2 w-full mb-6" },
-                [
-                  _c(
-                    "vs-select",
-                    {
-                      staticClass: "w-full",
-                      attrs: { label: "Country" },
-                      model: {
-                        value: _vm.address.country,
-                        callback: function($$v) {
-                          _vm.$set(_vm.address, "country", $$v)
-                        },
-                        expression: "address.country"
-                      }
-                    },
-                    _vm._l(_vm.address.city.countries, function(
-                      country,
-                      index
-                    ) {
-                      return _c("vs-select-item", {
-                        key: index,
-                        attrs: { value: country.id, text: country.name }
-                      })
-                    }),
-                    1
-                  )
-                ],
-                1
-              )
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "vx-row" }, [
-              _c(
-                "div",
-                { staticClass: "vx-col sm:w-1/2 w-full mb-6" },
-                [
-                  _c(
-                    "vs-row",
-                    [
-                      _c(
-                        "vs-col",
-                        { attrs: { "vs-w": "9" } },
-                        [
-                          _c("vs-input", {
-                            staticClass: "w-full",
-                            attrs: {
-                              "icon-pack": "feather",
-                              icon: "icon-phone",
-                              "label-placeholder": "Telephone(s)"
-                            },
-                            on: {
-                              keydown: function($event) {
-                                $event.keyCode === 13
-                                  ? _vm.addTelephone()
-                                  : false
-                              }
-                            },
-                            model: {
-                              value: _vm.Telephone,
-                              callback: function($$v) {
-                                _vm.Telephone = $$v
-                              },
-                              expression: "Telephone"
-                            }
-                          })
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "vs-col",
-                        { attrs: { "vs-w": "3" } },
-                        [
-                          _c(
-                            "vs-button",
-                            {
-                              staticClass: "w-full input-btn",
-                              attrs: {
-                                "icon-pack": "feather",
-                                icon: "icon-plus",
-                                type: "gradient"
-                              },
-                              on: { click: _vm.addTelephone }
-                            },
-                            [_vm._v("Add")]
-                          )
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c("br"),
-                  _vm._v(" "),
-                  _c(
-                    "vs-row",
-                    [
-                      _c(
-                        "vs-col",
-                        { attrs: { "vs-w": "12" } },
-                        _vm._l(_vm.Telephones, function(telephone) {
-                          return _c(
-                            "vs-chip",
-                            {
-                              key: telephone,
-                              attrs: { closable: "" },
-                              on: {
-                                click: function($event) {
-                                  return _vm.removeTelephone(telephone)
-                                }
-                              }
-                            },
-                            [
-                              _vm._v(
-                                "\n                                " +
-                                  _vm._s(telephone) +
-                                  "\n                            "
-                              )
-                            ]
-                          )
-                        }),
-                        1
-                      )
-                    ],
-                    1
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "vx-col sm:w-1/2 w-full mb-6" },
-                [
-                  _c("vs-input", {
-                    staticClass: "w-full",
-                    attrs: {
-                      "icon-pack": "feather",
-                      icon: "icon-mail",
-                      "label-placeholder": "Email"
-                    },
-                    model: {
-                      value: _vm.Email,
-                      callback: function($$v) {
-                        _vm.Email = $$v
-                      },
-                      expression: "Email"
-                    }
-                  })
-                ],
-                1
-              )
-            ]),
-            _vm._v(" "),
-            _c(
-              "vs-row",
-              {
-                attrs: {
-                  "vs-align": "center",
-                  "vs-type": "flex",
-                  "vs-justify": "center",
-                  "vs-w": "12"
-                }
-              },
-              [
-                _c(
-                  "vs-col",
-                  {
-                    attrs: {
-                      "vs-type": "flex",
-                      "vs-justify": "center",
-                      "vs-align": "center",
-                      "vs-w": "12"
-                    }
-                  },
-                  [
-                    _c(
-                      "vs-button",
+                      "vs-col",
                       {
                         attrs: {
-                          "icon-pack": "feather",
-                          icon: "icon-save",
-                          type: "gradient"
+                          "vs-type": "flex",
+                          "vs-justify": "center",
+                          "vs-align": "center",
+                          "vs-w": "12"
                         }
                       },
-                      [_vm._v("Save Employee")]
+                      [
+                        _vm._v(
+                          "\n                        Phil_Gray@hotmail.com\n                    "
+                        )
+                      ]
+                    )
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "vs-row",
+                  { staticClass: "mb-2" },
+                  [
+                    _c(
+                      "vs-col",
+                      {
+                        attrs: {
+                          "vs-type": "flex",
+                          "vs-justify": "center",
+                          "vs-align": "center",
+                          "vs-w": "12"
+                        }
+                      },
+                      [
+                        _vm._v(
+                          "\n                        01096436702 , 01113689783\n                    "
+                        )
+                      ]
                     )
                   ],
                   1
@@ -835,6 +550,638 @@ var render = function() {
               ],
               1
             )
+          ],
+          1
+        )
+      ],
+      1
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "vx-col w-full mb-base" },
+      [
+        _c(
+          "vx-card",
+          { attrs: { title: "Appointments", collapseAction: "" } },
+          [
+            _vm.appointments.length > 0
+              ? _c(
+                  "vs-table",
+                  {
+                    attrs: {
+                      sst: true,
+                      "max-items": "50",
+                      search: "",
+                      pagination: "",
+                      data: _vm.appointments
+                    },
+                    on: {
+                      search: _vm.handleSearch,
+                      "change-page": _vm.handleChangePage,
+                      sort: _vm.handleSort
+                    },
+                    scopedSlots: _vm._u(
+                      [
+                        {
+                          key: "default",
+                          fn: function(ref) {
+                            var data = ref.data
+                            return [
+                              _vm._l(_vm.appointments, function(
+                                appointment,
+                                index
+                              ) {
+                                return [
+                                  _c(
+                                    "vs-tr",
+                                    { key: index },
+                                    [
+                                      _c(
+                                        "vs-td",
+                                        { attrs: { data: index + 1 } },
+                                        [
+                                          _c(
+                                            "div",
+                                            {
+                                              on: {
+                                                contextmenu: function($event) {
+                                                  $event.preventDefault()
+                                                  return _vm.openContext(
+                                                    appointment.id
+                                                  )
+                                                }
+                                              }
+                                            },
+                                            [
+                                              _vm._v(
+                                                "\n                                    " +
+                                                  _vm._s(index + 1) +
+                                                  "\n                                "
+                                              )
+                                            ]
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c("vs-td", [
+                                        _c(
+                                          "div",
+                                          {
+                                            on: {
+                                              contextmenu: function($event) {
+                                                $event.preventDefault()
+                                                return _vm.openContext(
+                                                  appointment.id
+                                                )
+                                              }
+                                            }
+                                          },
+                                          [
+                                            _vm._v(
+                                              "\n                                    " +
+                                                _vm._s(
+                                                  appointment.patient.public_id
+                                                ) +
+                                                "\n                                "
+                                            )
+                                          ]
+                                        )
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("vs-td", [
+                                        _c(
+                                          "div",
+                                          {
+                                            on: {
+                                              contextmenu: function($event) {
+                                                $event.preventDefault()
+                                                return _vm.openContext(
+                                                  appointment.id
+                                                )
+                                              }
+                                            }
+                                          },
+                                          [
+                                            _vm._v(
+                                              "\n                                    " +
+                                                _vm._s(
+                                                  appointment.patient.name
+                                                ) +
+                                                "\n                                "
+                                            )
+                                          ]
+                                        )
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("vs-td", [
+                                        _c(
+                                          "div",
+                                          {
+                                            on: {
+                                              contextmenu: function($event) {
+                                                $event.preventDefault()
+                                                return _vm.openContext(
+                                                  appointment.id
+                                                )
+                                              }
+                                            }
+                                          },
+                                          [
+                                            _vm._v(
+                                              "\n                                    " +
+                                                _vm._s(
+                                                  appointment.duration.getUTCDay()
+                                                ) +
+                                                "/" +
+                                                _vm._s(
+                                                  appointment.duration.getUTCMonth()
+                                                ) +
+                                                "/" +
+                                                _vm._s(
+                                                  appointment.duration.getUTCFullYear()
+                                                ) +
+                                                " " +
+                                                _vm._s(
+                                                  appointment.duration.toLocaleTimeString()
+                                                ) +
+                                                "\n                                "
+                                            )
+                                          ]
+                                        )
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("vs-td", [
+                                        _c(
+                                          "div",
+                                          {
+                                            on: {
+                                              contextmenu: function($event) {
+                                                $event.preventDefault()
+                                                return _vm.openContext(
+                                                  appointment.id
+                                                )
+                                              }
+                                            }
+                                          },
+                                          [
+                                            _vm._l(
+                                              appointment.patient.telephones,
+                                              function(telephone, index) {
+                                                return [
+                                                  _vm._v(
+                                                    "\n                                        " +
+                                                      _vm._s(telephone)
+                                                  ),
+                                                  index !==
+                                                  appointment.patient.telephones
+                                                    .length -
+                                                    1
+                                                    ? [_vm._v(", ")]
+                                                    : _vm._e()
+                                                ]
+                                              }
+                                            )
+                                          ],
+                                          2
+                                        )
+                                      ]),
+                                      _vm._v(" "),
+                                      _c(
+                                        "vs-td",
+                                        [
+                                          _c(
+                                            "vs-chip",
+                                            {
+                                              attrs: {
+                                                color: appointment.status.color
+                                              }
+                                            },
+                                            [
+                                              _vm._v(
+                                                _vm._s(appointment.status.title)
+                                              )
+                                            ]
+                                          )
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c("vs-td", [
+                                        _c(
+                                          "div",
+                                          { staticClass: "flex mb-4" },
+                                          [
+                                            _c(
+                                              "div",
+                                              { staticClass: "w-1/3 pl-2" },
+                                              [
+                                                _c("vs-button", {
+                                                  attrs: {
+                                                    to:
+                                                      "/dashboard/patient/" +
+                                                      appointment.patient
+                                                        .public_id,
+                                                    radius: "",
+                                                    color: "primary",
+                                                    type: "border",
+                                                    "icon-pack": "feather",
+                                                    icon: "icon-eye"
+                                                  }
+                                                })
+                                              ],
+                                              1
+                                            ),
+                                            _vm._v(" "),
+                                            _c(
+                                              "div",
+                                              { staticClass: "w-1/3 pl-2" },
+                                              [
+                                                _c("vs-button", {
+                                                  attrs: {
+                                                    to:
+                                                      "/dashboard/patient/" +
+                                                      appointment.patient
+                                                        .public_id +
+                                                      "/edit",
+                                                    radius: "",
+                                                    color: "warning",
+                                                    type: "border",
+                                                    "icon-pack": "feather",
+                                                    icon: "icon-edit"
+                                                  }
+                                                })
+                                              ],
+                                              1
+                                            ),
+                                            _vm._v(" "),
+                                            _c(
+                                              "div",
+                                              { staticClass: "w-1/3 pl-2" },
+                                              [
+                                                _c("vs-button", {
+                                                  attrs: {
+                                                    radius: "",
+                                                    color: "danger",
+                                                    type: "border",
+                                                    "icon-pack": "feather",
+                                                    icon: "icon-trash"
+                                                  },
+                                                  on: {
+                                                    click: function($event) {
+                                                      return _vm.confirmDeleteAppointement(
+                                                        appointment
+                                                      )
+                                                    }
+                                                  }
+                                                })
+                                              ],
+                                              1
+                                            )
+                                          ]
+                                        )
+                                      ]),
+                                      _vm._v(" "),
+                                      _c(
+                                        "template",
+                                        {
+                                          staticClass: "expand-user",
+                                          slot: "expand"
+                                        },
+                                        [
+                                          _c(
+                                            "div",
+                                            {
+                                              staticClass:
+                                                "con-expand-users w-full"
+                                            },
+                                            [
+                                              _c(
+                                                "vs-list",
+                                                [
+                                                  _c("vs-list-item", {
+                                                    attrs: {
+                                                      "icon-pack": "feather",
+                                                      icon: "icon-arrow-right",
+                                                      title:
+                                                        "Appointment Information"
+                                                    }
+                                                  }),
+                                                  _vm._v(" "),
+                                                  _c("vs-list-item", {
+                                                    attrs: {
+                                                      "icon-pack": "feather",
+                                                      icon: "icon-arrow-right",
+                                                      title:
+                                                        "Appointment Information"
+                                                    }
+                                                  }),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "vs-list-item",
+                                                    {
+                                                      attrs: {
+                                                        "icon-pack": "feather",
+                                                        icon:
+                                                          "icon-arrow-right",
+                                                        title: "Update Status"
+                                                      }
+                                                    },
+                                                    [
+                                                      _c(
+                                                        "vs-button",
+                                                        {
+                                                          attrs: {
+                                                            size: "small",
+                                                            color: "primary",
+                                                            type:
+                                                              appointment.status
+                                                                .title ==
+                                                              "Coming"
+                                                                ? "filled"
+                                                                : "border",
+                                                            "icon-pack":
+                                                              "feather"
+                                                          }
+                                                        },
+                                                        [_vm._v("Coming")]
+                                                      ),
+                                                      _vm._v(" "),
+                                                      _c(
+                                                        "vs-button",
+                                                        {
+                                                          attrs: {
+                                                            size: "small",
+                                                            color: "danger",
+                                                            type:
+                                                              appointment.status
+                                                                .title ==
+                                                              "Inside"
+                                                                ? "filled"
+                                                                : "border",
+                                                            "icon-pack":
+                                                              "feather"
+                                                          }
+                                                        },
+                                                        [_vm._v("Inside")]
+                                                      ),
+                                                      _vm._v(" "),
+                                                      _c(
+                                                        "vs-button",
+                                                        {
+                                                          attrs: {
+                                                            size: "small",
+                                                            color: "warning",
+                                                            type:
+                                                              appointment.status
+                                                                .title ==
+                                                              "Postponed"
+                                                                ? "filled"
+                                                                : "border",
+                                                            "icon-pack":
+                                                              "feather"
+                                                          }
+                                                        },
+                                                        [_vm._v("Postponed")]
+                                                      ),
+                                                      _vm._v(" "),
+                                                      _c(
+                                                        "vs-button",
+                                                        {
+                                                          attrs: {
+                                                            size: "small",
+                                                            color: "success",
+                                                            type:
+                                                              appointment.status
+                                                                .title ==
+                                                              "Finished"
+                                                                ? "filled"
+                                                                : "border",
+                                                            "icon-pack":
+                                                              "feather"
+                                                          }
+                                                        },
+                                                        [_vm._v("Finished")]
+                                                      )
+                                                    ],
+                                                    1
+                                                  )
+                                                ],
+                                                1
+                                              )
+                                            ],
+                                            1
+                                          )
+                                        ]
+                                      )
+                                    ],
+                                    2
+                                  )
+                                ]
+                              })
+                            ]
+                          }
+                        }
+                      ],
+                      null,
+                      false,
+                      3769268058
+                    )
+                  },
+                  [
+                    _c("template", { slot: "header" }, [
+                      _c(
+                        "div",
+                        { staticClass: "con-select-example" },
+                        [
+                          _c(
+                            "vs-select",
+                            {
+                              staticClass: "selectExample",
+                              attrs: {
+                                autocomplete: "",
+                                label: "Filter",
+                                "icon-pack": "feather",
+                                icon: "icon-filter"
+                              },
+                              model: {
+                                value: _vm.filterData,
+                                callback: function($$v) {
+                                  _vm.filterData = $$v
+                                },
+                                expression: "filterData"
+                              }
+                            },
+                            [
+                              _c(
+                                "div",
+                                [
+                                  _c(
+                                    "vs-select-group",
+                                    { attrs: { title: "Duration" } },
+                                    [
+                                      _c("vs-select-item", {
+                                        attrs: { value: "today", text: "Today" }
+                                      }),
+                                      _vm._v(" "),
+                                      _c("vs-select-item", {
+                                        attrs: {
+                                          value: "Tomorrow",
+                                          text: "Tomorrow"
+                                        }
+                                      }),
+                                      _vm._v(" "),
+                                      _c("vs-select-item", {
+                                        attrs: {
+                                          value: "This Week",
+                                          text: "This Week"
+                                        }
+                                      }),
+                                      _vm._v(" "),
+                                      _c("vs-select-item", {
+                                        attrs: {
+                                          value: "This Month",
+                                          text: "This Month"
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                [
+                                  _c(
+                                    "vs-select-group",
+                                    { attrs: { title: "Status" } },
+                                    [
+                                      _c("vs-select-item", {
+                                        attrs: {
+                                          value: "Coming",
+                                          text: "Coming"
+                                        }
+                                      }),
+                                      _vm._v(" "),
+                                      _c("vs-select-item", {
+                                        attrs: {
+                                          value: "Inside",
+                                          text: "Inside"
+                                        }
+                                      }),
+                                      _vm._v(" "),
+                                      _c("vs-select-item", {
+                                        attrs: {
+                                          value: "Postponed",
+                                          text: "Postponed"
+                                        }
+                                      }),
+                                      _vm._v(" "),
+                                      _c("vs-select-item", {
+                                        attrs: {
+                                          value: "Finished",
+                                          text: "Finished"
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                [
+                                  _c(
+                                    "vs-select-group",
+                                    { attrs: { title: "Gender" } },
+                                    [
+                                      _c("vs-select-item", {
+                                        attrs: { value: "Male", text: "Male" }
+                                      }),
+                                      _vm._v(" "),
+                                      _c("vs-select-item", {
+                                        attrs: {
+                                          value: "Female",
+                                          text: "Female"
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                [
+                                  _c(
+                                    "vs-select-group",
+                                    { attrs: { title: "Payments" } },
+                                    [
+                                      _c("vs-select-item", {
+                                        attrs: {
+                                          value: "Less Paid",
+                                          text: "Less Paid"
+                                        }
+                                      }),
+                                      _vm._v(" "),
+                                      _c("vs-select-item", {
+                                        attrs: {
+                                          value: "Most Paid",
+                                          text: "Most Paid"
+                                        }
+                                      }),
+                                      _vm._v(" "),
+                                      _c("vs-select-item", {
+                                        attrs: {
+                                          value: "Complete",
+                                          text: "Complete"
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              )
+                            ]
+                          )
+                        ],
+                        1
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "template",
+                      { slot: "thead" },
+                      [
+                        _c("vs-th", [_vm._v("#")]),
+                        _vm._v(" "),
+                        _c("vs-th", [_vm._v("ID")]),
+                        _vm._v(" "),
+                        _c("vs-th", [_vm._v("Name")]),
+                        _vm._v(" "),
+                        _c("vs-th", { attrs: { "sort-key": "duration" } }, [
+                          _vm._v("Duration")
+                        ]),
+                        _vm._v(" "),
+                        _c("vs-th", [_vm._v("Telephones")]),
+                        _vm._v(" "),
+                        _c("vs-th", [_vm._v("Status")]),
+                        _vm._v(" "),
+                        _c("vs-th", [_vm._v("Action")])
+                      ],
+                      1
+                    )
+                  ],
+                  2
+                )
+              : _vm._e()
           ],
           1
         )
@@ -850,18 +1197,18 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/src/views/employee/edit.vue":
+/***/ "./resources/js/src/views/employee/view.vue":
 /*!**************************************************!*\
-  !*** ./resources/js/src/views/employee/edit.vue ***!
+  !*** ./resources/js/src/views/employee/view.vue ***!
   \**************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _edit_vue_vue_type_template_id_05e944b1___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./edit.vue?vue&type=template&id=05e944b1& */ "./resources/js/src/views/employee/edit.vue?vue&type=template&id=05e944b1&");
-/* harmony import */ var _edit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./edit.vue?vue&type=script&lang=js& */ "./resources/js/src/views/employee/edit.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _edit_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./edit.vue?vue&type=style&index=0&lang=css& */ "./resources/js/src/views/employee/edit.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _view_vue_vue_type_template_id_24996868___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./view.vue?vue&type=template&id=24996868& */ "./resources/js/src/views/employee/view.vue?vue&type=template&id=24996868&");
+/* harmony import */ var _view_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./view.vue?vue&type=script&lang=js& */ "./resources/js/src/views/employee/view.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _view_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./view.vue?vue&type=style&index=0&lang=css& */ "./resources/js/src/views/employee/view.vue?vue&type=style&index=0&lang=css&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -872,9 +1219,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
-  _edit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _edit_vue_vue_type_template_id_05e944b1___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _edit_vue_vue_type_template_id_05e944b1___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _view_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _view_vue_vue_type_template_id_24996868___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _view_vue_vue_type_template_id_24996868___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -884,54 +1231,54 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/src/views/employee/edit.vue"
+component.options.__file = "resources/js/src/views/employee/view.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/src/views/employee/edit.vue?vue&type=script&lang=js&":
+/***/ "./resources/js/src/views/employee/view.vue?vue&type=script&lang=js&":
 /*!***************************************************************************!*\
-  !*** ./resources/js/src/views/employee/edit.vue?vue&type=script&lang=js& ***!
+  !*** ./resources/js/src/views/employee/view.vue?vue&type=script&lang=js& ***!
   \***************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_edit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./edit.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/employee/edit.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_edit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_view_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./view.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/employee/view.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_view_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/src/views/employee/edit.vue?vue&type=style&index=0&lang=css&":
+/***/ "./resources/js/src/views/employee/view.vue?vue&type=style&index=0&lang=css&":
 /*!***********************************************************************************!*\
-  !*** ./resources/js/src/views/employee/edit.vue?vue&type=style&index=0&lang=css& ***!
+  !*** ./resources/js/src/views/employee/view.vue?vue&type=style&index=0&lang=css& ***!
   \***********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_edit_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader!../../../../../node_modules/css-loader??ref--7-1!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--7-2!../../../../../node_modules/vue-loader/lib??vue-loader-options!./edit.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/employee/edit.vue?vue&type=style&index=0&lang=css&");
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_edit_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_edit_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_edit_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_edit_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
- /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_edit_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_view_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader!../../../../../node_modules/css-loader??ref--7-1!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--7-2!../../../../../node_modules/vue-loader/lib??vue-loader-options!./view.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/employee/view.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_view_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_view_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_view_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_view_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_view_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
-/***/ "./resources/js/src/views/employee/edit.vue?vue&type=template&id=05e944b1&":
+/***/ "./resources/js/src/views/employee/view.vue?vue&type=template&id=24996868&":
 /*!*********************************************************************************!*\
-  !*** ./resources/js/src/views/employee/edit.vue?vue&type=template&id=05e944b1& ***!
+  !*** ./resources/js/src/views/employee/view.vue?vue&type=template&id=24996868& ***!
   \*********************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_edit_vue_vue_type_template_id_05e944b1___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./edit.vue?vue&type=template&id=05e944b1& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/employee/edit.vue?vue&type=template&id=05e944b1&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_edit_vue_vue_type_template_id_05e944b1___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_view_vue_vue_type_template_id_24996868___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./view.vue?vue&type=template&id=24996868& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/employee/view.vue?vue&type=template&id=24996868&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_view_vue_vue_type_template_id_24996868___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_edit_vue_vue_type_template_id_05e944b1___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_view_vue_vue_type_template_id_24996868___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
