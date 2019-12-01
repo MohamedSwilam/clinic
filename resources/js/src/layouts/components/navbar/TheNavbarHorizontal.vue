@@ -336,7 +336,6 @@ export default {
             return 'Just Now'
         },
         logout() {
-            console.log(localStorage.getItem("accessToken"));
             if(localStorage.getItem("accessToken")) {
                 localStorage.removeItem("accessToken");
                 this.$router.push('/dashboard/login').catch(() => {})

@@ -1607,8 +1607,6 @@ __webpack_require__.r(__webpack_exports__);
       return 'Just Now';
     },
     logout: function logout() {
-      console.log(localStorage.getItem("accessToken"));
-
       if (localStorage.getItem("accessToken")) {
         localStorage.removeItem("accessToken");
         this.$router.push('/dashboard/login')["catch"](function () {});
@@ -1985,13 +1983,16 @@ __webpack_require__.r(__webpack_exports__);
     },
     // PROFILE
     activeUserInfo: function activeUserInfo() {
-      return this.$store.state.AppActiveUser;
+      return this.$store.getters.auth.userData;
     },
     user_displayName: function user_displayName() {
-      return this.activeUserInfo.displayName;
+      return this.$store.getters['auth/userData'].first_name + ' ' + this.$store.getters['auth/userData'].last_name;
+    },
+    user_email: function user_email() {
+      return this.$store.getters['auth/userData'].email;
     },
     activeUserImg: function activeUserImg() {
-      return this.$store.state.AppActiveUser.photoURL;
+      return this.$store.getters['auth/userData'].image ? this.$store.getters['auth/userData'].image : this.$store.getters.defaultPhoto;
     }
   },
   methods: {
@@ -2048,10 +2049,22 @@ __webpack_require__.r(__webpack_exports__);
       return 'Just Now';
     },
     logout: function logout() {
-      if (localStorage.getItem("accessToken")) {
-        localStorage.removeItem("accessToken");
-        this.$router.push('/dashboard/login')["catch"](function () {});
-      }
+      var _this = this;
+
+      this.$vs.loading();
+      this.$store.dispatch('auth/logoutJWT').then(function () {
+        _this.$vs.loading.close();
+      })["catch"](function (error) {
+        _this.$vs.loading.close();
+
+        _this.$vs.notify({
+          title: 'Error',
+          text: error.response.data.error,
+          iconPack: 'feather',
+          icon: 'icon-alert-circle',
+          color: 'danger'
+        });
+      });
     },
     outside: function outside() {
       this.showBookmarkPagesDropdown = false;
@@ -6043,7 +6056,7 @@ var render = function() {
               1
             ),
             _vm._v(" "),
-            _vm.activeUserInfo.displayName
+            _vm.user_displayName
               ? _c(
                   "div",
                   { staticClass: "the-navbar__user-meta flex items-center" },
@@ -6058,7 +6071,7 @@ var render = function() {
                           _vm._v(_vm._s(_vm.user_displayName))
                         ]),
                         _vm._v(" "),
-                        _c("small", [_vm._v("Available")])
+                        _c("small", [_vm._v(_vm._s(_vm.user_email))])
                       ]
                     ),
                     _vm._v(" "),

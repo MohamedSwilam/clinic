@@ -9,30 +9,21 @@ export default {
       return new Promise((resolve, reject) => {
         jwt.login(payload.userDetails.email, payload.userDetails.password)
           .then(response => {
-              console.log(response);
             // If there's user data in response
             if(response.data.data.user) {
+
+                // Update user details
+                commit('UPDATE_USER_INFO', {userInfo: response.data.data.user});
+
+                // Set bearer token in axios
+                commit("SET_BEARER", {accessToken: response.data.data.access_token});
+
                 // Navigate User to homepage
                 router.push(router.currentRoute.query.to || '/dashboard');
 
-                // Set accessToken
-                localStorage.setItem("accessToken", response.data.data.access_token.accessToken);
-
-                // Set Expiry Date
-                localStorage.setItem('tokenExpiry', new Date(response.data.data.access_token.token.expires_at)*1);
-
-                // Set loggedIn True
-                localStorage.setItem('loggedIn', 'true');
-
-                // Update user details
-                commit('UPDATE_USER_INFO', response.data.data.user, {root: true});
-
-                // Set bearer token in axios
-                commit("SET_BEARER", response.data.data.access_token.accessToken);
-
                 resolve(response)
             }else {
-              reject({message: "Wrong Email or Password"})
+                reject({message: "Wrong Email or Password"})
             }
 
           })
@@ -41,6 +32,12 @@ export default {
           })
       })
     },
+
+    logoutJWT({ commit }) {
+        commit("LOGOUT");
+        router.push('/dashboard/login');
+    },
+
     registerUserJWT({ commit }, payload) {
 
       const { displayName, email, password, confirmPassword } = payload.userDetails;

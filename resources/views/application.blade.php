@@ -26,7 +26,7 @@
     </div>
 
     <!-- <script src="js/app.js"></script> -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC1qDLZ8CXn--s1m3mFQfirZi8mI0KgMmo&libraries=places"></script>
+{{--    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC1qDLZ8CXn--s1m3mFQfirZi8mI0KgMmo&libraries=places"></script>--}}
     <script src="{{ asset(mix('js/app.js')) }}"></script>
 
   </body>

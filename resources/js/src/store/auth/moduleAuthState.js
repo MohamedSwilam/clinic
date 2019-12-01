@@ -1,9 +1,23 @@
 
-export default {
-    isUserLoggedIn: () => {
-        let isAuthenticated = new Date(Date.now()) < new Date(localStorage.getItem('tokenExpiry')) &&
-            localStorage.getItem('loggedIn') === 'true';
+const userDefaults = {
+    id                  : 1,
+    first_name          : "John",
+    last_name           : "Doe",
+    email               : "abdo.ra.1997@gmail.com",
+    email_verified_at   : "2019-11-12 20:30:42",
+    birth_date          : null,
+    address             : null,
+    city                : null,
+    country             : null,
+    phone               : null,
+    gender              : null,
+    image               : require("@assets/images/portrait/small/avatar-s-11.png"),
+    created_at          : null,
+    updated_at          : null,
+    userRole            : "admin"
+};
 
-        return (localStorage.getItem('userInfo') && isAuthenticated)
-    },
+export default {
+    AppActiveUser   : userDefaults,
+    accessToken     : null
 }
