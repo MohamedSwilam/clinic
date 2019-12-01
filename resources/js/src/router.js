@@ -19,6 +19,7 @@
 
 import Vue from 'vue';
 import Router from 'vue-router';
+import store from './store/store'
 
 Vue.use(Router);
 
@@ -43,6 +44,7 @@ const router = new Router({
                     path: '/dashboard',
                     name: 'home',
                     component: () => import('./views/Home.vue'),
+                    beforeEnter: guard,
                     meta: {
                         breadcrumb: [
                             { title: 'Home', url: '/dashboard', i18n: 'Home', active: true },
@@ -57,6 +59,7 @@ const router = new Router({
                     path: '/dashboard/employee',
                     name: 'employee',
                     component: () => import('./views/employee/browse.vue'),
+                    beforeEnter: guard,
                     meta: {
                         breadcrumb: [
                             { title: 'Home', url: '/dashboard', i18n: 'Home' },
@@ -71,6 +74,7 @@ const router = new Router({
                     path: '/dashboard/employee/create',
                     name: 'add-employee',
                     component: () => import('./views/employee/create.vue'),
+                    beforeEnter: guard,
                     meta: {
                         breadcrumb: [
                             { title: 'Home', url: '/dashboard', i18n: 'Home' },
@@ -86,6 +90,7 @@ const router = new Router({
                     path: '/dashboard/employee/:id',
                     name: 'view-employee',
                     component: () => import('./views/employee/view.vue'),
+                    beforeEnter: guard,
                     meta: {
                         breadcrumb: [
                             { title: 'Home', url: '/dashboard', i18n: 'Home' },
@@ -101,6 +106,7 @@ const router = new Router({
                     path: '/dashboard/employee/:id/edit',
                     name: 'edit-employee',
                     component: () => import('./views/employee/edit.vue'),
+                    beforeEnter: guard,
                     meta: {
                         breadcrumb: [
                             { title: 'Home', url: '/dashboard', i18n: 'Home' },
@@ -116,6 +122,7 @@ const router = new Router({
                     path: '/dashboard/patient',
                     name: 'patient',
                     component: () => import('./views/patient/Patient.vue'),
+                    beforeEnter: guard,
                     meta: {
                         breadcrumb: [
                             { title: 'Home', url: '/dashboard', i18n: 'Home' },
@@ -130,6 +137,7 @@ const router = new Router({
                     path: '/dashboard/patient/create',
                     name: 'create-patient',
                     component: () => import('./views/patient/create.vue'),
+                    beforeEnter: guard,
                     meta: {
                         breadcrumb: [
                             { title: 'Home', url: '/dashboard', i18n: 'Home' },
@@ -145,6 +153,7 @@ const router = new Router({
                     path: '/dashboard/patient/:id/edit',
                     name: 'edit-patient',
                     component: () => import('./views/patient/edit.vue'),
+                    beforeEnter: guard,
                     meta: {
                         breadcrumb: [
                             { title: 'Home', url: '/dashboard', i18n: 'Home' },
@@ -160,6 +169,7 @@ const router = new Router({
                     path: '/dashboard/patient/:id',
                     name: 'profile-patient',
                     component: () => import('./views/patient/profile.vue'),
+                    beforeEnter: guard,
                     meta: {
                         breadcrumb: [
                             { title: 'Home', url: '/dashboard', i18n: 'Home' },
@@ -175,6 +185,7 @@ const router = new Router({
                     path: '/dashboard/appointment',
                     name: 'appointment',
                     component: () => import('./views/appointment/Appointment.vue'),
+                    beforeEnter: guard,
                     meta: {
                         breadcrumb: [
                             { title: 'Home', url: '/dashboard', i18n: 'Home' },
@@ -189,6 +200,7 @@ const router = new Router({
                     path: '/dashboard/appointment/add-appointment/:patient_id',
                     name: 'add-appointment',
                     component: () => import('./views/appointment/AddAppointment.vue'),
+                    beforeEnter: guard,
                     meta: {
                         breadcrumb: [
                             { title: 'Home', url: '/dashboard', i18n: 'Home' },
@@ -204,6 +216,7 @@ const router = new Router({
                     path: '/dashboard/invoice',
                     name: 'invoice',
                     component: () => import('./views/Page2.vue'),
+                    beforeEnter: guard,
                     meta: {
                         breadcrumb: [
                             { title: 'Home', url: '/dashboard', i18n: 'Home' },
@@ -218,6 +231,7 @@ const router = new Router({
                     path: '/dashboard/calendar',
                     name: 'calendar',
                     component: () => import('./views/calendar/Calendar.vue'),
+                    beforeEnter: guard,
                     meta: {
                         breadcrumb: [
                             { title: 'Home', url: '/dashboard', i18n: 'Home' },
@@ -232,6 +246,7 @@ const router = new Router({
                     path: '/dashboard/settings/role',
                     name: 'role',
                     component: () => import('./views/settings/Role/Roles.vue'),
+                    beforeEnter: guard,
                     meta: {
                         breadcrumb: [
                             { title: 'Home', url: '/dashboard'},
@@ -245,6 +260,7 @@ const router = new Router({
                     path: '/dashboard/settings/role/create',
                     name: 'create-role',
                     component: () => import('./views/settings/Role/Create.vue'),
+                    beforeEnter: guard,
                     meta: {
                         breadcrumb: [
                             { title: 'Home', url: '/dashboard'},
@@ -259,6 +275,7 @@ const router = new Router({
                     path: '/dashboard/settings/role/:id',
                     name: 'view-role',
                     component: () => import('./views/settings/Role/View.vue'),
+                    beforeEnter: guard,
                     meta: {
                         breadcrumb: [
                             { title: 'Home', url: '/dashboard'},
@@ -273,6 +290,7 @@ const router = new Router({
                     path: '/dashboard/settings/role/edit/:id',
                     name: 'edit-role',
                     component: () => import('./views/settings/Role/Edit.vue'),
+                    beforeEnter: guard,
                     meta: {
                         breadcrumb: [
                             { title: 'Home', url: '/dashboard'},
@@ -287,6 +305,7 @@ const router = new Router({
                     path: '/dashboard/settings/reservation',
                     name: 'browse-reservation',
                     component: () => import('./views/settings/reservation/browse.vue'),
+                    beforeEnter: guard,
                     meta: {
                         breadcrumb: [
                             { title: 'Home', url: '/dashboard'},
@@ -300,6 +319,7 @@ const router = new Router({
                     path: '/dashboard/settings/reservation/create',
                     name: 'create-reservation',
                     component: () => import('./views/settings/reservation/create.vue'),
+                    beforeEnter: guard,
                     meta: {
                         breadcrumb: [
                             { title: 'Home', url: '/dashboard'},
@@ -314,6 +334,7 @@ const router = new Router({
                     path: '/dashboard/settings/reservation/edit/:id',
                     name: 'edit-reservation',
                     component: () => import('./views/settings/reservation/edit.vue'),
+                    beforeEnter: guard,
                     meta: {
                         breadcrumb: [
                             { title: 'Home', url: '/dashboard'},
@@ -328,6 +349,7 @@ const router = new Router({
                     path: '/dashboard/settings/reservation-duration/create',
                     name: 'create-reservation-duration',
                     component: () => import('./views/settings/reservation/create-duration.vue'),
+                    beforeEnter: guard,
                     meta: {
                         breadcrumb: [
                             { title: 'Home', url: '/dashboard'},
@@ -377,5 +399,13 @@ const router = new Router({
 //         appLoading.style.display = "none";
 //     }
 // });
+
+function guard(to, from, next) {
+    if (store.state.auth.accessToken) {
+        new Date(Date.now()) < new Date(store.state.auth.accessToken.token.expires_at)?next():next('/dashboard/login');
+    } else {
+        next('/dashboard/login');
+    }
+}
 
 export default router

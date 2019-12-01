@@ -41,14 +41,6 @@ const actions = {
     updateTheme({ commit }, val) {
       commit('UPDATE_THEME', val)
     },
-
-    // /////////////////////////////////////////////
-    // User/Account
-    // /////////////////////////////////////////////
-
-    updateUserInfo({ commit }, payload) {
-      commit('UPDATE_USER_INFO', payload)
-    },
 }
 
 export default actions

@@ -136,10 +136,10 @@
       </vs-dropdown>
 
       <!-- USER META -->
-      <div class="the-navbar__user-meta flex items-center" v-if="activeUserInfo.displayName">
+      <div class="the-navbar__user-meta flex items-center" v-if="user_displayName">
         <div class="text-right leading-tight hidden sm:block">
           <p class="font-semibold">{{ user_displayName }}</p>
-          <small>Available</small>
+          <small>{{ user_email }}</small>
         </div>
         <vs-dropdown vs-custom-content vs-trigger-click class="cursor-pointer">
           <div class="con-img ml-3">
@@ -277,13 +277,16 @@ export default {
 
         // PROFILE
         activeUserInfo() {
-          return this.$store.state.AppActiveUser
+            return this.$store.getters.auth.userData;
         },
         user_displayName() {
-            return this.activeUserInfo.displayName
+            return this.$store.getters['auth/userData'].first_name+' '+this.$store.getters['auth/userData'].last_name;
+        },
+        user_email() {
+            return this.$store.getters['auth/userData'].email;
         },
         activeUserImg() {
-            return this.$store.state.AppActiveUser.photoURL;
+            return this.$store.getters['auth/userData'].image?this.$store.getters['auth/userData'].image:this.$store.getters.defaultPhoto;
         }
     },
     methods: {
@@ -342,10 +345,20 @@ export default {
             return 'Just Now'
         },
         logout() {
-            if(localStorage.getItem("accessToken")) {
-                localStorage.removeItem("accessToken");
-                this.$router.push('/dashboard/login').catch(() => {})
-            }
+            this.$vs.loading();
+            this.$store.dispatch('auth/logoutJWT')
+                .then(() => { this.$vs.loading.close() })
+                .catch(error => {
+                    this.$vs.loading.close();
+                    this.$vs.notify({
+                        title: 'Error',
+                        text: error.response.data.error,
+                        iconPack: 'feather',
+                        icon: 'icon-alert-circle',
+                        color: 'danger'
+                    });
+                });
+
         },
         outside: function() {
             this.showBookmarkPagesDropdown = false

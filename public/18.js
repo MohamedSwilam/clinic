@@ -74,8 +74,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      email: 'admin@admin.com',
-      password: 'adminadmin',
+      email: '',
+      password: '',
       checkbox_remember_me: false
     };
   },
@@ -85,28 +85,10 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
-    checkLogin: function checkLogin() {
-      // If user is already logged in notify
-      if (this.$store.state.auth.isUserLoggedIn()) {
-        // Close animation if passed as payload
-        // this.$vs.loading.close()
-        this.$vs.notify({
-          title: 'Login Attempt',
-          text: 'You are already logged in!',
-          iconPack: 'feather',
-          icon: 'icon-alert-circle',
-          color: 'warning'
-        });
-        return false;
-      }
-
-      return true;
-    },
     loginJWT: function loginJWT() {
       var _this = this;
 
-      if (!this.checkLogin()) return; // Loading
-
+      // Loading
       this.$vs.loading();
       var payload = {
         checkbox_remember_me: this.checkbox_remember_me,
@@ -118,6 +100,8 @@ __webpack_require__.r(__webpack_exports__);
       this.$store.dispatch('auth/loginJWT', payload).then(function () {
         _this.$vs.loading.close();
       })["catch"](function (error) {
+        console.log("aa", error);
+
         _this.$vs.loading.close();
 
         _this.$vs.notify({
