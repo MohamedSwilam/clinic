@@ -21,7 +21,7 @@ class LoginController extends Controller
 //            return $this->respond('Incorrect email or password', [], Response::HTTP_UNAUTHORIZED);
         }
 
-        $user = User::where('email', $login_credentials['email'])->first();
+        $user = User::where('email', $login_credentials['email'])->with(['roles','roles.permissions', 'permissions'])->first();
 
         return $this->respond("login credentials correct", [
             'user' => $user,
