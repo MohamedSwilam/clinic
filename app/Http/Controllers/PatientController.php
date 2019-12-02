@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PatientRequest;
 use App\IndexResponse;
 use App\Patient;
+use App\Phone;
 use App\Transformers\PatientTransformer;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\JsonResponse;
@@ -26,7 +27,7 @@ class PatientController extends Controller
         return $this->respond(
             'Data Loaded Successfully',
             fractal(
-                (new IndexResponse(Patient::query()))->execute()
+                (new IndexResponse(Patient::with('phones')))->execute()
                 , new PatientTransformer()
             )
         );
@@ -41,13 +42,21 @@ class PatientController extends Controller
      */
     public function store(PatientRequest $request)
     {
-
         $this->authorize('store', Patient::class);
+
+        $data = $request->validated();
+
+        $patient = Patient::create($data);
+
+        foreach ($data['phones'] as $phone){
+            $phone= Phone::create($phone);
+            $patient->phones()->save($phone);
+        }
 
         return $this->respond(
             'Patient Created Successfully',
             fractal(
-                Patient::create($request->validated()),
+                Patient::where('id', $patient->id)->with('phones')->first(),
                 new PatientTransformer()
             )
         );
@@ -78,11 +87,21 @@ class PatientController extends Controller
 
         $patient = Patient::find($id);
 
-        $patient->update($request->validated());
+        $data = $request->validated();
+
+        $patient->update();
+
+        foreach ($data['phones'] as $phone){
+            $phone= Phone::create($phone);
+            $patient->phones()->save($phone);
+        }
 
         return $this->respond(
             'Patient Updated Successfully',
-            fractal($patient, new PatientTransformer())
+            fractal(
+                Patient::where('id' , $patient->id)->with('phones')->first(),
+                new PatientTransformer()
+            )
         );
     }
 
@@ -95,7 +114,6 @@ class PatientController extends Controller
      */
     public function destroy($id)
     {
-
         $this->authorize('destroy', Patient::class);
 
         Patient::find($id)->delete();

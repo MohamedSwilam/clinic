@@ -52,3 +52,5 @@ Route::group(['prefix' => 'reservation-duration', 'middleware' => 'auth:api'], f
     Route::delete('{id}', 'ReservationDurationController@destroy');
     Route::resource('', 'ReservationDurationController');
 });
+
+Route::middleware('auth:api')->resource('phone', 'PhoneController');

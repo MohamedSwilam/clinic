@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\EmployeeRequest;
 use App\IndexResponse;
+use App\Phone;
 use App\Transformers\UserTransformer;
 use App\User;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -50,11 +51,19 @@ class EmployeeController extends Controller
 
         $user = User::create($data);
 
+        foreach ($data['phones'] as $phone){
+            $phone= Phone::create($phone);
+            $user->phones()->save($phone);
+        }
+
         $user->assignRole($request->role);
 
         return $this->respond(
             'Employee Created Successfully',
-            fractal($user, new UserTransformer())
+            fractal(
+                User::where('id', $user->id)->with(['roles', 'roles.permissions', 'permissions', 'phones'])->first(),
+                new UserTransformer()
+            )
         );
     }
 
@@ -79,13 +88,21 @@ class EmployeeController extends Controller
 
         $user->update($data);
 
+        foreach ($data['phones'] as $phone){
+            $phone= Phone::create($phone);
+            $user->phones()->save($phone);
+        }
+
         if ($request->role){
             $user->syncRoles($request->role);
         }
 
         return $this->respond(
             'Employee Updated Successfully',
-            fractal($user, new UserTransformer())
+            fractal(
+                User::where('id', $user->id)->with(['roles', 'roles.permissions', 'permissions', 'phones'])->first(),
+                new UserTransformer()
+            )
         );
     }
 

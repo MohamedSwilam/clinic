@@ -37,6 +37,8 @@ class PatientRequest extends FormRequest
                 'gender' => 'required',
                 'occupation' => 'required',
                 'reference' => 'required',
+                'phones.*.number' => 'required|unique:phones,number',
+                'phones.*.country_code' => 'required',
             ];
         }
         else if (sizeof($segments) == 3){
@@ -52,6 +54,8 @@ class PatientRequest extends FormRequest
                 'gender' => '',
                 'occupation' => '',
                 'reference' => '',
+                'phones.*.number' => 'unique:phones,number',
+                'phones.*.country_code' => '',
             ];
         }
     }
