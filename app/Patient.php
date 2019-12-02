@@ -13,7 +13,12 @@ class Patient extends Model
      */
     protected $fillable = [
         'first_name', 'last_name', 'birth_date', 'email', 'address', 'city',
-        'country', 'phone', 'gender', 'occupation', 'reference'
+        'country', 'gender', 'occupation', 'reference'
     ];
+
+    public function phones()
+    {
+        return $this->morphMany(Phone::class, 'phoneable');
+    }
 
 }

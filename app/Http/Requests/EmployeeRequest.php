@@ -37,7 +37,9 @@ class EmployeeRequest extends FormRequest
                 'phone' => 'required|min:11|max:11',
                 'gender' => 'required',
                 'image' => 'image|max:1024|mimes:jpeg,png',
-                'role' => 'required|exists:roles,name'
+                'role' => 'required|exists:roles,name',
+                'phones.*.number' => 'required|unique:phones,number',
+                'phones.*.country_code' => 'required',
             ];
         }
         else if (sizeof($segments) == 3){
@@ -53,7 +55,9 @@ class EmployeeRequest extends FormRequest
                 'phone' => 'min:11|max:11',
                 'gender' => '',
                 'image' => 'image|max:1024|mimes:jpeg,png',
-                'role' => 'exists:roles,name'
+                'role' => 'exists:roles,name',
+                'phones.*.number' => 'unique:phones,number',
+                'phones.*.country_code' => '',
             ];
         }
     }

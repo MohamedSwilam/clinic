@@ -51,4 +51,10 @@ class User extends Authenticatable
             $query->whereIn('name', ['doctor', 'receptionist', 'assistant_doctor', 'accountant']);
         });
     }
+
+    public function phones()
+    {
+        return $this->morphMany(Phone::class, 'phoneable');
+    }
+
 }
