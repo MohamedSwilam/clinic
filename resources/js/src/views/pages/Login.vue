@@ -90,7 +90,6 @@
           this.$store.dispatch('auth/loginJWT', payload)
             .then(() => { this.$vs.loading.close() })
             .catch(error => {
-                console.log("aa", error);
               this.$vs.loading.close();
               this.$vs.notify({
                 title: 'Error',

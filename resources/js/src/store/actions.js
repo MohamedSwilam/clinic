@@ -41,6 +41,18 @@ const actions = {
     updateTheme({ commit }, val) {
       commit('UPDATE_THEME', val)
     },
-}
+
+
+    viewWaitMessage({ commit }, payload)
+    {
+        payload.notify({
+            title: 'Please, Wait..',
+            text: 'Your request in in progress.',
+            color: 'warning',
+            iconPack: 'feather',
+            icon: 'icon-clock'
+        });
+    }
+};
 
 export default actions
