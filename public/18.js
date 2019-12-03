@@ -100,8 +100,6 @@ __webpack_require__.r(__webpack_exports__);
       this.$store.dispatch('auth/loginJWT', payload).then(function () {
         _this.$vs.loading.close();
       })["catch"](function (error) {
-        console.log("aa", error);
-
         _this.$vs.loading.close();
 
         _this.$vs.notify({

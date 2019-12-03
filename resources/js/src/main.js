@@ -14,6 +14,9 @@ Vue.use(require('vue-moment'));
 // import '@fortawesome/fontawesome-free/css/all.css';
 // import '@fortawesome/fontawesome-free/js/all';
 
+// Vuex Store
+import store from './store/store'
+
 // axios
 import axios from 'axios'
 Vue.prototype.$http = axios;
@@ -39,9 +42,6 @@ import '../../assets/css/main.css';
 
 // Vue Router
 import router from './router'
-
-// Vuex Store
-import store from './store/store'
 
 // Vue wrapper for hammerjs
 import { VueHammer } from 'vue2-hammer';

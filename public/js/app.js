@@ -107621,6 +107621,34 @@ function addSubscriber(callback) {
 
 /***/ }),
 
+/***/ "./resources/js/src/http/requests/reservation_type/index.js":
+/*!******************************************************************!*\
+  !*** ./resources/js/src/http/requests/reservation_type/index.js ***!
+  \******************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _axios_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../axios/index.js */ "./resources/js/src/http/axios/index.js");
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  getAll: function getAll() {
+    return _axios_index_js__WEBPACK_IMPORTED_MODULE_0__["default"].get("reservation-type");
+  },
+  create: function create(data) {
+    return _axios_index_js__WEBPACK_IMPORTED_MODULE_0__["default"].post("reservation-type", data);
+  },
+  update: function update(id, data) {
+    return _axios_index_js__WEBPACK_IMPORTED_MODULE_0__["default"].post("reservation-type/".concat(id), data);
+  },
+  "delete": function _delete(id) {
+    return _axios_index_js__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"]("reservation-type/".concat(id));
+  }
+});
+
+/***/ }),
+
 /***/ "./resources/js/src/i18n/i18n.js":
 /*!***************************************!*\
   !*** ./resources/js/src/i18n/i18n.js ***!
@@ -107932,17 +107960,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var material_icons_iconfont_material_icons_css__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(material_icons_iconfont_material_icons_css__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var vuesax_dist_vuesax_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuesax/dist/vuesax.css */ "./node_modules/vuesax/dist/vuesax.css");
 /* harmony import */ var vuesax_dist_vuesax_css__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(vuesax_dist_vuesax_css__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _themeConfig_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../themeConfig.js */ "./resources/js/themeConfig.js");
-/* harmony import */ var vue_instantsearch__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vue-instantsearch */ "./node_modules/vue-instantsearch/dist/vue-instantsearch.esm.js");
-/* harmony import */ var _globalComponents_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./globalComponents.js */ "./resources/js/src/globalComponents.js");
-/* harmony import */ var _assets_scss_main_scss__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../assets/scss/main.scss */ "./resources/assets/scss/main.scss");
-/* harmony import */ var _assets_scss_main_scss__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_assets_scss_main_scss__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var _assets_css_main_css__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../assets/css/main.css */ "./resources/assets/css/main.css");
-/* harmony import */ var _assets_css_main_css__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_assets_css_main_css__WEBPACK_IMPORTED_MODULE_10__);
-/* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./router */ "./resources/js/src/router.js");
-/* harmony import */ var _store_store__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./store/store */ "./resources/js/src/store/store.js");
+/* harmony import */ var _store_store__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./store/store */ "./resources/js/src/store/store.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _themeConfig_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../themeConfig.js */ "./resources/js/themeConfig.js");
+/* harmony import */ var vue_instantsearch__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vue-instantsearch */ "./node_modules/vue-instantsearch/dist/vue-instantsearch.esm.js");
+/* harmony import */ var _globalComponents_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./globalComponents.js */ "./resources/js/src/globalComponents.js");
+/* harmony import */ var _assets_scss_main_scss__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../assets/scss/main.scss */ "./resources/assets/scss/main.scss");
+/* harmony import */ var _assets_scss_main_scss__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_assets_scss_main_scss__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var _assets_css_main_css__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../assets/css/main.css */ "./resources/assets/css/main.css");
+/* harmony import */ var _assets_css_main_css__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_assets_css_main_css__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./router */ "./resources/js/src/router.js");
 /* harmony import */ var vue2_hammer__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! vue2-hammer */ "./node_modules/vue2-hammer/index.min.js");
 /* harmony import */ var vue2_hammer__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(vue2_hammer__WEBPACK_IMPORTED_MODULE_13__);
 /* harmony import */ var _i18n_i18n__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./i18n/i18n */ "./resources/js/src/i18n/i18n.js");
@@ -107969,23 +107997,23 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuesax__WEBPACK_IMPORTED_MODULE_2
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(__webpack_require__(/*! vue-moment */ "./node_modules/vue-moment/dist/vue-moment.js")); // import '@fortawesome/fontawesome-free/css/all.css';
 // import '@fortawesome/fontawesome-free/js/all';
-// axios
+// Vuex Store
+
+ // axios
 
 
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.prototype.$http = axios__WEBPACK_IMPORTED_MODULE_5___default.a; // Theme Configurations
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.prototype.$http = axios__WEBPACK_IMPORTED_MODULE_6___default.a; // Theme Configurations
 
  // Algolia - Instant Search
 
 
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_instantsearch__WEBPACK_IMPORTED_MODULE_7__["default"]); // Globally Registered Components
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_instantsearch__WEBPACK_IMPORTED_MODULE_8__["default"]); // Globally Registered Components
 
  // Styles: SCSS
 
  // Tailwind
 
  // Vue Router
-
- // Vuex Store
 
  // Vue wrapper for hammerjs
 
@@ -108021,8 +108049,8 @@ __webpack_require__(/*! ../../assets/css/iconfont.css */ "./resources/assets/css
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.config.productionTip = false;
 new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
-  router: _router__WEBPACK_IMPORTED_MODULE_11__["default"],
-  store: _store_store__WEBPACK_IMPORTED_MODULE_12__["default"],
+  router: _router__WEBPACK_IMPORTED_MODULE_12__["default"],
+  store: _store_store__WEBPACK_IMPORTED_MODULE_5__["default"],
   i18n: _i18n_i18n__WEBPACK_IMPORTED_MODULE_14__["default"],
   render: function render(h) {
     return h(_App_vue__WEBPACK_IMPORTED_MODULE_1__["default"]);
@@ -108044,6 +108072,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
 /* harmony import */ var _store_store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./store/store */ "./resources/js/src/store/store.js");
+/* harmony import */ var _http_axios_index_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./http/axios/index.js */ "./resources/js/src/http/axios/index.js");
 /*=========================================================================================
   File Name: router.js
   Description: Routes for vue-router. Lazy loading is enabled.
@@ -108061,6 +108090,7 @@ __webpack_require__.r(__webpack_exports__);
   Author: Pixinvent
   Author URL: http://www.themeforest.net/user/pixinvent
 ==========================================================================================*/
+
 
 
 
@@ -108593,6 +108623,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
 
 function guard(to, from, next) {
   if (_store_store__WEBPACK_IMPORTED_MODULE_2__["default"].state.auth.accessToken) {
+    _http_axios_index_js__WEBPACK_IMPORTED_MODULE_3__["default"].defaults.headers.common['Authorization'] = "Bearer ".concat(_store_store__WEBPACK_IMPORTED_MODULE_2__["default"].state.auth.accessToken.accessToken);
     new Date(Date.now()) < new Date(_store_store__WEBPACK_IMPORTED_MODULE_2__["default"].state.auth.accessToken.token.expires_at) ? next() : next('/dashboard/login');
   } else {
     next('/dashboard/login');
@@ -108653,6 +108684,16 @@ var actions = {
   updateTheme: function updateTheme(_ref6, val) {
     var commit = _ref6.commit;
     commit('UPDATE_THEME', val);
+  },
+  viewWaitMessage: function viewWaitMessage(_ref7, payload) {
+    var commit = _ref7.commit;
+    payload.notify({
+      title: 'Please, Wait..',
+      text: 'Your request in in progress.',
+      color: 'warning',
+      iconPack: 'feather',
+      icon: 'icon-clock'
+    });
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = (actions);
@@ -108814,7 +108855,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   SET_BEARER: function SET_BEARER(state, payload) {
-    state.accessToken = payload.accessToken;
+    state.accessToken = payload.accessToken; // console.log(payload.accessToken.accessToken);
+
     _http_axios_index_js__WEBPACK_IMPORTED_MODULE_0__["default"].defaults.headers.common['Authorization'] = 'Bearer ' + payload.accessToken.accessToken;
   },
   // Updates user info in state and localstorage
@@ -108999,6 +109041,128 @@ var mutations = {
 
 /***/ }),
 
+/***/ "./resources/js/src/store/reservation-type/moduleReservationType.js":
+/*!**************************************************************************!*\
+  !*** ./resources/js/src/store/reservation-type/moduleReservationType.js ***!
+  \**************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _moduleReservationTypeState__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./moduleReservationTypeState */ "./resources/js/src/store/reservation-type/moduleReservationTypeState.js");
+/* harmony import */ var _moduleReservationTypeMutations__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./moduleReservationTypeMutations */ "./resources/js/src/store/reservation-type/moduleReservationTypeMutations.js");
+/* harmony import */ var _moduleReservationTypeActions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./moduleReservationTypeActions */ "./resources/js/src/store/reservation-type/moduleReservationTypeActions.js");
+/* harmony import */ var _moduleReservationTypeGetters__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./moduleReservationTypeGetters */ "./resources/js/src/store/reservation-type/moduleReservationTypeGetters.js");
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  namespaced: true,
+  state: _moduleReservationTypeState__WEBPACK_IMPORTED_MODULE_0__["default"],
+  mutations: _moduleReservationTypeMutations__WEBPACK_IMPORTED_MODULE_1__["default"],
+  actions: _moduleReservationTypeActions__WEBPACK_IMPORTED_MODULE_2__["default"],
+  getters: _moduleReservationTypeGetters__WEBPACK_IMPORTED_MODULE_3__["default"]
+});
+
+/***/ }),
+
+/***/ "./resources/js/src/store/reservation-type/moduleReservationTypeActions.js":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/src/store/reservation-type/moduleReservationTypeActions.js ***!
+  \*********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _http_requests_reservation_type_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../http/requests/reservation_type/index */ "./resources/js/src/http/requests/reservation_type/index.js");
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  getData: function getData(_ref) {
+    var commit = _ref.commit;
+    return new Promise(function (resolve, reject) {
+      _http_requests_reservation_type_index__WEBPACK_IMPORTED_MODULE_0__["default"].getAll().then(function (response) {
+        resolve(response);
+      })["catch"](function (error) {
+        reject(error);
+      });
+    });
+  },
+  create: function create(_ref2, payload) {
+    var commit = _ref2.commit;
+    return new Promise(function (resolve, reject) {
+      _http_requests_reservation_type_index__WEBPACK_IMPORTED_MODULE_0__["default"].create(payload).then(function (response) {
+        resolve(response);
+      })["catch"](function (error) {
+        reject(error);
+      });
+    });
+  },
+  "delete": function _delete(_ref3, id) {
+    var commit = _ref3.commit;
+    return new Promise(function (resolve, reject) {
+      _http_requests_reservation_type_index__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"](id).then(function (response) {
+        resolve(response);
+      })["catch"](function (error) {
+        reject(error);
+      });
+    });
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/src/store/reservation-type/moduleReservationTypeGetters.js":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/src/store/reservation-type/moduleReservationTypeGetters.js ***!
+  \*********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({});
+
+/***/ }),
+
+/***/ "./resources/js/src/store/reservation-type/moduleReservationTypeMutations.js":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/src/store/reservation-type/moduleReservationTypeMutations.js ***!
+  \***********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _http_axios_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../http/axios/index.js */ "./resources/js/src/http/axios/index.js");
+/*=========================================================================================
+  File Name: moduleAuthMutations.js
+  Description: Auth Module Mutations
+  ----------------------------------------------------------------------------------------
+  Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
+  Author: Pixinvent
+  Author URL: http://www.themeforest.net/user/pixinvent
+==========================================================================================*/
+
+/* harmony default export */ __webpack_exports__["default"] = ({});
+
+/***/ }),
+
+/***/ "./resources/js/src/store/reservation-type/moduleReservationTypeState.js":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/src/store/reservation-type/moduleReservationTypeState.js ***!
+  \*******************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({});
+
+/***/ }),
+
 /***/ "./resources/js/src/store/state.js":
 /*!*****************************************!*\
   !*** ./resources/js/src/store/state.js ***!
@@ -109087,6 +109251,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./actions */ "./resources/js/src/store/actions.js");
 /* harmony import */ var vuex_persist__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuex-persist */ "./node_modules/vuex-persist/dist/esm/index.js");
 /* harmony import */ var _auth_moduleAuth_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./auth/moduleAuth.js */ "./resources/js/src/store/auth/moduleAuth.js");
+/* harmony import */ var _reservation_type_moduleReservationType__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./reservation-type/moduleReservationType */ "./resources/js/src/store/reservation-type/moduleReservationType.js");
 /*=========================================================================================
   File Name: store.js
   Description: Vuex store
@@ -109104,6 +109269,7 @@ __webpack_require__.r(__webpack_exports__);
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
 
+
 var vuexLocal = new vuex_persist__WEBPACK_IMPORTED_MODULE_6__["default"]({
   storage: window.localStorage
 });
@@ -109113,7 +109279,8 @@ var vuexLocal = new vuex_persist__WEBPACK_IMPORTED_MODULE_6__["default"]({
   state: _state__WEBPACK_IMPORTED_MODULE_2__["default"],
   actions: _actions__WEBPACK_IMPORTED_MODULE_5__["default"],
   modules: {
-    auth: _auth_moduleAuth_js__WEBPACK_IMPORTED_MODULE_7__["default"]
+    auth: _auth_moduleAuth_js__WEBPACK_IMPORTED_MODULE_7__["default"],
+    reservationType: _reservation_type_moduleReservationType__WEBPACK_IMPORTED_MODULE_8__["default"]
   },
   plugins: [vuexLocal.plugin],
   strict: "development" !== 'production'

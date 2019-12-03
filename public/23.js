@@ -125,21 +125,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "browse",
+  mounted: function mounted() {
+    this.getReservationTypes();
+  },
   data: function data() {
     return {
-      reservation_types: [{
-        id: 1,
-        type: 'reveal',
-        minimum_price: 200,
-        maximum_price: 400,
-        is_online: true
-      }, {
-        id: 2,
-        type: 'Operation',
-        minimum_price: 1500,
-        maximum_price: 3000,
-        is_online: false
-      }],
+      reservation_types: [],
       reservation_durations: [{
         id: 1,
         type: 'reveal',
@@ -162,23 +153,85 @@ __webpack_require__.r(__webpack_exports__);
         end_time: '4:00PM',
         counter: 25
       }],
-      reservationTypeIdToDelete: null,
-      reservationDurationIdToDelete: null
+      reservationDurationIdToDelete: null,
+      is_requesting: false
     };
   },
   methods: {
+    getReservationTypes: function getReservationTypes() {
+      var _this = this;
+
+      this.$vs.loading({
+        container: this.$refs.reservation_type.$refs.content,
+        scale: 0.5
+      });
+      this.$store.dispatch('reservationType/getData').then(function (response) {
+        _this.$vs.loading.close(_this.$refs.reservation_type.$refs.content);
+
+        _this.reservation_types = response.data.data.data;
+      })["catch"](function (error) {
+        _this.$vs.loading.close();
+
+        console.log(error);
+
+        _this.$vs.notify({
+          title: 'Error',
+          text: error.response.data.error,
+          iconPack: 'feather',
+          icon: 'icon-alert-circle',
+          color: 'danger'
+        });
+      });
+    },
     confirmDeleteReservation: function confirmDeleteReservation(type) {
-      this.reservationTypeIdToDelete = type.id;
       this.$vs.dialog({
         type: 'confirm',
         color: 'danger',
         title: "Are you sure!",
         text: 'This data can not be retrieved again.',
-        accept: this.deleteReservationType
+        accept: this.deleteReservationType,
+        parameters: [type]
       });
     },
-    deleteReservationType: function deleteReservationType() {
-      this.vs_alert('Success', 'Reservation Type Successfully Deleted.', 'success', 'icon-check');
+    deleteReservationType: function deleteReservationType(params) {
+      var _this2 = this;
+
+      this.is_requesting = true;
+      this.$vs.loading({
+        container: "#btn-type-delete-".concat(params[0].id),
+        color: 'danger',
+        scale: 0.45
+      });
+      this.$store.dispatch('reservationType/delete', params[0].id).then(function (response) {
+        _this2.is_requesting = false;
+
+        _this2.$vs.loading.close("#btn-type-delete-".concat(params[0].id, " > .con-vs-loading"));
+
+        _this2.reservation_types = _this2.reservation_types.filter(function (type) {
+          return type.id !== params[0].id;
+        });
+
+        _this2.$vs.notify({
+          title: 'Success',
+          text: response.data.message,
+          iconPack: 'feather',
+          icon: 'icon-check',
+          color: 'success'
+        });
+      })["catch"](function (error) {
+        console.log(error);
+        _this2.is_requesting = false;
+
+        _this2.$vs.loading.close("#btn-type-delete-".concat(params[0].id, " > .con-vs-loading"));
+
+        _this2.$vs.notify({
+          title: 'Error',
+          text: error.response.data.error,
+          iconPack: 'feather',
+          icon: 'icon-alert-circle',
+          color: 'danger'
+        });
+      });
     },
     confirmDeleteReservationDuration: function confirmDeleteReservationDuration(duration) {
       this.reservationDurationIdToDelete = duration.id;
@@ -230,7 +283,15 @@ var render = function() {
       [
         _c(
           "vx-card",
-          { attrs: { title: "Reservation Types", "collapse-action": "" } },
+          {
+            ref: "reservation_type",
+            attrs: {
+              title: "Reservation Types",
+              "collapse-action": "",
+              refreshContentAction: ""
+            },
+            on: { refresh: _vm.getReservationTypes }
+          },
           [
             _c(
               "vs-table",
@@ -254,52 +315,50 @@ var render = function() {
                               )
                             ]),
                             _vm._v(" "),
-                            _c("vs-td", { attrs: { data: type.type } }, [
+                            _c("vs-td", { attrs: { data: type.name } }, [
                               _vm._v(
                                 "\n                        " +
-                                  _vm._s(type.type) +
+                                  _vm._s(type.name) +
+                                  "\n                    "
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("vs-td", { attrs: { data: type.min_price } }, [
+                              _vm._v(
+                                "\n                        " +
+                                  _vm._s(type.min_price) +
+                                  "\n                    "
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("vs-td", { attrs: { data: type.max_price } }, [
+                              _vm._v(
+                                "\n                        " +
+                                  _vm._s(type.max_price) +
                                   "\n                    "
                               )
                             ]),
                             _vm._v(" "),
                             _c(
                               "vs-td",
-                              { attrs: { data: type.minimum_price } },
-                              [
-                                _vm._v(
-                                  "\n                        " +
-                                    _vm._s(type.minimum_price) +
-                                    "\n                    "
-                                )
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "vs-td",
-                              { attrs: { data: type.maximum_price } },
-                              [
-                                _vm._v(
-                                  "\n                        " +
-                                    _vm._s(type.maximum_price) +
-                                    "\n                    "
-                                )
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "vs-td",
-                              { attrs: { data: type.is_online } },
+                              { attrs: { data: type.online_reservation } },
                               [
                                 _c(
                                   "vs-chip",
                                   {
                                     attrs: {
-                                      color: type.is_online
+                                      color: type.online_reservation
                                         ? "success"
                                         : "danger"
                                     }
                                   },
-                                  [_vm._v(_vm._s(type.is_online))]
+                                  [
+                                    _vm._v(
+                                      _vm._s(
+                                        type.online_reservation ? "Yes" : "No"
+                                      )
+                                    )
+                                  ]
                                 )
                               ],
                               1
@@ -338,7 +397,10 @@ var render = function() {
                                       { staticClass: "w-1/3" },
                                       [
                                         _c("vs-button", {
+                                          staticClass:
+                                            "vs-con-loading__container",
                                           attrs: {
+                                            id: "btn-type-delete-" + type.id,
                                             radius: "",
                                             color: "danger",
                                             type: "border",
@@ -347,9 +409,14 @@ var render = function() {
                                           },
                                           on: {
                                             click: function($event) {
-                                              return _vm.confirmDeleteReservation(
-                                                type
-                                              )
+                                              _vm.is_requesting
+                                                ? _vm.$store.dispatch(
+                                                    "viewWaitMessage",
+                                                    _vm.$vs
+                                                  )
+                                                : _vm.confirmDeleteReservation(
+                                                    type
+                                                  )
                                             }
                                           }
                                         })
@@ -397,21 +464,23 @@ var render = function() {
                   [
                     _c("vs-th", [_vm._v("#")]),
                     _vm._v(" "),
-                    _c("vs-th", { attrs: { "sort-key": "type" } }, [
+                    _c("vs-th", { attrs: { "sort-key": "name" } }, [
                       _vm._v("Type")
                     ]),
                     _vm._v(" "),
-                    _c("vs-th", { attrs: { "sort-key": "minimum_price" } }, [
+                    _c("vs-th", { attrs: { "sort-key": "min_price" } }, [
                       _vm._v("Minimum Price")
                     ]),
                     _vm._v(" "),
-                    _c("vs-th", { attrs: { "sort-key": "maximum_price" } }, [
+                    _c("vs-th", { attrs: { "sort-key": "max_price" } }, [
                       _vm._v("Maximum Price")
                     ]),
                     _vm._v(" "),
-                    _c("vs-th", { attrs: { "sort-key": "is_online" } }, [
-                      _vm._v("is Online?")
-                    ]),
+                    _c(
+                      "vs-th",
+                      { attrs: { "sort-key": "online_reservation" } },
+                      [_vm._v("is Online?")]
+                    ),
                     _vm._v(" "),
                     _c("vs-th", [_vm._v("Action")])
                   ],

@@ -19,7 +19,8 @@
 
 import Vue from 'vue';
 import Router from 'vue-router';
-import store from './store/store'
+import store from './store/store';
+import axios from "./http/axios/index.js"
 
 Vue.use(Router);
 
@@ -402,6 +403,7 @@ const router = new Router({
 
 function guard(to, from, next) {
     if (store.state.auth.accessToken) {
+        axios.defaults.headers.common['Authorization'] = `Bearer ${store.state.auth.accessToken.accessToken}`;
         new Date(Date.now()) < new Date(store.state.auth.accessToken.token.expires_at)?next():next('/dashboard/login');
     } else {
         next('/dashboard/login');

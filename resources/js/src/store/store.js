@@ -21,6 +21,7 @@ import VuexPersistence from 'vuex-persist'
 Vue.use(Vuex);
 
 import moduleAuth from './auth/moduleAuth.js'
+import moduleReservationType from './reservation-type/moduleReservationType'
 
 const vuexLocal = new VuexPersistence({
     storage: window.localStorage
@@ -33,6 +34,7 @@ export default new Vuex.Store({
     actions,
     modules: {
         auth: moduleAuth,
+        reservationType: moduleReservationType
     },
     plugins: [vuexLocal.plugin],
     strict: process.env.NODE_ENV !== 'production'

@@ -42,12 +42,60 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       form: {
-        type: '',
-        minimum_price: 0,
-        maximum_price: 0,
-        is_online: false
-      }
+        name: '',
+        min_price: 0,
+        max_price: 0,
+        online_reservation: false
+      },
+      is_requesting: false
     };
+  },
+  methods: {
+    create: function create() {
+      var _this = this;
+
+      this.is_requesting = true;
+      this.$vs.loading({
+        container: "#btn-create",
+        color: 'primary',
+        scale: 0.45
+      });
+      this.$store.dispatch('reservationType/create', this.form).then(function (response) {
+        _this.is_requesting = false;
+
+        _this.$vs.loading.close("#btn-create > .con-vs-loading");
+
+        _this.$vs.notify({
+          title: 'Success',
+          text: response.data.message,
+          iconPack: 'feather',
+          icon: 'icon-check',
+          color: 'success'
+        });
+      })["catch"](function (error) {
+        console.log(error);
+        _this.is_requesting = false;
+
+        _this.$vs.loading.close("#btn-create > .con-vs-loading");
+
+        _this.$vs.notify({
+          title: 'Error',
+          text: error.response.data.errors[Object.keys(error.response.data.errors)[0]][0],
+          iconPack: 'feather',
+          icon: 'icon-alert-circle',
+          color: 'danger'
+        });
+      });
+    },
+    viewWaitMessage: function viewWaitMessage() {
+      this.$vs.notify({
+        title: 'Please, Wait..',
+        text: 'Your request in in progress.',
+        color: 'warning',
+        iconPack: 'feather',
+        icon: 'icon-clock'
+      });
+    }
   }
 });
 
@@ -143,11 +191,11 @@ var render = function() {
                       name: "type"
                     },
                     model: {
-                      value: _vm.form.type,
+                      value: _vm.form.name,
                       callback: function($$v) {
-                        _vm.$set(_vm.form, "type", $$v)
+                        _vm.$set(_vm.form, "name", $$v)
                       },
-                      expression: "form.type"
+                      expression: "form.name"
                     }
                   })
                 ],
@@ -171,11 +219,11 @@ var render = function() {
                         "vs-icon-off": "icon-slash"
                       },
                       model: {
-                        value: _vm.form.is_online,
+                        value: _vm.form.online_reservation,
                         callback: function($$v) {
-                          _vm.$set(_vm.form, "is_online", $$v)
+                          _vm.$set(_vm.form, "online_reservation", $$v)
                         },
-                        expression: "form.is_online"
+                        expression: "form.online_reservation"
                       }
                     },
                     [
@@ -207,11 +255,11 @@ var render = function() {
                       step: 50
                     },
                     model: {
-                      value: _vm.form.minimum_price,
+                      value: _vm.form.min_price,
                       callback: function($$v) {
-                        _vm.$set(_vm.form, "minimum_price", $$v)
+                        _vm.$set(_vm.form, "min_price", $$v)
                       },
-                      expression: "form.minimum_price"
+                      expression: "form.min_price"
                     }
                   })
                 ],
@@ -227,16 +275,16 @@ var render = function() {
                 [
                   _c("vs-input-number", {
                     attrs: {
-                      min: _vm.form.minimum_price,
+                      min: _vm.form.min_price,
                       label: "Maximum Price:",
                       step: 50
                     },
                     model: {
-                      value: _vm.form.maximum_price,
+                      value: _vm.form.max_price,
                       callback: function($$v) {
-                        _vm.$set(_vm.form, "maximum_price", $$v)
+                        _vm.$set(_vm.form, "max_price", $$v)
                       },
-                      expression: "form.maximum_price"
+                      expression: "form.max_price"
                     }
                   })
                 ],
@@ -254,8 +302,22 @@ var render = function() {
             [
               _c(
                 "vs-button",
-                { attrs: { "icon-pack": "feather", icon: "icon-save" } },
-                [_vm._v("Save Type")]
+                {
+                  staticClass: "vs-con-loading__container",
+                  attrs: {
+                    id: "btn-create",
+                    "icon-pack": "feather",
+                    icon: "icon-save"
+                  },
+                  on: {
+                    click: function($event) {
+                      _vm.is_requesting
+                        ? _vm.$store.dispatch("viewWaitMessage", _vm.$vs)
+                        : _vm.create()
+                    }
+                  }
+                },
+                [_vm._v("Create Type")]
               )
             ],
             1
