@@ -20,13 +20,16 @@ class PermissionController extends Controller
     public function index()
     {
         $this->authorize('index', Permission::class);
-
         return $this->respond(
             'Data Loaded Successfully',
-            fractal(
-                (new IndexResponse(Permission::orderBy('group')))->execute()
-                , new PermissionTransformer()
-            )
+            Permission::get()->groupBy('group')
         );
+//        return $this->respond(
+//            'Data Loaded Successfully',
+//            fractal(
+//                (new IndexResponse(Permission::orderBy('group')))->execute()
+//                , new PermissionTransformer()
+//            )
+//        );
     }
 }

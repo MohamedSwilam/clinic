@@ -11,7 +11,6 @@ import navbarSearchAndPinList from "@/layouts/components/navbar/navbarSearchAndP
 import themeConfig from "@/../themeConfig.js"
 import colors from "@/../themeConfig.js"
 
-
 // /////////////////////////////////////////////
 // Variables
 // /////////////////////////////////////////////

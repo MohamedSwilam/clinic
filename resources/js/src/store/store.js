@@ -1,12 +1,3 @@
-/*=========================================================================================
-  File Name: store.js
-  Description: Vuex store
-  ----------------------------------------------------------------------------------------
-  Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
-  Author: Pixinvent
-  Author URL: http://www.themeforest.net/user/pixinvent
-==========================================================================================*/
-
 
 import Vue from 'vue'
 import Vuex from 'vuex'
@@ -22,6 +13,7 @@ Vue.use(Vuex);
 
 import moduleAuth from './auth/moduleAuth.js'
 import moduleReservationType from './reservation-type/moduleReservationType'
+import moduleRolesAndPermissions from './roles-and-permissions/moduleRolesAndPermissions'
 
 const vuexLocal = new VuexPersistence({
     storage: window.localStorage
@@ -35,7 +27,8 @@ export default new Vuex.Store({
     actions,
     modules: {
         auth: moduleAuth,
-        reservationType: moduleReservationType
+        reservationType: moduleReservationType,
+        rolesAndPermissions: moduleRolesAndPermissions
     },
     plugins: [vuexLocal.plugin],
     strict: process.env.NODE_ENV !== 'production'

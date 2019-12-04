@@ -882,4 +882,4 @@ module.exports = {
     listStyleType: false,
   }
 
-}
+};
