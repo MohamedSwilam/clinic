@@ -4,7 +4,7 @@
             <vx-card ref="reservation_type" title='Reservation Types' collapse-action refreshContentAction @refresh="getReservationTypes">
                 <vs-table search :data="reservation_types">
                     <template slot="header">
-                        <vs-button size="small" to="/dashboard/settings/reservation/create" icon-pack="feather" icon="icon-plus" type="filled">Add New Type</vs-button>
+                        <vs-button v-if="can('create-reservation')" size="small" to="/dashboard/settings/reservation/create" icon-pack="feather" icon="icon-plus" type="filled">Add New Type</vs-button>
                     </template>
                     <template slot="thead">
                         <vs-th>#</vs-th>
@@ -194,7 +194,7 @@
                 this.$vs.loading({container: `#btn-type-delete-${params[0].id}`, color: 'danger', scale: 0.45});
                 this.$store.dispatch('reservationType/delete', params[0].id)
                     .then(response => {
-                        this.is_requesting=false;
+                        this.is_requesting = false;
                         this.$vs.loading.close(`#btn-type-delete-${params[0].id} > .con-vs-loading`);
                         this.reservation_types = this.reservation_types.filter(type => {return type.id !== params[0].id});
                         this.$vs.notify({

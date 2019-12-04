@@ -1,28 +1,30 @@
 <template>
     <div>
-        <vx-card title='Create Reservation Type' collapse-action>
-            <vs-row>
-                <vs-col vs-lg="6" vs-sm="12" vs-xs="12" class="mb-5 pl-5">
-                    <vs-input icon-pack="feather" icon="icon-file-text" label-placeholder="Type Name" v-model="form.name" class="w-full" name="type"/>
-                </vs-col>
-                <vs-col vs-lg="6" vs-sm="12" vs-xs="12" class="mb-5 pl-5 pt-6">
-                    <vs-switch color="success" icon-pack="feather" vs-icon-on="icon-check-circle" vs-icon-off="icon-slash" v-model="form.online_reservation">
-                        <span slot="on">Can Be Reserved Online</span>
-                        <span slot="off">Can not Be Reserved Online</span>
-                    </vs-switch>
-                </vs-col>
-                <vs-col vs-lg="6" vs-sm="12" vs-xs="12" class="mb-5 pl-5">
-                    <vs-input-number min="0" max="5600" v-model="form.min_price" label="Minimum Price:" :step="50"/>
-                </vs-col>
-                <vs-col vs-lg="6" vs-sm="12" vs-xs="12" class="mb-5 pl-5">
-                    <vs-input-number :min="form.min_price" v-model="form.max_price" label="Maximum Price:" :step="50"/>
-                </vs-col>
-            </vs-row>
-            <vs-divider></vs-divider>
-            <vs-row vs-justify="center" vs-align="center">
-                <vs-button id="btn-create" class="vs-con-loading__container" @click="is_requesting?$store.dispatch('viewWaitMessage', $vs):create()" icon-pack="feather" icon="icon-save">Create Type</vs-button>
-            </vs-row>
-        </vx-card>
+        <div class="vx-col w-full mb-base" v-if="can('create-reservation')">
+            <vx-card ref="create" title='Create Reservation Type' collapse-action>
+                <vs-row>
+                    <vs-col vs-lg="6" vs-sm="12" vs-xs="12" class="mb-5 pl-5">
+                        <vs-input icon-pack="feather" icon="icon-file-text" label-placeholder="Type Name" v-model="form.name" class="w-full" name="type"/>
+                    </vs-col>
+                    <vs-col vs-lg="6" vs-sm="12" vs-xs="12" class="mb-5 pl-5 pt-6">
+                        <vs-switch color="success" icon-pack="feather" vs-icon-on="icon-check-circle" vs-icon-off="icon-slash" v-model="form.online_reservation">
+                            <span slot="on">Can Be Reserved Online</span>
+                            <span slot="off">Can not Be Reserved Online</span>
+                        </vs-switch>
+                    </vs-col>
+                    <vs-col vs-lg="6" vs-sm="12" vs-xs="12" class="mb-5 pl-5">
+                        <vs-input-number min="0" max="5600" v-model="form.min_price" label="Minimum Price:" :step="50"/>
+                    </vs-col>
+                    <vs-col vs-lg="6" vs-sm="12" vs-xs="12" class="mb-5 pl-5">
+                        <vs-input-number :min="form.min_price" v-model="form.max_price" label="Maximum Price:" :step="50"/>
+                    </vs-col>
+                </vs-row>
+                <vs-divider></vs-divider>
+                <vs-row vs-justify="center" vs-align="center">
+                    <vs-button id="btn-create" class="vs-con-loading__container" @click="is_requesting?$store.dispatch('viewWaitMessage', $vs):create()" icon-pack="feather" icon="icon-save">Create Type</vs-button>
+                </vs-row>
+            </vx-card>
+        </div>
     </div>
 </template>
 
