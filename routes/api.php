@@ -23,12 +23,14 @@ Route::post('login', 'loginController@login');
 
 Route::group(['prefix' => 'employee', 'middleware' => 'auth:api'], function () {
     Route::post('{id}', 'EmployeeController@update');
+    Route::get('{id}', 'EmployeeController@show');
     Route::delete('{id}', 'EmployeeController@destroy');
     Route::resource('', 'EmployeeController');
 });
 
 Route::group(['prefix' => 'role', 'middleware' => 'auth:api'], function () {
     Route::post('{id}', 'RoleController@update');
+    Route::get('{id}', 'RoleController@show');
     Route::delete('{id}', 'RoleController@destroy');
     Route::resource('', 'RoleController');
 });
@@ -37,6 +39,7 @@ Route::middleware('auth:api')->get('permission', 'PermissionController@index');
 
 Route::group(['prefix' => 'patient', 'middleware' => 'auth:api'], function () {
     Route::post('{id}', 'PatientController@update');
+    Route::get('{id}', 'PatientController@show');
     Route::delete('{id}', 'PatientController@destroy');
     Route::resource('', 'PatientController');
 });
