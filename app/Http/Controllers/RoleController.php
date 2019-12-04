@@ -9,6 +9,7 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 class RoleController extends Controller
@@ -53,10 +54,22 @@ class RoleController extends Controller
     {
         $this->authorize('store', Role::class);
 
+        $role_data = $data = $request->validated();
+
+        unset($role_data['permissions']);
+
+        $role = Role::create($role_data);
+
+        foreach ($data['permissions'] as $permission){
+            $role->givePermissionTo($permission);
+        }
+
         return $this->respond(
             'Role Created Successfully',
             fractal(
-                Role::create($request->validated()),
+                Role::where('id', $role->id)
+                    ->with('permissions')
+                    ->first(),
                 new RoleTransformer()
             )
         );
@@ -106,7 +119,15 @@ class RoleController extends Controller
 
         $role = Role::findById($id);
 
-        $role->update($request->validated());
+        $role_data = $data = $request->validated();
+
+        unset($role_data['permissions']);
+
+        $role->update($role_data);
+
+        foreach ($data['permissions'] as $permission){
+            $role->givePermissionTo($permission);
+        }
 
         return $this->respond(
             'Role Updated Successfully',

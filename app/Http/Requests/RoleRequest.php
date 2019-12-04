@@ -34,13 +34,13 @@ class RoleRequest extends FormRequest
         if (sizeof($segments) == 2){
             return [
                 'name' => 'required|regex:/^\S*$/u|unique:roles,name',
-                'display_name' => 'required',
+                'permissions.*' => 'required|exists:permissions,name'
             ];
         }
         else if (sizeof($segments) == 3){
             return [
-                'name' => 'regex:/^\S*$/u|unique:roles,name,'.$segments()[2],
-                'display_name' => '',
+                'name' => 'regex:/^\S*$/u|unique:roles,name,'.$segments[2],
+                'permissions.*' => 'exists:permissions,name'
             ];
         }
     }
