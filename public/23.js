@@ -126,7 +126,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "browse",
   mounted: function mounted() {
-    this.getReservationTypes();
+    if (this.can('view-reservation')) {
+      this.getReservationTypes();
+    }
   },
   data: function data() {
     return {
@@ -277,224 +279,252 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c(
-      "div",
-      { staticClass: "vx-col w-full mb-base" },
-      [
-        _c(
-          "vx-card",
-          {
-            ref: "reservation_type",
-            attrs: {
-              title: "Reservation Types",
-              "collapse-action": "",
-              refreshContentAction: ""
-            },
-            on: { refresh: _vm.getReservationTypes }
-          },
+    _vm.can("view-reservation")
+      ? _c(
+          "div",
+          { staticClass: "vx-col w-full mb-base" },
           [
             _c(
-              "vs-table",
+              "vx-card",
               {
-                attrs: { search: "", data: _vm.reservation_types },
-                scopedSlots: _vm._u([
-                  {
-                    key: "default",
-                    fn: function(ref) {
-                      var data = ref.data
-                      return _vm._l(data, function(type, index) {
-                        return _c(
-                          "vs-tr",
-                          { key: index },
-                          [
-                            _c("vs-td", { attrs: { data: index + 1 } }, [
-                              _vm._v(
-                                "\n                        " +
-                                  _vm._s(index + 1) +
-                                  "\n                    "
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("vs-td", { attrs: { data: type.name } }, [
-                              _vm._v(
-                                "\n                        " +
-                                  _vm._s(type.name) +
-                                  "\n                    "
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("vs-td", { attrs: { data: type.min_price } }, [
-                              _vm._v(
-                                "\n                        " +
-                                  _vm._s(type.min_price) +
-                                  "\n                    "
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("vs-td", { attrs: { data: type.max_price } }, [
-                              _vm._v(
-                                "\n                        " +
-                                  _vm._s(type.max_price) +
-                                  "\n                    "
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c(
-                              "vs-td",
-                              { attrs: { data: type.online_reservation } },
-                              [
-                                _c(
-                                  "vs-chip",
-                                  {
-                                    attrs: {
-                                      color: type.online_reservation
-                                        ? "success"
-                                        : "danger"
-                                    }
-                                  },
-                                  [
-                                    _vm._v(
-                                      _vm._s(
-                                        type.online_reservation ? "Yes" : "No"
-                                      )
-                                    )
-                                  ]
-                                )
-                              ],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "vs-td",
-                              [
-                                _c("vs-row", [
-                                  _c("div", { staticClass: "flex mb-4" }, [
-                                    _c(
-                                      "div",
-                                      {
-                                        staticClass: "w-1/3",
-                                        staticStyle: { margin: "0 10px" }
-                                      },
-                                      [
-                                        _c("vs-button", {
-                                          attrs: {
-                                            to:
-                                              "/dashboard/settings/reservation/edit/" +
-                                              type.id,
-                                            radius: "",
-                                            color: "warning",
-                                            type: "border",
-                                            "icon-pack": "feather",
-                                            icon: "icon-edit"
-                                          }
-                                        })
-                                      ],
-                                      1
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "div",
-                                      { staticClass: "w-1/3" },
-                                      [
-                                        _c("vs-button", {
-                                          staticClass:
-                                            "vs-con-loading__container",
-                                          attrs: {
-                                            id: "btn-type-delete-" + type.id,
-                                            radius: "",
-                                            color: "danger",
-                                            type: "border",
-                                            "icon-pack": "feather",
-                                            icon: "icon-trash"
-                                          },
-                                          on: {
-                                            click: function($event) {
-                                              _vm.is_requesting
-                                                ? _vm.$store.dispatch(
-                                                    "viewWaitMessage",
-                                                    _vm.$vs
-                                                  )
-                                                : _vm.confirmDeleteReservation(
-                                                    type
-                                                  )
-                                            }
-                                          }
-                                        })
-                                      ],
-                                      1
-                                    )
-                                  ])
-                                ])
-                              ],
-                              1
-                            )
-                          ],
-                          1
-                        )
-                      })
-                    }
-                  }
-                ])
+                ref: "reservation_type",
+                attrs: {
+                  title: "Reservation Types",
+                  "collapse-action": "",
+                  refreshContentAction: ""
+                },
+                on: { refresh: _vm.getReservationTypes }
               },
               [
                 _c(
-                  "template",
-                  { slot: "header" },
-                  [
-                    _c(
-                      "vs-button",
-                      {
-                        attrs: {
-                          size: "small",
-                          to: "/dashboard/settings/reservation/create",
-                          "icon-pack": "feather",
-                          icon: "icon-plus",
-                          type: "filled"
+                  "vs-table",
+                  {
+                    attrs: { search: "", data: _vm.reservation_types },
+                    scopedSlots: _vm._u(
+                      [
+                        {
+                          key: "default",
+                          fn: function(ref) {
+                            var data = ref.data
+                            return _vm._l(data, function(type, index) {
+                              return _c(
+                                "vs-tr",
+                                { key: index },
+                                [
+                                  _c("vs-td", { attrs: { data: index + 1 } }, [
+                                    _vm._v(
+                                      "\n                            " +
+                                        _vm._s(index + 1) +
+                                        "\n                        "
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("vs-td", { attrs: { data: type.name } }, [
+                                    _vm._v(
+                                      "\n                            " +
+                                        _vm._s(type.name) +
+                                        "\n                        "
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "vs-td",
+                                    { attrs: { data: type.min_price } },
+                                    [
+                                      _vm._v(
+                                        "\n                            " +
+                                          _vm._s(type.min_price) +
+                                          "\n                        "
+                                      )
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "vs-td",
+                                    { attrs: { data: type.max_price } },
+                                    [
+                                      _vm._v(
+                                        "\n                            " +
+                                          _vm._s(type.max_price) +
+                                          "\n                        "
+                                      )
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "vs-td",
+                                    {
+                                      attrs: { data: type.online_reservation }
+                                    },
+                                    [
+                                      _c(
+                                        "vs-chip",
+                                        {
+                                          attrs: {
+                                            color: type.online_reservation
+                                              ? "success"
+                                              : "danger"
+                                          }
+                                        },
+                                        [
+                                          _vm._v(
+                                            _vm._s(
+                                              type.online_reservation
+                                                ? "Yes"
+                                                : "No"
+                                            )
+                                          )
+                                        ]
+                                      )
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "vs-td",
+                                    [
+                                      _c("vs-row", [
+                                        _c(
+                                          "div",
+                                          { staticClass: "flex mb-4" },
+                                          [
+                                            _vm.can("edit-reservation")
+                                              ? _c(
+                                                  "div",
+                                                  { staticClass: "w-1/3 mr-5" },
+                                                  [
+                                                    _c("vs-button", {
+                                                      attrs: {
+                                                        to:
+                                                          "/dashboard/settings/reservation/edit/" +
+                                                          type.id,
+                                                        radius: "",
+                                                        color: "warning",
+                                                        type: "border",
+                                                        "icon-pack": "feather",
+                                                        icon: "icon-edit"
+                                                      }
+                                                    })
+                                                  ],
+                                                  1
+                                                )
+                                              : _vm._e(),
+                                            _vm._v(" "),
+                                            _vm.can("delete-reservation")
+                                              ? _c(
+                                                  "div",
+                                                  { staticClass: "w-1/3" },
+                                                  [
+                                                    _c("vs-button", {
+                                                      staticClass:
+                                                        "vs-con-loading__container",
+                                                      attrs: {
+                                                        id:
+                                                          "btn-type-delete-" +
+                                                          type.id,
+                                                        radius: "",
+                                                        color: "danger",
+                                                        type: "border",
+                                                        "icon-pack": "feather",
+                                                        icon: "icon-trash"
+                                                      },
+                                                      on: {
+                                                        click: function(
+                                                          $event
+                                                        ) {
+                                                          _vm.is_requesting
+                                                            ? _vm.$store.dispatch(
+                                                                "viewWaitMessage",
+                                                                _vm.$vs
+                                                              )
+                                                            : _vm.confirmDeleteReservation(
+                                                                type
+                                                              )
+                                                        }
+                                                      }
+                                                    })
+                                                  ],
+                                                  1
+                                                )
+                                              : _vm._e()
+                                          ]
+                                        )
+                                      ])
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              )
+                            })
+                          }
                         }
-                      },
-                      [_vm._v("Add New Type")]
+                      ],
+                      null,
+                      false,
+                      2432102540
                     )
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "template",
-                  { slot: "thead" },
+                  },
                   [
-                    _c("vs-th", [_vm._v("#")]),
-                    _vm._v(" "),
-                    _c("vs-th", { attrs: { "sort-key": "name" } }, [
-                      _vm._v("Type")
-                    ]),
-                    _vm._v(" "),
-                    _c("vs-th", { attrs: { "sort-key": "min_price" } }, [
-                      _vm._v("Minimum Price")
-                    ]),
-                    _vm._v(" "),
-                    _c("vs-th", { attrs: { "sort-key": "max_price" } }, [
-                      _vm._v("Maximum Price")
-                    ]),
-                    _vm._v(" "),
                     _c(
-                      "vs-th",
-                      { attrs: { "sort-key": "online_reservation" } },
-                      [_vm._v("is Online?")]
+                      "template",
+                      { slot: "header" },
+                      [
+                        _c(
+                          "vs-button",
+                          {
+                            attrs: {
+                              size: "small",
+                              to: "/dashboard/settings/reservation/create",
+                              "icon-pack": "feather",
+                              icon: "icon-plus",
+                              type: "filled"
+                            }
+                          },
+                          [_vm._v("Add New Type")]
+                        )
+                      ],
+                      1
                     ),
                     _vm._v(" "),
-                    _c("vs-th", [_vm._v("Action")])
+                    _c(
+                      "template",
+                      { slot: "thead" },
+                      [
+                        _c("vs-th", [_vm._v("#")]),
+                        _vm._v(" "),
+                        _c("vs-th", { attrs: { "sort-key": "name" } }, [
+                          _vm._v("Type")
+                        ]),
+                        _vm._v(" "),
+                        _c("vs-th", { attrs: { "sort-key": "min_price" } }, [
+                          _vm._v("Minimum Price")
+                        ]),
+                        _vm._v(" "),
+                        _c("vs-th", { attrs: { "sort-key": "max_price" } }, [
+                          _vm._v("Maximum Price")
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "vs-th",
+                          { attrs: { "sort-key": "online_reservation" } },
+                          [_vm._v("is Online?")]
+                        ),
+                        _vm._v(" "),
+                        _c("vs-th", [_vm._v("Action")])
+                      ],
+                      1
+                    )
                   ],
-                  1
+                  2
                 )
               ],
-              2
+              1
             )
           ],
           1
         )
-      ],
-      1
-    ),
+      : _vm._e(),
     _vm._v(" "),
     _c(
       "div",

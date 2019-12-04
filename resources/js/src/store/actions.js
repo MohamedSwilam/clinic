@@ -1,11 +1,4 @@
-/*=========================================================================================
-  File Name: actions.js
-  Description: Vuex Store - actions
-  ----------------------------------------------------------------------------------------
-  Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
-  Author: Pixinvent
-  Author URL: http://www.themeforest.net/user/pixinvent
-==========================================================================================*/
+import router from '@/router';
 
 const actions = {
 
@@ -52,6 +45,20 @@ const actions = {
             iconPack: 'feather',
             icon: 'icon-clock'
         });
+    },
+
+    handleError({ commit }, payload)
+    {
+        switch (payload.error.response.status) {
+            case 401:
+                router.push('/dashboard/error-403');
+                break;
+            case 403:
+                router.push('/dashboard/error-403');
+                break;
+            default:
+                payload.reject(payload.error);
+        }
     }
 };
 

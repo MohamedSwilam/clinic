@@ -28,6 +28,7 @@ const vuexLocal = new VuexPersistence({
 });
 
 export default new Vuex.Store({
+    namespaced: true,
     getters,
     mutations,
     state,

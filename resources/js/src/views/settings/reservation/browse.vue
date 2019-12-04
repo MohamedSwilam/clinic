@@ -1,57 +1,57 @@
 <template>
     <div>
-        <div class="vx-col w-full mb-base">
-        <vx-card ref="reservation_type" title='Reservation Types' collapse-action refreshContentAction @refresh="getReservationTypes">
-            <vs-table search :data="reservation_types">
-                <template slot="header">
-                    <vs-button size="small" to="/dashboard/settings/reservation/create" icon-pack="feather" icon="icon-plus" type="filled">Add New Type</vs-button>
-                </template>
-                <template slot="thead">
-                    <vs-th>#</vs-th>
-                    <vs-th sort-key="name">Type</vs-th>
-                    <vs-th sort-key="min_price">Minimum Price</vs-th>
-                    <vs-th sort-key="max_price">Maximum Price</vs-th>
-                    <vs-th sort-key="online_reservation">is Online?</vs-th>
-                    <vs-th>Action</vs-th>
-                </template>
-                <template slot-scope="{data}">
-                    <vs-tr :key="index" v-for="(type, index) in data">
-                        <vs-td :data="index+1">
-                            {{ index+1 }}
-                        </vs-td>
+        <div class="vx-col w-full mb-base" v-if="can('view-reservation')">
+            <vx-card ref="reservation_type" title='Reservation Types' collapse-action refreshContentAction @refresh="getReservationTypes">
+                <vs-table search :data="reservation_types">
+                    <template slot="header">
+                        <vs-button size="small" to="/dashboard/settings/reservation/create" icon-pack="feather" icon="icon-plus" type="filled">Add New Type</vs-button>
+                    </template>
+                    <template slot="thead">
+                        <vs-th>#</vs-th>
+                        <vs-th sort-key="name">Type</vs-th>
+                        <vs-th sort-key="min_price">Minimum Price</vs-th>
+                        <vs-th sort-key="max_price">Maximum Price</vs-th>
+                        <vs-th sort-key="online_reservation">is Online?</vs-th>
+                        <vs-th>Action</vs-th>
+                    </template>
+                    <template slot-scope="{data}">
+                        <vs-tr :key="index" v-for="(type, index) in data">
+                            <vs-td :data="index+1">
+                                {{ index+1 }}
+                            </vs-td>
 
-                        <vs-td :data="type.name">
-                            {{ type.name}}
-                        </vs-td>
+                            <vs-td :data="type.name">
+                                {{ type.name}}
+                            </vs-td>
 
-                        <vs-td :data="type.min_price">
-                            {{ type.min_price}}
-                        </vs-td>
+                            <vs-td :data="type.min_price">
+                                {{ type.min_price}}
+                            </vs-td>
 
-                        <vs-td :data="type.max_price">
-                            {{ type.max_price}}
-                        </vs-td>
+                            <vs-td :data="type.max_price">
+                                {{ type.max_price}}
+                            </vs-td>
 
-                        <vs-td :data="type.online_reservation">
-                            <vs-chip :color="type.online_reservation?'success':'danger'">{{ type.online_reservation?'Yes':'No' }}</vs-chip>
-                        </vs-td>
+                            <vs-td :data="type.online_reservation">
+                                <vs-chip :color="type.online_reservation?'success':'danger'">{{ type.online_reservation?'Yes':'No' }}</vs-chip>
+                            </vs-td>
 
-                        <vs-td>
-                            <vs-row>
-                                <div class="flex mb-4">
-                                    <div class="w-1/3" style="margin: 0 10px;">
-                                        <vs-button :to="`/dashboard/settings/reservation/edit/${type.id}`" radius color="warning" type="border" icon-pack="feather" icon="icon-edit"></vs-button>
+                            <vs-td>
+                                <vs-row>
+                                    <div class="flex mb-4">
+                                        <div v-if="can('edit-reservation')" class="w-1/3 mr-5">
+                                            <vs-button :to="`/dashboard/settings/reservation/edit/${type.id}`" radius color="warning" type="border" icon-pack="feather" icon="icon-edit"></vs-button>
+                                        </div>
+                                        <div v-if="can('delete-reservation')" class="w-1/3">
+                                            <vs-button :id="`btn-type-delete-${type.id}`" class="vs-con-loading__container" radius color="danger" type="border" icon-pack="feather" icon="icon-trash" @click="is_requesting?$store.dispatch('viewWaitMessage', $vs):confirmDeleteReservation(type)"></vs-button>
+                                        </div>
                                     </div>
-                                    <div class="w-1/3">
-                                        <vs-button :id="`btn-type-delete-${type.id}`" class="vs-con-loading__container" radius color="danger" type="border" icon-pack="feather" icon="icon-trash" @click="is_requesting?$store.dispatch('viewWaitMessage', $vs):confirmDeleteReservation(type)"></vs-button>
-                                    </div>
-                                </div>
-                            </vs-row>
-                        </vs-td>
-                    </vs-tr>
-                </template>
-            </vs-table>
-        </vx-card>
+                                </vs-row>
+                            </vs-td>
+                        </vs-tr>
+                    </template>
+                </vs-table>
+            </vx-card>
         </div>
 
         <div class="vx-col w-full mb-base">
@@ -116,7 +116,9 @@
     export default {
         name: "browse",
         mounted() {
-          this.getReservationTypes();
+            if (this.can('view-reservation')){
+                this.getReservationTypes();
+            }
         },
         data: () => {
             return {
