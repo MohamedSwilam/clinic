@@ -65,12 +65,20 @@ class RoleController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return Response
+     * @param $id
+     * @return JsonResponse
+     * @throws AuthorizationException
      */
     public function show($id)
     {
-        //
+        $this->authorize('index', Role::class);
+        return $this->respond('fetched successfully', fractal(
+                Role::where('id', $id)
+                    ->with('permissions')
+                    ->first(),
+                new RoleTransformer()
+            )
+        );
     }
 
     /**

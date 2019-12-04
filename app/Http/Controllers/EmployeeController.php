@@ -68,6 +68,25 @@ class EmployeeController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     *
+     * @param $id
+     * @return JsonResponse
+     * @throws AuthorizationException
+     */
+    public function show($id)
+    {
+        $this->authorize('index', User::class);
+        return $this->respond('fetched successfully', fractal(
+            User::where('id', $id)
+                ->with('roles', 'permissions', 'roles.permissions')
+            ->first(),
+            new UserTransformer()
+            )
+        );
+    }
+
+    /**
      * Update the specified resource in storage.
      *
      * @param EmployeeRequest $request

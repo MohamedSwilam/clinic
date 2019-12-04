@@ -65,12 +65,20 @@ class PatientController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Patient $patient
-     * @return Response
+     * @param $id
+     * @return JsonResponse
+     * @throws AuthorizationException
      */
-    public function show(Patient $patient)
+    public function show($id)
     {
-        //
+        $this->authorize('index', Patient::class);
+        return $this->respond('fetched successfully', fractal(
+                Patient::where('id', $id)
+                    ->with('phones')
+                    ->first(),
+                new PatientTransformer()
+            )
+        );
     }
 
     /**
