@@ -11,7 +11,6 @@ export default {
           .then(response => {
             // If there's user data in response
             if(response.data.data.user) {
-
                 // Update user details
                 commit('UPDATE_USER_INFO', {userInfo: response.data.data.user});
 
@@ -63,6 +62,7 @@ export default {
           .catch(error => { reject(error) })
       })
     },
+
     fetchAccessToken() {
       return new Promise((resolve) => {
         jwt.refreshToken().then(response => { resolve(response) })

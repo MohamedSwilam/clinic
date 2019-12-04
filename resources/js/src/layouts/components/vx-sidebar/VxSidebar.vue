@@ -33,7 +33,6 @@
 
                 <VuePerfectScrollbar ref="mainSidebarPs" class="scroll-area--main-sidebar pt-2" :settings="settings" @ps-scroll-y="psSectionScroll">
                     <template v-for="(sidebarItem, index) in sidebarItems">
-
                         <!-- GROUP ITEM HEADER -->
                         <span :key="`header-${index}`" v-if="sidebarItem.header && !sidebarItemsMin" class="navigation-header truncate">{{ sidebarItem.header }}</span>
                         <template v-else-if="!sidebarItem.header">

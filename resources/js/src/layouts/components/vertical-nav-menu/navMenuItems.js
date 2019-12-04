@@ -32,21 +32,24 @@ export default [
         name: "Employee",
         slug: "employee",
         icon: "UsersIcon",
-        i18n: "Employee"
+        i18n: "Employee",
+        permission: 'view-user'
     },
     {
         url: "/dashboard/patient",
         name: "Patient",
         slug: "patient",
         icon: "UserIcon",
-        i18n: "Patient"
+        i18n: "Patient",
+        permission: "view-patient"
     },
     {
         url: "/dashboard/appointment",
         name: "Appointment",
         slug: "appointment",
         icon: "EditIcon",
-        i18n: "Appointment"
+        i18n: "Appointment",
+        permission: "view-appointment"
     },
     {
         name: "Settings",
@@ -57,13 +60,15 @@ export default [
                 url: '/dashboard/settings/role',
                 name: "Roles & Permissions",
                 slug: "role",
-                i18n: "Roles"
+                i18n: "Roles",
+                permission: "view-role"
             },
             {
                 url: '/dashboard/settings/reservation',
                 name: "Reservations",
                 slug: "reservation",
-                i18n: "reservation"
+                i18n: "reservation",
+                permission: "view-reservation"
             }
         ]
     }

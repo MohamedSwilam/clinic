@@ -51,7 +51,7 @@
 
       <!-- Group Items -->
       <ul ref="items" :style="styleItems" class="vs-sidebar-group-items">
-        <li v-for="(groupItem, index) in group.submenu" :key="index">
+        <li v-for="(groupItem, index) in group.submenu" :key="index" v-if="can(groupItem.permission)||groupItem.permission === undefined">
 
           <!-- If item is group -->
           <v-nav-menu-group

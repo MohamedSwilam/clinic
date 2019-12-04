@@ -31,14 +31,11 @@ Vue.use(InstantSearch);
 // Globally Registered Components
 import './globalComponents.js'
 
-
 // Styles: SCSS
 import '../../assets/scss/main.scss'
 
-
 // Tailwind
 import '../../assets/css/main.css';
-
 
 // Vue Router
 import router from './router'
@@ -46,6 +43,10 @@ import router from './router'
 // Vue wrapper for hammerjs
 import { VueHammer } from 'vue2-hammer';
 Vue.use(VueHammer);
+
+// Import and use the auth mixin in all components.
+import AuthMixin from './mixins/auth.js';
+Vue.mixin(AuthMixin);
 
 // i18n
 import i18n from './i18n/i18n'

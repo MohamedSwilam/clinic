@@ -32,21 +32,24 @@ export default [
         name: "Employee",
         slug: "employee",
         icon: "UsersIcon",
-        i18n: "Employee"
+        i18n: "Employee",
+        permission: 'view-user'
     },
     {
         url: "/patient",
         name: "Patient",
         slug: "patient",
         icon: "UserIcon",
-        i18n: "Patient"
+        i18n: "Patient",
+        permission: "view-patient"
     },
     {
         url: "/appointment",
         name: "Appointment",
         slug: "appointment",
         icon: "EditIcon",
-        i18n: "Appointment"
+        i18n: "Appointment",
+        permission: "view-appointment"
     },
     {
         url: "/invoice",
@@ -67,7 +70,8 @@ export default [
         name: "Lab",
         slug: "lab",
         icon: "ThermometerIcon",
-        i18n: "Lab"
+        i18n: "Lab",
+        permission: ""
     },
     {
         url: "/settings",
@@ -80,13 +84,15 @@ export default [
                 url: '/settings/theme',
                 name: "Theme Customizer",
                 slug: "theme",
-                i18n: "Theme"
+                i18n: "Theme",
+                permission: ""
             },
             {
                 url: '/settings/privacy',
                 name: "Privacy",
                 slug: "privacy",
-                i18n: "Privacy"
+                i18n: "Privacy",
+                permission: ""
             },
         ]
     }

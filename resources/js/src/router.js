@@ -1,21 +1,3 @@
-/*=========================================================================================
-  File Name: router.js
-  Description: Routes for vue-router. Lazy loading is enabled.
-  Object Strucutre:
-                    path => router path
-                    name => router name
-                    component(lazy loading) => component to load
-                    meta : {
-                      rule => which user can have access (ACL)
-                      breadcrumb => Add breadcrumb to specific page
-                      pageTitle => Display title besides breadcrumb
-                    }
-  ----------------------------------------------------------------------------------------
-  Item Name: Vuesax Admin - VueJS Dashboard Admin Template
-  Author: Pixinvent
-  Author URL: http://www.themeforest.net/user/pixinvent
-==========================================================================================*/
-
 
 import Vue from 'vue';
 import Router from 'vue-router';
@@ -51,8 +33,7 @@ const router = new Router({
                             { title: 'Home', url: '/dashboard', i18n: 'Home', active: true },
                         ],
                         pageTitle: 'Home',
-                        pageTitle_i18n: 'Home',
-                        rule: 'editor'
+                        pageTitle_i18n: 'Home'
                     }
                 },
 
@@ -68,7 +49,7 @@ const router = new Router({
                         ],
                         pageTitle: 'Employee',
                         pageTitle_i18n: 'Employee',
-                        rule: 'editor'
+                        permission: 'view-user'
                     }
                 },
                 {
@@ -84,7 +65,7 @@ const router = new Router({
                         ],
                         pageTitle: 'Add Employee',
                         pageTitle_i18n: 'AddEmployee',
-                        rule: 'editor'
+                        permission: 'create-user'
                     }
                 },
                 {
@@ -100,7 +81,7 @@ const router = new Router({
                         ],
                         pageTitle: 'Edit Employee',
                         pageTitle_i18n: 'editEmployee',
-                        rule: 'editor'
+                        permission: 'view-user'
                     }
                 },
                 {
@@ -116,7 +97,7 @@ const router = new Router({
                         ],
                         pageTitle: 'Edit Employee',
                         pageTitle_i18n: 'editEmployee',
-                        rule: 'editor'
+                        permission: 'edit-user'
                     }
                 },
                 {
@@ -131,7 +112,7 @@ const router = new Router({
                         ],
                         pageTitle: 'Patient',
                         pageTitle_i18n: 'Patient',
-                        rule: 'editor'
+                        permission: 'view-patient'
                     }
                 },
                 {
@@ -147,7 +128,7 @@ const router = new Router({
                         ],
                         pageTitle: 'Create Patient',
                         pageTitle_i18n: 'CreatePatient',
-                        rule: 'editor'
+                        permission: 'create-patient'
                     }
                 },
                 {
@@ -163,7 +144,7 @@ const router = new Router({
                         ],
                         pageTitle: 'Edit Patient',
                         pageTitle_i18n: 'EditPatient',
-                        rule: 'editor'
+                        permission: 'edit-patient'
                     }
                 },
                 {
@@ -179,7 +160,7 @@ const router = new Router({
                         ],
                         pageTitle: 'Profile',
                         pageTitle_i18n: 'Profile',
-                        rule: 'editor'
+                        permission: 'Edit Patient'
                     }
                 },
                 {
@@ -194,7 +175,7 @@ const router = new Router({
                         ],
                         pageTitle: 'Appointment',
                         pageTitle_i18n: 'Appointment',
-                        rule: 'editor'
+                        permission: 'view-appointment'
                     }
                 },
                 {
@@ -210,37 +191,7 @@ const router = new Router({
                         ],
                         pageTitle: 'Add Appointment',
                         pageTitle_i18n: 'AddAppointment',
-                        rule: 'editor'
-                    }
-                },
-                {
-                    path: '/dashboard/invoice',
-                    name: 'invoice',
-                    component: () => import('./views/Page2.vue'),
-                    beforeEnter: guard,
-                    meta: {
-                        breadcrumb: [
-                            { title: 'Home', url: '/dashboard', i18n: 'Home' },
-                            { title: 'Invoice', active: true, i18n: 'Invoice' },
-                        ],
-                        pageTitle: 'Invoice',
-                        pageTitle_i18n: 'Invoice',
-                        rule: 'editor'
-                    }
-                },
-                {
-                    path: '/dashboard/calendar',
-                    name: 'calendar',
-                    component: () => import('./views/calendar/Calendar.vue'),
-                    beforeEnter: guard,
-                    meta: {
-                        breadcrumb: [
-                            { title: 'Home', url: '/dashboard', i18n: 'Home' },
-                            { title: 'Calendar', active: true, i18n: 'Calendar' },
-                        ],
-                        pageTitle: 'Calendar',
-                        pageTitle_i18n: 'Calendar',
-                        rule: 'editor'
+                        permission: 'create-appointment'
                     }
                 },
                 {
@@ -255,6 +206,7 @@ const router = new Router({
                             { title: 'Roles', active: true}
                         ],
                         pageTitle: "Roles",
+                        permission: 'view-role'
                     }
                 },
                 {
@@ -270,6 +222,7 @@ const router = new Router({
                             { title: 'Create Role', active: true}
                         ],
                         pageTitle: "Create Role",
+                        permission: 'assign-role'
                     }
                 },
                 {
@@ -285,6 +238,7 @@ const router = new Router({
                             { title: 'Role Information', active: true}
                         ],
                         pageTitle: "Role Information",
+                        permission: 'view-role'
                     }
                 },
                 {
@@ -300,6 +254,7 @@ const router = new Router({
                             { title: 'Edit Role', active: true}
                         ],
                         pageTitle: "Edit Role",
+                        permission: 'edit-role'
                     }
                 },
                 {
@@ -314,6 +269,7 @@ const router = new Router({
                             { title: 'Reservation', active: true}
                         ],
                         pageTitle: "Reservation Settings",
+                        permission: 'view-reservation'
                     }
                 },
                 {
@@ -329,6 +285,7 @@ const router = new Router({
                             { title: 'Create', active: true}
                         ],
                         pageTitle: "Create Reservation Type",
+                        permission: 'create-reservation'
                     }
                 },
                 {
@@ -344,6 +301,7 @@ const router = new Router({
                             { title: 'Edit', active: true}
                         ],
                         pageTitle: "Edit Reservation Type",
+                        permission: 'edit-reservation'
                     }
                 },
                 {
@@ -359,6 +317,7 @@ const router = new Router({
                             { title: 'Create Duration', active: true}
                         ],
                         pageTitle: "Create Reservation Duration",
+                        permission: 'create-reservation'
                     }
                 },
             ],
@@ -377,6 +336,11 @@ const router = new Router({
                     path: '/dashboard/login',
                     name: 'pageLogin',
                     component: () => import('./views/pages/Login.vue')
+                },
+                {
+                    path: '/dashboard/error-403',
+                    name: 'pageError403',
+                    component: () => import('./views/pages/NotAuthorized.vue')
                 },
                 {
                     path: '/dashboard/error-404',
@@ -401,10 +365,24 @@ const router = new Router({
 //     }
 // });
 
+function can(permission) {
+    let hasPermission = false;
+    store.state.auth.AppActiveUser.roles[0].permissions.forEach((userPermission) => {
+        if(userPermission.name === permission){
+            hasPermission = true;
+        }
+    });
+    return hasPermission;
+}
+
 function guard(to, from, next) {
     if (store.state.auth.accessToken) {
         axios.defaults.headers.common['Authorization'] = `Bearer ${store.state.auth.accessToken.accessToken}`;
-        new Date(Date.now()) < new Date(store.state.auth.accessToken.token.expires_at)?next():next('/dashboard/login');
+        if (new Date(Date.now()) < new Date(store.state.auth.accessToken.token.expires_at)){
+            to.meta.permission===undefined||can(to.meta.permission)?next():next('/dashboard/error-403');
+        } else {
+            next('/dashboard/login');
+        }
     } else {
         next('/dashboard/login');
     }

@@ -107973,19 +107973,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./router */ "./resources/js/src/router.js");
 /* harmony import */ var vue2_hammer__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! vue2-hammer */ "./node_modules/vue2-hammer/index.min.js");
 /* harmony import */ var vue2_hammer__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(vue2_hammer__WEBPACK_IMPORTED_MODULE_13__);
-/* harmony import */ var _i18n_i18n__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./i18n/i18n */ "./resources/js/src/i18n/i18n.js");
-/* harmony import */ var _filters_filters__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./filters/filters */ "./resources/js/src/filters/filters.js");
-/* harmony import */ var vue_clipboard2__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! vue-clipboard2 */ "./node_modules/vue-clipboard2/vue-clipboard.js");
-/* harmony import */ var vue_clipboard2__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(vue_clipboard2__WEBPACK_IMPORTED_MODULE_16__);
-/* harmony import */ var vee_validate__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! vee-validate */ "./node_modules/vee-validate/dist/vee-validate.esm.js");
-/* harmony import */ var vue_easycm__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! vue-easycm */ "./node_modules/vue-easycm/dist/vue-easycm.js");
-/* harmony import */ var vue_easycm__WEBPACK_IMPORTED_MODULE_18___default = /*#__PURE__*/__webpack_require__.n(vue_easycm__WEBPACK_IMPORTED_MODULE_18__);
-/* harmony import */ var vue2_google_maps__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! vue2-google-maps */ "./node_modules/vue2-google-maps/dist/main.js");
-/* harmony import */ var vue2_google_maps__WEBPACK_IMPORTED_MODULE_19___default = /*#__PURE__*/__webpack_require__.n(vue2_google_maps__WEBPACK_IMPORTED_MODULE_19__);
-/* harmony import */ var prismjs__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! prismjs */ "./node_modules/prismjs/prism.js");
-/* harmony import */ var prismjs__WEBPACK_IMPORTED_MODULE_20___default = /*#__PURE__*/__webpack_require__.n(prismjs__WEBPACK_IMPORTED_MODULE_20__);
-/* harmony import */ var prismjs_themes_prism_tomorrow_css__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! prismjs/themes/prism-tomorrow.css */ "./node_modules/prismjs/themes/prism-tomorrow.css");
-/* harmony import */ var prismjs_themes_prism_tomorrow_css__WEBPACK_IMPORTED_MODULE_21___default = /*#__PURE__*/__webpack_require__.n(prismjs_themes_prism_tomorrow_css__WEBPACK_IMPORTED_MODULE_21__);
+/* harmony import */ var _mixins_auth_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./mixins/auth.js */ "./resources/js/src/mixins/auth.js");
+/* harmony import */ var _i18n_i18n__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./i18n/i18n */ "./resources/js/src/i18n/i18n.js");
+/* harmony import */ var _filters_filters__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./filters/filters */ "./resources/js/src/filters/filters.js");
+/* harmony import */ var vue_clipboard2__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! vue-clipboard2 */ "./node_modules/vue-clipboard2/vue-clipboard.js");
+/* harmony import */ var vue_clipboard2__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(vue_clipboard2__WEBPACK_IMPORTED_MODULE_17__);
+/* harmony import */ var vee_validate__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! vee-validate */ "./node_modules/vee-validate/dist/vee-validate.esm.js");
+/* harmony import */ var vue_easycm__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! vue-easycm */ "./node_modules/vue-easycm/dist/vue-easycm.js");
+/* harmony import */ var vue_easycm__WEBPACK_IMPORTED_MODULE_19___default = /*#__PURE__*/__webpack_require__.n(vue_easycm__WEBPACK_IMPORTED_MODULE_19__);
+/* harmony import */ var vue2_google_maps__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! vue2-google-maps */ "./node_modules/vue2-google-maps/dist/main.js");
+/* harmony import */ var vue2_google_maps__WEBPACK_IMPORTED_MODULE_20___default = /*#__PURE__*/__webpack_require__.n(vue2_google_maps__WEBPACK_IMPORTED_MODULE_20__);
+/* harmony import */ var prismjs__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! prismjs */ "./node_modules/prismjs/prism.js");
+/* harmony import */ var prismjs__WEBPACK_IMPORTED_MODULE_21___default = /*#__PURE__*/__webpack_require__.n(prismjs__WEBPACK_IMPORTED_MODULE_21__);
+/* harmony import */ var prismjs_themes_prism_tomorrow_css__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! prismjs/themes/prism-tomorrow.css */ "./node_modules/prismjs/themes/prism-tomorrow.css");
+/* harmony import */ var prismjs_themes_prism_tomorrow_css__WEBPACK_IMPORTED_MODULE_22___default = /*#__PURE__*/__webpack_require__.n(prismjs_themes_prism_tomorrow_css__WEBPACK_IMPORTED_MODULE_22__);
 
  // Vuesax Component Framework
 
@@ -108018,22 +108019,25 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_instantsearch__WEBPACK_IMPORT
  // Vue wrapper for hammerjs
 
 
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue2_hammer__WEBPACK_IMPORTED_MODULE_13__["VueHammer"]); // i18n
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue2_hammer__WEBPACK_IMPORTED_MODULE_13__["VueHammer"]); // Import and use the auth mixin in all components.
+
+
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.mixin(_mixins_auth_js__WEBPACK_IMPORTED_MODULE_14__["default"]); // i18n
 
  // Filters
 
  // Clipboard
 
 
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_clipboard2__WEBPACK_IMPORTED_MODULE_16___default.a); // VeeValidate
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_clipboard2__WEBPACK_IMPORTED_MODULE_17___default.a); // VeeValidate
 
 
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vee_validate__WEBPACK_IMPORTED_MODULE_17__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vee_validate__WEBPACK_IMPORTED_MODULE_18__["default"]);
 
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_easycm__WEBPACK_IMPORTED_MODULE_18___default.a); // Google Maps
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_easycm__WEBPACK_IMPORTED_MODULE_19___default.a); // Google Maps
 
 
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue2_google_maps__WEBPACK_IMPORTED_MODULE_19__, {
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue2_google_maps__WEBPACK_IMPORTED_MODULE_20__, {
   load: {
     // Add your API key here
     key: 'AIzaSyC1qDLZ8CXn--s1m3mFQfirZi8mI0KgMmo',
@@ -108051,11 +108055,44 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.config.productionTip = false;
 new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   router: _router__WEBPACK_IMPORTED_MODULE_12__["default"],
   store: _store_store__WEBPACK_IMPORTED_MODULE_5__["default"],
-  i18n: _i18n_i18n__WEBPACK_IMPORTED_MODULE_14__["default"],
+  i18n: _i18n_i18n__WEBPACK_IMPORTED_MODULE_15__["default"],
   render: function render(h) {
     return h(_App_vue__WEBPACK_IMPORTED_MODULE_1__["default"]);
   }
 }).$mount('#app');
+
+/***/ }),
+
+/***/ "./resources/js/src/mixins/auth.js":
+/*!*****************************************!*\
+  !*** ./resources/js/src/mixins/auth.js ***!
+  \*****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _store_store__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../store/store */ "./resources/js/src/store/store.js");
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  methods: {
+    /**
+     * Check if the authenticated user can perform an action.
+     *
+     * @param permission
+     * @returns {boolean}
+     */
+    can: function can(permission) {
+      var hasPermission = false;
+      _store_store__WEBPACK_IMPORTED_MODULE_0__["default"].state.auth.AppActiveUser.roles[0].permissions.forEach(function (userPermission) {
+        if (userPermission.name === permission) {
+          hasPermission = true;
+        }
+      });
+      return hasPermission;
+    }
+  }
+});
 
 /***/ }),
 
@@ -108073,23 +108110,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
 /* harmony import */ var _store_store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./store/store */ "./resources/js/src/store/store.js");
 /* harmony import */ var _http_axios_index_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./http/axios/index.js */ "./resources/js/src/http/axios/index.js");
-/*=========================================================================================
-  File Name: router.js
-  Description: Routes for vue-router. Lazy loading is enabled.
-  Object Strucutre:
-                    path => router path
-                    name => router name
-                    component(lazy loading) => component to load
-                    meta : {
-                      rule => which user can have access (ACL)
-                      breadcrumb => Add breadcrumb to specific page
-                      pageTitle => Display title besides breadcrumb
-                    }
-  ----------------------------------------------------------------------------------------
-  Item Name: Vuesax Admin - VueJS Dashboard Admin Template
-  Author: Pixinvent
-  Author URL: http://www.themeforest.net/user/pixinvent
-==========================================================================================*/
 
 
 
@@ -108130,8 +108150,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
           active: true
         }],
         pageTitle: 'Home',
-        pageTitle_i18n: 'Home',
-        rule: 'editor'
+        pageTitle_i18n: 'Home'
       }
     }, {
       path: '/dashboard/employee',
@@ -108152,7 +108171,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
         }],
         pageTitle: 'Employee',
         pageTitle_i18n: 'Employee',
-        rule: 'editor'
+        permission: 'view-user'
       }
     }, {
       path: '/dashboard/employee/create',
@@ -108177,7 +108196,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
         }],
         pageTitle: 'Add Employee',
         pageTitle_i18n: 'AddEmployee',
-        rule: 'editor'
+        permission: 'create-user'
       }
     }, {
       path: '/dashboard/employee/:id',
@@ -108202,7 +108221,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
         }],
         pageTitle: 'Edit Employee',
         pageTitle_i18n: 'editEmployee',
-        rule: 'editor'
+        permission: 'view-user'
       }
     }, {
       path: '/dashboard/employee/:id/edit',
@@ -108227,7 +108246,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
         }],
         pageTitle: 'Edit Employee',
         pageTitle_i18n: 'editEmployee',
-        rule: 'editor'
+        permission: 'edit-user'
       }
     }, {
       path: '/dashboard/patient',
@@ -108248,7 +108267,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
         }],
         pageTitle: 'Patient',
         pageTitle_i18n: 'Patient',
-        rule: 'editor'
+        permission: 'view-patient'
       }
     }, {
       path: '/dashboard/patient/create',
@@ -108273,7 +108292,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
         }],
         pageTitle: 'Create Patient',
         pageTitle_i18n: 'CreatePatient',
-        rule: 'editor'
+        permission: 'create-patient'
       }
     }, {
       path: '/dashboard/patient/:id/edit',
@@ -108298,7 +108317,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
         }],
         pageTitle: 'Edit Patient',
         pageTitle_i18n: 'EditPatient',
-        rule: 'editor'
+        permission: 'edit-patient'
       }
     }, {
       path: '/dashboard/patient/:id',
@@ -108323,7 +108342,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
         }],
         pageTitle: 'Profile',
         pageTitle_i18n: 'Profile',
-        rule: 'editor'
+        permission: 'Edit Patient'
       }
     }, {
       path: '/dashboard/appointment',
@@ -108344,7 +108363,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
         }],
         pageTitle: 'Appointment',
         pageTitle_i18n: 'Appointment',
-        rule: 'editor'
+        permission: 'view-appointment'
       }
     }, {
       path: '/dashboard/appointment/add-appointment/:patient_id',
@@ -108369,49 +108388,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
         }],
         pageTitle: 'Add Appointment',
         pageTitle_i18n: 'AddAppointment',
-        rule: 'editor'
-      }
-    }, {
-      path: '/dashboard/invoice',
-      name: 'invoice',
-      component: function component() {
-        return __webpack_require__.e(/*! import() */ 28).then(__webpack_require__.bind(null, /*! ./views/Page2.vue */ "./resources/js/src/views/Page2.vue"));
-      },
-      beforeEnter: guard,
-      meta: {
-        breadcrumb: [{
-          title: 'Home',
-          url: '/dashboard',
-          i18n: 'Home'
-        }, {
-          title: 'Invoice',
-          active: true,
-          i18n: 'Invoice'
-        }],
-        pageTitle: 'Invoice',
-        pageTitle_i18n: 'Invoice',
-        rule: 'editor'
-      }
-    }, {
-      path: '/dashboard/calendar',
-      name: 'calendar',
-      component: function component() {
-        return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(6)]).then(__webpack_require__.bind(null, /*! ./views/calendar/Calendar.vue */ "./resources/js/src/views/calendar/Calendar.vue"));
-      },
-      beforeEnter: guard,
-      meta: {
-        breadcrumb: [{
-          title: 'Home',
-          url: '/dashboard',
-          i18n: 'Home'
-        }, {
-          title: 'Calendar',
-          active: true,
-          i18n: 'Calendar'
-        }],
-        pageTitle: 'Calendar',
-        pageTitle_i18n: 'Calendar',
-        rule: 'editor'
+        permission: 'create-appointment'
       }
     }, {
       path: '/dashboard/settings/role',
@@ -108430,7 +108407,8 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
           title: 'Roles',
           active: true
         }],
-        pageTitle: "Roles"
+        pageTitle: "Roles",
+        permission: 'view-role'
       }
     }, {
       path: '/dashboard/settings/role/create',
@@ -108452,7 +108430,8 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
           title: 'Create Role',
           active: true
         }],
-        pageTitle: "Create Role"
+        pageTitle: "Create Role",
+        permission: 'assign-role'
       }
     }, {
       path: '/dashboard/settings/role/:id',
@@ -108474,7 +108453,8 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
           title: 'Role Information',
           active: true
         }],
-        pageTitle: "Role Information"
+        pageTitle: "Role Information",
+        permission: 'view-role'
       }
     }, {
       path: '/dashboard/settings/role/edit/:id',
@@ -108496,7 +108476,8 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
           title: 'Edit Role',
           active: true
         }],
-        pageTitle: "Edit Role"
+        pageTitle: "Edit Role",
+        permission: 'edit-role'
       }
     }, {
       path: '/dashboard/settings/reservation',
@@ -108515,7 +108496,8 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
           title: 'Reservation',
           active: true
         }],
-        pageTitle: "Reservation Settings"
+        pageTitle: "Reservation Settings",
+        permission: 'view-reservation'
       }
     }, {
       path: '/dashboard/settings/reservation/create',
@@ -108537,7 +108519,8 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
           title: 'Create',
           active: true
         }],
-        pageTitle: "Create Reservation Type"
+        pageTitle: "Create Reservation Type",
+        permission: 'create-reservation'
       }
     }, {
       path: '/dashboard/settings/reservation/edit/:id',
@@ -108559,7 +108542,8 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
           title: 'Edit',
           active: true
         }],
-        pageTitle: "Edit Reservation Type"
+        pageTitle: "Edit Reservation Type",
+        permission: 'edit-reservation'
       }
     }, {
       path: '/dashboard/settings/reservation-duration/create',
@@ -108581,7 +108565,8 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
           title: 'Create Duration',
           active: true
         }],
-        pageTitle: "Create Reservation Duration"
+        pageTitle: "Create Reservation Duration",
+        permission: 'create-reservation'
       }
     }]
   }, // =============================================================================
@@ -108600,6 +108585,12 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       name: 'pageLogin',
       component: function component() {
         return __webpack_require__.e(/*! import() */ 18).then(__webpack_require__.bind(null, /*! ./views/pages/Login.vue */ "./resources/js/src/views/pages/Login.vue"));
+      }
+    }, {
+      path: '/dashboard/error-403',
+      name: 'pageError403',
+      component: function component() {
+        return __webpack_require__.e(/*! import() */ 1).then(__webpack_require__.bind(null, /*! ./views/pages/NotAuthorized.vue */ "./resources/js/src/views/pages/NotAuthorized.vue"));
       }
     }, {
       path: '/dashboard/error-404',
@@ -108621,10 +108612,25 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
 //     }
 // });
 
+function can(permission) {
+  var hasPermission = false;
+  _store_store__WEBPACK_IMPORTED_MODULE_2__["default"].state.auth.AppActiveUser.roles[0].permissions.forEach(function (userPermission) {
+    if (userPermission.name === permission) {
+      hasPermission = true;
+    }
+  });
+  return hasPermission;
+}
+
 function guard(to, from, next) {
   if (_store_store__WEBPACK_IMPORTED_MODULE_2__["default"].state.auth.accessToken) {
     _http_axios_index_js__WEBPACK_IMPORTED_MODULE_3__["default"].defaults.headers.common['Authorization'] = "Bearer ".concat(_store_store__WEBPACK_IMPORTED_MODULE_2__["default"].state.auth.accessToken.accessToken);
-    new Date(Date.now()) < new Date(_store_store__WEBPACK_IMPORTED_MODULE_2__["default"].state.auth.accessToken.token.expires_at) ? next() : next('/dashboard/login');
+
+    if (new Date(Date.now()) < new Date(_store_store__WEBPACK_IMPORTED_MODULE_2__["default"].state.auth.accessToken.token.expires_at)) {
+      to.meta.permission === undefined || can(to.meta.permission) ? next() : next('/dashboard/error-403');
+    } else {
+      next('/dashboard/login');
+    }
   } else {
     next('/dashboard/login');
   }
@@ -108643,14 +108649,8 @@ function guard(to, from, next) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/*=========================================================================================
-  File Name: actions.js
-  Description: Vuex Store - actions
-  ----------------------------------------------------------------------------------------
-  Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
-  Author: Pixinvent
-  Author URL: http://www.themeforest.net/user/pixinvent
-==========================================================================================*/
+/* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/router */ "./resources/js/src/router.js");
+
 var actions = {
   // /////////////////////////////////////////////
   // COMPONENTS
@@ -108694,6 +108694,22 @@ var actions = {
       iconPack: 'feather',
       icon: 'icon-clock'
     });
+  },
+  handleError: function handleError(_ref8, payload) {
+    var commit = _ref8.commit;
+
+    switch (payload.error.response.status) {
+      case 401:
+        _router__WEBPACK_IMPORTED_MODULE_0__["default"].push('/dashboard/error-403');
+        break;
+
+      case 403:
+        _router__WEBPACK_IMPORTED_MODULE_0__["default"].push('/dashboard/error-403');
+        break;
+
+      default:
+        payload.reject(payload.error);
+    }
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = (actions);
@@ -109081,32 +109097,50 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   getData: function getData(_ref) {
-    var commit = _ref.commit;
+    var commit = _ref.commit,
+        dispatch = _ref.dispatch;
     return new Promise(function (resolve, reject) {
       _http_requests_reservation_type_index__WEBPACK_IMPORTED_MODULE_0__["default"].getAll().then(function (response) {
         resolve(response);
       })["catch"](function (error) {
-        reject(error);
+        dispatch('handleError', {
+          reject: reject,
+          error: error
+        }, {
+          root: true
+        });
       });
     });
   },
   create: function create(_ref2, payload) {
-    var commit = _ref2.commit;
+    var commit = _ref2.commit,
+        dispatch = _ref2.dispatch;
     return new Promise(function (resolve, reject) {
       _http_requests_reservation_type_index__WEBPACK_IMPORTED_MODULE_0__["default"].create(payload).then(function (response) {
         resolve(response);
       })["catch"](function (error) {
-        reject(error);
+        dispatch('handleError', {
+          reject: reject,
+          error: error
+        }, {
+          root: true
+        });
       });
     });
   },
   "delete": function _delete(_ref3, id) {
-    var commit = _ref3.commit;
+    var commit = _ref3.commit,
+        dispatch = _ref3.dispatch;
     return new Promise(function (resolve, reject) {
       _http_requests_reservation_type_index__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"](id).then(function (response) {
         resolve(response);
       })["catch"](function (error) {
-        reject(error);
+        dispatch('handleError', {
+          reject: reject,
+          error: error
+        }, {
+          root: true
+        });
       });
     });
   }
@@ -109274,6 +109308,7 @@ var vuexLocal = new vuex_persist__WEBPACK_IMPORTED_MODULE_6__["default"]({
   storage: window.localStorage
 });
 /* harmony default export */ __webpack_exports__["default"] = (new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
+  namespaced: true,
   getters: _getters__WEBPACK_IMPORTED_MODULE_3__["default"],
   mutations: _mutations__WEBPACK_IMPORTED_MODULE_4__["default"],
   state: _state__WEBPACK_IMPORTED_MODULE_2__["default"],

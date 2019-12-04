@@ -242,6 +242,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "the-footer",
   props: {
@@ -1986,7 +1987,7 @@ __webpack_require__.r(__webpack_exports__);
       return this.$store.getters.auth.userData;
     },
     user_displayName: function user_displayName() {
-      return this.$store.getters['auth/userData'].first_name + ' ' + this.$store.getters['auth/userData'].last_name;
+      return this.$store.getters['auth/userData'] ? this.$store.getters['auth/userData'].first_name + ' ' + this.$store.getters['auth/userData'].last_name : '';
     },
     user_email: function user_email() {
       return this.$store.getters['auth/userData'].email;
@@ -3768,19 +3769,11 @@ var render = function(_h, _vm) {
     { staticClass: "the-footer flex-wrap justify-between", class: _vm.classes },
     [
       _c("span", [
-        _vm._v("COPYRIGHT @ " + _vm._s(new Date().getFullYear()) + " "),
-        _c(
-          "a",
-          {
-            attrs: {
-              href: "https://1.envato.market/vuexy_admin",
-              target: "_blank",
-              rel: "nofollow"
-            }
-          },
-          [_vm._v("Pixinvent")]
-        ),
-        _vm._v(", All rights Reserved")
+        _vm._v(
+          "COPYRIGHT @ " +
+            _vm._s(new Date().getFullYear()) +
+            ", All rights Reserved"
+        )
       ]),
       _vm._v(" "),
       _c(
@@ -3795,14 +3788,44 @@ var render = function(_h, _vm) {
               icon: "HeartIcon",
               svgClasses: "stroke-current text-danger w-6 h-6"
             }
-          })
+          }),
+          _vm._v(" "),
+          _vm._m(0)
         ],
         1
       )
     ]
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function(_h, _vm) {
+    var _c = _vm._c
+    return _c("span", { staticClass: "ml-2" }, [
+      _vm._v(" by "),
+      _c(
+        "a",
+        {
+          attrs: {
+            target: "_blank",
+            href: "https://www.linkedin.com/in/mohamedswilam/"
+          }
+        },
+        [_vm._v("Mohamed Swilam")]
+      ),
+      _vm._v(" and "),
+      _c(
+        "a",
+        {
+          attrs: {
+            target: "_blank",
+            href: "https://www.linkedin.com/in/abdulrahman-rashwan-015257119/"
+          }
+        },
+        [_vm._v("Abdelrahman Rashwan")]
+      )
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -5394,7 +5417,7 @@ var render = function() {
                       "div",
                       {
                         staticClass:
-                          "\n                        checkout-footer\n                        fixed\n                        bottom-0\n                        rounded-b-lg\n                        text-primary\n                        w-full\n                        p-2\n                        font-semibold\n                        text-center\n                        border\n                        border-b-0\n                        border-l-0\n                        border-r-0\n                        border-solid\n                        d-theme-border-grey-light\n                        cursor-pointer"
+                          "\r\n                        checkout-footer\r\n                        fixed\r\n                        bottom-0\r\n                        rounded-b-lg\r\n                        text-primary\r\n                        w-full\r\n                        p-2\r\n                        font-semibold\r\n                        text-center\r\n                        border\r\n                        border-b-0\r\n                        border-l-0\r\n                        border-r-0\r\n                        border-solid\r\n                        d-theme-border-grey-light\r\n                        cursor-pointer"
                       },
                       [_c("span", [_vm._v("View All Notifications")])]
                     )
@@ -6348,91 +6371,94 @@ var render = function() {
                 },
                 [
                   _vm._l(_vm.menuItemsUpdated, function(item, index) {
-                    return [
-                      item.header && !_vm.verticalNavMenuItemsMin
-                        ? _c(
-                            "span",
-                            {
-                              key: "header-" + index,
-                              staticClass: "navigation-header truncate"
-                            },
-                            [
-                              _vm._v(
-                                "\n            " +
-                                  _vm._s(item.header) +
-                                  "\n          "
-                              )
-                            ]
-                          )
-                        : !item.header
-                        ? [
-                            !item.submenu
-                              ? _c(
-                                  "v-nav-menu-item",
-                                  {
-                                    key: "item-" + index,
-                                    attrs: {
-                                      index: index,
-                                      to:
-                                        item.slug !== "external"
-                                          ? item.url
-                                          : null,
-                                      href:
-                                        item.slug === "external"
-                                          ? item.url
-                                          : null,
-                                      icon: item.icon,
-                                      target: item.target,
-                                      isDisabled: item.isDisabled,
-                                      slug: item.slug
-                                    }
-                                  },
-                                  [
-                                    _c(
-                                      "span",
-                                      {
-                                        directives: [
-                                          {
-                                            name: "show",
-                                            rawName: "v-show",
-                                            value: !_vm.verticalNavMenuItemsMin,
-                                            expression:
-                                              "!verticalNavMenuItemsMin"
-                                          }
-                                        ],
-                                        staticClass: "truncate"
-                                      },
-                                      [_vm._v(_vm._s(item.name))]
-                                    ),
-                                    _vm._v(" "),
-                                    item.tag &&
-                                    (_vm.isMouseEnter || !_vm.reduce)
-                                      ? _c(
-                                          "vs-chip",
-                                          {
-                                            staticClass: "ml-auto",
-                                            attrs: { color: item.tagColor }
-                                          },
-                                          [_vm._v(_vm._s(item.tag))]
-                                        )
-                                      : _vm._e()
-                                  ],
-                                  1
-                                )
-                              : [
-                                  _c("v-nav-menu-group", {
-                                    key: "group-" + index,
-                                    attrs: {
-                                      openHover: _vm.openGroupHover,
-                                      group: item,
-                                      groupIndex: index,
-                                      open: _vm.isGroupActive(item)
-                                    }
-                                  })
+                    return _vm.can(item.permission) ||
+                      item.permission === undefined
+                      ? [
+                          item.header && !_vm.verticalNavMenuItemsMin
+                            ? _c(
+                                "span",
+                                {
+                                  key: "header-" + index,
+                                  staticClass: "navigation-header truncate"
+                                },
+                                [
+                                  _vm._v(
+                                    "\n            " +
+                                      _vm._s(item.header) +
+                                      "\n          "
+                                  )
                                 ]
-                          ]
-                        : _vm._e()
-                    ]
+                              )
+                            : !item.header
+                            ? [
+                                !item.submenu
+                                  ? _c(
+                                      "v-nav-menu-item",
+                                      {
+                                        key: "item-" + index,
+                                        attrs: {
+                                          index: index,
+                                          to:
+                                            item.slug !== "external"
+                                              ? item.url
+                                              : null,
+                                          href:
+                                            item.slug === "external"
+                                              ? item.url
+                                              : null,
+                                          icon: item.icon,
+                                          target: item.target,
+                                          isDisabled: item.isDisabled,
+                                          slug: item.slug
+                                        }
+                                      },
+                                      [
+                                        _c(
+                                          "span",
+                                          {
+                                            directives: [
+                                              {
+                                                name: "show",
+                                                rawName: "v-show",
+                                                value: !_vm.verticalNavMenuItemsMin,
+                                                expression:
+                                                  "!verticalNavMenuItemsMin"
+                                              }
+                                            ],
+                                            staticClass: "truncate"
+                                          },
+                                          [_vm._v(_vm._s(item.name))]
+                                        ),
+                                        _vm._v(" "),
+                                        item.tag &&
+                                        (_vm.isMouseEnter || !_vm.reduce)
+                                          ? _c(
+                                              "vs-chip",
+                                              {
+                                                staticClass: "ml-auto",
+                                                attrs: { color: item.tagColor }
+                                              },
+                                              [_vm._v(_vm._s(item.tag))]
+                                            )
+                                          : _vm._e()
+                                      ],
+                                      1
+                                    )
+                                  : [
+                                      _c("v-nav-menu-group", {
+                                        key: "group-" + index,
+                                        attrs: {
+                                          openHover: _vm.openGroupHover,
+                                          group: item,
+                                          groupIndex: index,
+                                          open: _vm.isGroupActive(item)
+                                        }
+                                      })
+                                    ]
+                              ]
+                            : _vm._e()
+                        ]
+                      : _vm._e()
                   })
                 ],
                 2
@@ -6571,55 +6597,62 @@ var render = function() {
           style: _vm.styleItems
         },
         _vm._l(_vm.group.submenu, function(groupItem, index) {
-          return _c(
-            "li",
-            { key: index },
-            [
-              groupItem.submenu
-                ? _c("v-nav-menu-group", {
-                    attrs: {
-                      group: groupItem,
-                      groupIndex: Number(_vm.groupIndex + "." + index),
-                      open: _vm.isGroupActive(groupItem),
-                      openHover: _vm.openHover
-                    }
-                  })
-                : _c(
-                    "v-nav-menu-item",
-                    {
-                      attrs: {
-                        "icon-small": "",
-                        index: _vm.groupIndex + "." + index,
-                        to:
-                          groupItem.slug !== "external" ? groupItem.url : null,
-                        href:
-                          groupItem.slug === "external" ? groupItem.url : null,
-                        icon: _vm.itemIcon(_vm.groupIndex + "." + index),
-                        slug: groupItem.slug,
-                        target: groupItem.target
-                      }
-                    },
-                    [
-                      _c("span", { staticClass: "truncate" }, [
-                        _vm._v(_vm._s(groupItem.name))
-                      ]),
-                      _vm._v(" "),
-                      groupItem.tag
-                        ? _c(
-                            "vs-chip",
-                            {
-                              staticClass: "ml-auto",
-                              attrs: { color: groupItem.tagColor }
-                            },
-                            [_vm._v(_vm._s(groupItem.tag))]
-                          )
-                        : _vm._e()
-                    ],
-                    1
-                  )
-            ],
-            1
-          )
+          return _vm.can(groupItem.permission) ||
+            groupItem.permission === undefined
+            ? _c(
+                "li",
+                { key: index },
+                [
+                  groupItem.submenu
+                    ? _c("v-nav-menu-group", {
+                        attrs: {
+                          group: groupItem,
+                          groupIndex: Number(_vm.groupIndex + "." + index),
+                          open: _vm.isGroupActive(groupItem),
+                          openHover: _vm.openHover
+                        }
+                      })
+                    : _c(
+                        "v-nav-menu-item",
+                        {
+                          attrs: {
+                            "icon-small": "",
+                            index: _vm.groupIndex + "." + index,
+                            to:
+                              groupItem.slug !== "external"
+                                ? groupItem.url
+                                : null,
+                            href:
+                              groupItem.slug === "external"
+                                ? groupItem.url
+                                : null,
+                            icon: _vm.itemIcon(_vm.groupIndex + "." + index),
+                            slug: groupItem.slug,
+                            target: groupItem.target
+                          }
+                        },
+                        [
+                          _c("span", { staticClass: "truncate" }, [
+                            _vm._v(_vm._s(groupItem.name))
+                          ]),
+                          _vm._v(" "),
+                          groupItem.tag
+                            ? _c(
+                                "vs-chip",
+                                {
+                                  staticClass: "ml-auto",
+                                  attrs: { color: groupItem.tagColor }
+                                },
+                                [_vm._v(_vm._s(groupItem.tag))]
+                              )
+                            : _vm._e()
+                        ],
+                        1
+                      )
+                ],
+                1
+              )
+            : _vm._e()
         }),
         0
       )
@@ -8057,19 +8090,22 @@ __webpack_require__.r(__webpack_exports__);
   name: "Employee",
   slug: "employee",
   icon: "UsersIcon",
-  i18n: "Employee"
+  i18n: "Employee",
+  permission: 'view-user'
 }, {
   url: "/dashboard/patient",
   name: "Patient",
   slug: "patient",
   icon: "UserIcon",
-  i18n: "Patient"
+  i18n: "Patient",
+  permission: "view-patient"
 }, {
   url: "/dashboard/appointment",
   name: "Appointment",
   slug: "appointment",
   icon: "EditIcon",
-  i18n: "Appointment"
+  i18n: "Appointment",
+  permission: "view-appointment"
 }, {
   name: "Settings",
   icon: "SettingsIcon",
@@ -8078,12 +8114,14 @@ __webpack_require__.r(__webpack_exports__);
     url: '/dashboard/settings/role',
     name: "Roles & Permissions",
     slug: "role",
-    i18n: "Roles"
+    i18n: "Roles",
+    permission: "view-role"
   }, {
     url: '/dashboard/settings/reservation',
     name: "Reservations",
     slug: "reservation",
-    i18n: "reservation"
+    i18n: "reservation",
+    permission: "view-reservation"
   }]
 }]);
 

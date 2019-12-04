@@ -280,7 +280,7 @@ export default {
             return this.$store.getters.auth.userData;
         },
         user_displayName() {
-            return this.$store.getters['auth/userData'].first_name+' '+this.$store.getters['auth/userData'].last_name;
+            return this.$store.getters['auth/userData']?this.$store.getters['auth/userData'].first_name+' '+this.$store.getters['auth/userData'].last_name:'';
         },
         user_email() {
             return this.$store.getters['auth/userData'].email;
