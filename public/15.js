@@ -39,15 +39,80 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "edit",
+  mounted: function mounted() {
+    this.getReservationType();
+  },
   data: function data() {
     return {
-      form: {
-        type: 'Type Name',
-        minimum_price: 150,
-        maximum_price: 300,
-        is_online: true
-      }
+      form: null,
+      is_requesting: false
     };
+  },
+  methods: {
+    getReservationType: function getReservationType() {
+      var _this = this;
+
+      this.$vs.loading({
+        container: this.$refs.edit.$refs.content,
+        scale: 0.5
+      });
+      this.$store.dispatch('reservationType/view', this.$route.params.id).then(function (response) {
+        response.data.data.data.length === 0 ? _this.$router.push('/dashboard/error-404') : _this.form = response.data.data.data;
+
+        _this.$vs.loading.close(_this.$refs.edit.$refs.content);
+      })["catch"](function (error) {
+        console.log(error);
+
+        _this.$vs.loading.close(_this.$refs.edit.$refs.content);
+
+        _this.$vs.notify({
+          title: 'Error',
+          text: error.response.data.error,
+          iconPack: 'feather',
+          icon: 'icon-alert-circle',
+          color: 'danger'
+        });
+      });
+    },
+    save: function save() {
+      var _this2 = this;
+
+      this.is_requesting = true;
+      this.$vs.loading({
+        container: "#btn-edit",
+        color: 'primary',
+        scale: 0.45
+      });
+      this.$store.dispatch('reservationType/update', {
+        id: this.$route.params.id,
+        data: this.form
+      }).then(function (response) {
+        _this2.is_requesting = false;
+
+        _this2.$vs.loading.close("#btn-edit > .con-vs-loading");
+
+        _this2.$vs.notify({
+          title: 'Success',
+          text: response.data.message,
+          iconPack: 'feather',
+          icon: 'icon-check',
+          color: 'success'
+        });
+      })["catch"](function (error) {
+        console.log(error);
+        _this2.is_requesting = false;
+
+        _this2.$vs.loading.close("#btn-create > .con-vs-loading");
+
+        _this2.$vs.notify({
+          title: 'Error',
+          text: error.response.data.errors[Object.keys(error.response.data.errors)[0]][0],
+          iconPack: 'feather',
+          icon: 'icon-alert-circle',
+          color: 'danger'
+        });
+      });
+    }
   }
 });
 
@@ -122,129 +187,134 @@ var render = function() {
     [
       _c(
         "vx-card",
-        { attrs: { title: "Edit Reservation Type", "collapse-action": "" } },
+        {
+          ref: "edit",
+          attrs: { title: "Edit Reservation Type", "collapse-action": "" }
+        },
         [
-          _c(
-            "vs-row",
-            [
-              _c(
-                "vs-col",
-                {
-                  staticClass: "mb-5 pl-5",
-                  attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
-                },
-                [
-                  _c("vs-input", {
-                    staticClass: "w-full",
-                    attrs: {
-                      "icon-pack": "feather",
-                      icon: "icon-file-text",
-                      "label-placeholder": "Type Name",
-                      name: "type"
-                    },
-                    model: {
-                      value: _vm.form.type,
-                      callback: function($$v) {
-                        _vm.$set(_vm.form, "type", $$v)
-                      },
-                      expression: "form.type"
-                    }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "vs-col",
-                {
-                  staticClass: "mb-5 pl-5 pt-6",
-                  attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
-                },
+          _vm.form
+            ? _c(
+                "vs-row",
                 [
                   _c(
-                    "vs-switch",
+                    "vs-col",
                     {
-                      attrs: {
-                        color: "success",
-                        "icon-pack": "feather",
-                        "vs-icon-on": "icon-check-circle",
-                        "vs-icon-off": "icon-slash"
-                      },
-                      model: {
-                        value: _vm.form.is_online,
-                        callback: function($$v) {
-                          _vm.$set(_vm.form, "is_online", $$v)
-                        },
-                        expression: "form.is_online"
-                      }
+                      staticClass: "mb-5 pl-5",
+                      attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
                     },
                     [
-                      _c("span", { attrs: { slot: "on" }, slot: "on" }, [
-                        _vm._v("Can Be Reserved Online")
-                      ]),
-                      _vm._v(" "),
-                      _c("span", { attrs: { slot: "off" }, slot: "off" }, [
-                        _vm._v("Can not Be Reserved Online")
-                      ])
-                    ]
+                      _c("vs-input", {
+                        staticClass: "w-full",
+                        attrs: {
+                          "icon-pack": "feather",
+                          icon: "icon-file-text",
+                          "label-placeholder": "Type Name",
+                          name: "type"
+                        },
+                        model: {
+                          value: _vm.form.name,
+                          callback: function($$v) {
+                            _vm.$set(_vm.form, "name", $$v)
+                          },
+                          expression: "form.name"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "vs-col",
+                    {
+                      staticClass: "mb-5 pl-5 pt-6",
+                      attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
+                    },
+                    [
+                      _c(
+                        "vs-switch",
+                        {
+                          attrs: {
+                            color: "success",
+                            "icon-pack": "feather",
+                            "vs-icon-on": "icon-check-circle",
+                            "vs-icon-off": "icon-slash"
+                          },
+                          model: {
+                            value: _vm.form.online_reservation,
+                            callback: function($$v) {
+                              _vm.$set(_vm.form, "online_reservation", $$v)
+                            },
+                            expression: "form.online_reservation"
+                          }
+                        },
+                        [
+                          _c("span", { attrs: { slot: "on" }, slot: "on" }, [
+                            _vm._v("Can Be Reserved Online")
+                          ]),
+                          _vm._v(" "),
+                          _c("span", { attrs: { slot: "off" }, slot: "off" }, [
+                            _vm._v("Can not Be Reserved Online")
+                          ])
+                        ]
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "vs-col",
+                    {
+                      staticClass: "mb-5 pl-5",
+                      attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
+                    },
+                    [
+                      _c("vs-input-number", {
+                        attrs: {
+                          min: "0",
+                          max: "5600",
+                          label: "Minimum Price:",
+                          step: 50
+                        },
+                        model: {
+                          value: _vm.form.min_price,
+                          callback: function($$v) {
+                            _vm.$set(_vm.form, "min_price", $$v)
+                          },
+                          expression: "form.min_price"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "vs-col",
+                    {
+                      staticClass: "mb-5 pl-5",
+                      attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
+                    },
+                    [
+                      _c("vs-input-number", {
+                        attrs: {
+                          min: _vm.form.minimum_price,
+                          label: "Maximum Price:",
+                          step: 50
+                        },
+                        model: {
+                          value: _vm.form.max_price,
+                          callback: function($$v) {
+                            _vm.$set(_vm.form, "max_price", $$v)
+                          },
+                          expression: "form.max_price"
+                        }
+                      })
+                    ],
+                    1
                   )
                 ],
                 1
-              ),
-              _vm._v(" "),
-              _c(
-                "vs-col",
-                {
-                  staticClass: "mb-5 pl-5",
-                  attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
-                },
-                [
-                  _c("vs-input-number", {
-                    attrs: {
-                      min: "0",
-                      max: "5600",
-                      label: "Minimum Price:",
-                      step: 50
-                    },
-                    model: {
-                      value: _vm.form.minimum_price,
-                      callback: function($$v) {
-                        _vm.$set(_vm.form, "minimum_price", $$v)
-                      },
-                      expression: "form.minimum_price"
-                    }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "vs-col",
-                {
-                  staticClass: "mb-5 pl-5",
-                  attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
-                },
-                [
-                  _c("vs-input-number", {
-                    attrs: {
-                      min: _vm.form.minimum_price,
-                      label: "Maximum Price:",
-                      step: 50
-                    },
-                    model: {
-                      value: _vm.form.maximum_price,
-                      callback: function($$v) {
-                        _vm.$set(_vm.form, "maximum_price", $$v)
-                      },
-                      expression: "form.maximum_price"
-                    }
-                  })
-                ],
-                1
               )
-            ],
-            1
-          ),
+            : _vm._e(),
           _vm._v(" "),
           _c("vs-divider"),
           _vm._v(" "),
@@ -254,8 +324,23 @@ var render = function() {
             [
               _c(
                 "vs-button",
-                { attrs: { "icon-pack": "feather", icon: "icon-save" } },
-                [_vm._v("Save Type")]
+                {
+                  staticClass: "vs-con-loading__container",
+                  attrs: {
+                    size: "small",
+                    id: "btn-edit",
+                    "icon-pack": "feather",
+                    icon: "icon-save"
+                  },
+                  on: {
+                    click: function($event) {
+                      _vm.is_requesting
+                        ? _vm.$store.dispatch("viewWaitMessage", _vm.$vs)
+                        : _vm.save()
+                    }
+                  }
+                },
+                [_vm._v("Save")]
               )
             ],
             1

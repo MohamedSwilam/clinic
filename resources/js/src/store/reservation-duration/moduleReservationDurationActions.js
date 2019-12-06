@@ -1,11 +1,10 @@
 
-import reservation_type from "../../http/requests/reservation_type/index"
-import role from "../../http/requests/role";
+import reservation_duration from "../../http/requests/reservation_duration/index"
 
 export default {
-    getData({ commit, dispatch }) {
+    getData({ commit, dispatch }, payload) {
         return new Promise((resolve, reject) => {
-            reservation_type.getAll()
+            reservation_duration.getAll(payload)
                 .then(response => {
                     resolve(response)
                 })
@@ -17,7 +16,7 @@ export default {
 
     view({ commit, dispatch }, id) {
         return new Promise((resolve, reject) => {
-            reservation_type.view(id)
+            reservation_duration.view(id)
                 .then(response => {
                     resolve(response)
                 })
@@ -29,7 +28,7 @@ export default {
 
     create({ commit, dispatch }, payload) {
         return new Promise((resolve, reject) => {
-            reservation_type.create(payload)
+            reservation_duration.create(payload)
                 .then(response => {
                     resolve(response)
                 })
@@ -40,10 +39,8 @@ export default {
     },
 
     update({ commit, dispatch }, payload) {
-        console.log(payload.id);
-        console.log(payload.data);
         return new Promise((resolve, reject) => {
-            reservation_type.update(payload.id, payload.data)
+            reservation_duration.update(payload.id, payload.data)
                 .then(response => {
                     resolve(response)
                 })
@@ -55,7 +52,7 @@ export default {
 
     delete({ commit, dispatch }, id) {
         return new Promise((resolve, reject) => {
-            reservation_type.delete(id)
+            reservation_duration.delete(id)
                 .then(response => {
                     resolve(response)
                 })

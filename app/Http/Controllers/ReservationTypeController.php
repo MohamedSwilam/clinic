@@ -53,6 +53,24 @@ class ReservationTypeController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     *
+     * @param $id
+     * @return JsonResponse
+     * @throws AuthorizationException
+     */
+    public function show($id)
+    {
+        $this->authorize('index', ReservationType::class);
+        return $this->respond('fetched successfully', fractal(
+                ReservationType::where('id', $id)
+                    ->first(),
+                new ReservationTypeTransformer()
+            )
+        );
+    }
+
+    /**
      * Update the specified resource in storage.
      *
      * @param ReservationTypeRequest $request

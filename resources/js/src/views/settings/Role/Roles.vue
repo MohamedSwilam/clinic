@@ -19,8 +19,8 @@
                                 {{ index+1 }}
                             </vs-td>
 
-                            <vs-td :data="role.display_name">
-                                {{ role.display_name}}
+                            <vs-td :data="role.name">
+                                {{ role.name}}
                             </vs-td>
 
                             <vs-td :data="role.created_at">
@@ -30,15 +30,15 @@
                             <vs-td>
                                 <vs-row>
                                     <div class="flex mb-4">
-                                          <div class="w-1/3" v-if="can('view-role')">
-                                                <vs-button :to="`/dashboard/settings/role/${role.id}`" radius color="primary" type="border" icon-pack="feather" icon="icon-eye"></vs-button>
-                                          </div>
-                                          <div class="w-1/3 ml-5" v-if="can('edit-role')">
-                                                <vs-button :to="`/dashboard/settings/role/edit/${role.id}`" radius color="warning" type="border" icon-pack="feather" icon="icon-edit"></vs-button>
-                                          </div>
-                                          <div class="w-1/3 ml-5" v-if="can('delete-role')">
-                                                <vs-button :id="`btn-type-delete-${role.id}`" class="vs-con-loading__container" radius color="danger" type="border" icon-pack="feather" icon="icon-trash" @click="is_requesting?$store.dispatch('viewWaitMessage', $vs):confirmDeleteRole(role)"></vs-button>
-                                          </div>
+                                        <div class="w-1/3" v-if="can('view-role')">
+                                            <vs-button :to="`/dashboard/settings/role/${role.id}`" radius color="primary" type="border" icon-pack="feather" icon="icon-eye"></vs-button>
+                                        </div>
+                                        <div class="w-1/3 ml-5" v-if="can('edit-role')">
+                                            <vs-button :to="`/dashboard/settings/role/edit/${role.id}`" radius color="warning" type="border" icon-pack="feather" icon="icon-edit"></vs-button>
+                                        </div>
+                                        <div class="w-1/3 ml-5" v-if="can('delete-role')">
+                                            <vs-button :id="`btn-type-delete-${role.id}`" class="vs-con-loading__container" radius color="danger" type="border" icon-pack="feather" icon="icon-trash" @click="is_requesting?$store.dispatch('viewWaitMessage', $vs):confirmDeleteRole(role)"></vs-button>
+                                        </div>
                                     </div>
                                 </vs-row>
                             </vs-td>

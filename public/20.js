@@ -31,17 +31,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     this.getRoleData();
@@ -56,40 +45,28 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     //Display Role Data.
     getRoleData: function getRoleData() {
-      this.role = {
-        id: 1,
-        name: 'Super Admin'
-      };
-      this.permissions = [{
-        display_name: 'Browse Employee'
-      }, {
-        display_name: 'View Employee'
-      }, {
-        display_name: 'Create Employee'
-      }, {
-        display_name: 'Edit Employee'
-      }, {
-        display_name: 'Delete Employee'
-      }, {
-        display_name: 'Browse Patients'
-      }, {
-        display_name: 'View Patients'
-      }, {
-        display_name: 'Create Patients'
-      }, {
-        display_name: 'Edit Patients'
-      }, {
-        display_name: 'Delete Patients'
-      }];
-    },
-    //Vuesax alert
-    vs_alert: function vs_alert(title, text, color, icon) {
-      this.$vs.notify({
-        title: title,
-        text: text,
-        color: color,
-        iconPack: 'feather',
-        icon: icon
+      var _this = this;
+
+      this.$vs.loading({
+        container: this.$refs.view.$refs.content,
+        scale: 0.5
+      });
+      this.$store.dispatch('rolesAndPermissions/view', this.$route.params.id).then(function (response) {
+        _this.$vs.loading.close(_this.$refs.view.$refs.content);
+
+        response.data.data.data.length === 0 ? _this.$router.push('/dashboard/error-404') : _this.role = response.data.data.data;
+      })["catch"](function (error) {
+        console.log(error);
+
+        _this.$vs.loading.close(_this.$refs.view.$refs.content);
+
+        _this.$vs.notify({
+          title: 'Error',
+          text: error.response.data.error,
+          iconPack: 'feather',
+          icon: 'icon-alert-circle',
+          color: 'danger'
+        });
       });
     }
   }
@@ -117,7 +94,7 @@ var render = function() {
     [
       _c(
         "vx-card",
-        { attrs: { title: "Role Information" } },
+        { ref: "view", attrs: { title: "Role Information" } },
         [
           _vm.role
             ? [
@@ -133,7 +110,7 @@ var render = function() {
                 _vm._v(" "),
                 _c("br"),
                 _vm._v(" "),
-                _vm._l(_vm.permissions, function(permission) {
+                _vm._l(_vm.role.permissions, function(permission) {
                   return [
                     _c("vs-chip", [_vm._v(_vm._s(permission["display_name"]))])
                   ]
@@ -144,60 +121,9 @@ var render = function() {
                 _c("vs-divider"),
                 _vm._v(" "),
                 _c("b", [_vm._v("Created At: ")]),
-                _vm._v(" 18 OCT 2019\n\t\t\t")
+                _vm._v(" " + _vm._s(_vm.role.created_at) + "\n\t\t\t")
               ]
-            : [
-                _c(
-                  "vs-row",
-                  [
-                    _c(
-                      "vs-col",
-                      {
-                        attrs: {
-                          "vs-type": "flex",
-                          "vs-justify": "center",
-                          "vs-align": "center",
-                          "vs-w": "12"
-                        }
-                      },
-                      [_c("b", [_vm._v("Role Is Not Available!")])]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "vs-col",
-                      {
-                        attrs: {
-                          "vs-type": "flex",
-                          "vs-justify": "center",
-                          "vs-align": "center",
-                          "vs-w": "12"
-                        }
-                      },
-                      [
-                        _c(
-                          "vs-button",
-                          {
-                            attrs: {
-                              size: "small",
-                              type: "gradient",
-                              "icon-pack": "feather",
-                              icon: "icon-arrow-left"
-                            },
-                            on: {
-                              click: function($event) {
-                                return _vm.$router.go(-1)
-                              }
-                            }
-                          },
-                          [_vm._v("Go Back")]
-                        )
-                      ],
-                      1
-                    )
-                  ],
-                  1
-                )
-              ]
+            : _vm._e()
         ],
         2
       )

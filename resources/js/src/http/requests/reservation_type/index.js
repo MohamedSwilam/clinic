@@ -4,6 +4,10 @@ export default {
         return axios.get("reservation-type")
     },
 
+    view(id) {
+        return axios.get(`reservation-type/${id}`)
+    },
+
     create(data) {
         return axios.post(`reservation-type`, data)
     },

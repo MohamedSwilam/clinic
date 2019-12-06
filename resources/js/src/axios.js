@@ -11,7 +11,7 @@ export default axios.create({
 
     // `timeout` specifies the number of milliseconds before the request times out.
     // If the request takes longer than `timeout`, the request will be aborted.
-    timeout: 2000, // default is `0` (no timeout)
+    timeout: 30000, // default is `0` (no timeout)
 
     headers: {'X-Requested-With': 'XMLHttpRequest'},
     // You can add your headers here

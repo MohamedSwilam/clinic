@@ -1,7 +1,11 @@
 import axios from "../../axios/index.js"
 export default {
-    getAll() {
-        return axios.get("reservation-duration")
+    getAll(filters) {
+        return axios.get(`reservation-duration${filters}`)
+    },
+
+    view(id) {
+        return axios.get(`reservation-duration/${id}`)
     },
 
     create(data) {

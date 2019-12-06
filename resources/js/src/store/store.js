@@ -13,6 +13,7 @@ Vue.use(Vuex);
 
 import moduleAuth from './auth/moduleAuth.js'
 import moduleReservationType from './reservation-type/moduleReservationType'
+import moduleReservationDuration from './reservation-duration/moduleReservationDuration'
 import moduleRolesAndPermissions from './roles-and-permissions/moduleRolesAndPermissions'
 
 const vuexLocal = new VuexPersistence({
@@ -27,8 +28,9 @@ export default new Vuex.Store({
     actions,
     modules: {
         auth: moduleAuth,
+        rolesAndPermissions: moduleRolesAndPermissions,
         reservationType: moduleReservationType,
-        rolesAndPermissions: moduleRolesAndPermissions
+        reservationDuration: moduleReservationDuration
     },
     plugins: [vuexLocal.plugin],
     strict: process.env.NODE_ENV !== 'production'

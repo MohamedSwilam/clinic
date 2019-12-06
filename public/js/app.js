@@ -107046,7 +107046,7 @@ __webpack_require__.r(__webpack_exports__);
   baseURL: '/api/',
   // `timeout` specifies the number of milliseconds before the request times out.
   // If the request takes longer than `timeout`, the request will be aborted.
-  timeout: 2000,
+  timeout: 30000,
   // default is `0` (no timeout)
   headers: {
     'X-Requested-With': 'XMLHttpRequest'
@@ -107640,6 +107640,37 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/src/http/requests/reservation_duration/index.js":
+/*!**********************************************************************!*\
+  !*** ./resources/js/src/http/requests/reservation_duration/index.js ***!
+  \**********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _axios_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../axios/index.js */ "./resources/js/src/http/axios/index.js");
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  getAll: function getAll(filters) {
+    return _axios_index_js__WEBPACK_IMPORTED_MODULE_0__["default"].get("reservation-duration".concat(filters));
+  },
+  view: function view(id) {
+    return _axios_index_js__WEBPACK_IMPORTED_MODULE_0__["default"].get("reservation-duration/".concat(id));
+  },
+  create: function create(data) {
+    return _axios_index_js__WEBPACK_IMPORTED_MODULE_0__["default"].post("reservation-duration", data);
+  },
+  update: function update(id, data) {
+    return _axios_index_js__WEBPACK_IMPORTED_MODULE_0__["default"].post("reservation-duration/".concat(id), data);
+  },
+  "delete": function _delete(id) {
+    return _axios_index_js__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"]("reservation-duration/".concat(id));
+  }
+});
+
+/***/ }),
+
 /***/ "./resources/js/src/http/requests/reservation_type/index.js":
 /*!******************************************************************!*\
   !*** ./resources/js/src/http/requests/reservation_type/index.js ***!
@@ -107654,6 +107685,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   getAll: function getAll() {
     return _axios_index_js__WEBPACK_IMPORTED_MODULE_0__["default"].get("reservation-type");
+  },
+  view: function view(id) {
+    return _axios_index_js__WEBPACK_IMPORTED_MODULE_0__["default"].get("reservation-type/".concat(id));
   },
   create: function create(data) {
     return _axios_index_js__WEBPACK_IMPORTED_MODULE_0__["default"].post("reservation-type", data);
@@ -107683,6 +107717,9 @@ __webpack_require__.r(__webpack_exports__);
   getAll: function getAll(filters) {
     //filters=?paginate=5&sortAsc=id
     return _axios_index_js__WEBPACK_IMPORTED_MODULE_0__["default"].get("role".concat(filters));
+  },
+  view: function view(id) {
+    return _axios_index_js__WEBPACK_IMPORTED_MODULE_0__["default"].get("role/".concat(id));
   },
   create: function create(data) {
     return _axios_index_js__WEBPACK_IMPORTED_MODULE_0__["default"].post("role", data);
@@ -108390,7 +108427,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
         }],
         pageTitle: 'Profile',
         pageTitle_i18n: 'Profile',
-        permission: 'Edit Patient'
+        permission: 'view-patient'
       }
     }, {
       path: '/dashboard/appointment',
@@ -109093,6 +109130,168 @@ var mutations = {
 
 /***/ }),
 
+/***/ "./resources/js/src/store/reservation-duration/moduleReservationDuration.js":
+/*!**********************************************************************************!*\
+  !*** ./resources/js/src/store/reservation-duration/moduleReservationDuration.js ***!
+  \**********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _moduleReservationDurationState__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./moduleReservationDurationState */ "./resources/js/src/store/reservation-duration/moduleReservationDurationState.js");
+/* harmony import */ var _moduleReservationDurationMutations__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./moduleReservationDurationMutations */ "./resources/js/src/store/reservation-duration/moduleReservationDurationMutations.js");
+/* harmony import */ var _moduleReservationDurationActions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./moduleReservationDurationActions */ "./resources/js/src/store/reservation-duration/moduleReservationDurationActions.js");
+/* harmony import */ var _moduleReservationDurationGetters__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./moduleReservationDurationGetters */ "./resources/js/src/store/reservation-duration/moduleReservationDurationGetters.js");
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  namespaced: true,
+  state: _moduleReservationDurationState__WEBPACK_IMPORTED_MODULE_0__["default"],
+  mutations: _moduleReservationDurationMutations__WEBPACK_IMPORTED_MODULE_1__["default"],
+  actions: _moduleReservationDurationActions__WEBPACK_IMPORTED_MODULE_2__["default"],
+  getters: _moduleReservationDurationGetters__WEBPACK_IMPORTED_MODULE_3__["default"]
+});
+
+/***/ }),
+
+/***/ "./resources/js/src/store/reservation-duration/moduleReservationDurationActions.js":
+/*!*****************************************************************************************!*\
+  !*** ./resources/js/src/store/reservation-duration/moduleReservationDurationActions.js ***!
+  \*****************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _http_requests_reservation_duration_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../http/requests/reservation_duration/index */ "./resources/js/src/http/requests/reservation_duration/index.js");
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  getData: function getData(_ref, payload) {
+    var commit = _ref.commit,
+        dispatch = _ref.dispatch;
+    return new Promise(function (resolve, reject) {
+      _http_requests_reservation_duration_index__WEBPACK_IMPORTED_MODULE_0__["default"].getAll(payload).then(function (response) {
+        resolve(response);
+      })["catch"](function (error) {
+        dispatch('handleError', {
+          reject: reject,
+          error: error
+        }, {
+          root: true
+        });
+      });
+    });
+  },
+  view: function view(_ref2, id) {
+    var commit = _ref2.commit,
+        dispatch = _ref2.dispatch;
+    return new Promise(function (resolve, reject) {
+      _http_requests_reservation_duration_index__WEBPACK_IMPORTED_MODULE_0__["default"].view(id).then(function (response) {
+        resolve(response);
+      })["catch"](function (error) {
+        dispatch('handleError', {
+          reject: reject,
+          error: error
+        }, {
+          root: true
+        });
+      });
+    });
+  },
+  create: function create(_ref3, payload) {
+    var commit = _ref3.commit,
+        dispatch = _ref3.dispatch;
+    return new Promise(function (resolve, reject) {
+      _http_requests_reservation_duration_index__WEBPACK_IMPORTED_MODULE_0__["default"].create(payload).then(function (response) {
+        resolve(response);
+      })["catch"](function (error) {
+        dispatch('handleError', {
+          reject: reject,
+          error: error
+        }, {
+          root: true
+        });
+      });
+    });
+  },
+  update: function update(_ref4, payload) {
+    var commit = _ref4.commit,
+        dispatch = _ref4.dispatch;
+    return new Promise(function (resolve, reject) {
+      _http_requests_reservation_duration_index__WEBPACK_IMPORTED_MODULE_0__["default"].update(payload.id, payload.data).then(function (response) {
+        resolve(response);
+      })["catch"](function (error) {
+        dispatch('handleError', {
+          reject: reject,
+          error: error
+        }, {
+          root: true
+        });
+      });
+    });
+  },
+  "delete": function _delete(_ref5, id) {
+    var commit = _ref5.commit,
+        dispatch = _ref5.dispatch;
+    return new Promise(function (resolve, reject) {
+      _http_requests_reservation_duration_index__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"](id).then(function (response) {
+        resolve(response);
+      })["catch"](function (error) {
+        dispatch('handleError', {
+          reject: reject,
+          error: error
+        }, {
+          root: true
+        });
+      });
+    });
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/src/store/reservation-duration/moduleReservationDurationGetters.js":
+/*!*****************************************************************************************!*\
+  !*** ./resources/js/src/store/reservation-duration/moduleReservationDurationGetters.js ***!
+  \*****************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({});
+
+/***/ }),
+
+/***/ "./resources/js/src/store/reservation-duration/moduleReservationDurationMutations.js":
+/*!*******************************************************************************************!*\
+  !*** ./resources/js/src/store/reservation-duration/moduleReservationDurationMutations.js ***!
+  \*******************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({});
+
+/***/ }),
+
+/***/ "./resources/js/src/store/reservation-duration/moduleReservationDurationState.js":
+/*!***************************************************************************************!*\
+  !*** ./resources/js/src/store/reservation-duration/moduleReservationDurationState.js ***!
+  \***************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({});
+
+/***/ }),
+
 /***/ "./resources/js/src/store/reservation-type/moduleReservationType.js":
 /*!**************************************************************************!*\
   !*** ./resources/js/src/store/reservation-type/moduleReservationType.js ***!
@@ -109130,6 +109329,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _http_requests_reservation_type_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../http/requests/reservation_type/index */ "./resources/js/src/http/requests/reservation_type/index.js");
+/* harmony import */ var _http_requests_role__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../http/requests/role */ "./resources/js/src/http/requests/role/index.js");
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   getData: function getData(_ref) {
@@ -109148,9 +109349,25 @@ __webpack_require__.r(__webpack_exports__);
       });
     });
   },
-  create: function create(_ref2, payload) {
+  view: function view(_ref2, id) {
     var commit = _ref2.commit,
         dispatch = _ref2.dispatch;
+    return new Promise(function (resolve, reject) {
+      _http_requests_reservation_type_index__WEBPACK_IMPORTED_MODULE_0__["default"].view(id).then(function (response) {
+        resolve(response);
+      })["catch"](function (error) {
+        dispatch('handleError', {
+          reject: reject,
+          error: error
+        }, {
+          root: true
+        });
+      });
+    });
+  },
+  create: function create(_ref3, payload) {
+    var commit = _ref3.commit,
+        dispatch = _ref3.dispatch;
     return new Promise(function (resolve, reject) {
       _http_requests_reservation_type_index__WEBPACK_IMPORTED_MODULE_0__["default"].create(payload).then(function (response) {
         resolve(response);
@@ -109164,9 +109381,27 @@ __webpack_require__.r(__webpack_exports__);
       });
     });
   },
-  "delete": function _delete(_ref3, id) {
-    var commit = _ref3.commit,
-        dispatch = _ref3.dispatch;
+  update: function update(_ref4, payload) {
+    var commit = _ref4.commit,
+        dispatch = _ref4.dispatch;
+    console.log(payload.id);
+    console.log(payload.data);
+    return new Promise(function (resolve, reject) {
+      _http_requests_reservation_type_index__WEBPACK_IMPORTED_MODULE_0__["default"].update(payload.id, payload.data).then(function (response) {
+        resolve(response);
+      })["catch"](function (error) {
+        dispatch('handleError', {
+          reject: reject,
+          error: error
+        }, {
+          root: true
+        });
+      });
+    });
+  },
+  "delete": function _delete(_ref5, id) {
+    var commit = _ref5.commit,
+        dispatch = _ref5.dispatch;
     return new Promise(function (resolve, reject) {
       _http_requests_reservation_type_index__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"](id).then(function (response) {
         resolve(response);
@@ -109206,14 +109441,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/*=========================================================================================
-  File Name: moduleAuthMutations.js
-  Description: Auth Module Mutations
-  ----------------------------------------------------------------------------------------
-  Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
-  Author: Pixinvent
-  Author URL: http://www.themeforest.net/user/pixinvent
-==========================================================================================*/
 /* harmony default export */ __webpack_exports__["default"] = ({});
 
 /***/ }),
@@ -109288,9 +109515,25 @@ __webpack_require__.r(__webpack_exports__);
       });
     });
   },
-  create: function create(_ref2, payload) {
+  view: function view(_ref2, id) {
     var commit = _ref2.commit,
         dispatch = _ref2.dispatch;
+    return new Promise(function (resolve, reject) {
+      _http_requests_role_index__WEBPACK_IMPORTED_MODULE_0__["default"].view(id).then(function (response) {
+        resolve(response);
+      })["catch"](function (error) {
+        dispatch('handleError', {
+          reject: reject,
+          error: error
+        }, {
+          root: true
+        });
+      });
+    });
+  },
+  create: function create(_ref3, payload) {
+    var commit = _ref3.commit,
+        dispatch = _ref3.dispatch;
     return new Promise(function (resolve, reject) {
       _http_requests_role_index__WEBPACK_IMPORTED_MODULE_0__["default"].create(payload).then(function (response) {
         resolve(response);
@@ -109304,9 +109547,9 @@ __webpack_require__.r(__webpack_exports__);
       });
     });
   },
-  update: function update(_ref3, payload) {
-    var commit = _ref3.commit,
-        dispatch = _ref3.dispatch;
+  update: function update(_ref4, payload) {
+    var commit = _ref4.commit,
+        dispatch = _ref4.dispatch;
     return new Promise(function (resolve, reject) {
       _http_requests_role_index__WEBPACK_IMPORTED_MODULE_0__["default"].update(payload.id, payload.data).then(function (response) {
         resolve(response);
@@ -109320,9 +109563,9 @@ __webpack_require__.r(__webpack_exports__);
       });
     });
   },
-  "delete": function _delete(_ref4, id) {
-    var commit = _ref4.commit,
-        dispatch = _ref4.dispatch;
+  "delete": function _delete(_ref5, id) {
+    var commit = _ref5.commit,
+        dispatch = _ref5.dispatch;
     return new Promise(function (resolve, reject) {
       _http_requests_role_index__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"](id).then(function (response) {
         resolve(response);
@@ -109336,9 +109579,9 @@ __webpack_require__.r(__webpack_exports__);
       });
     });
   },
-  getPermissions: function getPermissions(_ref5) {
-    var commit = _ref5.commit,
-        dispatch = _ref5.dispatch;
+  getPermissions: function getPermissions(_ref6) {
+    var commit = _ref6.commit,
+        dispatch = _ref6.dispatch;
     return new Promise(function (resolve, reject) {
       _http_requests_permission_index__WEBPACK_IMPORTED_MODULE_1__["default"].getAll().then(function (response) {
         resolve(response);
@@ -109484,7 +109727,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex_persist__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuex-persist */ "./node_modules/vuex-persist/dist/esm/index.js");
 /* harmony import */ var _auth_moduleAuth_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./auth/moduleAuth.js */ "./resources/js/src/store/auth/moduleAuth.js");
 /* harmony import */ var _reservation_type_moduleReservationType__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./reservation-type/moduleReservationType */ "./resources/js/src/store/reservation-type/moduleReservationType.js");
-/* harmony import */ var _roles_and_permissions_moduleRolesAndPermissions__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./roles-and-permissions/moduleRolesAndPermissions */ "./resources/js/src/store/roles-and-permissions/moduleRolesAndPermissions.js");
+/* harmony import */ var _reservation_duration_moduleReservationDuration__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./reservation-duration/moduleReservationDuration */ "./resources/js/src/store/reservation-duration/moduleReservationDuration.js");
+/* harmony import */ var _roles_and_permissions_moduleRolesAndPermissions__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./roles-and-permissions/moduleRolesAndPermissions */ "./resources/js/src/store/roles-and-permissions/moduleRolesAndPermissions.js");
 
 
 
@@ -109493,6 +109737,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
+
 
 
 
@@ -109507,8 +109752,9 @@ var vuexLocal = new vuex_persist__WEBPACK_IMPORTED_MODULE_6__["default"]({
   actions: _actions__WEBPACK_IMPORTED_MODULE_5__["default"],
   modules: {
     auth: _auth_moduleAuth_js__WEBPACK_IMPORTED_MODULE_7__["default"],
+    rolesAndPermissions: _roles_and_permissions_moduleRolesAndPermissions__WEBPACK_IMPORTED_MODULE_10__["default"],
     reservationType: _reservation_type_moduleReservationType__WEBPACK_IMPORTED_MODULE_8__["default"],
-    rolesAndPermissions: _roles_and_permissions_moduleRolesAndPermissions__WEBPACK_IMPORTED_MODULE_9__["default"]
+    reservationDuration: _reservation_duration_moduleReservationDuration__WEBPACK_IMPORTED_MODULE_9__["default"]
   },
   plugins: [vuexLocal.plugin],
   strict: "development" !== 'production'

@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<vx-card title="Role Information">
+		<vx-card ref="view" title="Role Information">
 			<template v-if="role">
 				<b>ID: </b>  {{role.id}}
 				<vs-divider/>
@@ -8,23 +8,12 @@
 				<vs-divider/>
 				<b>Permissions: </b>
                 <br>
-				<template v-for="permission in permissions">
+				<template v-for="permission in role.permissions">
                     <vs-chip>{{permission['display_name']}}</vs-chip>
 				</template>
                 <br>
                 <vs-divider/>
-                <b>Created At: </b> 18 OCT 2019
-			</template>
-
-			<template v-else>
-				<vs-row>
-					<vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-w="12">
-						<b>Role Is Not Available!</b>
-					</vs-col>
-					<vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-w="12">
-						<vs-button @click="$router.go(-1)" size="small" type="gradient" icon-pack="feather" icon="icon-arrow-left">Go Back</vs-button>
-					</vs-col>
-				</vs-row>
+                <b>Created At: </b> {{role.created_at}}
 			</template>
     	</vx-card>
 	</div>
@@ -48,56 +37,24 @@ export default {
   		//Display Role Data.
   		getRoleData()
   		{
-            this.role = {
-                id: 1,
-                name: 'Super Admin'
-            };
-            this.permissions = [
-                {
-                    display_name: 'Browse Employee',
-                },
-                {
-                    display_name: 'View Employee',
-                },
-                {
-                    display_name: 'Create Employee',
-                },
-                {
-                    display_name: 'Edit Employee',
-                },
-                {
-                    display_name: 'Delete Employee',
-                },
-                {
-                    display_name: 'Browse Patients',
-                },
-                {
-                    display_name: 'View Patients',
-                },
-                {
-                    display_name: 'Create Patients',
-                },
-                {
-                    display_name: 'Edit Patients',
-                },
-                {
-                    display_name: 'Delete Patients',
-                },
-
-            ];
-  		},
-
-        //Vuesax alert
-        vs_alert (title, text, color, icon)
-        {
-            this.$vs.notify({
-                title: title,
-                text: text,
-                color: color,
-                iconPack: 'feather',
-                icon: icon
-            });
-        }
+            this.$vs.loading({container: this.$refs.view.$refs.content, scale: 0.5});
+            this.$store.dispatch('rolesAndPermissions/view', this.$route.params.id)
+                .then(response => {
+                    this.$vs.loading.close(this.$refs.view.$refs.content);
+                    response.data.data.data.length===0?this.$router.push('/dashboard/error-404'):this.role = response.data.data.data;
+                })
+                .catch(error => {
+                    console.log(error);
+                    this.$vs.loading.close(this.$refs.view.$refs.content);
+                    this.$vs.notify({
+                        title: 'Error',
+                        text: error.response.data.error,
+                        iconPack: 'feather',
+                        icon: 'icon-alert-circle',
+                        color: 'danger'
+                    });
+                });
+  		}
   	}
 }
 </script>

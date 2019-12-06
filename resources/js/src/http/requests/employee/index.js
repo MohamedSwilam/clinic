@@ -5,6 +5,10 @@ export default {
         return axios.get(`employee${filters}`)
     },
 
+    view(id) {
+        return axios.get(`employee/${id}`)
+    },
+
     create(data) {
         return axios.post(`employee`, data)
     },
