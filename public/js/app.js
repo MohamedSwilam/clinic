@@ -107655,6 +107655,9 @@ __webpack_require__.r(__webpack_exports__);
   getAll: function getAll(filters) {
     return _axios_index_js__WEBPACK_IMPORTED_MODULE_0__["default"].get("reservation-duration".concat(filters));
   },
+  view: function view(id) {
+    return _axios_index_js__WEBPACK_IMPORTED_MODULE_0__["default"].get("reservation-duration/".concat(id));
+  },
   create: function create(data) {
     return _axios_index_js__WEBPACK_IMPORTED_MODULE_0__["default"].post("reservation-duration", data);
   },
@@ -107682,6 +107685,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   getAll: function getAll() {
     return _axios_index_js__WEBPACK_IMPORTED_MODULE_0__["default"].get("reservation-type");
+  },
+  view: function view(id) {
+    return _axios_index_js__WEBPACK_IMPORTED_MODULE_0__["default"].get("reservation-type/".concat(id));
   },
   create: function create(data) {
     return _axios_index_js__WEBPACK_IMPORTED_MODULE_0__["default"].post("reservation-type", data);
@@ -107711,6 +107717,9 @@ __webpack_require__.r(__webpack_exports__);
   getAll: function getAll(filters) {
     //filters=?paginate=5&sortAsc=id
     return _axios_index_js__WEBPACK_IMPORTED_MODULE_0__["default"].get("role".concat(filters));
+  },
+  view: function view(id) {
+    return _axios_index_js__WEBPACK_IMPORTED_MODULE_0__["default"].get("role/".concat(id));
   },
   create: function create(data) {
     return _axios_index_js__WEBPACK_IMPORTED_MODULE_0__["default"].post("role", data);
@@ -109176,9 +109185,25 @@ __webpack_require__.r(__webpack_exports__);
       });
     });
   },
-  create: function create(_ref2, payload) {
+  view: function view(_ref2, id) {
     var commit = _ref2.commit,
         dispatch = _ref2.dispatch;
+    return new Promise(function (resolve, reject) {
+      _http_requests_reservation_duration_index__WEBPACK_IMPORTED_MODULE_0__["default"].view(id).then(function (response) {
+        resolve(response);
+      })["catch"](function (error) {
+        dispatch('handleError', {
+          reject: reject,
+          error: error
+        }, {
+          root: true
+        });
+      });
+    });
+  },
+  create: function create(_ref3, payload) {
+    var commit = _ref3.commit,
+        dispatch = _ref3.dispatch;
     return new Promise(function (resolve, reject) {
       _http_requests_reservation_duration_index__WEBPACK_IMPORTED_MODULE_0__["default"].create(payload).then(function (response) {
         resolve(response);
@@ -109192,9 +109217,9 @@ __webpack_require__.r(__webpack_exports__);
       });
     });
   },
-  update: function update(_ref3, payload) {
-    var commit = _ref3.commit,
-        dispatch = _ref3.dispatch;
+  update: function update(_ref4, payload) {
+    var commit = _ref4.commit,
+        dispatch = _ref4.dispatch;
     return new Promise(function (resolve, reject) {
       _http_requests_reservation_duration_index__WEBPACK_IMPORTED_MODULE_0__["default"].update(payload.id, payload.data).then(function (response) {
         resolve(response);
@@ -109208,9 +109233,9 @@ __webpack_require__.r(__webpack_exports__);
       });
     });
   },
-  "delete": function _delete(_ref4, id) {
-    var commit = _ref4.commit,
-        dispatch = _ref4.dispatch;
+  "delete": function _delete(_ref5, id) {
+    var commit = _ref5.commit,
+        dispatch = _ref5.dispatch;
     return new Promise(function (resolve, reject) {
       _http_requests_reservation_duration_index__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"](id).then(function (response) {
         resolve(response);
@@ -109304,6 +109329,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _http_requests_reservation_type_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../http/requests/reservation_type/index */ "./resources/js/src/http/requests/reservation_type/index.js");
+/* harmony import */ var _http_requests_role__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../http/requests/role */ "./resources/js/src/http/requests/role/index.js");
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   getData: function getData(_ref) {
@@ -109322,9 +109349,25 @@ __webpack_require__.r(__webpack_exports__);
       });
     });
   },
-  create: function create(_ref2, payload) {
+  view: function view(_ref2, id) {
     var commit = _ref2.commit,
         dispatch = _ref2.dispatch;
+    return new Promise(function (resolve, reject) {
+      _http_requests_reservation_type_index__WEBPACK_IMPORTED_MODULE_0__["default"].view(id).then(function (response) {
+        resolve(response);
+      })["catch"](function (error) {
+        dispatch('handleError', {
+          reject: reject,
+          error: error
+        }, {
+          root: true
+        });
+      });
+    });
+  },
+  create: function create(_ref3, payload) {
+    var commit = _ref3.commit,
+        dispatch = _ref3.dispatch;
     return new Promise(function (resolve, reject) {
       _http_requests_reservation_type_index__WEBPACK_IMPORTED_MODULE_0__["default"].create(payload).then(function (response) {
         resolve(response);
@@ -109338,9 +109381,27 @@ __webpack_require__.r(__webpack_exports__);
       });
     });
   },
-  "delete": function _delete(_ref3, id) {
-    var commit = _ref3.commit,
-        dispatch = _ref3.dispatch;
+  update: function update(_ref4, payload) {
+    var commit = _ref4.commit,
+        dispatch = _ref4.dispatch;
+    console.log(payload.id);
+    console.log(payload.data);
+    return new Promise(function (resolve, reject) {
+      _http_requests_reservation_type_index__WEBPACK_IMPORTED_MODULE_0__["default"].update(payload.id, payload.data).then(function (response) {
+        resolve(response);
+      })["catch"](function (error) {
+        dispatch('handleError', {
+          reject: reject,
+          error: error
+        }, {
+          root: true
+        });
+      });
+    });
+  },
+  "delete": function _delete(_ref5, id) {
+    var commit = _ref5.commit,
+        dispatch = _ref5.dispatch;
     return new Promise(function (resolve, reject) {
       _http_requests_reservation_type_index__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"](id).then(function (response) {
         resolve(response);
@@ -109454,9 +109515,25 @@ __webpack_require__.r(__webpack_exports__);
       });
     });
   },
-  create: function create(_ref2, payload) {
+  view: function view(_ref2, id) {
     var commit = _ref2.commit,
         dispatch = _ref2.dispatch;
+    return new Promise(function (resolve, reject) {
+      _http_requests_role_index__WEBPACK_IMPORTED_MODULE_0__["default"].view(id).then(function (response) {
+        resolve(response);
+      })["catch"](function (error) {
+        dispatch('handleError', {
+          reject: reject,
+          error: error
+        }, {
+          root: true
+        });
+      });
+    });
+  },
+  create: function create(_ref3, payload) {
+    var commit = _ref3.commit,
+        dispatch = _ref3.dispatch;
     return new Promise(function (resolve, reject) {
       _http_requests_role_index__WEBPACK_IMPORTED_MODULE_0__["default"].create(payload).then(function (response) {
         resolve(response);
@@ -109470,9 +109547,9 @@ __webpack_require__.r(__webpack_exports__);
       });
     });
   },
-  update: function update(_ref3, payload) {
-    var commit = _ref3.commit,
-        dispatch = _ref3.dispatch;
+  update: function update(_ref4, payload) {
+    var commit = _ref4.commit,
+        dispatch = _ref4.dispatch;
     return new Promise(function (resolve, reject) {
       _http_requests_role_index__WEBPACK_IMPORTED_MODULE_0__["default"].update(payload.id, payload.data).then(function (response) {
         resolve(response);
@@ -109486,9 +109563,9 @@ __webpack_require__.r(__webpack_exports__);
       });
     });
   },
-  "delete": function _delete(_ref4, id) {
-    var commit = _ref4.commit,
-        dispatch = _ref4.dispatch;
+  "delete": function _delete(_ref5, id) {
+    var commit = _ref5.commit,
+        dispatch = _ref5.dispatch;
     return new Promise(function (resolve, reject) {
       _http_requests_role_index__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"](id).then(function (response) {
         resolve(response);
@@ -109502,9 +109579,9 @@ __webpack_require__.r(__webpack_exports__);
       });
     });
   },
-  getPermissions: function getPermissions(_ref5) {
-    var commit = _ref5.commit,
-        dispatch = _ref5.dispatch;
+  getPermissions: function getPermissions(_ref6) {
+    var commit = _ref6.commit,
+        dispatch = _ref6.dispatch;
     return new Promise(function (resolve, reject) {
       _http_requests_permission_index__WEBPACK_IMPORTED_MODULE_1__["default"].getAll().then(function (response) {
         resolve(response);

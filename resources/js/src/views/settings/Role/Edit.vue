@@ -1,6 +1,6 @@
 <template>
   <div>
-    <vx-card title='Update Role'>
+    <vx-card ref="edit" title='Update Role'>
       <form>
         <div class="vx-row">
           <div class="vx-col w-full mb-2">
@@ -24,7 +24,7 @@
 
         <div class="vx-row mt-10">
           <div class="vx-col w-full">
-              <vs-button style="display: inline-flex" id="submit-btn" class="mr-3 mb-2" @click.prevent="is_loading?notifyToWait():submitForm()" icon-pack="feather" icon="icon-save">Save Role</vs-button>
+              <vs-button id="btn-save" class="vs-con-loading__container" :disabled="!validateForm" @click="is_requesting?$store.dispatch('viewWaitMessage', $vs):saveRole()" icon-pack="feather" icon="icon-save">Save</vs-button>
           </div>
         </div>
       </form>
@@ -33,91 +33,111 @@
 </template>
 
 <script>
-  // For custom error message
-  import { Validator } from 'vee-validate';
-  const dict = {
-    custom: {
-      role_name: {
-        required: 'Please enter the role name'
-      }
-    }
-  };
-
-  // register custom messages
-  Validator.localize('en', dict);
-
-
   export default {
     mounted() {
-      this.getRole();
+      this.getPermissions();
     },
     data() {
       return {
-        permissions: [],
+          role: null,
 
-        role_name: "",
-        rolePermissions: [],
+          permissions: [],
+          role_name: "",
+          rolePermissions: [],
           groupPermissions:[],
-          is_loading: false
+          is_requesting: false
       }
     },
+      computed: {
+          validateForm() {
+              return !this.errors.any() && this.role_name !== "";
+          }
+      },
     methods: {
         //Get All Roles
+        getPermissions()
+        {
+            this.$vs.loading({container: this.$refs.edit.$refs.content, scale: 0.5});
+            this.$store.dispatch('rolesAndPermissions/getPermissions')
+                .then(response => {
+                    this.permissions = response.data.data;
+                    this.getRole();
+                })
+                .catch(error => {
+                    console.log(error);
+                    this.$vs.loading.close(this.$refs.edit.$refs.content);
+                    this.$vs.notify({
+                        title: 'Error',
+                        text: error.response.data.error,
+                        iconPack: 'feather',
+                        icon: 'icon-alert-circle',
+                        color: 'danger'
+                    });
+                });
+        },
+
       getRole()
       {
-          this.permissions = {
-              Employees: [
-                  {
-                      display_name: 'Browse Employee',
-                  },
-                  {
-                      display_name: 'View Employee',
-                  },
-                  {
-                      display_name: 'Create Employee',
-                  },
-                  {
-                      display_name: 'Edit Employee',
-                  },
-                  {
-                      display_name: 'Delete Employee',
-                  },
-              ],
-              Patients: [
-                  {
-                      display_name: 'Browse Patients',
-                  },
-                  {
-                      display_name: 'View Patients',
-                  },
-                  {
-                      display_name: 'Create Patients',
-                  },
-                  {
-                      display_name: 'Edit Patients',
-                  },
-                  {
-                      display_name: 'Delete Patients',
-                  },
-              ]
-          };
-          this.role_name = 'Administrator';
-          this.rolePermissions = ['Browse Patients', 'Browse Employee'];
+          this.$store.dispatch('rolesAndPermissions/view', this.$route.params.id)
+              .then(response => {
+                  this.$vs.loading.close(this.$refs.edit.$refs.content);
+                  this.role = response.data.data.data;
+                  if (response.data.data.data.length===0) {
+                      this.$router.push('/dashboard/error-404');
+                  } else {
+                      response.data.data.data.permissions.forEach(permission => {
+                          this.rolePermissions.push(permission.name)
+                      });
+                      // this.rolePermissions = response.data.data.data.permissions;
+                      this.role_name = response.data.data.data.name;
+                  }
+              })
+              .catch(error => {
+                  console.log(error);
+                  this.$vs.loading.close(this.$refs.edit.$refs.content);
+                  this.$vs.notify({
+                      title: 'Error',
+                      text: error.response.data.error,
+                      iconPack: 'feather',
+                      icon: 'icon-alert-circle',
+                      color: 'danger'
+                  });
+              });
       },
 
-        //Update Role Submission
-      submitForm()
-      {
-        this.$validator.validateAll().then(result => {
-          if(result) {
-              this.vs_alert ('Success', 'Role Successfully Updated', 'success', 'icon-check');
-              this.endBtnLoader("#submit-btn");
-          } else {
-              this.vs_alert ('Oops!', 'Please, solve all issues before submitting.', 'danger', 'icon-alert-circle');
-              this.endBtnLoader("#submit-btn");
-          }
-        })
-      },
+        //Save Role Submission
+        saveRole()
+        {
+            if (!this.validateForm) return;
+
+            this.is_requesting=true;
+            this.$vs.loading({container: `#btn-save`, color: 'primary', scale: 0.45});
+            this.$store.dispatch('rolesAndPermissions/update', {id: this.$route.params.id, data: {permissions: this.rolePermissions, name: this.role_name, display_name: this.role_name}})
+                .then(response => {
+                    this.is_requesting=false;
+                    this.$vs.loading.close(`#btn-save > .con-vs-loading`);
+                    this.$router.push(`/dashboard/settings/role/${this.$route.params.id}`);
+                    this.$vs.notify({
+                        title: 'Success',
+                        text: response.data.message,
+                        iconPack: 'feather',
+                        icon: 'icon-check',
+                        color: 'success'
+                    });
+                })
+                .catch(error => {
+                    console.log(error);
+                    this.is_requesting=false;
+                    this.$vs.loading.close(`#btn-save > .con-vs-loading`);
+                    this.$vs.notify({
+                        title: 'Error',
+                        text: error.response.data.errors[Object.keys(error.response.data.errors)[0]][0],
+                        iconPack: 'feather',
+                        icon: 'icon-alert-circle',
+                        color: 'danger'
+                    });
+                });
+        },
 
         //Check and Un-Check by group
         groupPressed(group)

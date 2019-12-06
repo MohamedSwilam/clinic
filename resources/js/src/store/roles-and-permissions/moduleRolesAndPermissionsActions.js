@@ -15,6 +15,18 @@ export default {
         })
     },
 
+    view({ commit, dispatch }, id) {
+        return new Promise((resolve, reject) => {
+            role.view(id)
+                .then(response => {
+                    resolve(response)
+                })
+                .catch(error => {
+                    dispatch('handleError', {reject: reject, error: error}, {root: true});
+                })
+        })
+    },
+
     create({ commit, dispatch }, payload) {
         return new Promise((resolve, reject) => {
             role.create(payload)

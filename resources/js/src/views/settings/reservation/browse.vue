@@ -76,8 +76,7 @@
                         </vs-td>
 
                         <vs-td>
-<!--                            {{ duration.reservation_type.name}}-->
-                            type here
+                            {{ duration.reservation_type.name}}
                         </vs-td>
 
                         <vs-td :data="duration.date">
