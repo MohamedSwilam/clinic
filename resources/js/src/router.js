@@ -160,7 +160,7 @@ const router = new Router({
                         ],
                         pageTitle: 'Profile',
                         pageTitle_i18n: 'Profile',
-                        permission: 'Edit Patient'
+                        permission: 'view-patient'
                     }
                 },
                 {

@@ -55,14 +55,14 @@
         </div>
 
         <div class="vx-col w-full mb-base">
-        <vx-card title='Reservation Durations' collapse-action>
-            <vs-table search :data="reservation_durations">
+        <vx-card ref="reservation_duration" title='Reservation Durations' collapse-action refreshContentAction @refresh="getReservationDurations">
+            <vs-table :sst="true" :data="reservation_durations" @sort="handleSort">
                 <template slot="header">
-                    <vs-button size="small" to="/dashboard/settings/reservation-duration/create" icon-pack="feather" icon="icon-plus" type="filled">Add New Duration</vs-button>
+                    <vs-button class="mb-5" size="small" to="/dashboard/settings/reservation-duration/create" icon-pack="feather" icon="icon-plus" type="filled">Add New Duration</vs-button>
                 </template>
                 <template slot="thead">
                     <vs-th>#</vs-th>
-                    <vs-th sort-key="type">Type</vs-th>
+                    <vs-th>Type</vs-th>
                     <vs-th sort-key="date">Date</vs-th>
                     <vs-th sort-key="start_time">Start Time</vs-th>
                     <vs-th sort-key="end_time">End Time</vs-th>
@@ -75,8 +75,9 @@
                             {{ index+1 }}
                         </vs-td>
 
-                        <vs-td :data="duration.type">
-                            {{ duration.type}}
+                        <vs-td>
+<!--                            {{ duration.reservation_type.name}}-->
+                            type here
                         </vs-td>
 
                         <vs-td :data="duration.date">
@@ -99,7 +100,7 @@
                             <vs-row>
                                 <div class="flex mb-4">
                                     <div class="w-1/3">
-                                        <vs-button radius color="danger" type="border" icon-pack="feather" icon="icon-trash" @click="confirmDeleteReservationDuration(duration)"></vs-button>
+                                        <vs-button :id="`btn-duration-delete-${duration.id}`" class="vs-con-loading__container" radius color="danger" type="border" icon-pack="feather" icon="icon-trash" @click="confirmDeleteReservationDuration(duration)"></vs-button>
                                     </div>
                                 </div>
                             </vs-row>
@@ -107,6 +108,7 @@
                     </vs-tr>
                 </template>
             </vs-table>
+            <vs-pagination goto class="mt-5" @change="handleChangePage" :total="Math.ceil(reservation_durations_total_items/15)" v-model="currentDurationPage"></vs-pagination>
         </vx-card>
         </div>
     </div>
@@ -118,40 +120,17 @@
         mounted() {
             if (this.can('view-reservation')){
                 this.getReservationTypes();
+                this.getReservationDurations();
             }
         },
         data: () => {
             return {
+                is_requesting: false,
                 reservation_types: [],
-                reservation_durations: [
-                    {
-                        id: 1,
-                        type: 'reveal',
-                        date: '05/11/2019',
-                        start_time: '1:00PM',
-                        end_time: '2:00PM',
-                        counter: 15,
-                    },
-                    {
-                        id: 2,
-                        type: 'operation',
-                        date: '05/11/2019',
-                        start_time: '2:00PM',
-                        end_time: '4:00PM',
-                        counter: 7,
-                    },
-                    {
-                        id: 3,
-                        type: 'reveal',
-                        date: '05/11/2019',
-                        start_time: '2:00PM',
-                        end_time: '4:00PM',
-                        counter: 25,
-                    }
-                ],
-
-                reservationDurationIdToDelete: null,
-                is_requesting: false
+                reservation_durations: [],
+                reservation_durations_total_items: 53,
+                currentDurationPage: 1,
+                sortFilter: 'sortDesc=date'
             }
         },
         methods: {
@@ -164,8 +143,29 @@
                         this.reservation_types = response.data.data.data;
                     })
                     .catch(error => {
-                        this.$vs.loading.close();
                         console.log(error);
+                        this.$vs.loading.close(this.$refs.reservation_type.$refs.content);
+                        this.$vs.notify({
+                            title: 'Error',
+                            text: error.response.data.error,
+                            iconPack: 'feather',
+                            icon: 'icon-alert-circle',
+                            color: 'danger'
+                        });
+                    });
+            },
+
+            getReservationDurations()
+            {
+                this.$vs.loading({container: this.$refs.reservation_duration.$refs.content, scale: 0.5});
+                this.$store.dispatch('reservationDuration/getData', `?page=${this.currentDurationPage}&paginate=15&${this.sortFilter}`)
+                    .then(response => {
+                        this.$vs.loading.close(this.$refs.reservation_duration.$refs.content);
+                        this.reservation_durations = response.data.data.data;
+                        this.reservation_durations_total_items = response.data.data.meta.pagination.total;
+                    })
+                    .catch(error => {
+                        this.$vs.loading.close(this.$refs.reservation_duration.$refs.content);
                         this.$vs.notify({
                             title: 'Error',
                             text: error.response.data.error,
@@ -221,31 +221,55 @@
 
             confirmDeleteReservationDuration(duration)
             {
-                this.reservationDurationIdToDelete = duration.id;
                 this.$vs.dialog({
                     type: 'confirm',
                     color: 'danger',
                     title: `Are you sure!`,
                     text: 'This data can not be retrieved again.',
-                    accept: this.deleteReservationDuration
+                    accept: this.deleteReservationDuration,
+                    parameters: [duration]
                 });
             },
 
-            deleteReservationDuration()
+            deleteReservationDuration(params)
             {
-                this.vs_alert ('Success', 'Reservation Duration Successfully Deleted.', 'success', 'icon-check');
+                this.is_requesting=true;
+                this.$vs.loading({container: `#btn-duration-delete-${params[0].id}`, color: 'danger', scale: 0.45});
+                this.$store.dispatch('reservationDuration/delete', params[0].id)
+                    .then(response => {
+                        this.is_requesting = false;
+                        this.$vs.loading.close(`#btn-duration-delete-${params[0].id} > .con-vs-loading`);
+                        this.reservation_durations = this.reservation_durations.filter(type => {return type.id !== params[0].id});
+                        this.$vs.notify({
+                            title: 'Success',
+                            text: response.data.message,
+                            iconPack: 'feather',
+                            icon: 'icon-check',
+                            color: 'success'
+                        });
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        this.is_requesting=false;
+                        this.$vs.loading.close(`#btn-type-delete-${params[0].id} > .con-vs-loading`);
+                        this.$vs.notify({
+                            title: 'Error',
+                            text: error.response.data.error,
+                            iconPack: 'feather',
+                            icon: 'icon-alert-circle',
+                            color: 'danger'
+                        });
+                    });
             },
 
-            //Vuesax alert
-            vs_alert (title, text, color, icon)
-            {
-                this.$vs.notify({
-                    title: title,
-                    text: text,
-                    color: color,
-                    iconPack: 'feather',
-                    icon: icon
-                });
+            handleChangePage(page) {
+                this.getReservationDurations();
+            },
+
+            handleSort(key, active) {
+                this.sortFilter = active?`sortDesc=${key}`:`sortAsc=${key}`;
+                this.currentDurationPage=1;
+                this.getReservationDurations();
             }
         }
     }
