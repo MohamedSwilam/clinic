@@ -123,40 +123,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "browse",
   mounted: function mounted() {
     if (this.can('view-reservation')) {
       this.getReservationTypes();
+      this.getReservationDurations();
     }
   },
   data: function data() {
     return {
+      is_requesting: false,
       reservation_types: [],
-      reservation_durations: [{
-        id: 1,
-        type: 'reveal',
-        date: '05/11/2019',
-        start_time: '1:00PM',
-        end_time: '2:00PM',
-        counter: 15
-      }, {
-        id: 2,
-        type: 'operation',
-        date: '05/11/2019',
-        start_time: '2:00PM',
-        end_time: '4:00PM',
-        counter: 7
-      }, {
-        id: 3,
-        type: 'reveal',
-        date: '05/11/2019',
-        start_time: '2:00PM',
-        end_time: '4:00PM',
-        counter: 25
-      }],
-      reservationDurationIdToDelete: null,
-      is_requesting: false
+      reservation_durations: [],
+      reservation_durations_total_items: 53,
+      currentDurationPage: 1,
+      sortFilter: 'sortDesc=date'
     };
   },
   methods: {
@@ -172,11 +156,35 @@ __webpack_require__.r(__webpack_exports__);
 
         _this.reservation_types = response.data.data.data;
       })["catch"](function (error) {
-        _this.$vs.loading.close();
-
         console.log(error);
 
+        _this.$vs.loading.close(_this.$refs.reservation_type.$refs.content);
+
         _this.$vs.notify({
+          title: 'Error',
+          text: error.response.data.error,
+          iconPack: 'feather',
+          icon: 'icon-alert-circle',
+          color: 'danger'
+        });
+      });
+    },
+    getReservationDurations: function getReservationDurations() {
+      var _this2 = this;
+
+      this.$vs.loading({
+        container: this.$refs.reservation_duration.$refs.content,
+        scale: 0.5
+      });
+      this.$store.dispatch('reservationDuration/getData', "?page=".concat(this.currentDurationPage, "&paginate=15&").concat(this.sortFilter)).then(function (response) {
+        _this2.$vs.loading.close(_this2.$refs.reservation_duration.$refs.content);
+
+        _this2.reservation_durations = response.data.data.data;
+        _this2.reservation_durations_total_items = response.data.data.meta.pagination.total;
+      })["catch"](function (error) {
+        _this2.$vs.loading.close(_this2.$refs.reservation_duration.$refs.content);
+
+        _this2.$vs.notify({
           title: 'Error',
           text: error.response.data.error,
           iconPack: 'feather',
@@ -196,7 +204,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     deleteReservationType: function deleteReservationType(params) {
-      var _this2 = this;
+      var _this3 = this;
 
       this.is_requesting = true;
       this.$vs.loading({
@@ -205,15 +213,15 @@ __webpack_require__.r(__webpack_exports__);
         scale: 0.45
       });
       this.$store.dispatch('reservationType/delete', params[0].id).then(function (response) {
-        _this2.is_requesting = false;
+        _this3.is_requesting = false;
 
-        _this2.$vs.loading.close("#btn-type-delete-".concat(params[0].id, " > .con-vs-loading"));
+        _this3.$vs.loading.close("#btn-type-delete-".concat(params[0].id, " > .con-vs-loading"));
 
-        _this2.reservation_types = _this2.reservation_types.filter(function (type) {
+        _this3.reservation_types = _this3.reservation_types.filter(function (type) {
           return type.id !== params[0].id;
         });
 
-        _this2.$vs.notify({
+        _this3.$vs.notify({
           title: 'Success',
           text: response.data.message,
           iconPack: 'feather',
@@ -222,11 +230,11 @@ __webpack_require__.r(__webpack_exports__);
         });
       })["catch"](function (error) {
         console.log(error);
-        _this2.is_requesting = false;
+        _this3.is_requesting = false;
 
-        _this2.$vs.loading.close("#btn-type-delete-".concat(params[0].id, " > .con-vs-loading"));
+        _this3.$vs.loading.close("#btn-type-delete-".concat(params[0].id, " > .con-vs-loading"));
 
-        _this2.$vs.notify({
+        _this3.$vs.notify({
           title: 'Error',
           text: error.response.data.error,
           iconPack: 'feather',
@@ -236,27 +244,62 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     confirmDeleteReservationDuration: function confirmDeleteReservationDuration(duration) {
-      this.reservationDurationIdToDelete = duration.id;
       this.$vs.dialog({
         type: 'confirm',
         color: 'danger',
         title: "Are you sure!",
         text: 'This data can not be retrieved again.',
-        accept: this.deleteReservationDuration
+        accept: this.deleteReservationDuration,
+        parameters: [duration]
       });
     },
-    deleteReservationDuration: function deleteReservationDuration() {
-      this.vs_alert('Success', 'Reservation Duration Successfully Deleted.', 'success', 'icon-check');
-    },
-    //Vuesax alert
-    vs_alert: function vs_alert(title, text, color, icon) {
-      this.$vs.notify({
-        title: title,
-        text: text,
-        color: color,
-        iconPack: 'feather',
-        icon: icon
+    deleteReservationDuration: function deleteReservationDuration(params) {
+      var _this4 = this;
+
+      this.is_requesting = true;
+      this.$vs.loading({
+        container: "#btn-duration-delete-".concat(params[0].id),
+        color: 'danger',
+        scale: 0.45
       });
+      this.$store.dispatch('reservationDuration/delete', params[0].id).then(function (response) {
+        _this4.is_requesting = false;
+
+        _this4.$vs.loading.close("#btn-duration-delete-".concat(params[0].id, " > .con-vs-loading"));
+
+        _this4.reservation_durations = _this4.reservation_durations.filter(function (type) {
+          return type.id !== params[0].id;
+        });
+
+        _this4.$vs.notify({
+          title: 'Success',
+          text: response.data.message,
+          iconPack: 'feather',
+          icon: 'icon-check',
+          color: 'success'
+        });
+      })["catch"](function (error) {
+        console.log(error);
+        _this4.is_requesting = false;
+
+        _this4.$vs.loading.close("#btn-type-delete-".concat(params[0].id, " > .con-vs-loading"));
+
+        _this4.$vs.notify({
+          title: 'Error',
+          text: error.response.data.error,
+          iconPack: 'feather',
+          icon: 'icon-alert-circle',
+          color: 'danger'
+        });
+      });
+    },
+    handleChangePage: function handleChangePage(page) {
+      this.getReservationDurations();
+    },
+    handleSort: function handleSort(key, active) {
+      this.sortFilter = active ? "sortDesc=".concat(key) : "sortAsc=".concat(key);
+      this.currentDurationPage = 1;
+      this.getReservationDurations();
     }
   }
 });
@@ -313,17 +356,17 @@ var render = function() {
                                 [
                                   _c("vs-td", { attrs: { data: index + 1 } }, [
                                     _vm._v(
-                                      "\n                            " +
+                                      "\n                                " +
                                         _vm._s(index + 1) +
-                                        "\n                        "
+                                        "\n                            "
                                     )
                                   ]),
                                   _vm._v(" "),
                                   _c("vs-td", { attrs: { data: type.name } }, [
                                     _vm._v(
-                                      "\n                            " +
+                                      "\n                                " +
                                         _vm._s(type.name) +
-                                        "\n                        "
+                                        "\n                            "
                                     )
                                   ]),
                                   _vm._v(" "),
@@ -332,9 +375,9 @@ var render = function() {
                                     { attrs: { data: type.min_price } },
                                     [
                                       _vm._v(
-                                        "\n                            " +
+                                        "\n                                " +
                                           _vm._s(type.min_price) +
-                                          "\n                        "
+                                          "\n                            "
                                       )
                                     ]
                                   ),
@@ -344,9 +387,9 @@ var render = function() {
                                     { attrs: { data: type.max_price } },
                                     [
                                       _vm._v(
-                                        "\n                            " +
+                                        "\n                                " +
                                           _vm._s(type.max_price) +
-                                          "\n                        "
+                                          "\n                            "
                                       )
                                     ]
                                   ),
@@ -462,7 +505,7 @@ var render = function() {
                       ],
                       null,
                       false,
-                      2432102540
+                      10352268
                     )
                   },
                   [
@@ -534,12 +577,21 @@ var render = function() {
       [
         _c(
           "vx-card",
-          { attrs: { title: "Reservation Durations", "collapse-action": "" } },
+          {
+            ref: "reservation_duration",
+            attrs: {
+              title: "Reservation Durations",
+              "collapse-action": "",
+              refreshContentAction: ""
+            },
+            on: { refresh: _vm.getReservationDurations }
+          },
           [
             _c(
               "vs-table",
               {
-                attrs: { search: "", data: _vm.reservation_durations },
+                attrs: { sst: true, data: _vm.reservation_durations },
+                on: { sort: _vm.handleSort },
                 scopedSlots: _vm._u([
                   {
                     key: "default",
@@ -552,25 +604,23 @@ var render = function() {
                           [
                             _c("vs-td", { attrs: { data: index + 1 } }, [
                               _vm._v(
-                                "\n                        " +
+                                "\n                            " +
                                   _vm._s(index + 1) +
-                                  "\n                    "
+                                  "\n                        "
                               )
                             ]),
                             _vm._v(" "),
-                            _c("vs-td", { attrs: { data: duration.type } }, [
+                            _c("vs-td", [
                               _vm._v(
-                                "\n                        " +
-                                  _vm._s(duration.type) +
-                                  "\n                    "
+                                "\n                            type here\n                        "
                               )
                             ]),
                             _vm._v(" "),
                             _c("vs-td", { attrs: { data: duration.date } }, [
                               _vm._v(
-                                "\n                        " +
+                                "\n                            " +
                                   _vm._s(duration.date) +
-                                  "\n                    "
+                                  "\n                        "
                               )
                             ]),
                             _vm._v(" "),
@@ -579,9 +629,9 @@ var render = function() {
                               { attrs: { data: duration.start_time } },
                               [
                                 _vm._v(
-                                  "\n                        " +
+                                  "\n                            " +
                                     _vm._s(duration.start_time) +
-                                    "\n                    "
+                                    "\n                        "
                                 )
                               ]
                             ),
@@ -591,18 +641,18 @@ var render = function() {
                               { attrs: { data: duration.end_time } },
                               [
                                 _vm._v(
-                                  "\n                        " +
+                                  "\n                            " +
                                     _vm._s(duration.end_time) +
-                                    "\n                    "
+                                    "\n                        "
                                 )
                               ]
                             ),
                             _vm._v(" "),
                             _c("vs-td", { attrs: { data: duration.counter } }, [
                               _vm._v(
-                                "\n                        " +
+                                "\n                            " +
                                   _vm._s(duration.counter) +
-                                  "\n                    "
+                                  "\n                        "
                               )
                             ]),
                             _vm._v(" "),
@@ -616,7 +666,12 @@ var render = function() {
                                       { staticClass: "w-1/3" },
                                       [
                                         _c("vs-button", {
+                                          staticClass:
+                                            "vs-con-loading__container",
                                           attrs: {
+                                            id:
+                                              "btn-duration-delete-" +
+                                              duration.id,
                                             radius: "",
                                             color: "danger",
                                             type: "border",
@@ -655,6 +710,7 @@ var render = function() {
                     _c(
                       "vs-button",
                       {
+                        staticClass: "mb-5",
                         attrs: {
                           size: "small",
                           to: "/dashboard/settings/reservation-duration/create",
@@ -675,9 +731,7 @@ var render = function() {
                   [
                     _c("vs-th", [_vm._v("#")]),
                     _vm._v(" "),
-                    _c("vs-th", { attrs: { "sort-key": "type" } }, [
-                      _vm._v("Type")
-                    ]),
+                    _c("vs-th", [_vm._v("Type")]),
                     _vm._v(" "),
                     _c("vs-th", { attrs: { "sort-key": "date" } }, [
                       _vm._v("Date")
@@ -701,7 +755,23 @@ var render = function() {
                 )
               ],
               2
-            )
+            ),
+            _vm._v(" "),
+            _c("vs-pagination", {
+              staticClass: "mt-5",
+              attrs: {
+                goto: "",
+                total: Math.ceil(_vm.reservation_durations_total_items / 15)
+              },
+              on: { change: _vm.handleChangePage },
+              model: {
+                value: _vm.currentDurationPage,
+                callback: function($$v) {
+                  _vm.currentDurationPage = $$v
+                },
+                expression: "currentDurationPage"
+              }
+            })
           ],
           1
         )

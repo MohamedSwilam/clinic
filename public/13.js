@@ -69,29 +69,89 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "create-duration",
+  mounted: function mounted() {
+    this.getReservationTypes();
+  },
   data: function data() {
     return {
       form: {
-        type: 1,
-        date: '',
-        start_time: 0,
-        end_time: 0,
-        counter: 0
+        reservation_type_id: null,
+        date: null,
+        start_time: null,
+        end_time: null,
+        counter: 1
       },
-      reservation_types: [{
-        id: 1,
-        type: 'reveal',
-        minimum_price: 200,
-        maximum_price: 400,
-        is_online: true
-      }, {
-        id: 2,
-        type: 'Operation',
-        minimum_price: 1500,
-        maximum_price: 3000,
-        is_online: false
-      }]
+      is_requesting: false,
+      reservation_types: []
     };
+  },
+  methods: {
+    getReservationTypes: function getReservationTypes() {
+      var _this = this;
+
+      this.$vs.loading({
+        container: this.$refs.create.$refs.content,
+        scale: 0.5
+      });
+      this.$store.dispatch('reservationType/getData').then(function (response) {
+        _this.reservation_types = response.data.data.data;
+        _this.form.reservation_type_id = _this.reservation_types[0].id;
+
+        _this.$vs.loading.close(_this.$refs.create.$refs.content);
+      })["catch"](function (error) {
+        console.log(error);
+
+        _this.$vs.loading.close(_this.$refs.create.$refs.content);
+
+        _this.$vs.notify({
+          title: 'Error',
+          text: error.response.data.error,
+          iconPack: 'feather',
+          icon: 'icon-alert-circle',
+          color: 'danger'
+        });
+      });
+    },
+    createReservationDuration: function createReservationDuration(createNew) {
+      var _this2 = this;
+
+      this.is_requesting = true;
+      this.$vs.loading({
+        container: "#btn-create-".concat(createNew),
+        color: 'primary',
+        scale: 0.45
+      });
+      this.$store.dispatch('reservationDuration/create', this.form).then(function (response) {
+        _this2.is_requesting = false;
+
+        _this2.$vs.loading.close("#btn-create-".concat(createNew, " > .con-vs-loading"));
+
+        _this2.$vs.notify({
+          title: 'Success',
+          text: response.data.message,
+          iconPack: 'feather',
+          icon: 'icon-check',
+          color: 'success'
+        });
+
+        if (!createNew) {
+          _this2.$router.push('/dashboard/settings/reservation');
+        }
+      })["catch"](function (error) {
+        console.log(error);
+        _this2.is_requesting = false;
+
+        _this2.$vs.loading.close("#btn-create-".concat(createNew, " > .con-vs-loading"));
+
+        _this2.$vs.notify({
+          title: 'Error',
+          text: error.response.data.errors[Object.keys(error.response.data.errors)[0]][0],
+          iconPack: 'feather',
+          icon: 'icon-alert-circle',
+          color: 'danger'
+        });
+      });
+    }
   }
 });
 
@@ -166,7 +226,10 @@ var render = function() {
     [
       _c(
         "vx-card",
-        { attrs: { title: "Add Reservation Duration", "collapse-action": "" } },
+        {
+          ref: "create",
+          attrs: { title: "Add Reservation Duration", "collapse-action": "" }
+        },
         [
           _c(
             "vs-row",
@@ -191,17 +254,17 @@ var render = function() {
                         color: "primary"
                       },
                       model: {
-                        value: _vm.form.type,
+                        value: _vm.form.reservation_type_id,
                         callback: function($$v) {
-                          _vm.$set(_vm.form, "type", $$v)
+                          _vm.$set(_vm.form, "reservation_type_id", $$v)
                         },
-                        expression: "form.type"
+                        expression: "form.reservation_type_id"
                       }
                     },
                     _vm._l(_vm.reservation_types, function(item, index) {
                       return _c("vs-select-item", {
                         key: index,
-                        attrs: { value: item.id, text: item.type }
+                        attrs: { value: item.id, text: item.name }
                       })
                     }),
                     1
@@ -454,13 +517,35 @@ var render = function() {
             [
               _c(
                 "vs-button",
-                { staticClass: "mr-5", attrs: { size: "small" } },
+                {
+                  staticClass: "vs-con-loading__container mr-5",
+                  attrs: { id: "btn-create-false", size: "small" },
+                  on: {
+                    click: function($event) {
+                      _vm.is_requesting
+                        ? _vm.$store.dispatch("viewWaitMessage", _vm.$vs)
+                        : _vm.createReservationDuration(false)
+                    }
+                  }
+                },
                 [_vm._v("Add Duration & Browse")]
               ),
               _vm._v(" "),
-              _c("vs-button", { attrs: { size: "small" } }, [
-                _vm._v("Add Duration & Create Another")
-              ])
+              _c(
+                "vs-button",
+                {
+                  staticClass: "vs-con-loading__container",
+                  attrs: { id: "btn-create-true", size: "small" },
+                  on: {
+                    click: function($event) {
+                      _vm.is_requesting
+                        ? _vm.$store.dispatch("viewWaitMessage", _vm.$vs)
+                        : _vm.createReservationDuration(true)
+                    }
+                  }
+                },
+                [_vm._v("Add Duration & Create Another")]
+              )
             ],
             1
           )
