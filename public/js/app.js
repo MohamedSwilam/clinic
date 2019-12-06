@@ -106656,7 +106656,7 @@ module.exports = "/fonts/feather.eot?931c9e74d0b20947054bfe6a5b74a838";
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/fonts/feather.svg?90f969db293a9077b0555139e6c9b20e";
+module.exports = "/fonts/feather.svg?0e5daf6bac4f17e400266545070b108e";
 
 /***/ }),
 
@@ -109846,9 +109846,9 @@ var themeConfig = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\wamp64\www\clinic\resources\js\app.js */"./resources/js/app.js");
-__webpack_require__(/*! C:\wamp64\www\clinic\resources\sass\app.scss */"./resources/sass/app.scss");
-module.exports = __webpack_require__(/*! C:\wamp64\www\clinic\resources\assets\css\main.css */"./resources/assets/css/main.css");
+__webpack_require__(/*! G:\Work\Clinic\clinic\resources\js\app.js */"./resources/js/app.js");
+__webpack_require__(/*! G:\Work\Clinic\clinic\resources\sass\app.scss */"./resources/sass/app.scss");
+module.exports = __webpack_require__(/*! G:\Work\Clinic\clinic\resources\assets\css\main.css */"./resources/assets/css/main.css");
 
 
 /***/ })

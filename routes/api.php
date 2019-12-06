@@ -57,4 +57,11 @@ Route::group(['prefix' => 'reservation-duration', 'middleware' => 'auth:api'], f
     Route::resource('', 'ReservationDurationController');
 });
 
+Route::group(['prefix' => 'appointment', 'middleware' => 'auth:api'], function () {
+    Route::post('{id}', 'AppointmentController@update');
+    Route::get('{id}', 'AppointmentController@show');
+    Route::delete('{id}', 'AppointmentController@destroy');
+    Route::resource('', 'AppointmentController');
+});
+
 Route::middleware('auth:api')->resource('phone', 'PhoneController');

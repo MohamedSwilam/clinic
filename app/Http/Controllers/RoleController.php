@@ -84,7 +84,7 @@ class RoleController extends Controller
      */
     public function show($id)
     {
-        $this->authorize('index', Role::class);
+        $this->authorize('show', [Role::class, $id]);
         return $this->respond('fetched successfully', fractal(
                 Role::where('id', $id)
                     ->with('permissions')

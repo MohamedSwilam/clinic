@@ -61,7 +61,7 @@ class EmployeeController extends Controller
         return $this->respond(
             'Employee Created Successfully',
             fractal(
-                User::where('id', $user->id)->with(['roles', 'roles.permissions', 'permissions', 'phones'])->first(),
+                User::where('id', $user->id)->with(['roles', 'roles.permissions', 'permissions'])->first(),
                 new UserTransformer()
             )
         );
@@ -119,7 +119,7 @@ class EmployeeController extends Controller
         return $this->respond(
             'Employee Updated Successfully',
             fractal(
-                User::where('id', $user->id)->with(['roles', 'roles.permissions', 'permissions', 'phones'])->first(),
+                User::where('id', $user->id)->with(['roles', 'roles.permissions', 'permissions'])->first(),
                 new UserTransformer()
             )
         );

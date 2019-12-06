@@ -4,6 +4,7 @@ namespace App\Policies;
 
 use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Spatie\Permission\Models\Role;
 
 class RolePolicy
 {
@@ -27,6 +28,16 @@ class RolePolicy
     public function store()
     {
         return request()->user()->hasPermissionTo('create-role');
+    }
+
+    public function show($id)
+    {
+        if (request()->user()->hasRole('super_admin')){
+            return true;
+        }
+        else{
+            return request()->user()->hasPermissionTo('view-role') && Role::findById($id)->name != 'super_admin';
+        }
     }
 
     public function update()
