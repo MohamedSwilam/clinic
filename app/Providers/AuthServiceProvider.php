@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Appointment;
 use App\Patient;
 use App\Policies\EmployeePolicy;
 use App\Policies\PatientPolicy;
@@ -33,6 +34,7 @@ class AuthServiceProvider extends ServiceProvider
         Patient::class => PatientPolicy::class,
         ReservationType::class => ReservationPolicy::class,
         ReservationDuration::class => ReservationPolicy::class,
+        Appointment::class => ReservationPolicy::class,
     ];
 
     /**

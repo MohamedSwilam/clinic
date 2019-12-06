@@ -12,4 +12,9 @@ class ReservationDuration extends Model
     {
         return $this->belongsTo(ReservationType::class, 'reservation_type_id');
     }
+
+    public function appointments()
+    {
+        return $this->hasMany(Appointment::class);
+    }
 }

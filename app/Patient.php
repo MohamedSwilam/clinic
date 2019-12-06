@@ -16,9 +16,16 @@ class Patient extends Model
         'country', 'gender', 'occupation', 'reference'
     ];
 
+    protected $with = ['phones'];
+
     public function phones()
     {
         return $this->morphMany(Phone::class, 'phoneable');
+    }
+
+    public function appointments()
+    {
+        return $this->hasMany(Appointment::class);
     }
 
 }

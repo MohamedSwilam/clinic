@@ -40,6 +40,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    protected $with = ['phones'];
+
     public function scopeName($query, $name)
     {
         $query->where('name', $name);
@@ -55,6 +57,16 @@ class User extends Authenticatable
     public function phones()
     {
         return $this->morphMany(Phone::class, 'phoneable');
+    }
+
+    public function assignedAppointments()
+    {
+        return $this->hasMany(Appointment::class, 'doctor_id');
+    }
+
+    public function reservedAppointments()
+    {
+        return $this->hasMany(Appointment::class, 'receptionist_id');
     }
 
 }
