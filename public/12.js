@@ -9,7 +9,6 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vee_validate__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vee-validate */ "./node_modules/vee-validate/dist/vee-validate.esm.js");
 //
 //
 //
@@ -44,74 +43,128 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-// For custom error message
-
-var dict = {
-  custom: {
-    role_name: {
-      required: 'Please enter the role name'
-    }
-  }
-}; // register custom messages
-
-vee_validate__WEBPACK_IMPORTED_MODULE_0__["Validator"].localize('en', dict);
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
-    this.getRole();
+    this.getPermissions();
   },
   data: function data() {
     return {
+      role: null,
       permissions: [],
       role_name: "",
       rolePermissions: [],
       groupPermissions: [],
-      is_loading: false
+      is_requesting: false
     };
+  },
+  computed: {
+    validateForm: function validateForm() {
+      return !this.errors.any() && this.role_name !== "";
+    }
   },
   methods: {
     //Get All Roles
-    getRole: function getRole() {
-      this.permissions = {
-        Employees: [{
-          display_name: 'Browse Employee'
-        }, {
-          display_name: 'View Employee'
-        }, {
-          display_name: 'Create Employee'
-        }, {
-          display_name: 'Edit Employee'
-        }, {
-          display_name: 'Delete Employee'
-        }],
-        Patients: [{
-          display_name: 'Browse Patients'
-        }, {
-          display_name: 'View Patients'
-        }, {
-          display_name: 'Create Patients'
-        }, {
-          display_name: 'Edit Patients'
-        }, {
-          display_name: 'Delete Patients'
-        }]
-      };
-      this.role_name = 'Administrator';
-      this.rolePermissions = ['Browse Patients', 'Browse Employee'];
-    },
-    //Update Role Submission
-    submitForm: function submitForm() {
+    getPermissions: function getPermissions() {
       var _this = this;
 
-      this.$validator.validateAll().then(function (result) {
-        if (result) {
-          _this.vs_alert('Success', 'Role Successfully Updated', 'success', 'icon-check');
+      this.$vs.loading({
+        container: this.$refs.edit.$refs.content,
+        scale: 0.5
+      });
+      this.$store.dispatch('rolesAndPermissions/getPermissions').then(function (response) {
+        _this.permissions = response.data.data;
 
-          _this.endBtnLoader("#submit-btn");
+        _this.getRole();
+      })["catch"](function (error) {
+        console.log(error);
+
+        _this.$vs.loading.close(_this.$refs.edit.$refs.content);
+
+        _this.$vs.notify({
+          title: 'Error',
+          text: error.response.data.error,
+          iconPack: 'feather',
+          icon: 'icon-alert-circle',
+          color: 'danger'
+        });
+      });
+    },
+    getRole: function getRole() {
+      var _this2 = this;
+
+      this.$store.dispatch('rolesAndPermissions/view', this.$route.params.id).then(function (response) {
+        _this2.$vs.loading.close(_this2.$refs.edit.$refs.content);
+
+        _this2.role = response.data.data.data;
+
+        if (response.data.data.data.length === 0) {
+          _this2.$router.push('/dashboard/error-404');
         } else {
-          _this.vs_alert('Oops!', 'Please, solve all issues before submitting.', 'danger', 'icon-alert-circle');
+          response.data.data.data.permissions.forEach(function (permission) {
+            _this2.rolePermissions.push(permission.name);
+          }); // this.rolePermissions = response.data.data.data.permissions;
 
-          _this.endBtnLoader("#submit-btn");
+          _this2.role_name = response.data.data.data.name;
         }
+      })["catch"](function (error) {
+        console.log(error);
+
+        _this2.$vs.loading.close(_this2.$refs.edit.$refs.content);
+
+        _this2.$vs.notify({
+          title: 'Error',
+          text: error.response.data.error,
+          iconPack: 'feather',
+          icon: 'icon-alert-circle',
+          color: 'danger'
+        });
+      });
+    },
+    //Save Role Submission
+    saveRole: function saveRole() {
+      var _this3 = this;
+
+      if (!this.validateForm) return;
+      this.is_requesting = true;
+      this.$vs.loading({
+        container: "#btn-save",
+        color: 'primary',
+        scale: 0.45
+      });
+      this.$store.dispatch('rolesAndPermissions/update', {
+        id: this.$route.params.id,
+        data: {
+          permissions: this.rolePermissions,
+          name: this.role_name,
+          display_name: this.role_name
+        }
+      }).then(function (response) {
+        _this3.is_requesting = false;
+
+        _this3.$vs.loading.close("#btn-save > .con-vs-loading");
+
+        _this3.$router.push("/dashboard/settings/role/".concat(_this3.$route.params.id));
+
+        _this3.$vs.notify({
+          title: 'Success',
+          text: response.data.message,
+          iconPack: 'feather',
+          icon: 'icon-check',
+          color: 'success'
+        });
+      })["catch"](function (error) {
+        console.log(error);
+        _this3.is_requesting = false;
+
+        _this3.$vs.loading.close("#btn-save > .con-vs-loading");
+
+        _this3.$vs.notify({
+          title: 'Error',
+          text: error.response.data.errors[Object.keys(error.response.data.errors)[0]][0],
+          iconPack: 'feather',
+          icon: 'icon-alert-circle',
+          color: 'danger'
+        });
       });
     },
     //Check and Un-Check by group
@@ -227,7 +280,7 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("vx-card", { attrs: { title: "Update Role" } }, [
+      _c("vx-card", { ref: "edit", attrs: { title: "Update Role" } }, [
         _c("form", [
           _c("div", { staticClass: "vx-row" }, [
             _c(
@@ -340,21 +393,22 @@ var render = function() {
                 _c(
                   "vs-button",
                   {
-                    staticClass: "mr-3 mb-2",
-                    staticStyle: { display: "inline-flex" },
+                    staticClass: "vs-con-loading__container",
                     attrs: {
-                      id: "submit-btn",
+                      id: "btn-save",
+                      disabled: !_vm.validateForm,
                       "icon-pack": "feather",
                       icon: "icon-save"
                     },
                     on: {
                       click: function($event) {
-                        $event.preventDefault()
-                        _vm.is_loading ? _vm.notifyToWait() : _vm.submitForm()
+                        _vm.is_requesting
+                          ? _vm.$store.dispatch("viewWaitMessage", _vm.$vs)
+                          : _vm.saveRole()
                       }
                     }
                   },
-                  [_vm._v("Save Role")]
+                  [_vm._v("Save")]
                 )
               ],
               1

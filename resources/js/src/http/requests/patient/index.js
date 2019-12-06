@@ -5,6 +5,10 @@ export default {
         return axios.get(`patient${filters}`)
     },
 
+    view(id) {
+        return axios.get(`patient/${id}`)
+    },
+
     create(data) {
         return axios.post(`patient`, data)
     },

@@ -19,8 +19,8 @@
                                 {{ index+1 }}
                             </vs-td>
 
-                            <vs-td :data="role.display_name">
-                                {{ role.display_name}}
+                            <vs-td :data="role.name">
+                                {{ role.name}}
                             </vs-td>
 
                             <vs-td :data="role.created_at">

@@ -124,7 +124,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "browse",
   mounted: function mounted() {
@@ -356,17 +355,17 @@ var render = function() {
                                 [
                                   _c("vs-td", { attrs: { data: index + 1 } }, [
                                     _vm._v(
-                                      "\n                                " +
+                                      "\n                            " +
                                         _vm._s(index + 1) +
-                                        "\n                            "
+                                        "\n                        "
                                     )
                                   ]),
                                   _vm._v(" "),
                                   _c("vs-td", { attrs: { data: type.name } }, [
                                     _vm._v(
-                                      "\n                                " +
+                                      "\n                            " +
                                         _vm._s(type.name) +
-                                        "\n                            "
+                                        "\n                        "
                                     )
                                   ]),
                                   _vm._v(" "),
@@ -375,9 +374,9 @@ var render = function() {
                                     { attrs: { data: type.min_price } },
                                     [
                                       _vm._v(
-                                        "\n                                " +
+                                        "\n                            " +
                                           _vm._s(type.min_price) +
-                                          "\n                            "
+                                          "\n                        "
                                       )
                                     ]
                                   ),
@@ -387,9 +386,9 @@ var render = function() {
                                     { attrs: { data: type.max_price } },
                                     [
                                       _vm._v(
-                                        "\n                                " +
+                                        "\n                            " +
                                           _vm._s(type.max_price) +
-                                          "\n                            "
+                                          "\n                        "
                                       )
                                     ]
                                   ),
@@ -505,7 +504,7 @@ var render = function() {
                       ],
                       null,
                       false,
-                      10352268
+                      2432102540
                     )
                   },
                   [
@@ -604,23 +603,25 @@ var render = function() {
                           [
                             _c("vs-td", { attrs: { data: index + 1 } }, [
                               _vm._v(
-                                "\n                            " +
+                                "\n                        " +
                                   _vm._s(index + 1) +
-                                  "\n                        "
+                                  "\n                    "
                               )
                             ]),
                             _vm._v(" "),
                             _c("vs-td", [
                               _vm._v(
-                                "\n                            type here\n                        "
+                                "\n                        " +
+                                  _vm._s(duration.reservation_type.name) +
+                                  "\n                    "
                               )
                             ]),
                             _vm._v(" "),
                             _c("vs-td", { attrs: { data: duration.date } }, [
                               _vm._v(
-                                "\n                            " +
+                                "\n                        " +
                                   _vm._s(duration.date) +
-                                  "\n                        "
+                                  "\n                    "
                               )
                             ]),
                             _vm._v(" "),
@@ -629,9 +630,9 @@ var render = function() {
                               { attrs: { data: duration.start_time } },
                               [
                                 _vm._v(
-                                  "\n                            " +
+                                  "\n                        " +
                                     _vm._s(duration.start_time) +
-                                    "\n                        "
+                                    "\n                    "
                                 )
                               ]
                             ),
@@ -641,18 +642,18 @@ var render = function() {
                               { attrs: { data: duration.end_time } },
                               [
                                 _vm._v(
-                                  "\n                            " +
+                                  "\n                        " +
                                     _vm._s(duration.end_time) +
-                                    "\n                        "
+                                    "\n                    "
                                 )
                               ]
                             ),
                             _vm._v(" "),
                             _c("vs-td", { attrs: { data: duration.counter } }, [
                               _vm._v(
-                                "\n                            " +
+                                "\n                        " +
                                   _vm._s(duration.counter) +
-                                  "\n                        "
+                                  "\n                    "
                               )
                             ]),
                             _vm._v(" "),

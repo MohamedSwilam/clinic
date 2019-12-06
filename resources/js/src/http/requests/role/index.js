@@ -5,6 +5,10 @@ export default {
         return axios.get(`role${filters}`)
     },
 
+    view(id) {
+        return axios.get(`role/${id}`)
+    },
+
     create(data) {
         return axios.post(`role`, data)
     },

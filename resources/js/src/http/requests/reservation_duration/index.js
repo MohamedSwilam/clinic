@@ -4,6 +4,10 @@ export default {
         return axios.get(`reservation-duration${filters}`)
     },
 
+    view(id) {
+        return axios.get(`reservation-duration/${id}`)
+    },
+
     create(data) {
         return axios.post(`reservation-duration`, data)
     },

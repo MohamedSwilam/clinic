@@ -45,6 +45,7 @@ Route::group(['prefix' => 'patient', 'middleware' => 'auth:api'], function () {
 });
 
 Route::group(['prefix' => 'reservation-type', 'middleware' => 'auth:api'], function () {
+    Route::get('{id}', 'ReservationTypeController@show');
     Route::post('{id}', 'ReservationTypeController@update');
     Route::delete('{id}', 'ReservationTypeController@destroy');
     Route::resource('', 'ReservationTypeController');

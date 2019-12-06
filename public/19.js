@@ -213,17 +213,13 @@ var render = function() {
                                     )
                                   ]),
                                   _vm._v(" "),
-                                  _c(
-                                    "vs-td",
-                                    { attrs: { data: role.display_name } },
-                                    [
-                                      _vm._v(
-                                        "\n                                " +
-                                          _vm._s(role.display_name) +
-                                          "\n                            "
-                                      )
-                                    ]
-                                  ),
+                                  _c("vs-td", { attrs: { data: role.name } }, [
+                                    _vm._v(
+                                      "\n                                " +
+                                        _vm._s(role.name) +
+                                        "\n                            "
+                                    )
+                                  ]),
                                   _vm._v(" "),
                                   _c(
                                     "vs-td",
@@ -341,7 +337,7 @@ var render = function() {
                       ],
                       null,
                       false,
-                      1894516418
+                      1173203458
                     )
                   },
                   [
