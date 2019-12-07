@@ -51,8 +51,8 @@ class EmployeeController extends Controller
 
         $user = User::create($data);
 
-        foreach ($data['phones'] as $phone){
-            $phone= Phone::create($phone);
+        foreach (json_decode($request->phones) as $phone){
+            $phone= Phone::create([$phone]);
             $user->phones()->save($phone);
         }
 

@@ -25,9 +25,8 @@
                     </vs-row>
                 </vs-row>
             </vx-card>
-
-
         </div>
+
         <div class="vx-col w-full mb-base">
             <vx-card title="Appointments" collapseAction>
                 <vs-table :sst="true"

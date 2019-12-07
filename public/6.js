@@ -131,86 +131,113 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "add-employee",
+  mounted: function mounted() {
+    this.getRoles();
+  },
   data: function data() {
     return {
-      EmployeeRoles: [{
-        text: 'Administrator',
-        value: 1
-      }, {
-        text: 'Doctor',
-        value: 2
-      }, {
-        text: 'Assistant Doctor',
-        value: 3
-      }, {
-        text: 'Receptionist',
-        value: 4
-      }, {
-        text: 'Accountant',
-        value: 5
-      }],
-      SelectedEmployeeType: 1,
-      FirstName: "",
-      LastName: "",
-      Telephone: "",
-      Email: "",
-      Telephones: ['01096436702', '01116436790'],
-      DOB: null,
-      gender: 1,
-      imageData: "/images/avatar-s-11.png",
-      address: {
+      roles: [],
+      form: {
+        email: '',
+        password: '',
+        first_name: '',
+        last_name: '',
+        birth_date: '',
+        address: '',
         city: '',
         country: '',
-        address_text: ''
+        gender: '',
+        image: null,
+        role: '',
+        phones: []
       },
-      cities: [{
-        id: 1,
-        name: 'Cairo',
-        countries: [{
-          id: 1,
-          name: 'Heliopolis'
-        }, {
-          id: 2,
-          name: 'Maadi'
-        }, {
-          id: 3,
-          name: 'Nasr City'
-        }]
-      }, {
-        id: 2,
-        name: 'Alexandria',
-        countries: [{
-          id: 4,
-          name: 'Alex1'
-        }, {
-          id: 5,
-          name: 'Alex2'
-        }, {
-          id: 6,
-          name: 'Alex3'
-        }]
-      }],
-      password: '',
-      confirmPassword: ''
+      uploadedImage: null,
+      Telephone: '',
+      is_requesting: false
     };
   },
   methods: {
-    previewImage: function previewImage(event) {
+    //Get A List Of All Roles.
+    getRoles: function getRoles() {
       var _this = this;
+
+      this.$vs.loading({
+        container: this.$refs.create.$refs.content,
+        scale: 0.5
+      });
+      this.$store.dispatch('rolesAndPermissions/getRoles', '').then(function (response) {
+        _this.$vs.loading.close(_this.$refs.create.$refs.content);
+
+        _this.roles = response.data.data.data;
+        _this.form.role = _this.roles[0].name;
+      })["catch"](function (error) {
+        console.log(error);
+
+        _this.$vs.loading.close(_this.$refs.create.$refs.content);
+
+        _this.$vs.notify({
+          title: 'Error',
+          text: error.response.data.error,
+          iconPack: 'feather',
+          icon: 'icon-alert-circle',
+          color: 'danger'
+        });
+      });
+    },
+    create: function create() {
+      var _this2 = this;
+
+      this.is_requesting = true;
+      this.$vs.loading({
+        container: "#btn-create",
+        color: 'primary',
+        scale: 0.45
+      });
+      var form_data = new FormData();
+
+      for (var key in this.form) {
+        if (key === 'image' && this.form.hasOwnProperty(key) && this.form[key]) {
+          for (var i = 0; i < this.form[key].length; i++) {
+            form_data.append(key, this.form[key][i]);
+          }
+        } else if (key === 'phones') {
+          form_data.append(key, JSON.stringify(this.form[key]));
+        } else {
+          form_data.append(key, this.form[key]);
+        }
+      }
+
+      this.$store.dispatch('employee/create', form_data).then(function (response) {
+        _this2.is_requesting = false;
+
+        _this2.$vs.loading.close("#btn-create > .con-vs-loading");
+
+        _this2.$vs.notify({
+          title: 'Success',
+          text: response.data.message,
+          iconPack: 'feather',
+          icon: 'icon-check',
+          color: 'success'
+        });
+      })["catch"](function (error) {
+        console.log(error);
+        _this2.is_requesting = false;
+
+        _this2.$vs.loading.close("#btn-create > .con-vs-loading");
+
+        _this2.$vs.notify({
+          title: 'Error',
+          text: error.response.data.errors[Object.keys(error.response.data.errors)[0]][0],
+          iconPack: 'feather',
+          icon: 'icon-alert-circle',
+          color: 'danger'
+        });
+      });
+    },
+    previewImage: function previewImage(event) {
+      var _this3 = this;
 
       // Reference to the DOM input element
       var input = event.target; // Ensure that you have a file before attempting to read it
@@ -222,7 +249,8 @@ __webpack_require__.r(__webpack_exports__);
         reader.onload = function (e) {
           // Note: arrow function used here, so that "this.imageData" refers to the imageData of Vue component
           // Read image as base64 and set to imageData
-          _this.imageData = e.target.result;
+          _this3.uploadedImage = e.target.result;
+          _this3.form.image = input.files;
         }; // Start the reader job - read file as a data url (base64 format)
 
 
@@ -230,13 +258,14 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     removeTelephone: function removeTelephone(item) {
-      this.Telephones.splice(this.Telephones.indexOf(item), 1);
+      this.form.phones.splice(this.form.phones.indexOf(item), 1);
     },
     addTelephone: function addTelephone() {
-      var item = this.Telephone;
-
-      if (item != '') {
-        this.Telephones.push(item);
+      if (this.Telephone !== '') {
+        this.form.phones.push({
+          'country_code': '+20',
+          'number': this.Telephone
+        });
         this.Telephone = "";
       }
     }
@@ -316,7 +345,7 @@ var render = function() {
       [
         _c(
           "vx-card",
-          { attrs: { title: "Personal Information" } },
+          { ref: "create", attrs: { title: "Personal Information" } },
           [
             _c("div", { staticClass: "vx-row" }, [
               _c(
@@ -336,17 +365,17 @@ var render = function() {
                         color: "primary"
                       },
                       model: {
-                        value: _vm.SelectedEmployeeType,
+                        value: _vm.form.role,
                         callback: function($$v) {
-                          _vm.SelectedEmployeeType = $$v
+                          _vm.$set(_vm.form, "role", $$v)
                         },
-                        expression: "SelectedEmployeeType"
+                        expression: "form.role"
                       }
                     },
-                    _vm._l(_vm.EmployeeRoles, function(item, index) {
+                    _vm._l(_vm.roles, function(item, index) {
                       return _c("vs-select-item", {
                         key: index,
-                        attrs: { value: item.value, text: item.text }
+                        attrs: { value: item.name, text: item.name }
                       })
                     }),
                     1
@@ -358,21 +387,24 @@ var render = function() {
             _vm._v(" "),
             _c("div", { staticClass: "vx-row" }, [
               _c("div", { staticClass: "vx-col sm:w-1/2 w-full mb-6" }, [
-                _vm.imageData.length > 0
-                  ? _c(
-                      "div",
-                      {
-                        staticClass: "image-preview",
-                        staticStyle: { display: "inline-flex" }
-                      },
-                      [
-                        _c("img", {
-                          staticClass: "preview",
-                          attrs: { alt: "employee photo", src: _vm.imageData }
-                        })
-                      ]
-                    )
-                  : _vm._e(),
+                _c(
+                  "div",
+                  {
+                    staticClass: "image-preview",
+                    staticStyle: { display: "inline-flex" }
+                  },
+                  [
+                    _c("img", {
+                      staticClass: "preview",
+                      attrs: {
+                        alt: "employee photo",
+                        src: _vm.uploadedImage
+                          ? _vm.uploadedImage
+                          : "/images/avatar-s-11.png"
+                      }
+                    })
+                  ]
+                ),
                 _vm._v(" "),
                 _c(
                   "div",
@@ -427,13 +459,13 @@ var render = function() {
                         _c(
                           "vs-radio",
                           {
-                            attrs: { "vs-value": "1" },
+                            attrs: { "vs-value": "Male" },
                             model: {
-                              value: _vm.gender,
+                              value: _vm.form.gender,
                               callback: function($$v) {
-                                _vm.gender = $$v
+                                _vm.$set(_vm.form, "gender", $$v)
                               },
-                              expression: "gender"
+                              expression: "form.gender"
                             }
                           },
                           [_vm._v("Male")]
@@ -444,13 +476,13 @@ var render = function() {
                         _c(
                           "vs-radio",
                           {
-                            attrs: { "vs-value": "0" },
+                            attrs: { "vs-value": "Female" },
                             model: {
-                              value: _vm.gender,
+                              value: _vm.form.gender,
                               callback: function($$v) {
-                                _vm.gender = $$v
+                                _vm.$set(_vm.form, "gender", $$v)
                               },
-                              expression: "gender"
+                              expression: "form.gender"
                             }
                           },
                           [_vm._v("Female")]
@@ -491,11 +523,11 @@ var render = function() {
                       "label-placeholder": "First Name"
                     },
                     model: {
-                      value: _vm.FirstName,
+                      value: _vm.form.first_name,
                       callback: function($$v) {
-                        _vm.FirstName = $$v
+                        _vm.$set(_vm.form, "first_name", $$v)
                       },
-                      expression: "FirstName"
+                      expression: "form.first_name"
                     }
                   })
                 ],
@@ -514,11 +546,11 @@ var render = function() {
                       "label-placeholder": "Last Name"
                     },
                     model: {
-                      value: _vm.LastName,
+                      value: _vm.form.last_name,
                       callback: function($$v) {
-                        _vm.LastName = $$v
+                        _vm.$set(_vm.form, "last_name", $$v)
                       },
-                      expression: "LastName"
+                      expression: "form.last_name"
                     }
                   })
                 ],
@@ -541,21 +573,25 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.DOB,
-                            expression: "DOB"
+                            value: _vm.form.birth_date,
+                            expression: "form.birth_date"
                           }
                         ],
                         staticClass:
                           "vs-inputx vs-input--input normal hasIcon hasValue dob-input",
                         staticStyle: { border: "1px solid rgba(0, 0, 0, 0.2)" },
                         attrs: { required: "", type: "date" },
-                        domProps: { value: _vm.DOB },
+                        domProps: { value: _vm.form.birth_date },
                         on: {
                           input: function($event) {
                             if ($event.target.composing) {
                               return
                             }
-                            _vm.DOB = $event.target.value
+                            _vm.$set(
+                              _vm.form,
+                              "birth_date",
+                              $event.target.value
+                            )
                           }
                         }
                       }),
@@ -596,11 +632,11 @@ var render = function() {
                       "label-placeholder": "Address"
                     },
                     model: {
-                      value: _vm.address.address_text,
+                      value: _vm.form.address,
                       callback: function($$v) {
-                        _vm.$set(_vm.address, "address_text", $$v)
+                        _vm.$set(_vm.form, "address", $$v)
                       },
-                      expression: "address.address_text"
+                      expression: "form.address"
                     }
                   })
                 ],
@@ -613,27 +649,21 @@ var render = function() {
                 "div",
                 { staticClass: "vx-col sm:w-1/2 w-full mb-6" },
                 [
-                  _c(
-                    "vs-select",
-                    {
-                      staticClass: "w-full",
-                      attrs: { label: "City" },
-                      model: {
-                        value: _vm.address.city,
-                        callback: function($$v) {
-                          _vm.$set(_vm.address, "city", $$v)
-                        },
-                        expression: "address.city"
-                      }
+                  _c("vs-input", {
+                    staticClass: "w-full",
+                    attrs: {
+                      "icon-pack": "feather",
+                      icon: "icon-map-pin",
+                      "label-placeholder": "City"
                     },
-                    _vm._l(_vm.cities, function(city, index) {
-                      return _c("vs-select-item", {
-                        key: index,
-                        attrs: { value: city, text: city.name }
-                      })
-                    }),
-                    1
-                  )
+                    model: {
+                      value: _vm.form.city,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form, "city", $$v)
+                      },
+                      expression: "form.city"
+                    }
+                  })
                 ],
                 1
               ),
@@ -642,30 +672,21 @@ var render = function() {
                 "div",
                 { staticClass: "vx-col sm:w-1/2 w-full mb-6" },
                 [
-                  _c(
-                    "vs-select",
-                    {
-                      staticClass: "w-full",
-                      attrs: { label: "Country" },
-                      model: {
-                        value: _vm.address.country,
-                        callback: function($$v) {
-                          _vm.$set(_vm.address, "country", $$v)
-                        },
-                        expression: "address.country"
-                      }
+                  _c("vs-input", {
+                    staticClass: "w-full",
+                    attrs: {
+                      "icon-pack": "feather",
+                      icon: "icon-map-pin",
+                      "label-placeholder": "Country"
                     },
-                    _vm._l(_vm.address.city.countries, function(
-                      country,
-                      index
-                    ) {
-                      return _c("vs-select-item", {
-                        key: index,
-                        attrs: { value: country.id, text: country.name }
-                      })
-                    }),
-                    1
-                  )
+                    model: {
+                      value: _vm.form.country,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form, "country", $$v)
+                      },
+                      expression: "form.country"
+                    }
+                  })
                 ],
                 1
               )
@@ -741,11 +762,11 @@ var render = function() {
                       _c(
                         "vs-col",
                         { attrs: { "vs-w": "12" } },
-                        _vm._l(_vm.Telephones, function(telephone) {
+                        _vm._l(_vm.form.phones, function(telephone, index) {
                           return _c(
                             "vs-chip",
                             {
-                              key: telephone,
+                              key: index,
                               attrs: { closable: "" },
                               on: {
                                 click: function($event) {
@@ -756,7 +777,7 @@ var render = function() {
                             [
                               _vm._v(
                                 "\n                                " +
-                                  _vm._s(telephone) +
+                                  _vm._s(telephone.number) +
                                   "\n                            "
                               )
                             ]
@@ -783,11 +804,11 @@ var render = function() {
                       "label-placeholder": "Email"
                     },
                     model: {
-                      value: _vm.Email,
+                      value: _vm.form.email,
                       callback: function($$v) {
-                        _vm.Email = $$v
+                        _vm.$set(_vm.form, "email", $$v)
                       },
-                      expression: "Email"
+                      expression: "form.email"
                     }
                   })
                 ],
@@ -803,16 +824,17 @@ var render = function() {
                   _c("vs-input", {
                     staticClass: "w-full",
                     attrs: {
+                      type: "password",
                       "icon-pack": "feather",
                       icon: "icon-lock",
                       "label-placeholder": "Password"
                     },
                     model: {
-                      value: _vm.password,
+                      value: _vm.form.password,
                       callback: function($$v) {
-                        _vm.password = $$v
+                        _vm.$set(_vm.form, "password", $$v)
                       },
-                      expression: "password"
+                      expression: "form.password"
                     }
                   })
                 ],
@@ -826,16 +848,17 @@ var render = function() {
                   _c("vs-input", {
                     staticClass: "w-full",
                     attrs: {
+                      type: "password",
                       "icon-pack": "feather",
                       icon: "icon-lock",
                       "label-placeholder": "Confirm Password"
                     },
                     model: {
-                      value: _vm.confirmPassword,
+                      value: _vm.form.confirm_password,
                       callback: function($$v) {
-                        _vm.confirmPassword = $$v
+                        _vm.$set(_vm.form, "confirm_password", $$v)
                       },
-                      expression: "confirmPassword"
+                      expression: "form.confirm_password"
                     }
                   })
                 ],
@@ -869,12 +892,20 @@ var render = function() {
                       "vs-button",
                       {
                         attrs: {
+                          id: "btn-create",
                           "icon-pack": "feather",
                           icon: "icon-save",
                           type: "gradient"
+                        },
+                        on: {
+                          click: function($event) {
+                            _vm.is_requesting
+                              ? _vm.$store.dispatch("viewWaitMessage", _vm.$vs)
+                              : _vm.create()
+                          }
                         }
                       },
-                      [_vm._v("Save Employee")]
+                      [_vm._v("Create Employee")]
                     )
                   ],
                   1

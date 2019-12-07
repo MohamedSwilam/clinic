@@ -107621,6 +107621,38 @@ function addSubscriber(callback) {
 
 /***/ }),
 
+/***/ "./resources/js/src/http/requests/employee/index.js":
+/*!**********************************************************!*\
+  !*** ./resources/js/src/http/requests/employee/index.js ***!
+  \**********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _axios_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../axios/index.js */ "./resources/js/src/http/axios/index.js");
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  getAll: function getAll(filters) {
+    //filters=?paginate=5&sortAsc=id
+    return _axios_index_js__WEBPACK_IMPORTED_MODULE_0__["default"].get("employee".concat(filters));
+  },
+  view: function view(id) {
+    return _axios_index_js__WEBPACK_IMPORTED_MODULE_0__["default"].get("employee/".concat(id));
+  },
+  create: function create(data) {
+    return _axios_index_js__WEBPACK_IMPORTED_MODULE_0__["default"].post("employee", data);
+  },
+  update: function update(id, data) {
+    return _axios_index_js__WEBPACK_IMPORTED_MODULE_0__["default"].post("employee/".concat(id), data);
+  },
+  "delete": function _delete(id) {
+    return _axios_index_js__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"]("employee/".concat(id));
+  }
+});
+
+/***/ }),
+
 /***/ "./resources/js/src/http/requests/permission/index.js":
 /*!************************************************************!*\
   !*** ./resources/js/src/http/requests/permission/index.js ***!
@@ -109006,6 +109038,168 @@ var userDefaults = {
 
 /***/ }),
 
+/***/ "./resources/js/src/store/employee/moduleEmployee.js":
+/*!***********************************************************!*\
+  !*** ./resources/js/src/store/employee/moduleEmployee.js ***!
+  \***********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _moduleEmployeeState__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./moduleEmployeeState */ "./resources/js/src/store/employee/moduleEmployeeState.js");
+/* harmony import */ var _moduleEmployeeMutations__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./moduleEmployeeMutations */ "./resources/js/src/store/employee/moduleEmployeeMutations.js");
+/* harmony import */ var _moduleEmployeeActions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./moduleEmployeeActions */ "./resources/js/src/store/employee/moduleEmployeeActions.js");
+/* harmony import */ var _moduleEmployeeGetters__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./moduleEmployeeGetters */ "./resources/js/src/store/employee/moduleEmployeeGetters.js");
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  namespaced: true,
+  state: _moduleEmployeeState__WEBPACK_IMPORTED_MODULE_0__["default"],
+  mutations: _moduleEmployeeMutations__WEBPACK_IMPORTED_MODULE_1__["default"],
+  actions: _moduleEmployeeActions__WEBPACK_IMPORTED_MODULE_2__["default"],
+  getters: _moduleEmployeeGetters__WEBPACK_IMPORTED_MODULE_3__["default"]
+});
+
+/***/ }),
+
+/***/ "./resources/js/src/store/employee/moduleEmployeeActions.js":
+/*!******************************************************************!*\
+  !*** ./resources/js/src/store/employee/moduleEmployeeActions.js ***!
+  \******************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _http_requests_employee_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../http/requests/employee/index */ "./resources/js/src/http/requests/employee/index.js");
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  getData: function getData(_ref, payload) {
+    var commit = _ref.commit,
+        dispatch = _ref.dispatch;
+    return new Promise(function (resolve, reject) {
+      _http_requests_employee_index__WEBPACK_IMPORTED_MODULE_0__["default"].getAll(payload).then(function (response) {
+        resolve(response);
+      })["catch"](function (error) {
+        dispatch('handleError', {
+          reject: reject,
+          error: error
+        }, {
+          root: true
+        });
+      });
+    });
+  },
+  view: function view(_ref2, id) {
+    var commit = _ref2.commit,
+        dispatch = _ref2.dispatch;
+    return new Promise(function (resolve, reject) {
+      _http_requests_employee_index__WEBPACK_IMPORTED_MODULE_0__["default"].view(id).then(function (response) {
+        resolve(response);
+      })["catch"](function (error) {
+        dispatch('handleError', {
+          reject: reject,
+          error: error
+        }, {
+          root: true
+        });
+      });
+    });
+  },
+  create: function create(_ref3, payload) {
+    var commit = _ref3.commit,
+        dispatch = _ref3.dispatch;
+    return new Promise(function (resolve, reject) {
+      _http_requests_employee_index__WEBPACK_IMPORTED_MODULE_0__["default"].create(payload).then(function (response) {
+        resolve(response);
+      })["catch"](function (error) {
+        dispatch('handleError', {
+          reject: reject,
+          error: error
+        }, {
+          root: true
+        });
+      });
+    });
+  },
+  update: function update(_ref4, payload) {
+    var commit = _ref4.commit,
+        dispatch = _ref4.dispatch;
+    return new Promise(function (resolve, reject) {
+      _http_requests_employee_index__WEBPACK_IMPORTED_MODULE_0__["default"].update(payload.id, payload.data).then(function (response) {
+        resolve(response);
+      })["catch"](function (error) {
+        dispatch('handleError', {
+          reject: reject,
+          error: error
+        }, {
+          root: true
+        });
+      });
+    });
+  },
+  "delete": function _delete(_ref5, id) {
+    var commit = _ref5.commit,
+        dispatch = _ref5.dispatch;
+    return new Promise(function (resolve, reject) {
+      _http_requests_employee_index__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"](id).then(function (response) {
+        resolve(response);
+      })["catch"](function (error) {
+        dispatch('handleError', {
+          reject: reject,
+          error: error
+        }, {
+          root: true
+        });
+      });
+    });
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/src/store/employee/moduleEmployeeGetters.js":
+/*!******************************************************************!*\
+  !*** ./resources/js/src/store/employee/moduleEmployeeGetters.js ***!
+  \******************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({});
+
+/***/ }),
+
+/***/ "./resources/js/src/store/employee/moduleEmployeeMutations.js":
+/*!********************************************************************!*\
+  !*** ./resources/js/src/store/employee/moduleEmployeeMutations.js ***!
+  \********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({});
+
+/***/ }),
+
+/***/ "./resources/js/src/store/employee/moduleEmployeeState.js":
+/*!****************************************************************!*\
+  !*** ./resources/js/src/store/employee/moduleEmployeeState.js ***!
+  \****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({});
+
+/***/ }),
+
 /***/ "./resources/js/src/store/getters.js":
 /*!*******************************************!*\
   !*** ./resources/js/src/store/getters.js ***!
@@ -109726,9 +109920,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./actions */ "./resources/js/src/store/actions.js");
 /* harmony import */ var vuex_persist__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuex-persist */ "./node_modules/vuex-persist/dist/esm/index.js");
 /* harmony import */ var _auth_moduleAuth_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./auth/moduleAuth.js */ "./resources/js/src/store/auth/moduleAuth.js");
-/* harmony import */ var _reservation_type_moduleReservationType__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./reservation-type/moduleReservationType */ "./resources/js/src/store/reservation-type/moduleReservationType.js");
-/* harmony import */ var _reservation_duration_moduleReservationDuration__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./reservation-duration/moduleReservationDuration */ "./resources/js/src/store/reservation-duration/moduleReservationDuration.js");
-/* harmony import */ var _roles_and_permissions_moduleRolesAndPermissions__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./roles-and-permissions/moduleRolesAndPermissions */ "./resources/js/src/store/roles-and-permissions/moduleRolesAndPermissions.js");
+/* harmony import */ var _employee_moduleEmployee__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./employee/moduleEmployee */ "./resources/js/src/store/employee/moduleEmployee.js");
+/* harmony import */ var _reservation_type_moduleReservationType__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./reservation-type/moduleReservationType */ "./resources/js/src/store/reservation-type/moduleReservationType.js");
+/* harmony import */ var _reservation_duration_moduleReservationDuration__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./reservation-duration/moduleReservationDuration */ "./resources/js/src/store/reservation-duration/moduleReservationDuration.js");
+/* harmony import */ var _roles_and_permissions_moduleRolesAndPermissions__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./roles-and-permissions/moduleRolesAndPermissions */ "./resources/js/src/store/roles-and-permissions/moduleRolesAndPermissions.js");
 
 
 
@@ -109737,6 +109932,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
+
 
 
 
@@ -109752,9 +109948,10 @@ var vuexLocal = new vuex_persist__WEBPACK_IMPORTED_MODULE_6__["default"]({
   actions: _actions__WEBPACK_IMPORTED_MODULE_5__["default"],
   modules: {
     auth: _auth_moduleAuth_js__WEBPACK_IMPORTED_MODULE_7__["default"],
-    rolesAndPermissions: _roles_and_permissions_moduleRolesAndPermissions__WEBPACK_IMPORTED_MODULE_10__["default"],
-    reservationType: _reservation_type_moduleReservationType__WEBPACK_IMPORTED_MODULE_8__["default"],
-    reservationDuration: _reservation_duration_moduleReservationDuration__WEBPACK_IMPORTED_MODULE_9__["default"]
+    employee: _employee_moduleEmployee__WEBPACK_IMPORTED_MODULE_8__["default"],
+    rolesAndPermissions: _roles_and_permissions_moduleRolesAndPermissions__WEBPACK_IMPORTED_MODULE_11__["default"],
+    reservationType: _reservation_type_moduleReservationType__WEBPACK_IMPORTED_MODULE_9__["default"],
+    reservationDuration: _reservation_duration_moduleReservationDuration__WEBPACK_IMPORTED_MODULE_10__["default"]
   },
   plugins: [vuexLocal.plugin],
   strict: "development" !== 'production'
