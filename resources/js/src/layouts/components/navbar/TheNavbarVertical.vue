@@ -1,13 +1,3 @@
-<!-- =========================================================================================
-  File Name: TheNavbar.vue
-  Description: Navbar component
-  Component Name: TheNavbar
-  ----------------------------------------------------------------------------------------
-  Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
-  Author: Pixinvent
-  Author URL: http://www.themeforest.net/user/pixinvent
-========================================================================================== -->
-
 
 <template>
 <div class="relative">
@@ -17,57 +7,57 @@
       <!-- SM - OPEN SIDEBAR BUTTON -->
       <feather-icon class="sm:inline-flex xl:hidden cursor-pointer mr-1" icon="MenuIcon" @click.stop="showSidebar"></feather-icon>
 
-      <template v-if="windowWidth >= 992">
+<!--      <template v-if="windowWidth >= 992">-->
         <!-- STARRED PAGES - FIRST 10 -->
-        <ul class="vx-navbar__starred-pages">
-          <draggable v-model="starredPagesLimited" :group="{name: 'pinList'}" class="flex cursor-move">
-            <li class="starred-page" v-for="page in starredPagesLimited" :key="page.url">
-              <vx-tooltip :text="page.label" position="bottom" delay=".3s">
-                <feather-icon svgClasses="h-6 w-6" class="p-2 cursor-pointer" :icon="page.labelIcon" @click="$router.push(page.url).catch(() => {})" />
-              </vx-tooltip>
-            </li>
-          </draggable>
-        </ul>
+<!--        <ul class="vx-navbar__starred-pages">-->
+<!--          <draggable v-model="starredPagesLimited" :group="{name: 'pinList'}" class="flex cursor-move">-->
+<!--            <li class="starred-page" v-for="page in starredPagesLimited" :key="page.url">-->
+<!--              <vx-tooltip :text="page.label" position="bottom" delay=".3s">-->
+<!--                <feather-icon svgClasses="h-6 w-6" class="p-2 cursor-pointer" :icon="page.labelIcon" @click="$router.push(page.url).catch(() => {})" />-->
+<!--              </vx-tooltip>-->
+<!--            </li>-->
+<!--          </draggable>-->
+<!--        </ul>-->
 
         <!-- STARRED PAGES MORE -->
-        <div class="vx-navbar__starred-pages--more-dropdown" v-if="starredPagesMore.length">
-          <vs-dropdown vs-custom-content vs-trigger-click>
-            <feather-icon icon="ChevronDownIcon" svgClasses="h-4 w-4" class="cursor-pointer p-2"></feather-icon>
-            <vs-dropdown-menu>
-              <ul class="vx-navbar__starred-pages-more--list">
-                <draggable v-model="starredPagesMore" :group="{name: 'pinList'}" class="cursor-move">
-                  <li class="starred-page--more flex items-center cursor-pointer" v-for="page in starredPagesMore" :key="page.url" @click="$router.push(page.url).catch(() => {})">
-                    <feather-icon svgClasses="h-5 w-5" class="ml-2 mr-1" :icon="page.labelIcon"></feather-icon>
-                    <span class="px-2 pt-2 pb-1">{{ page.label }}</span>
-                  </li>
-                </draggable>
-              </ul>
-            </vs-dropdown-menu>
-          </vs-dropdown>
-        </div>
+<!--        <div class="vx-navbar__starred-pages&#45;&#45;more-dropdown" v-if="starredPagesMore.length">-->
+<!--          <vs-dropdown vs-custom-content vs-trigger-click>-->
+<!--            <feather-icon icon="ChevronDownIcon" svgClasses="h-4 w-4" class="cursor-pointer p-2"></feather-icon>-->
+<!--            <vs-dropdown-menu>-->
+<!--              <ul class="vx-navbar__starred-pages-more&#45;&#45;list">-->
+<!--                <draggable v-model="starredPagesMore" :group="{name: 'pinList'}" class="cursor-move">-->
+<!--                  <li class="starred-page&#45;&#45;more flex items-center cursor-pointer" v-for="page in starredPagesMore" :key="page.url" @click="$router.push(page.url).catch(() => {})">-->
+<!--                    <feather-icon svgClasses="h-5 w-5" class="ml-2 mr-1" :icon="page.labelIcon"></feather-icon>-->
+<!--                    <span class="px-2 pt-2 pb-1">{{ page.label }}</span>-->
+<!--                  </li>-->
+<!--                </draggable>-->
+<!--              </ul>-->
+<!--            </vs-dropdown-menu>-->
+<!--          </vs-dropdown>-->
+<!--        </div>-->
 
-        <div class="bookmark-container">
-          <feather-icon icon="StarIcon" :svgClasses="['stoke-current text-warning', {'text-white': navbarColor != '#fff'}]" class="cursor-pointer p-2" @click.stop="showBookmarkPagesDropdown = !showBookmarkPagesDropdown" />
-                    <div v-click-outside="outside" class="absolute bookmark-list w-1/3 xl:w-1/4 mt-4" v-if="showBookmarkPagesDropdown">
-          <vx-auto-suggest :autoFocus="true" :data="navbarSearchAndPinList" @selected="selected" @actionClicked="actionClicked" inputClassses="w-full" show-action show-pinned background-overlay></vx-auto-suggest>
-          </div>
-        </div>
-      </template>
+<!--        <div class="bookmark-container">-->
+<!--          <feather-icon icon="StarIcon" :svgClasses="['stoke-current text-warning', {'text-white': navbarColor != '#fff'}]" class="cursor-pointer p-2" @click.stop="showBookmarkPagesDropdown = !showBookmarkPagesDropdown" />-->
+<!--                    <div v-click-outside="outside" class="absolute bookmark-list w-1/3 xl:w-1/4 mt-4" v-if="showBookmarkPagesDropdown">-->
+<!--          <vx-auto-suggest :autoFocus="true" :data="navbarSearchAndPinList" @selected="selected" @actionClicked="actionClicked" inputClassses="w-full" show-action show-pinned background-overlay></vx-auto-suggest>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </template>-->
 
 
       <vs-spacer />
 
         <!-- I18N -->
-        <vs-dropdown vs-custom-content vs-trigger-click class="cursor-pointer mr-5">
-        <span class="cursor-pointer flex items-center i18n-locale">
-          <img class="h-4 w-5" :src="i18n_locale_img" :alt="$i18n.locale" />
-          <span class="hidden sm:block ml-2">{{ getCurrentLocaleData.lang }}</span>
-        </span>
-            <vs-dropdown-menu class="w-48 i18n-dropdown vx-navbar-dropdown">
-                <vs-dropdown-item @click="updateLocale('en')"><img class="h-4 w-5 mr-2" src="@assets/images/flags/en.png" alt="en" /> &nbsp;English</vs-dropdown-item>
-                <vs-dropdown-item @click="updateLocale('ar')"><img class="h-4 w-5 mr-2" src="@assets/images/flags/fr.png" alt="ar" /> &nbsp;Arabic</vs-dropdown-item>
-            </vs-dropdown-menu>
-        </vs-dropdown>
+<!--        <vs-dropdown vs-custom-content vs-trigger-click class="cursor-pointer mr-5">-->
+<!--        <span class="cursor-pointer flex items-center i18n-locale">-->
+<!--          <img class="h-4 w-5" :src="i18n_locale_img" :alt="$i18n.locale" />-->
+<!--          <span class="hidden sm:block ml-2">{{ getCurrentLocaleData.lang }}</span>-->
+<!--        </span>-->
+<!--            <vs-dropdown-menu class="w-48 i18n-dropdown vx-navbar-dropdown">-->
+<!--                <vs-dropdown-item @click="updateLocale('en')"><img class="h-4 w-5 mr-2" src="@assets/images/flags/en.png" alt="en" /> &nbsp;English</vs-dropdown-item>-->
+<!--                <vs-dropdown-item @click="updateLocale('ar')"><img class="h-4 w-5 mr-2" src="@assets/images/flags/fr.png" alt="ar" /> &nbsp;Arabic</vs-dropdown-item>-->
+<!--            </vs-dropdown-menu>-->
+<!--        </vs-dropdown>-->
 
 
       <!-- SEARCHBAR -->

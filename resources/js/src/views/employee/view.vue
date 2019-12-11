@@ -1,33 +1,56 @@
 <template>
     <div>
         <div class="vx-col w-full mb-base">
-            <vx-card title="Personal Information" collapseAction>
-                <vs-row>
+            <vx-card ref="view" title="Personal Information" collapseAction>
+                <vs-row v-if="employee">
                     <vs-row class="mb-5">
                         <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-w="12">
-                            <img src="/images/avatar-s-3.png" alt="Employee Photo">
+                            <vs-avatar class="mx-auto mb-2 block" size="120px" :src="employee.image" />
                         </vs-col>
                     </vs-row>
                     <vs-row class="mb-2">
                         <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-w="12">
-                            Phil Gray
+                            {{employee.first_name}} {{employee.last_name}}
                         </vs-col>
                     </vs-row>
                     <vs-row class="mb-2">
                         <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-w="12">
-                            Phil_Gray@hotmail.com
+                            {{employee.roles[0].name}}
                         </vs-col>
                     </vs-row>
                     <vs-row class="mb-2">
                         <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-w="12">
-                            01096436702 , 01113689783
+                            {{employee.email}}
+                        </vs-col>
+                    </vs-row>
+                    <vs-row class="mb-2">
+                        <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-w="12">
+                            Birth Date: {{employee.birth_date}}
+                        </vs-col>
+                    </vs-row>
+                    <vs-row class="mb-2">
+                        <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-w="12">
+                            Address: {{employee.address}} - {{employee.city}}, {{employee.country}}
+                        </vs-col>
+                    </vs-row>
+                    <vs-row class="mb-2">
+                        <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-w="12">
+                            <p class="text-grey">
+                                <template v-for="(phone, index) in employee.phones">
+                                    <span class="txt-hover" @click="copyToClipboard(phone.number)">{{ phone.number }}</span>
+                                    <template v-if="index !== employee.phones.length-1">, </template>
+                                </template>
+                                <template v-if="employee.phones.length===0">
+                                    No Telephones Assigned!
+                                </template>
+                            </p>
                         </vs-col>
                     </vs-row>
                 </vs-row>
             </vx-card>
         </div>
 
-        <div class="vx-col w-full mb-base">
+        <div class="vx-col w-full mb-base" v-if="this.appointments.length>0">
             <vx-card title="Appointments" collapseAction>
                 <vs-table :sst="true"
                           @search="handleSearch"
@@ -167,16 +190,39 @@
     export default {
         name: "viewData",
         mounted() {
-            this.getAppointments();
+            // this.getAppointments();
+            this.getEmployeeData();
         },
         data: () => {
             return {
+                employee: null,
+
                 appointments: [],
 
                 filterData: []
             }
         },
         methods: {
+            getEmployeeData() {
+                this.$vs.loading({container: this.$refs.view.$refs.content, scale: 0.5});
+                this.$store.dispatch('employee/view', this.$route.params.id)
+                    .then(response => {
+                        this.$vs.loading.close(this.$refs.view.$refs.content);
+                        this.employee = response.data.data.data;
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        this.$vs.loading.close(this.$refs.view.$refs.content);
+                        this.$vs.notify({
+                            title: 'Error',
+                            text: error.response.data.error,
+                            iconPack: 'feather',
+                            icon: 'icon-alert-circle',
+                            color: 'danger'
+                        });
+                    });
+            },
+
             handleSearch()
             {
 
@@ -379,6 +425,49 @@
                     },
                 ];
             },
+            copyToClipboard(text) {
+                if (window.clipboardData && window.clipboardData.setData) {
+                    // IE specific code path to prevent textarea being shown while dialog is visible.
+                    this.onCopy();
+                    return clipboardData.setData("Text", text);
+
+                } else if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
+                    var textarea = document.createElement("textarea");
+                    textarea.textContent = text;
+                    textarea.style.position = "fixed";  // Prevent scrolling to bottom of page in MS Edge.
+                    document.body.appendChild(textarea);
+                    textarea.select();
+                    try {
+                        this.onCopy();
+                        return document.execCommand("copy");  // Security exception may be thrown by some browsers.
+                    } catch (ex) {
+                        this.onError();
+                        return false;
+                    } finally {
+                        document.body.removeChild(textarea);
+                    }
+                }
+            },
+            onCopy() {
+                this.$vs.notify({
+                    title: 'Success!',
+                    text: 'Text copied successfully.',
+                    color: 'success',
+                    iconPack: 'feather',
+                    position: 'bottom-right',
+                    icon: 'icon-check-circle'
+                });
+            },
+            onError() {
+                this.$vs.notify({
+                    title: 'Failed!',
+                    text: 'Error in copying text.',
+                    color: 'danger',
+                    iconPack: 'feather',
+                    position: 'bottom-right',
+                    icon: 'icon-alert-circle'
+                })
+            },
         }
     }
 </script>
@@ -394,6 +483,10 @@
     }
     .con-select .vs-select {
         width: 100%
+    }
+    .txt-hover:hover{
+        cursor: pointer;
+        color: black !important;
     }
     @media (max-width: 550px) {
         .con-select {

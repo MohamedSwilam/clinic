@@ -357,13 +357,13 @@ const router = new Router({
     ],
 });
 
-// router.afterEach(() => {
-//     // Remove initial loading
-//     const appLoading = document.getElementById('loading-bg')
-//     if (appLoading) {
-//         appLoading.style.display = "none";
-//     }
-// });
+router.afterEach(() => {
+    // Remove initial loading
+    const appLoading = document.getElementById('loading-bg')
+    if (appLoading) {
+        appLoading.style.display = "none";
+    }
+});
 
 function can(permission) {
     let hasPermission = false;

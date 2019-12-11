@@ -27,7 +27,7 @@ class EmployeeController extends Controller
         return $this->respond(
             'Data Loaded Successfully',
             fractal(
-                (new IndexResponse(User::employees()))->execute()
+                (new IndexResponse(User::employees()->with(['roles', 'phones'])))->execute()
                 , new UserTransformer()
             )
         );
@@ -52,7 +52,10 @@ class EmployeeController extends Controller
         $user = User::create($data);
 
         foreach (json_decode($request->phones) as $phone){
-            $phone= Phone::create([$phone]);
+            $phone= Phone::create([
+                'number' => $phone->number,
+                'country_code' => $phone->country_code,
+            ]);
             $user->phones()->save($phone);
         }
 
@@ -79,7 +82,7 @@ class EmployeeController extends Controller
         $this->authorize('index', User::class);
         return $this->respond('fetched successfully', fractal(
             User::where('id', $id)
-                ->with('roles', 'permissions', 'roles.permissions')
+                ->with('roles', 'permissions', 'roles.permissions', 'phones')
             ->first(),
             new UserTransformer()
             )
@@ -107,10 +110,18 @@ class EmployeeController extends Controller
 
         $user->update($data);
 
-        foreach ($data['phones'] as $phone){
-            $phone= Phone::create($phone);
+        foreach (json_decode($request->phones) as $phone){
+            $phone= Phone::create([
+                'number' => $phone->number,
+                'country_code' => $phone->country_code,
+            ]);
             $user->phones()->save($phone);
         }
+
+//        foreach ($data['phones'] as $phone){
+//            $phone= Phone::create($phone);
+//            $user->phones()->save($phone);
+//        }
 
         if ($request->role){
             $user->syncRoles($request->role);

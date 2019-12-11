@@ -39,10 +39,10 @@
 
                 <div class="vx-row">
                     <div class="vx-col sm:w-1/2 w-full mb-6">
-                        <vs-input class="w-full" icon-pack="feather" icon="icon-user" label-placeholder="First Name" v-model="form.first_name" />
+                        <vs-input name="first_name" v-validate="'required|alpha_dash|min:3'" :danger="errors.has('first_name')" val-icon-danger="clear" :danger-text="errors.first('first_name')" class="w-full" icon-pack="feather" icon="icon-user" label-placeholder="First Name" v-model="form.first_name" />
                     </div>
                     <div class="vx-col sm:w-1/2 w-full mb-6">
-                        <vs-input class="w-full" icon-pack="feather" icon="icon-user" label-placeholder="Last Name" v-model="form.last_name" />
+                        <vs-input name="last_name" v-validate="'required|alpha_dash|min:3'" :danger="errors.has('last_name')" val-icon-danger="clear" :danger-text="errors.first('last_name')" class="w-full" icon-pack="feather" icon="icon-user" label-placeholder="Last Name" v-model="form.last_name" />
                     </div>
                 </div>
                 <div class="vx-row">
@@ -60,16 +60,16 @@
                     </div>
 
                     <div class="vx-col sm:w-1/2 w-full mb-6">
-                        <vs-input class="w-full" icon-pack="feather" icon="icon-map-pin" label-placeholder="Address" v-model="form.address" />
+                        <vs-input name="address" v-validate="'required'" :danger="errors.has('address')" val-icon-danger="clear" :danger-text="errors.first('address')" class="w-full" icon-pack="feather" icon="icon-map-pin" label-placeholder="Address" v-model="form.address" />
                     </div>
                 </div>
                 <div class="vx-row">
                     <div class="vx-col sm:w-1/2 w-full mb-6">
-                        <vs-input class="w-full" icon-pack="feather" icon="icon-map-pin" label-placeholder="City" v-model="form.city" />
+                        <vs-input name="city" v-validate="'required'" :danger="errors.has('city')" val-icon-danger="clear" :danger-text="errors.first('city')" class="w-full" icon-pack="feather" icon="icon-map-pin" label-placeholder="City" v-model="form.city" />
                     </div>
 
                     <div class="vx-col sm:w-1/2 w-full mb-6">
-                        <vs-input class="w-full" icon-pack="feather" icon="icon-map-pin" label-placeholder="Country" v-model="form.country" />
+                        <vs-input name="country" v-validate="'required'" :danger="errors.has('country')" val-icon-danger="clear" :danger-text="errors.first('country')" class="w-full" icon-pack="feather" icon="icon-map-pin" label-placeholder="Country" v-model="form.country" />
                     </div>
                 </div>
                 <div class="vx-row">
@@ -97,22 +97,22 @@
                     </div>
 
                     <div class="vx-col sm:w-1/2 w-full mb-6">
-                        <vs-input class="w-full" icon-pack="feather" icon="icon-mail" label-placeholder="Email" v-model="form.email" />
+                        <vs-input name="email" v-validate="'required|email'" :danger="errors.has('email')" val-icon-danger="clear" :danger-text="errors.first('email')" class="w-full" icon-pack="feather" icon="icon-mail" label-placeholder="Email" v-model="form.email" />
                     </div>
                 </div>
 
                 <div class="vx-row">
                     <div class="vx-col sm:w-1/2 w-full mb-6">
-                        <vs-input type="password" class="w-full" icon-pack="feather" icon="icon-lock" label-placeholder="Password" v-model="form.password" />
+                        <vs-input ref="password" name="password" v-validate="'required|min:6|max:10'" :danger="errors.has('password')" val-icon-danger="clear" :danger-text="errors.first('password')" type="password" class="w-full" icon-pack="feather" icon="icon-lock" label-placeholder="Password" v-model="form.password" />
                     </div>
                     <div class="vx-col sm:w-1/2 w-full mb-6">
-                        <vs-input type="password" class="w-full" icon-pack="feather" icon="icon-lock" label-placeholder="Confirm Password" v-model="form.confirm_password" />
+                        <vs-input type="password" name="confirm_password" v-validate="'min:6|max:10|confirmed:password'" :danger="errors.has('confirm_password')" val-icon-danger="clear" :danger-text="errors.first('confirm_password')" class="w-full" icon-pack="feather" icon="icon-lock" label-placeholder="Confirm Password" v-model="form.confirm_password" />
                     </div>
                 </div>
 
                 <vs-row vs-align="center" vs-type="flex" vs-justify="center" vs-w="12">
                     <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-w="12">
-                        <vs-button id="btn-create" @click="is_requesting?$store.dispatch('viewWaitMessage', $vs):create()" icon-pack="feather" icon="icon-save" type="gradient">Create Employee</vs-button>
+                        <vs-button id="btn-create" :disabled="!validateForm" @click="is_requesting?$store.dispatch('viewWaitMessage', $vs):create()" icon-pack="feather" icon="icon-save" type="gradient">Create Employee</vs-button>
                     </vs-col>
                 </vs-row>
             </vx-card>
@@ -126,12 +126,18 @@
         mounted() {
           this.getRoles();
         },
+        computed: {
+            validateForm() {
+                return !this.errors.any() && this.form.first_name !== "" && this.form.last_name !== "" && this.form.email !== '' && this.form.address !== '' && this.form.country !== '' && this.form.city !== '' && this.form.password !== '' && this.form.confirm_password !== '';
+            }
+        },
         data: function () {
             return {
                 roles: [],
                 form: {
                     email: '',
                     password: '',
+                    confirm_password: '',
                     first_name: '',
                     last_name: '',
                     birth_date: '',
@@ -173,14 +179,18 @@
             },
 
             create() {
+                if (!this.validateForm) return;
+
                 this.is_requesting=true;
                 this.$vs.loading({container: `#btn-create`, color: 'primary', scale: 0.45});
                 let form_data = new FormData();
 
                 for (let key in this.form ) {
-                    if ((key === 'image') && this.form.hasOwnProperty(key) && this.form[key]){
-                        for (let i=0; i<this.form[key].length; i++){
-                            form_data.append(key, this.form[key][i]);
+                    if ((key === 'image') && this.form.hasOwnProperty(key)){
+                        if (this.form[key]) {
+                            for (let i=0; i<this.form[key].length; i++){
+                                form_data.append(key, this.form[key][i]);
+                            }
                         }
                     } else if(key === 'phones'){
                         form_data.append(key, JSON.stringify(this.form[key]));
@@ -193,6 +203,7 @@
                     .then(response => {
                         this.is_requesting=false;
                         this.$vs.loading.close(`#btn-create > .con-vs-loading`);
+                        this.$router.push(`/dashboard/employee/${response.data.data.data.id}`);
                         this.$vs.notify({
                             title: 'Success',
                             text: response.data.message,

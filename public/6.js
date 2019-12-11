@@ -136,12 +136,18 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     this.getRoles();
   },
+  computed: {
+    validateForm: function validateForm() {
+      return !this.errors.any() && this.form.first_name !== "" && this.form.last_name !== "" && this.form.email !== '' && this.form.address !== '' && this.form.country !== '' && this.form.city !== '' && this.form.password !== '' && this.form.confirm_password !== '';
+    }
+  },
   data: function data() {
     return {
       roles: [],
       form: {
         email: '',
         password: '',
+        confirm_password: '',
         first_name: '',
         last_name: '',
         birth_date: '',
@@ -189,6 +195,7 @@ __webpack_require__.r(__webpack_exports__);
     create: function create() {
       var _this2 = this;
 
+      if (!this.validateForm) return;
       this.is_requesting = true;
       this.$vs.loading({
         container: "#btn-create",
@@ -198,9 +205,11 @@ __webpack_require__.r(__webpack_exports__);
       var form_data = new FormData();
 
       for (var key in this.form) {
-        if (key === 'image' && this.form.hasOwnProperty(key) && this.form[key]) {
-          for (var i = 0; i < this.form[key].length; i++) {
-            form_data.append(key, this.form[key][i]);
+        if (key === 'image' && this.form.hasOwnProperty(key)) {
+          if (this.form[key]) {
+            for (var i = 0; i < this.form[key].length; i++) {
+              form_data.append(key, this.form[key][i]);
+            }
           }
         } else if (key === 'phones') {
           form_data.append(key, JSON.stringify(this.form[key]));
@@ -213,6 +222,8 @@ __webpack_require__.r(__webpack_exports__);
         _this2.is_requesting = false;
 
         _this2.$vs.loading.close("#btn-create > .con-vs-loading");
+
+        _this2.$router.push("/dashboard/employee/".concat(response.data.data.data.id));
 
         _this2.$vs.notify({
           title: 'Success',
@@ -516,8 +527,20 @@ var render = function() {
                 { staticClass: "vx-col sm:w-1/2 w-full mb-6" },
                 [
                   _c("vs-input", {
+                    directives: [
+                      {
+                        name: "validate",
+                        rawName: "v-validate",
+                        value: "required|alpha_dash|min:3",
+                        expression: "'required|alpha_dash|min:3'"
+                      }
+                    ],
                     staticClass: "w-full",
                     attrs: {
+                      name: "first_name",
+                      danger: _vm.errors.has("first_name"),
+                      "val-icon-danger": "clear",
+                      "danger-text": _vm.errors.first("first_name"),
                       "icon-pack": "feather",
                       icon: "icon-user",
                       "label-placeholder": "First Name"
@@ -539,8 +562,20 @@ var render = function() {
                 { staticClass: "vx-col sm:w-1/2 w-full mb-6" },
                 [
                   _c("vs-input", {
+                    directives: [
+                      {
+                        name: "validate",
+                        rawName: "v-validate",
+                        value: "required|alpha_dash|min:3",
+                        expression: "'required|alpha_dash|min:3'"
+                      }
+                    ],
                     staticClass: "w-full",
                     attrs: {
+                      name: "last_name",
+                      danger: _vm.errors.has("last_name"),
+                      "val-icon-danger": "clear",
+                      "danger-text": _vm.errors.first("last_name"),
                       "icon-pack": "feather",
                       icon: "icon-user",
                       "label-placeholder": "Last Name"
@@ -625,8 +660,20 @@ var render = function() {
                 { staticClass: "vx-col sm:w-1/2 w-full mb-6" },
                 [
                   _c("vs-input", {
+                    directives: [
+                      {
+                        name: "validate",
+                        rawName: "v-validate",
+                        value: "required",
+                        expression: "'required'"
+                      }
+                    ],
                     staticClass: "w-full",
                     attrs: {
+                      name: "address",
+                      danger: _vm.errors.has("address"),
+                      "val-icon-danger": "clear",
+                      "danger-text": _vm.errors.first("address"),
                       "icon-pack": "feather",
                       icon: "icon-map-pin",
                       "label-placeholder": "Address"
@@ -650,8 +697,20 @@ var render = function() {
                 { staticClass: "vx-col sm:w-1/2 w-full mb-6" },
                 [
                   _c("vs-input", {
+                    directives: [
+                      {
+                        name: "validate",
+                        rawName: "v-validate",
+                        value: "required",
+                        expression: "'required'"
+                      }
+                    ],
                     staticClass: "w-full",
                     attrs: {
+                      name: "city",
+                      danger: _vm.errors.has("city"),
+                      "val-icon-danger": "clear",
+                      "danger-text": _vm.errors.first("city"),
                       "icon-pack": "feather",
                       icon: "icon-map-pin",
                       "label-placeholder": "City"
@@ -673,8 +732,20 @@ var render = function() {
                 { staticClass: "vx-col sm:w-1/2 w-full mb-6" },
                 [
                   _c("vs-input", {
+                    directives: [
+                      {
+                        name: "validate",
+                        rawName: "v-validate",
+                        value: "required",
+                        expression: "'required'"
+                      }
+                    ],
                     staticClass: "w-full",
                     attrs: {
+                      name: "country",
+                      danger: _vm.errors.has("country"),
+                      "val-icon-danger": "clear",
+                      "danger-text": _vm.errors.first("country"),
                       "icon-pack": "feather",
                       icon: "icon-map-pin",
                       "label-placeholder": "Country"
@@ -797,8 +868,20 @@ var render = function() {
                 { staticClass: "vx-col sm:w-1/2 w-full mb-6" },
                 [
                   _c("vs-input", {
+                    directives: [
+                      {
+                        name: "validate",
+                        rawName: "v-validate",
+                        value: "required|email",
+                        expression: "'required|email'"
+                      }
+                    ],
                     staticClass: "w-full",
                     attrs: {
+                      name: "email",
+                      danger: _vm.errors.has("email"),
+                      "val-icon-danger": "clear",
+                      "danger-text": _vm.errors.first("email"),
                       "icon-pack": "feather",
                       icon: "icon-mail",
                       "label-placeholder": "Email"
@@ -822,8 +905,21 @@ var render = function() {
                 { staticClass: "vx-col sm:w-1/2 w-full mb-6" },
                 [
                   _c("vs-input", {
+                    directives: [
+                      {
+                        name: "validate",
+                        rawName: "v-validate",
+                        value: "required|min:6|max:10",
+                        expression: "'required|min:6|max:10'"
+                      }
+                    ],
+                    ref: "password",
                     staticClass: "w-full",
                     attrs: {
+                      name: "password",
+                      danger: _vm.errors.has("password"),
+                      "val-icon-danger": "clear",
+                      "danger-text": _vm.errors.first("password"),
                       type: "password",
                       "icon-pack": "feather",
                       icon: "icon-lock",
@@ -846,9 +942,21 @@ var render = function() {
                 { staticClass: "vx-col sm:w-1/2 w-full mb-6" },
                 [
                   _c("vs-input", {
+                    directives: [
+                      {
+                        name: "validate",
+                        rawName: "v-validate",
+                        value: "min:6|max:10|confirmed:password",
+                        expression: "'min:6|max:10|confirmed:password'"
+                      }
+                    ],
                     staticClass: "w-full",
                     attrs: {
                       type: "password",
+                      name: "confirm_password",
+                      danger: _vm.errors.has("confirm_password"),
+                      "val-icon-danger": "clear",
+                      "danger-text": _vm.errors.first("confirm_password"),
                       "icon-pack": "feather",
                       icon: "icon-lock",
                       "label-placeholder": "Confirm Password"
@@ -893,6 +1001,7 @@ var render = function() {
                       {
                         attrs: {
                           id: "btn-create",
+                          disabled: !_vm.validateForm,
                           "icon-pack": "feather",
                           icon: "icon-save",
                           type: "gradient"

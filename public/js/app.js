@@ -7790,16 +7790,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'vx-breadcrumb'
 });
@@ -108721,13 +108711,15 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     path: '*',
     redirect: '/error-404'
   }]
-}); // router.afterEach(() => {
-//     // Remove initial loading
-//     const appLoading = document.getElementById('loading-bg')
-//     if (appLoading) {
-//         appLoading.style.display = "none";
-//     }
-// });
+});
+router.afterEach(function () {
+  // Remove initial loading
+  var appLoading = document.getElementById('loading-bg');
+
+  if (appLoading) {
+    appLoading.style.display = "none";
+  }
+});
 
 function can(permission) {
   var hasPermission = false;

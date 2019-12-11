@@ -80,6 +80,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -91,41 +93,86 @@ __webpack_require__.r(__webpack_exports__);
     return {
       searchText: "",
       resultTime: 0,
-      employees: []
+      employees: [],
+      is_requesting: false
     };
   },
   methods: {
     getEmployeesData: function getEmployeesData(InitialTime) {
-      this.employees = [{
-        id: 1,
-        name: "Phil Gray",
-        title: "Doctor",
-        photo_url: "/images/avatar-s-3.png",
-        email: "Phil_Gray@hotmail.com",
-        telephones: ["01096436702", "01113689783"]
-      }, {
-        id: 2,
-        name: "Irene Baker",
-        title: "Receptionist",
-        photo_url: "/images/avatar-s-2.png",
-        email: "Irene_Baker@hotmail.com",
-        telephones: ["01096436702", "01113689783"]
-      }, {
-        id: 3,
-        name: "Evan White",
-        title: "Assistant Doctor",
-        photo_url: "/images/avatar-s-1.png",
-        email: "Evan_White@hotmail.com",
-        telephones: ["01096436702", "01113689783"]
-      }, {
-        id: 4,
-        name: "Sonia Clark",
-        title: "Receptionist",
-        photo_url: "/images/avatar-s-4.png",
-        email: "Sonia_Clark@hotmail.com",
-        telephones: ["01096436702", "01113689783"]
-      }];
-      this.resultTime = Date.now() - InitialTime;
+      var _this = this;
+
+      this.$vs.loading({
+        container: this.$refs.browse,
+        scale: 0.5
+      });
+      this.$store.dispatch('employee/getData', '').then(function (response) {
+        _this.$vs.loading.close(_this.$refs.browse);
+
+        _this.resultTime = Date.now() - InitialTime;
+        _this.employees = response.data.data.data;
+      })["catch"](function (error) {
+        console.log(error);
+
+        _this.$vs.loading.close(_this.$refs.browse);
+
+        _this.$vs.notify({
+          title: 'Error',
+          text: error.response.data.error,
+          iconPack: 'feather',
+          icon: 'icon-alert-circle',
+          color: 'danger'
+        });
+      });
+    },
+    confirmDeleteEmployee: function confirmDeleteEmployee(type) {
+      this.$vs.dialog({
+        type: 'confirm',
+        color: 'danger',
+        title: "Are you sure!",
+        text: 'This data can not be retrieved again.',
+        accept: this.deleteEmployee,
+        parameters: [type]
+      });
+    },
+    deleteEmployee: function deleteEmployee(params) {
+      var _this2 = this;
+
+      this.is_requesting = true;
+      this.$vs.loading({
+        container: "#btn-delete-".concat(params[0].id),
+        color: 'danger',
+        scale: 0.45
+      });
+      this.$store.dispatch('employee/delete', params[0].id).then(function (response) {
+        _this2.is_requesting = false;
+
+        _this2.$vs.loading.close("#btn-delete-".concat(params[0].id, " > .con-vs-loading"));
+
+        _this2.employees = _this2.employees.filter(function (type) {
+          return type.id !== params[0].id;
+        });
+
+        _this2.$vs.notify({
+          title: 'Success',
+          text: response.data.message,
+          iconPack: 'feather',
+          icon: 'icon-check',
+          color: 'success'
+        });
+      })["catch"](function (error) {
+        console.log(error);
+        _this2.is_requesting = false;
+
+        _this2.$vs.loading.close("#btn-delete-".concat(params[0].id, " > .con-vs-loading"));
+
+        _this2.$vs.notify({
+          title: 'Error',
+          text: error.response.data.error,
+          iconPack: 'feather',
+          icon: 'icon-alert-circle',
+          color: 'danger'
+        });
+      });
     },
     copyToClipboard: function copyToClipboard(text) {
       if (window.clipboardData && window.clipboardData.setData) {
@@ -270,71 +317,36 @@ var render = function() {
               ]
             ),
             _vm._v(" "),
-            _c(
-              "vs-col",
-              {
-                attrs: {
-                  "vs-type": "flex",
-                  "vs-justify": "center",
-                  "vs-align": "center",
-                  "vs-w": "3"
-                }
-              },
-              [
-                _c(
-                  "vs-button",
+            _vm.can("create-user")
+              ? _c(
+                  "vs-col",
                   {
                     attrs: {
-                      to: "/dashboard/employee/create",
-                      "vs-w": "3",
-                      color: "primary",
-                      type: "filled",
-                      "icon-pack": "feather",
-                      icon: "icon-user-plus"
+                      "vs-type": "flex",
+                      "vs-justify": "center",
+                      "vs-align": "center",
+                      "vs-w": "3"
                     }
                   },
-                  [_vm._v("  Add Employee")]
+                  [
+                    _c(
+                      "vs-button",
+                      {
+                        attrs: {
+                          to: "/dashboard/employee/create",
+                          "vs-w": "3",
+                          color: "primary",
+                          type: "filled",
+                          "icon-pack": "feather",
+                          icon: "icon-user-plus"
+                        }
+                      },
+                      [_vm._v("  Add Employee")]
+                    )
+                  ],
+                  1
                 )
-              ],
-              1
-            )
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "vs-row",
-          [
-            _c(
-              "vs-col",
-              {
-                attrs: {
-                  "vs-type": "flex",
-                  "vs-justify": "center",
-                  "vs-align": "center",
-                  "vs-w": "12"
-                }
-              },
-              [
-                _c("vs-input", {
-                  staticClass: "is-label-placeholder w-full",
-                  attrs: {
-                    "vs-w": "9",
-                    "icon-pack": "feather",
-                    icon: "icon-search",
-                    "label-placeholder": _vm.$t("Search") || "Search"
-                  },
-                  model: {
-                    value: _vm.searchText,
-                    callback: function($$v) {
-                      _vm.searchText = $$v
-                    },
-                    expression: "searchText"
-                  }
-                })
-              ],
-              1
-            )
+              : _vm._e()
           ],
           1
         ),
@@ -346,7 +358,7 @@ var render = function() {
     _vm._v(" "),
     _c(
       "div",
-      { staticClass: "vx-row" },
+      { ref: "browse", staticClass: "vx-row" },
       _vm._l(_vm.employees, function(employee) {
         return _c(
           "div",
@@ -358,14 +370,20 @@ var render = function() {
               [
                 _c("vs-avatar", {
                   staticClass: "mx-auto mb-6 block",
-                  attrs: { size: "80px", src: employee.photo_url }
+                  attrs: { size: "80px", src: employee.image }
                 }),
                 _vm._v(" "),
                 _c("div", { staticClass: "text-center" }, [
-                  _c("h4", [_vm._v(_vm._s(employee.name))]),
+                  _c("h4", [
+                    _vm._v(
+                      _vm._s(employee.first_name) +
+                        " " +
+                        _vm._s(employee.last_name)
+                    )
+                  ]),
                   _vm._v(" "),
                   _c("p", { staticClass: "text-grey" }, [
-                    _vm._v(_vm._s(employee.title))
+                    _vm._v(_vm._s(employee.roles[0].name))
                   ])
                 ]),
                 _vm._v(" "),
@@ -376,7 +394,7 @@ var render = function() {
                   _vm._v(
                     " " +
                       _vm._s(_vm.$t("Email") || "Email") +
-                      "\n                    "
+                      "\n                        "
                   ),
                   _c(
                     "p",
@@ -399,13 +417,13 @@ var render = function() {
                   _vm._v(
                     "  " +
                       _vm._s(_vm.$t("Telephone") || "Telephone(s)") +
-                      "\n                    "
+                      "\n                        "
                   ),
                   _c(
                     "p",
                     { staticClass: "text-grey" },
                     [
-                      _vm._l(employee.telephones, function(telephone, index) {
+                      _vm._l(employee.phones, function(phone, index) {
                         return [
                           _c(
                             "span",
@@ -413,18 +431,25 @@ var render = function() {
                               staticClass: "txt-hover",
                               on: {
                                 click: function($event) {
-                                  return _vm.copyToClipboard(telephone)
+                                  return _vm.copyToClipboard(phone.number)
                                 }
                               }
                             },
-                            [_vm._v(_vm._s(telephone))]
+                            [_vm._v(_vm._s(phone.number))]
                           ),
-                          _vm._v(" "),
-                          index != employee.telephones.length - 1
+                          index !== employee.phones.length - 1
                             ? [_vm._v(", ")]
                             : _vm._e()
                         ]
-                      })
+                      }),
+                      _vm._v(" "),
+                      employee.phones.length === 0
+                        ? [
+                            _vm._v(
+                              "\n                                No Telephones Assigned!\n                            "
+                            )
+                          ]
+                        : _vm._e()
                     ],
                     2
                   )
@@ -437,74 +462,91 @@ var render = function() {
                     _c("vs-divider"),
                     _vm._v(" "),
                     _c("div", { staticClass: "flex justify-between" }, [
-                      _c(
-                        "span",
-                        { staticClass: "flex items-center" },
-                        [
-                          _c(
-                            "vx-tooltip",
-                            {
-                              attrs: {
-                                color: "danger",
-                                text: _vm.$t("Delete") || "Delete"
-                              }
-                            },
+                      _vm.can("delete-user")
+                        ? _c(
+                            "span",
+                            { staticClass: "flex items-center" },
+                            [
+                              _c(
+                                "vx-tooltip",
+                                {
+                                  attrs: {
+                                    color: "danger",
+                                    text: _vm.$t("Delete") || "Delete"
+                                  }
+                                },
+                                [
+                                  _c("vs-button", {
+                                    staticClass: "vs-con-loading__container",
+                                    attrs: {
+                                      id: "btn-delete-" + employee.id,
+                                      color: "danger",
+                                      type: "filled",
+                                      "icon-pack": "feather",
+                                      icon: "icon-trash"
+                                    },
+                                    on: {
+                                      click: function($event) {
+                                        _vm.is_requesting
+                                          ? _vm.$store.dispatch(
+                                              "viewWaitMessage",
+                                              _vm.$vs
+                                            )
+                                          : _vm.confirmDeleteEmployee(employee)
+                                      }
+                                    }
+                                  })
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.can("edit-user")
+                        ? _c(
+                            "span",
+                            { staticClass: "flex items-center" },
                             [
                               _c("vs-button", {
                                 attrs: {
-                                  color: "danger",
+                                  to:
+                                    "/dashboard/employee/" +
+                                    employee.id +
+                                    "/edit",
+                                  color: "warning",
                                   type: "filled",
                                   "icon-pack": "feather",
-                                  icon: "icon-trash"
+                                  icon: "icon-edit"
                                 }
                               })
                             ],
                             1
                           )
-                        ],
-                        1
-                      ),
+                        : _vm._e(),
                       _vm._v(" "),
-                      _c(
-                        "span",
-                        { staticClass: "flex items-center" },
-                        [
-                          _c("vs-button", {
-                            attrs: {
-                              to: "/dashboard/employee/5/edit",
-                              color: "warning",
-                              type: "filled",
-                              "icon-pack": "feather",
-                              icon: "icon-edit"
-                            }
-                          })
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "span",
-                        { staticClass: "flex items-center" },
-                        [
-                          _c(
-                            "vs-button",
-                            {
-                              attrs: {
-                                to: "/dashboard/employee/5",
-                                type: "gradient",
-                                "icon-pack": "feather",
-                                icon: "icon-eye"
-                              }
-                            },
+                      _vm.can("view-user")
+                        ? _c(
+                            "span",
+                            { staticClass: "flex items-center" },
                             [
-                              _vm._v(
-                                _vm._s(_vm.$t("ViewProfile") || "View Profile")
+                              _c(
+                                "vs-button",
+                                {
+                                  attrs: {
+                                    to: "/dashboard/employee/" + employee.id,
+                                    type: "gradient",
+                                    "icon-pack": "feather",
+                                    icon: "icon-eye"
+                                  }
+                                },
+                                [_vm._v("View")]
                               )
-                            ]
+                            ],
+                            1
                           )
-                        ],
-                        1
-                      )
+                        : _vm._e()
                     ])
                   ],
                   1
