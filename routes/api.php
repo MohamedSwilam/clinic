@@ -19,7 +19,7 @@ use Illuminate\Http\Request;
 
 Route::middleware('auth:api')->resource('users', 'UserController');
 
-Route::post('login', 'loginController@login');
+Route::post('login', 'LoginController@login');
 
 Route::group(['prefix' => 'employee', 'middleware' => 'auth:api'], function () {
     Route::post('{id}', 'EmployeeController@update');
