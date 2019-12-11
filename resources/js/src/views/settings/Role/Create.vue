@@ -30,7 +30,7 @@
 
 <script>
 
-  // For custom error message
+// For custom error message
 import { Validator } from 'vee-validate';
 const dict = {
   custom: {
@@ -39,7 +39,6 @@ const dict = {
     }
   }
 };
-
 // register custom messages
 Validator.localize('en', dict);
 

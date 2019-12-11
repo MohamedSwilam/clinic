@@ -99,7 +99,7 @@
                             <vs-row>
                                 <div class="flex mb-4">
                                     <div class="w-1/3">
-                                        <vs-button :id="`btn-duration-delete-${duration.id}`" class="vs-con-loading__container" radius color="danger" type="border" icon-pack="feather" icon="icon-trash" @click="confirmDeleteReservationDuration(duration)"></vs-button>
+                                        <vs-button :id="`btn-duration-delete-${duration.id}`" class="vs-con-loading__container" radius color="danger" type="border" icon-pack="feather" icon="icon-trash" @click="is_requesting?$store.dispatch('viewWaitMessage', $vs):confirmDeleteReservationDuration(duration)"></vs-button>
                                     </div>
                                 </div>
                             </vs-row>

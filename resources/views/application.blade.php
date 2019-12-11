@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="{{ asset(mix('css/prism-tomorrow.css')) }}">
     <link rel="stylesheet" href="{{ asset(mix('css/app.css')) }}">
     <!-- Favicon -->
-    <link rel="shortcut icon" href="{{ asset('images/logo/favicon.png') }}">
+    <link rel="shortcut icon" href="{{ asset('images/logo/logo.png') }}">
   </head>
   <body>
     <noscript>
