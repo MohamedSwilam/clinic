@@ -1,37 +1,44 @@
 <template>
     <div>
         <div class="vx-col w-full mb-base">
-            <vx-card title='Personal Information' collapseAction>
-                <vs-row>
+            <vx-card ref="view" title='Personal Information' collapseAction refreshContentAction @refresh="getPatientData">
+                <vs-row v-if="patient">
                     <vs-col vs-lg="6" vs-sm="12" vs-xs="12" class="mb-5">
-                        <b>Name: </b> Mohamed Ehab Swilam
+                        <b>Name: </b> {{patient.first_name}} {{patient.last_name}}
                     </vs-col>
                     <vs-col vs-lg="6" vs-sm="12" vs-xs="12" class="mb-5">
-                        <b>Gender: </b> Male
+                        <b>Gender: </b> {{patient.gender}}
                     </vs-col>
                     <vs-col vs-lg="6" vs-sm="12" vs-xs="12" class="mb-5">
-                        <b>Email: </b> mohamed_swilam@hotmail.com
+                        <b>Email: </b> {{patient.email?patient.email:'Not Specified!'}}
                     </vs-col>
                     <vs-col vs-lg="6" vs-sm="12" vs-xs="12" class="mb-5">
-                        <b>Phone(s): </b> 01096436702, 01112336987
+                        <b>Phone(s): </b>
+                        <template v-for="(phone, index) in patient.phones">
+                            <span class="txt-hover" @click="copyToClipboard(phone.number)">{{ phone.number }}</span>
+                            <template v-if="index !== patient.phones.length-1">, </template>
+                        </template>
+                        <template v-if="patient.phones.length===0">
+                            No Telephones Assigned!
+                        </template>
                     </vs-col>
                     <vs-col vs-lg="6" vs-sm="12" vs-xs="12" class="mb-5">
-                        <b>Address: </b> 25, Street name - cairo, Egypt
+                        <b>City: </b> {{patient.city?patient.city:'Not Specified!'}}
                     </vs-col>
                     <vs-col vs-lg="6" vs-sm="12" vs-xs="12" class="mb-5">
-                        <b>Martial Status: </b> Not Defined
+                        <b>Country: </b> {{patient.country?patient.country:'Not Specified!'}}
                     </vs-col>
                     <vs-col vs-lg="6" vs-sm="12" vs-xs="12" class="mb-5">
-                        <b>Age: </b> 22 Years, 01 Month(s)
+                        <b>Address: </b> {{patient.address?patient.address:'Not Specified!'}}
                     </vs-col>
                     <vs-col vs-lg="6" vs-sm="12" vs-xs="12" class="mb-5">
-                        <b>Occupation: </b> Not Defined
+                        <b>Birth Date: </b> {{patient.birth_date?patient.birth_date:'Not Specified!'}}
                     </vs-col>
                     <vs-col vs-lg="6" vs-sm="12" vs-xs="12" class="mb-5">
-                        <b>Referred From: </b> No body
+                        <b>Occupation: </b> {{patient.occupation?patient.occupation:'Not Specified!'}}
                     </vs-col>
                     <vs-col vs-lg="6" vs-sm="12" vs-xs="12" class="mb-5">
-                        <b>Last Visit: </b> 02/11/2019
+                        <b>Referred From: </b> {{patient.reference?patient.reference:'No Body'}}
                     </vs-col>
                 </vs-row>
                 <vs-row vs-justify="center">
@@ -217,7 +224,37 @@
 
 <script>
     export default {
-        name: "profile"
+        name: "profile",
+        mounted() {
+          this.getPatientData();
+        },
+        data: () => {
+            return {
+                patient: null
+            }
+        },
+        methods: {
+            getPatientData()
+            {
+                this.$vs.loading({container: this.$refs.view.$refs.content, scale: 0.5});
+                this.$store.dispatch('patient/view', this.$route.params.id)
+                    .then(response => {
+                        this.$vs.loading.close(this.$refs.view.$refs.content);
+                        this.patient = response.data.data.data;
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        this.$vs.loading.close(this.$refs.view.$refs.content);
+                        this.$vs.notify({
+                            title: 'Error',
+                            text: error.response.data.error,
+                            iconPack: 'feather',
+                            icon: 'icon-alert-circle',
+                            color: 'danger'
+                        });
+                    });
+            }
+        }
     }
 </script>
 

@@ -137,7 +137,7 @@ __webpack_require__.r(__webpack_exports__);
       is_requesting: false,
       reservation_types: [],
       reservation_durations: [],
-      reservation_durations_total_items: 53,
+      reservation_durations_total_items: 0,
       currentDurationPage: 1,
       sortFilter: 'sortDesc=date'
     };

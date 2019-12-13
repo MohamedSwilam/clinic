@@ -9,7 +9,6 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vee_validate__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vee-validate */ "./node_modules/vee-validate/dist/vee-validate.esm.js");
 //
 //
 //
@@ -95,124 +94,88 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-var dict = {
-  custom: {
-    first_name: {
-      required: 'First name is required',
-      alpha: "First name may only contain alphabetic characters"
-    },
-    last_name: {
-      required: 'Last name is required',
-      alpha: "Last name may only contain alphabetic characters"
-    },
-    job_title: {
-      required: 'Job title name is required',
-      alpha: "Job title may only contain alphabetic characters"
-    },
-    proposal_title: {
-      required: 'Proposal title name is required',
-      alpha: "Proposal title may only contain alphabetic characters"
-    },
-    event_name: {
-      required: 'Event name is required',
-      alpha: "Event name may only contain alphabetic characters"
-    }
-  }
-}; // register custom messages
-
-vee_validate__WEBPACK_IMPORTED_MODULE_0__["Validator"].localize('en', dict);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "create",
   data: function data() {
     return {
       form: {
-        firstName: "",
-        lastName: "",
-        Telephones: ['01096436702', '01116436790'],
-        Telephone: "",
-        city: "",
-        email: "",
-        martial_status: "",
-        referred_from: "",
-        occupation: "",
-        address: {
-          address_text: '',
-          country: '',
-          city: ''
-        },
-        DOB: null,
-        gender: 1
+        email: '',
+        first_name: '',
+        last_name: '',
+        birth_date: '',
+        address: '',
+        city: '',
+        country: '',
+        phones: [],
+        occupation: '',
+        reference: '',
+        gender: 'Male'
       },
-      cities: [{
-        id: 1,
-        name: 'Cairo',
-        countries: [{
-          id: 1,
-          name: 'Heliopolis'
-        }, {
-          id: 2,
-          name: 'Maadi'
-        }, {
-          id: 3,
-          name: 'Nasr City'
-        }]
-      }, {
-        id: 2,
-        name: 'Alexandria',
-        countries: [{
-          id: 4,
-          name: 'Alex1'
-        }, {
-          id: 5,
-          name: 'Alex2'
-        }, {
-          id: 6,
-          name: 'Alex3'
-        }]
-      }]
+      is_requesting: false,
+      Telephone: ''
     };
   },
+  computed: {
+    validateForm: function validateForm() {
+      return !this.errors.any() && this.form.first_name !== "" && this.form.last_name !== "" && this.form.gender !== "" && this.form.phones.length > 0;
+    }
+  },
   methods: {
-    createPatient: function createPatient() {
+    create: function create() {
       var _this = this;
 
-      this.$validator.validateAll('validate').then(function (result) {
-        if (result) {
-          _this.vs_alert('Done', 'Patient has been created successfully', 'success', 'icon-check');
-        } else {
-          _this.vs_alert('Oops', 'Error has been occurred!', 'danger', 'icon-check');
+      if (!this.validateForm) return;
+      this.is_requesting = true;
+      this.$vs.loading({
+        container: "#btn-create",
+        color: 'primary',
+        scale: 0.45
+      });
+
+      for (var key in this.form) {
+        if (this.form[key] === '') {
+          delete this.form[key];
         }
+      }
+
+      this.$store.dispatch('patient/create', this.form).then(function (response) {
+        _this.is_requesting = false;
+
+        _this.$vs.loading.close("#btn-create > .con-vs-loading");
+
+        _this.$router.push("/dashboard/patient/".concat(response.data.data.data.id));
+
+        _this.$vs.notify({
+          title: 'Success',
+          text: response.data.message,
+          iconPack: 'feather',
+          icon: 'icon-check',
+          color: 'success'
+        });
+      })["catch"](function (error) {
+        console.log(error);
+        _this.is_requesting = false;
+
+        _this.$vs.loading.close("#btn-create > .con-vs-loading");
+
+        _this.$vs.notify({
+          title: 'Error',
+          text: error.response.data.errors[Object.keys(error.response.data.errors)[0]][0],
+          iconPack: 'feather',
+          icon: 'icon-alert-circle',
+          color: 'danger'
+        });
       });
     },
-    removeTelephone: function removeTelephone(e, item) {
-      this.Telephones.splice(this.Telephones.indexOf(item), 1);
+    removeTelephone: function removeTelephone(item) {
+      this.form.phones.splice(this.form.phones.indexOf(item), 1);
     },
-    addTelephone: function addTelephone(e) {
-      e.preventDefault();
-      var item = this.Telephone;
-
-      if (item !== '') {
-        this.Telephones.push(item);
+    addTelephone: function addTelephone() {
+      if (this.Telephone !== '') {
+        this.form.phones.push({
+          'country_code': '+20',
+          'number': this.Telephone
+        });
         this.Telephone = "";
       }
     },
@@ -300,353 +263,304 @@ var render = function() {
     [
       _c(
         "vx-card",
-        { attrs: { title: "Create Patient", "collapse-action": "" } },
+        {
+          ref: "create",
+          attrs: { title: "Create Patient", "collapse-action": "" }
+        },
         [
           _c(
-            "form",
-            { attrs: { "data-vv-scope": "validate" } },
+            "vs-row",
             [
               _c(
-                "vs-row",
+                "vs-col",
+                {
+                  staticClass: "mb-5 pl-5",
+                  attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
+                },
+                [
+                  _c("vs-input", {
+                    directives: [
+                      {
+                        name: "validate",
+                        rawName: "v-validate",
+                        value: "required|alpha_dash|min:3",
+                        expression: "'required|alpha_dash|min:3'"
+                      }
+                    ],
+                    staticClass: "w-full",
+                    attrs: {
+                      danger: _vm.errors.has("first_name"),
+                      "danger-text": _vm.errors.first("first_name"),
+                      "val-icon-danger": "clear",
+                      "icon-pack": "feather",
+                      icon: "icon-user",
+                      "label-placeholder": "First Name",
+                      name: "first_name"
+                    },
+                    model: {
+                      value: _vm.form.first_name,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form, "first_name", $$v)
+                      },
+                      expression: "form.first_name"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "vs-col",
+                {
+                  staticClass: "mb-5 pl-5",
+                  attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
+                },
+                [
+                  _c("vs-input", {
+                    directives: [
+                      {
+                        name: "validate",
+                        rawName: "v-validate",
+                        value: "required|alpha_dash|min:3",
+                        expression: "'required|alpha_dash|min:3'"
+                      }
+                    ],
+                    staticClass: "w-full",
+                    attrs: {
+                      danger: _vm.errors.has("last_name"),
+                      "danger-text": _vm.errors.first("last_name"),
+                      "val-icon-danger": "clear",
+                      "icon-pack": "feather",
+                      icon: "icon-user",
+                      "label-placeholder": "Last Name",
+                      name: "last_name"
+                    },
+                    model: {
+                      value: _vm.form.last_name,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form, "last_name", $$v)
+                      },
+                      expression: "form.last_name"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "vs-col",
+                {
+                  staticClass: "mb-5 pl-5",
+                  attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
+                },
                 [
                   _c(
-                    "vs-col",
+                    "div",
                     {
-                      staticClass: "mb-5 pl-5",
-                      attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
+                      staticClass:
+                        "vs-component vs-con-input-label vs-input w-full vs-input-primary is-label-placeholder"
                     },
                     [
-                      _c("vs-input", {
-                        directives: [
-                          {
-                            name: "validate",
-                            rawName: "v-validate",
-                            value: "required|alpha",
-                            expression: "'required|alpha'"
-                          }
-                        ],
-                        staticClass: "w-full",
-                        attrs: {
-                          "icon-pack": "feather",
-                          icon: "icon-user",
-                          "label-placeholder": "First Name",
-                          name: "first_name"
-                        },
-                        model: {
-                          value: _vm.form.firstName,
-                          callback: function($$v) {
-                            _vm.$set(_vm.form, "firstName", $$v)
-                          },
-                          expression: "form.firstName"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("span", { staticClass: "text-danger" }, [
-                        _vm._v(_vm._s(_vm.errors.first("validate.first_name")))
-                      ])
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "vs-col",
-                    {
-                      staticClass: "mb-5 pl-5",
-                      attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
-                    },
-                    [
-                      _c("vs-input", {
-                        directives: [
-                          {
-                            name: "validate",
-                            rawName: "v-validate",
-                            value: "required|alpha",
-                            expression: "'required|alpha'"
-                          }
-                        ],
-                        staticClass: "w-full",
-                        attrs: {
-                          "icon-pack": "feather",
-                          icon: "icon-user",
-                          "label-placeholder": "Last Name",
-                          name: "last_name"
-                        },
-                        model: {
-                          value: _vm.form.lastName,
-                          callback: function($$v) {
-                            _vm.$set(_vm.form, "lastName", $$v)
-                          },
-                          expression: "form.lastName"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("span", { staticClass: "text-danger" }, [
-                        _vm._v(_vm._s(_vm.errors.first("validate.last_name")))
-                      ])
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "vs-col",
-                    {
-                      staticClass: "mb-5 pl-5",
-                      attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
-                    },
-                    [
-                      _c(
-                        "div",
-                        {
+                      _c("div", { staticClass: "vs-con-input" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.birth_date,
+                              expression: "form.birth_date"
+                            }
+                          ],
                           staticClass:
-                            "vs-component vs-con-input-label vs-input w-full vs-input-primary is-label-placeholder"
-                        },
-                        [
-                          _c("div", { staticClass: "vs-con-input" }, [
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.form.DOB,
-                                  expression: "form.DOB"
-                                }
-                              ],
-                              staticClass:
-                                "vs-inputx vs-input--input normal hasIcon hasValue dob-input",
-                              staticStyle: {
-                                border: "1px solid rgba(0, 0, 0, 0.2)"
-                              },
-                              attrs: { required: "", type: "date" },
-                              domProps: { value: _vm.form.DOB },
-                              on: {
-                                input: function($event) {
-                                  if ($event.target.composing) {
-                                    return
-                                  }
-                                  _vm.$set(_vm.form, "DOB", $event.target.value)
-                                }
-                              }
-                            }),
-                            _vm._v(" "),
-                            _c(
-                              "span",
-                              {
-                                staticClass:
-                                  "input-span-placeholder vs-input--placeholder normal normal vs-placeholder-label"
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                    Date of birth\n                                    "
-                                )
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c("i", {
-                              staticClass:
-                                "vs-icon notranslate icon-scale icon-inputx notranslate vs-input--icon feather icon-calendar null"
-                            })
-                          ]),
-                          _vm._v(" "),
-                          _c("span")
-                        ]
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "vs-col",
-                    {
-                      staticClass: "mb-5 pl-5",
-                      attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
-                    },
-                    [
-                      _c("vs-input", {
-                        staticClass: "w-full",
-                        attrs: {
-                          "icon-pack": "feather",
-                          icon: "icon-map-pin",
-                          "label-placeholder": "Address",
-                          name: "address_text"
-                        },
-                        model: {
-                          value: _vm.form.address.address_text,
-                          callback: function($$v) {
-                            _vm.$set(_vm.form.address, "address_text", $$v)
+                            "vs-inputx vs-input--input normal hasIcon hasValue dob-input",
+                          staticStyle: {
+                            border: "1px solid rgba(0, 0, 0, 0.2)"
                           },
-                          expression: "form.address.address_text"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("span", { staticClass: "text-danger" }, [
-                        _vm._v(
-                          _vm._s(_vm.errors.first("validate.address_text"))
-                        )
-                      ])
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "vs-col",
-                    {
-                      staticClass: "mb-5 pl-5",
-                      attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
-                    },
-                    [
-                      _c(
-                        "vs-select",
-                        {
-                          staticClass: "w-full",
-                          attrs: { label: "City" },
-                          model: {
-                            value: _vm.form.address.city,
-                            callback: function($$v) {
-                              _vm.$set(_vm.form.address, "city", $$v)
-                            },
-                            expression: "form.address.city"
-                          }
-                        },
-                        _vm._l(_vm.cities, function(city, index) {
-                          return _c("vs-select-item", {
-                            key: index,
-                            attrs: { value: city, text: city.name }
-                          })
-                        }),
-                        1
-                      )
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "vs-col",
-                    {
-                      staticClass: "mb-5 pl-5",
-                      attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
-                    },
-                    [
-                      _c(
-                        "vs-select",
-                        {
-                          staticClass: "w-full",
-                          attrs: { label: "Country" },
-                          model: {
-                            value: _vm.form.address.country,
-                            callback: function($$v) {
-                              _vm.$set(_vm.form.address, "country", $$v)
-                            },
-                            expression: "form.address.country"
-                          }
-                        },
-                        _vm._l(_vm.form.address.city.countries, function(
-                          country,
-                          index
-                        ) {
-                          return _c("vs-select-item", {
-                            key: index,
-                            attrs: { value: country.id, text: country.name }
-                          })
-                        }),
-                        1
-                      )
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "vs-col",
-                    {
-                      staticClass: "mb-5 pl-5",
-                      attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
-                    },
-                    [
-                      _c(
-                        "vs-row",
-                        [
-                          _c(
-                            "vs-col",
-                            { attrs: { "vs-w": "9" } },
-                            [
-                              _c("vs-input", {
-                                staticClass: "w-full",
-                                attrs: {
-                                  "icon-pack": "feather",
-                                  icon: "icon-phone",
-                                  "label-placeholder": "Telephone(s)"
-                                },
-                                on: {
-                                  keydown: function($event) {
-                                    $event.keyCode === 13
-                                      ? _vm.addTelephone
-                                      : false
-                                  }
-                                },
-                                model: {
-                                  value: _vm.form.Telephone,
-                                  callback: function($$v) {
-                                    _vm.$set(_vm.form, "Telephone", $$v)
-                                  },
-                                  expression: "form.Telephone"
-                                }
-                              })
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "vs-col",
-                            { attrs: { "vs-w": "3" } },
-                            [
-                              _c(
-                                "vs-button",
-                                {
-                                  staticClass: "w-full input-btn",
-                                  attrs: {
-                                    "icon-pack": "feather",
-                                    icon: "icon-plus",
-                                    type: "gradient"
-                                  },
-                                  on: { click: _vm.addTelephone }
-                                },
-                                [_vm._v("Add")]
+                          attrs: { required: "", type: "date" },
+                          domProps: { value: _vm.form.birth_date },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.form,
+                                "birth_date",
+                                $event.target.value
                               )
-                            ],
-                            1
-                          )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          {
+                            staticClass:
+                              "input-span-placeholder vs-input--placeholder normal normal vs-placeholder-label"
+                          },
+                          [
+                            _vm._v(
+                              "\n                                Date of birth\n                                "
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("i", {
+                          staticClass:
+                            "vs-icon notranslate icon-scale icon-inputx notranslate vs-input--icon feather icon-calendar null"
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("span")
+                    ]
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "vs-col",
+                {
+                  staticClass: "mb-5 pl-5",
+                  attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
+                },
+                [
+                  _c("vs-input", {
+                    staticClass: "w-full",
+                    attrs: {
+                      name: "address",
+                      danger: _vm.errors.has("address"),
+                      "val-icon-danger": "clear",
+                      "danger-text": _vm.errors.first("address"),
+                      "icon-pack": "feather",
+                      icon: "icon-map-pin",
+                      "label-placeholder": "Address"
+                    },
+                    model: {
+                      value: _vm.form.address,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form, "address", $$v)
+                      },
+                      expression: "form.address"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "vs-col",
+                {
+                  staticClass: "mb-5 pl-5",
+                  attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
+                },
+                [
+                  _c("vs-input", {
+                    staticClass: "w-full",
+                    attrs: {
+                      name: "city",
+                      danger: _vm.errors.has("city"),
+                      "val-icon-danger": "clear",
+                      "danger-text": _vm.errors.first("city"),
+                      "icon-pack": "feather",
+                      icon: "icon-map-pin",
+                      "label-placeholder": "City"
+                    },
+                    model: {
+                      value: _vm.form.city,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form, "city", $$v)
+                      },
+                      expression: "form.city"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "vs-col",
+                {
+                  staticClass: "mb-5 pl-5",
+                  attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
+                },
+                [
+                  _c("vs-input", {
+                    staticClass: "w-full",
+                    attrs: {
+                      name: "country",
+                      danger: _vm.errors.has("country"),
+                      "val-icon-danger": "clear",
+                      "danger-text": _vm.errors.first("country"),
+                      "icon-pack": "feather",
+                      icon: "icon-map-pin",
+                      "label-placeholder": "Country"
+                    },
+                    model: {
+                      value: _vm.form.country,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form, "country", $$v)
+                      },
+                      expression: "form.country"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "vs-col",
+                {
+                  staticClass: "mb-5 pl-5",
+                  attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
+                },
+                [
+                  _c(
+                    "vs-row",
+                    [
+                      _c(
+                        "vs-col",
+                        { attrs: { "vs-w": "9" } },
+                        [
+                          _c("vs-input", {
+                            staticClass: "w-full",
+                            attrs: {
+                              "icon-pack": "feather",
+                              icon: "icon-phone",
+                              "label-placeholder": "Telephone(s)"
+                            },
+                            on: {
+                              keydown: function($event) {
+                                $event.keyCode === 13 ? _vm.addTelephone : false
+                              }
+                            },
+                            model: {
+                              value: _vm.Telephone,
+                              callback: function($$v) {
+                                _vm.Telephone = $$v
+                              },
+                              expression: "Telephone"
+                            }
+                          })
                         ],
                         1
                       ),
                       _vm._v(" "),
-                      _c("br"),
-                      _vm._v(" "),
                       _c(
-                        "vs-row",
+                        "vs-col",
+                        { attrs: { "vs-w": "3" } },
                         [
                           _c(
-                            "vs-col",
-                            { attrs: { "vs-w": "12" } },
-                            _vm._l(_vm.form.Telephones, function(telephone) {
-                              return _c(
-                                "vs-chip",
-                                {
-                                  key: telephone,
-                                  attrs: { closable: "" },
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.removeTelephone(telephone)
-                                    }
-                                  }
-                                },
-                                [
-                                  _vm._v(
-                                    "\n                                " +
-                                      _vm._s(telephone) +
-                                      "\n                            "
-                                  )
-                                ]
-                              )
-                            }),
-                            1
+                            "vs-button",
+                            {
+                              staticClass: "w-full input-btn",
+                              attrs: {
+                                "icon-pack": "feather",
+                                icon: "icon-plus",
+                                type: "gradient"
+                              },
+                              on: { click: _vm.addTelephone }
+                            },
+                            [_vm._v("Add")]
                           )
                         ],
                         1
@@ -655,177 +569,37 @@ var render = function() {
                     1
                   ),
                   _vm._v(" "),
+                  _c("br"),
+                  _vm._v(" "),
                   _c(
-                    "vs-col",
-                    {
-                      staticClass: "mb-5 pl-5",
-                      attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
-                    },
+                    "vs-row",
                     [
                       _c(
-                        "div",
-                        {
-                          staticClass:
-                            "vs-component vs-con-input-label vs-input w-full vs-input-primary is-label-placeholder"
-                        },
-                        [
-                          _c(
-                            "div",
-                            { staticClass: "gender-container" },
+                        "vs-col",
+                        { attrs: { "vs-w": "12" } },
+                        _vm._l(_vm.form.phones, function(telephone, index) {
+                          return _c(
+                            "vs-chip",
+                            {
+                              key: index,
+                              attrs: { closable: "" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.removeTelephone(telephone)
+                                }
+                              }
+                            },
                             [
-                              _c(
-                                "vs-radio",
-                                {
-                                  attrs: { "vs-value": "1" },
-                                  model: {
-                                    value: _vm.form.gender,
-                                    callback: function($$v) {
-                                      _vm.$set(_vm.form, "gender", $$v)
-                                    },
-                                    expression: "form.gender"
-                                  }
-                                },
-                                [_vm._v("Male")]
-                              ),
                               _vm._v(
-                                "\n                              \n                            "
-                              ),
-                              _c(
-                                "vs-radio",
-                                {
-                                  attrs: { "vs-value": "0" },
-                                  model: {
-                                    value: _vm.form.gender,
-                                    callback: function($$v) {
-                                      _vm.$set(_vm.form, "gender", $$v)
-                                    },
-                                    expression: "form.gender"
-                                  }
-                                },
-                                [_vm._v("Female")]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "span",
-                                {
-                                  staticClass:
-                                    "input-span-placeholder vs-input--placeholder normal normal vs-placeholder-label gender-placeholder"
-                                },
-                                [
-                                  _vm._v(
-                                    "\n                                    Gender\n                                    "
-                                  )
-                                ]
+                                "\n                            " +
+                                  _vm._s(telephone.number) +
+                                  "\n                        "
                               )
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c("span")
-                        ]
+                            ]
+                          )
+                        }),
+                        1
                       )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "vs-col",
-                    {
-                      staticClass: "mb-5 pl-5",
-                      attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
-                    },
-                    [
-                      _c("vs-input", {
-                        directives: [
-                          {
-                            name: "validate",
-                            rawName: "v-validate",
-                            value: "email",
-                            expression: "'email'"
-                          }
-                        ],
-                        staticClass: "w-full",
-                        attrs: {
-                          "icon-pack": "feather",
-                          icon: "icon-mail",
-                          "label-placeholder": "Email",
-                          name: "email"
-                        },
-                        model: {
-                          value: _vm.form.email,
-                          callback: function($$v) {
-                            _vm.$set(_vm.form, "email", $$v)
-                          },
-                          expression: "form.email"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("span", { staticClass: "text-danger" }, [
-                        _vm._v(_vm._s(_vm.errors.first("validate.email")))
-                      ])
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "vs-col",
-                    {
-                      staticClass: "mb-5 pl-5",
-                      attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
-                    },
-                    [
-                      _c("vs-input", {
-                        staticClass: "w-full",
-                        attrs: {
-                          "icon-pack": "feather",
-                          icon: "icon-briefcase",
-                          "label-placeholder": "Occupation",
-                          name: "occupation"
-                        },
-                        model: {
-                          value: _vm.form.occupation,
-                          callback: function($$v) {
-                            _vm.$set(_vm.form, "occupation", $$v)
-                          },
-                          expression: "form.occupation"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("span", { staticClass: "text-danger" }, [
-                        _vm._v(_vm._s(_vm.errors.first("validate.occupation")))
-                      ])
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "vs-col",
-                    {
-                      staticClass: "mb-5 pl-5",
-                      attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
-                    },
-                    [
-                      _c("vs-input", {
-                        staticClass: "w-full",
-                        attrs: {
-                          "icon-pack": "feather",
-                          icon: "icon-git-branch",
-                          "label-placeholder": "Referred From",
-                          name: "referred_from"
-                        },
-                        model: {
-                          value: _vm.form.referred_from,
-                          callback: function($$v) {
-                            _vm.$set(_vm.form, "referred_from", $$v)
-                          },
-                          expression: "form.referred_from"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("span", { staticClass: "text-danger" }, [
-                        _vm._v(
-                          _vm._s(_vm.errors.first("validate.referred_from"))
-                        )
-                      ])
                     ],
                     1
                   )
@@ -833,27 +607,213 @@ var render = function() {
                 1
               ),
               _vm._v(" "),
-              _c("vs-divider"),
-              _vm._v(" "),
               _c(
-                "vs-row",
-                { attrs: { "vs-justify": "center", "vs-align": "center" } },
+                "vs-col",
+                {
+                  staticClass: "mb-5 pl-5",
+                  attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
+                },
                 [
                   _c(
-                    "vs-button",
+                    "div",
                     {
-                      attrs: { "icon-pack": "feather", icon: "icon-save" },
-                      on: { click: _vm.createPatient }
+                      staticClass:
+                        "vs-component vs-con-input-label vs-input w-full vs-input-primary is-label-placeholder"
                     },
-                    [_vm._v("Create Patient")]
+                    [
+                      _c(
+                        "div",
+                        { staticClass: "gender-container" },
+                        [
+                          _c(
+                            "vs-radio",
+                            {
+                              attrs: { "vs-value": "Male" },
+                              model: {
+                                value: _vm.form.gender,
+                                callback: function($$v) {
+                                  _vm.$set(_vm.form, "gender", $$v)
+                                },
+                                expression: "form.gender"
+                              }
+                            },
+                            [_vm._v("Male")]
+                          ),
+                          _vm._v(
+                            "\n                          \n                        "
+                          ),
+                          _c(
+                            "vs-radio",
+                            {
+                              attrs: { "vs-value": "Female" },
+                              model: {
+                                value: _vm.form.gender,
+                                callback: function($$v) {
+                                  _vm.$set(_vm.form, "gender", $$v)
+                                },
+                                expression: "form.gender"
+                              }
+                            },
+                            [_vm._v("Female")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            {
+                              staticClass:
+                                "input-span-placeholder vs-input--placeholder normal normal vs-placeholder-label gender-placeholder"
+                            },
+                            [
+                              _vm._v(
+                                "\n                                Gender\n                                "
+                              )
+                            ]
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("span")
+                    ]
                   )
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "vs-col",
+                {
+                  staticClass: "mb-5 pl-5",
+                  attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
+                },
+                [
+                  _c("vs-input", {
+                    directives: [
+                      {
+                        name: "validate",
+                        rawName: "v-validate",
+                        value: "email",
+                        expression: "'email'"
+                      }
+                    ],
+                    staticClass: "w-full",
+                    attrs: {
+                      danger: _vm.errors.has("email"),
+                      "danger-text": _vm.errors.first("email"),
+                      "val-icon-danger": "clear",
+                      "icon-pack": "feather",
+                      icon: "icon-mail",
+                      "label-placeholder": "Email",
+                      name: "email"
+                    },
+                    model: {
+                      value: _vm.form.email,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form, "email", $$v)
+                      },
+                      expression: "form.email"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "vs-col",
+                {
+                  staticClass: "mb-5 pl-5",
+                  attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
+                },
+                [
+                  _c("vs-input", {
+                    staticClass: "w-full",
+                    attrs: {
+                      danger: _vm.errors.has("occupation"),
+                      "danger-text": _vm.errors.first("occupation"),
+                      "val-icon-danger": "clear",
+                      "icon-pack": "feather",
+                      icon: "icon-briefcase",
+                      "label-placeholder": "Occupation",
+                      name: "occupation"
+                    },
+                    model: {
+                      value: _vm.form.occupation,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form, "occupation", $$v)
+                      },
+                      expression: "form.occupation"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "vs-col",
+                {
+                  staticClass: "mb-5 pl-5",
+                  attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
+                },
+                [
+                  _c("vs-input", {
+                    staticClass: "w-full",
+                    attrs: {
+                      danger: _vm.errors.has("reference"),
+                      "danger-text": _vm.errors.first("reference"),
+                      "val-icon-danger": "clear",
+                      "icon-pack": "feather",
+                      icon: "icon-git-branch",
+                      "label-placeholder": "Referred From",
+                      name: "reference"
+                    },
+                    model: {
+                      value: _vm.form.reference,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form, "reference", $$v)
+                      },
+                      expression: "form.reference"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "text-danger" }, [
+                    _vm._v(_vm._s(_vm.errors.first("reference")))
+                  ])
                 ],
                 1
               )
             ],
             1
+          ),
+          _vm._v(" "),
+          _c("vs-divider"),
+          _vm._v(" "),
+          _c(
+            "vs-row",
+            { attrs: { "vs-justify": "center", "vs-align": "center" } },
+            [
+              _c(
+                "vs-button",
+                {
+                  attrs: {
+                    id: "btn-create",
+                    disabled: !_vm.validateForm,
+                    "icon-pack": "feather",
+                    icon: "icon-save"
+                  },
+                  on: {
+                    click: function($event) {
+                      _vm.is_requesting
+                        ? _vm.$store.dispatch("viewWaitMessage", _vm.$vs)
+                        : _vm.create()
+                    }
+                  }
+                },
+                [_vm._v("Create Patient")]
+              )
+            ],
+            1
           )
-        ]
+        ],
+        1
       )
     ],
     1

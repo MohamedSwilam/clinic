@@ -96,7 +96,7 @@ class PatientController extends Controller
 
         $data = $request->validated();
 
-        $patient->update();
+        $patient->update($data);
 
         foreach ($data['phones'] as $phone){
             $phone= Phone::create($phone);
