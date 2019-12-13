@@ -26,17 +26,17 @@ class PatientRequest extends FormRequest
         $segments = request()->segments();
         if (sizeof($segments) == 2){
             return [
-                'email' => 'required|email|unique:patients,email',
+                'email' => 'email|unique:patients,email',
                 'first_name' => 'required',
                 'last_name' => 'required',
-                'birth_date' => 'required|date',
-                'address' => 'required',
+                'birth_date' => 'date',
+                'address' => '',
                 'city' => '',
                 'country' => '',
                 'gender' => 'required',
-                'occupation' => 'required',
-                'reference' => 'required',
-                'phones.*.number' => 'required|unique:phones,number',
+                'occupation' => '',
+                'reference' => '',
+                'phones.*.number' => 'required',
                 'phones.*.country_code' => 'required',
             ];
         }
@@ -52,7 +52,7 @@ class PatientRequest extends FormRequest
                 'gender' => '',
                 'occupation' => '',
                 'reference' => '',
-                'phones.*.number' => 'unique:phones,number',
+                'phones.*.number' => '',
                 'phones.*.country_code' => '',
             ];
         }
