@@ -46,4 +46,27 @@ class Patient extends Model
         ]);
     }
 
+    public function scopeName($query, $name)
+    {
+        $query->orwhere('first_name', 'like', "%$name%")
+            ->orwhere('last_name', 'like', "%$name%");
+    }
+
+    public function scopeId($query, $id)
+    {
+        $query->orwhere('id', 'like', "%$id%");
+    }
+
+    public function scopeEmail($query, $email)
+    {
+        $query->orwhere('email', 'like', "%$email%");
+    }
+
+    public function scopePhone($query, $phone)
+    {
+        $query->orwhereHas('phones', function($query) use ($phone){
+            $query->where('number', 'like', "%$phone%");
+        });
+    }
+
 }
