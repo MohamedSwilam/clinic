@@ -7,6 +7,11 @@ return [
             'display_name' => 'Create User',
         ],
         [
+            'name' => 'browse-user',
+            'guard_name' => 'api',
+            'display_name' => 'Browse User',
+        ],
+        [
             'name' => 'view-user',
             'guard_name' => 'api',
             'display_name' => 'View User',
@@ -27,6 +32,11 @@ return [
             'name' => 'create-patient',
             'guard_name' => 'api',
             'display_name' => 'Create Patient',
+        ],
+        [
+            'name' => 'browse-patient',
+            'guard_name' => 'api',
+            'display_name' => 'Browse Patient',
         ],
         [
             'name' => 'view-patient',
@@ -51,9 +61,9 @@ return [
             'display_name' => 'Create Appointment',
         ],
         [
-            'name' => 'view-appointment',
+            'name' => 'browse-appointment',
             'guard_name' => 'api',
-            'display_name' => 'View Appointment',
+            'display_name' => 'Browse Appointment',
         ],
         [
             'name' => 'edit-appointment',
@@ -71,6 +81,11 @@ return [
             'name' => 'create-role',
             'guard_name' => 'api',
             'display_name' => 'Create Role',
+        ],
+        [
+            'name' => 'browse-role',
+            'guard_name' => 'api',
+            'display_name' => 'Browse Role',
         ],
         [
             'name' => 'view-role',
@@ -95,6 +110,11 @@ return [
     ],
     'Permission' => [
         [
+            'name' => 'browse-permission',
+            'guard_name' => 'api',
+            'display_name' => 'Browse Permission',
+        ],
+        [
             'name' => 'view-permission',
             'guard_name' => 'api',
             'display_name' => 'View Permission',
@@ -110,6 +130,11 @@ return [
             'name' => 'create-reservation',
             'guard_name' => 'api',
             'display_name' => 'Create Reservation',
+        ],
+        [
+            'name' => 'browse-reservation',
+            'guard_name' => 'api',
+            'display_name' => 'Browse Reservation',
         ],
         [
             'name' => 'view-reservation',
@@ -130,6 +155,33 @@ return [
             'name' => 'delete-reservation',
             'guard_name' => 'api',
             'display_name' => 'Delete Reservation',
+        ],
+    ],
+    'Payment' => [
+        [
+            'name' => 'create-payment',
+            'guard_name' => 'api',
+            'display_name' => 'Create Reservation',
+        ],
+        [
+            'name' => 'browse-payment',
+            'guard_name' => 'api',
+            'display_name' => 'Browse Payment',
+        ],
+        [
+            'name' => 'view-payment',
+            'guard_name' => 'api',
+            'display_name' => 'View Payment',
+        ],
+        [
+            'name' => 'edit-payment',
+            'guard_name' => 'api',
+            'display_name' => 'Edit Payment',
+        ],
+        [
+            'name' => 'delete-payment',
+            'guard_name' => 'api',
+            'display_name' => 'Delete Payment',
         ],
     ],
 ];

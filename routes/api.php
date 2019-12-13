@@ -65,3 +65,10 @@ Route::group(['prefix' => 'appointment', 'middleware' => 'auth:api'], function (
 });
 
 Route::middleware('auth:api')->resource('phone', 'PhoneController');
+
+Route::group(['prefix' => 'payment', 'middleware' => 'auth:api'], function () {
+    Route::post('{id}', 'PaymentController@update');
+    Route::get('{id}', 'PaymentController@show');
+    Route::delete('{id}', 'PaymentController@destroy');
+    Route::resource('', 'PaymentController');
+});

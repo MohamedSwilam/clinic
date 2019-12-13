@@ -6,6 +6,7 @@ use App\Appointment;
 use App\Http\Requests\AppointmentRequest;
 use App\IndexResponse;
 use App\Patient;
+use App\Payment;
 use App\Phone;
 use App\Transformers\AppointmentTransformer;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -58,10 +59,17 @@ class AppointmentController extends Controller
 
         $appointment = Appointment::create($data);
 
+        if ($data['has_payment']){
+            $data = $data['payment'];
+            $data['appointment_id'] = $appointment->id;
+            $data['patient_id'] = $appointment->patient->id;
+            Payment::create($data);
+        }
+
         return $this->respond(
             'Appointment Created Successfully',
             fractal(
-                Appointment::find($appointment->id),
+                Appointment::where('id', $appointment->id)->with('payment')->get(),
                 new AppointmentTransformer()
             )
         );
@@ -76,7 +84,7 @@ class AppointmentController extends Controller
      */
     public function show($id)
     {
-        $this->authorize('index', Appointment::class);
+        $this->authorize('show', Appointment::class);
         return $this->respond('fetched successfully', fractal(
                 Appointment::where('id', $id)
                     ->first(),
@@ -103,9 +111,13 @@ class AppointmentController extends Controller
 
         $appointment->update($data);
 
+        if ($data['has_payment']){
+            $appointment->payment()->update($data['payment']);
+        }
+
         return $this->respond(
             'Appointment Updated Successfully',
-            fractal($appointment, new AppointmentTransformer())
+            fractal(Appointment::where('id', $id)->get(), new AppointmentTransformer())
         );
     }
 

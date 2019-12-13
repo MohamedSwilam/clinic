@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Patient extends Model
 {
@@ -26,6 +27,23 @@ class Patient extends Model
     public function appointments()
     {
         return $this->hasMany(Appointment::class);
+    }
+
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
+    }
+
+    public function scopePaymentStatistics($query)
+    {
+        $query->withCount([
+            'payments AS payments_total' => function ($query) {
+                $query->select(DB::raw("SUM(to_be_paid) as paid"));
+            },
+            'payments AS remaining_payments' => function ($query) {
+                $query->select(DB::raw("SUM(to_be_paid - paid) as paid"));
+            },
+        ]);
     }
 
 }

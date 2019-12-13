@@ -5,7 +5,7 @@ namespace App\Policies;
 use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class ReservationPolicy
+class PaymentPolicy
 {
     use HandlesAuthorization;
 
@@ -21,26 +21,26 @@ class ReservationPolicy
 
     public function index()
     {
-        return request()->user()->hasPermissionTo('browse-reservation');
+        return request()->user()->hasPermissionTo('browse-payment');
     }
 
     public function store()
     {
-        return request()->user()->hasPermissionTo('create-reservation');
+        return request()->user()->hasPermissionTo('create-payment');
     }
 
     public function show()
     {
-        return request()->user()->hasPermissionTo('view-reservation');
+        return request()->user()->hasPermissionTo('view-payment');
     }
 
     public function update()
     {
-        return request()->user()->hasPermissionTo('edit-reservation');
+        return request()->user()->hasPermissionTo('edit-payment');
     }
 
     public function destroy()
     {
-        return request()->user()->hasPermissionTo('delete-reservation');
+        return request()->user()->hasPermissionTo('delete-payment');
     }
 }

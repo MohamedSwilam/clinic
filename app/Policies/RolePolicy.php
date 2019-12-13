@@ -22,7 +22,7 @@ class RolePolicy
 
     public function index()
     {
-        return request()->user()->hasPermissionTo('view-role');
+        return request()->user()->hasPermissionTo('browse-role');
     }
 
     public function store()

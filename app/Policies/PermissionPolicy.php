@@ -21,6 +21,11 @@ class PermissionPolicy
 
     public function index()
     {
+        return request()->user()->hasPermissionTo('browse-permission');
+    }
+
+    public function show()
+    {
         return request()->user()->hasPermissionTo('view-permission');
     }
 }
