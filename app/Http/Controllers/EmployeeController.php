@@ -79,7 +79,7 @@ class EmployeeController extends Controller
      */
     public function show($id)
     {
-        $this->authorize('index', User::class);
+        $this->authorize('show', User::class);
         return $this->respond('fetched successfully', fractal(
             User::where('id', $id)
                 ->with('roles', 'permissions', 'roles.permissions', 'phones')

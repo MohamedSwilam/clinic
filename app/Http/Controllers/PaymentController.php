@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ReservationTypeRequest;
+use App\Http\Requests\PaymentRequest;
 use App\IndexResponse;
-use App\ReservationType;
-use App\Transformers\ReservationTypeTransformer;
+use App\Payment;
+use App\Transformers\PaymentTransformer;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class ReservationTypeController extends Controller
+class PaymentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,13 +20,13 @@ class ReservationTypeController extends Controller
      */
     public function index()
     {
-        $this->authorize('index', ReservationType::class);
+        $this->authorize('index', Payment::class);
 
         return $this->respond(
             'Data Loaded Successfully',
             fractal(
-                (new IndexResponse(ReservationType::query()))->execute(),
-                new ReservationTypeTransformer()
+                (new IndexResponse(Payment::query()))->execute()
+                , new PaymentTransformer()
             )
         );
     }
@@ -34,20 +34,23 @@ class ReservationTypeController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param ReservationTypeRequest $request
+     * @param PaymentRequest $request
      * @return JsonResponse
      * @throws AuthorizationException
      */
-    public function store(ReservationTypeRequest $request)
+    public function store(PaymentRequest $request)
     {
+        $this->authorize('store', Payment::class);
 
-        $this->authorize('store', ReservationType::class);
+        $data = $request->validated();
+
+        $payment = Payment::create($data);
 
         return $this->respond(
-            'Reservation Type Created Successfully',
+            'Payment Created Successfully',
             fractal(
-                ReservationType::create($request->validated()),
-                new ReservationTypeTransformer()
+                Payment::where('id', $payment->id)->first(),
+                new PaymentTransformer()
             )
         );
     }
@@ -61,11 +64,12 @@ class ReservationTypeController extends Controller
      */
     public function show($id)
     {
-        $this->authorize('show', ReservationType::class);
+        $this->authorize('show', Payment::class);
+
         return $this->respond('fetched successfully', fractal(
-                ReservationType::where('id', $id)
+                Payment::where('id', $id)
                     ->first(),
-                new ReservationTypeTransformer()
+                new PaymentTransformer()
             )
         );
     }
@@ -73,22 +77,27 @@ class ReservationTypeController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param ReservationTypeRequest $request
+     * @param PaymentRequest $request
      * @param $id
      * @return JsonResponse
      * @throws AuthorizationException
      */
-    public function update(ReservationTypeRequest $request, $id)
+    public function update(PaymentRequest $request, $id)
     {
-        $this->authorize('update', ReservationType::class);
+        $this->authorize('update', Payment::class);
 
-        $type = ReservationType::find($id);
+        $payment = Payment::find($id);
 
-        $type->update($request->validated());
+        $data = $request->validated();
+
+        $payment->update($data);
 
         return $this->respond(
-            'Reservation Type Updated Successfully',
-            fractal($type, new ReservationTypeTransformer())
+            'Payment Updated Successfully',
+            fractal(
+                Payment::where('id' , $payment->id)->first(),
+                new PaymentTransformer()
+            )
         );
     }
 
@@ -101,11 +110,10 @@ class ReservationTypeController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('destroy', Payment::class);
 
-        $this->authorize('destroy', ReservationType::class);
+        Payment::find($id)->delete();
 
-        ReservationType::find($id)->delete();
-
-        return $this->respond('Reservation Type Deleted Successfully');
+        return $this->respond('Payment Deleted Successfully');
     }
 }

@@ -22,12 +22,17 @@ class EmployeePolicy
 
     public function index()
     {
-        return request()->user()->hasPermissionTo('view-user');
+        return request()->user()->hasPermissionTo('browse-user');
     }
 
     public function store()
     {
         return request()->user()->hasPermissionTo('create-user');
+    }
+
+    public function show()
+    {
+        return request()->user()->hasPermissionTo('view-user');
     }
 
     public function update()

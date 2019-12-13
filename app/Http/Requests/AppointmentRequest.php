@@ -28,12 +28,12 @@ class AppointmentRequest extends FormRequest
             return [
                 'illness_description' => 'required',
                 'status' => 'required',
-                'patient_id' => 'required_if:new_patient,==,0|exists:patients,id',
                 'reservation_type_id' => 'required|exists:reservation_types,id',
                 'reservation_duration_id' => 'required|exists:reservation_durations,id',
                 'doctor_id' => 'required|exists:users,id',
                 'receptionist_id' => 'exists:users,id',
                 'new_patient' => 'required|boolean',
+                'patient_id' => 'required_if:new_patient,==,0|exists:patients,id',
                 'patient.email' => 'required_if:new_patient,==,1|email|unique:patients,email',
                 'patient.first_name' => 'required_if:new_patient,==,1',
                 'patient.last_name' => 'required_if:new_patient,==,1',
@@ -46,6 +46,10 @@ class AppointmentRequest extends FormRequest
                 'patient.reference' => 'required_if:new_patient,==,1',
                 'patient.phones.*.number' => 'required_if:new_patient,==,1|unique:phones,number',
                 'patient.phones.*.country_code' => 'required_if:new_patient,==,1',
+                'has_payment' => 'required',
+                'payment.description' => 'required_if:has_payment, ==, 1',
+                'payment.to_be_paid' => 'required_if:has_payment, ==, 1|numeric',
+                'payment.paid' => 'required_if:has_payment, ==, 1|numeric',
             ];
         }
         else if (sizeof($segments) == 3) {
@@ -56,6 +60,10 @@ class AppointmentRequest extends FormRequest
                 'reservation_duration_id' => 'exists:reservation_durations,id',
                 'doctor_id' => 'exists:users,id',
                 'receptionist_id' => 'exists:users,id',
+                'has_payment' => 'required',
+                'payment.description' => '',
+                'payment.to_be_paid' => 'numeric',
+                'payment.paid' => 'numeric',
             ];
         }
     }

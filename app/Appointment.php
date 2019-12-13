@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Appointment extends Model
 {
 
-    protected $with = ['patient', 'reservationType', 'reservationDuration', 'doctor', 'receptionist'];
+    protected $with = ['patient', 'reservationType', 'reservationDuration', 'doctor', 'receptionist', 'payment'];
 
     protected $fillable = ['status', 'illness_description', 'patient_id', 'reservation_type_id', 'reservation_duration_id', 'doctor_id', 'receptionist_id'];
 
@@ -29,6 +29,11 @@ class Appointment extends Model
     public function doctor()
     {
         return $this->belongsTo(User::class, 'doctor_id');
+    }
+
+    public function payment()
+    {
+        return $this->hasMany(Payment::class);
     }
 
     public function receptionist()

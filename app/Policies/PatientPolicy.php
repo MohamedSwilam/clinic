@@ -21,12 +21,17 @@ class PatientPolicy
 
     public function index()
     {
-        return request()->user()->hasPermissionTo('view-patient');
+        return request()->user()->hasPermissionTo('browse-patient');
     }
 
     public function store()
     {
         return request()->user()->hasPermissionTo('create-patient');
+    }
+
+    public function show()
+    {
+        return request()->user()->hasPermissionTo('view-patient');
     }
 
     public function update()

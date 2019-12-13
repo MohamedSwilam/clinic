@@ -11,6 +11,7 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 
 class PatientController extends Controller
 {
@@ -27,7 +28,7 @@ class PatientController extends Controller
         return $this->respond(
             'Data Loaded Successfully',
             fractal(
-                (new IndexResponse(Patient::query()))->execute()
+                (new IndexResponse(Patient::paymentStatistics()))->execute()
                 , new PatientTransformer()
             )
         );
@@ -71,9 +72,10 @@ class PatientController extends Controller
      */
     public function show($id)
     {
-        $this->authorize('index', Patient::class);
+        $this->authorize('show', Patient::class);
         return $this->respond('fetched successfully', fractal(
                 Patient::where('id', $id)
+                    ->paymentStatistics()
                     ->first(),
                 new PatientTransformer()
             )
