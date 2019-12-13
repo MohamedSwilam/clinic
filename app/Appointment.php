@@ -66,4 +66,12 @@ class Appointment extends Model
             $query->where('id', $id);
         });
     }
+
+    public function scopeDate($query, $date)
+    {
+        return $query->whereHas('reservationDuration', function ($query) use ($date){
+            $query->where('date', $date);
+            $query->where('date', $date);
+        });
+    }
 }
