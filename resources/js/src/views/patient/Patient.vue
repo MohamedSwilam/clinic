@@ -22,7 +22,7 @@
                             </vs-select>
                         </vs-col>
                         <vs-col vs-lg="3" vs-sm="6" vs-xs="6" class="mb-5">
-                            <vs-input icon-pack="feather" icon="icon-search" icon-after placeholder="search" v-model="searchText"></vs-input>
+                            <vs-input icon-pack="feather" icon="icon-search" icon-after placeholder="search" v-model="searchText" @change="handleSearch"></vs-input>
                         </vs-col>
                     </vs-row>
 
@@ -132,7 +132,7 @@
             getPatientsData()
             {
                 this.$vs.loading({container: this.$refs.browse.$refs.content, scale: 0.5});
-                this.$store.dispatch('patient/getData', `?page=${this.currentDurationPage}&paginate=${this.paginate}&${this.sortFilter}`)
+                this.$store.dispatch('patient/getData', `?page=${this.currentDurationPage}&paginate=${this.paginate}&${this.sortFilter}&${this.filterBy}=${this.searchText}`)
                     .then(response => {
                         this.$vs.loading.close(this.$refs.browse.$refs.content);
                         this.patients = response.data.data.data;
@@ -194,7 +194,15 @@
                     });
             },
 
-            handleSort(key, active) {
+            handleSearch()
+            {
+                console.log('aa',this.searchText);
+                this.currentDurationPage=1;
+                this.getPatientsData();
+            },
+
+            handleSort(key, active)
+            {
                 this.sortFilter = active?`sortDesc=${key}`:`sortAsc=${key}`;
                 this.currentDurationPage=1;
                 this.getPatientsData();
