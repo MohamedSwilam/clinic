@@ -12,6 +12,7 @@ import VuexPersistence from 'vuex-persist'
 Vue.use(Vuex);
 
 import moduleAuth from './auth/moduleAuth.js'
+import moduleEmployee from './employee/moduleEmployee'
 import moduleReservationType from './reservation-type/moduleReservationType'
 import moduleReservationDuration from './reservation-duration/moduleReservationDuration'
 import moduleRolesAndPermissions from './roles-and-permissions/moduleRolesAndPermissions'
@@ -28,6 +29,7 @@ export default new Vuex.Store({
     actions,
     modules: {
         auth: moduleAuth,
+        employee: moduleEmployee,
         rolesAndPermissions: moduleRolesAndPermissions,
         reservationType: moduleReservationType,
         reservationDuration: moduleReservationDuration

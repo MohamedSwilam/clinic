@@ -681,9 +681,14 @@ var render = function() {
                                           },
                                           on: {
                                             click: function($event) {
-                                              return _vm.confirmDeleteReservationDuration(
-                                                duration
-                                              )
+                                              _vm.is_requesting
+                                                ? _vm.$store.dispatch(
+                                                    "viewWaitMessage",
+                                                    _vm.$vs
+                                                  )
+                                                : _vm.confirmDeleteReservationDuration(
+                                                    duration
+                                                  )
                                             }
                                           }
                                         })

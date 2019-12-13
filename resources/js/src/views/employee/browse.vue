@@ -5,27 +5,27 @@
                 <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-w="9">
                     <b class="text-left vx-col w-full">{{employees.length}} results found in {{resultTime}}ms</b>
                 </vs-col>
-                <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-w="3">
+                <vs-col v-if="can('create-user')" vs-type="flex" vs-justify="center" vs-align="center" vs-w="3">
                     <vs-button to="/dashboard/employee/create" vs-w="3" color="primary" type="filled" icon-pack="feather" icon="icon-user-plus">&nbsp;&nbsp;Add Employee</vs-button>
                 </vs-col>
             </vs-row>
-            <vs-row>
-                <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-w="12">
-                    <vs-input vs-w="9" icon-pack="feather" icon="icon-search" :label-placeholder="$t('Search') || 'Search'" v-model="searchText" class="is-label-placeholder w-full" />
-                </vs-col>
-            </vs-row>
+<!--            <vs-row>-->
+<!--                <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-w="12">-->
+<!--                    <vs-input vs-w="9" icon-pack="feather" icon="icon-search" :label-placeholder="$t('Search') || 'Search'" v-model="searchText" class="is-label-placeholder w-full" />-->
+<!--                </vs-col>-->
+<!--            </vs-row>-->
             <div class="vx-col w-full mb-base">
             </div>
         </div>
 
         <!-- USER PROFILE CARD 2 - MINIMAL -->
-        <div class="vx-row">
+        <div class="vx-row" ref="browse">
             <div class="vx-col w-full sm:w-1/2 md:w-1/3 mb-base" v-for="employee in employees">
                 <vx-card class="p-2">
-                    <vs-avatar class="mx-auto mb-6 block" size="80px" :src="employee.photo_url" />
+                    <vs-avatar class="mx-auto mb-6 block" size="80px" :src="employee.image" />
                     <div class="text-center">
-                        <h4>{{ employee.name }}</h4>
-                        <p class="text-grey">{{ employee.title }}</p>
+                        <h4>{{ employee.first_name }} {{employee.last_name}}</h4>
+                        <p class="text-grey">{{ employee.roles[0].name }}</p>
                     </div>
                     <br>
                     <div class="text-left vx-col w-full">
@@ -36,9 +36,11 @@
                     <div class="text-left vx-col w-full">
                         <i class="fas fa-phone"></i>  {{ $t('Telephone') || 'Telephone(s)' }}
                         <p class="text-grey">
-                            <template v-for="(telephone, index) in employee.telephones">
-                                <span class="txt-hover" @click="copyToClipboard(telephone)">{{ telephone }}</span>
-                                <template v-if="index != employee.telephones.length-1">, </template>
+                            <template v-for="(phone, index) in employee.phones">
+                                <span class="txt-hover" @click="copyToClipboard(phone.number)">{{ phone.number }}</span><template v-if="index !== employee.phones.length-1">, </template>
+                            </template>
+                            <template v-if="employee.phones.length===0">
+                                No Telephones Assigned!
                             </template>
                         </p>
                     </div>
@@ -46,16 +48,16 @@
                         <vs-divider />
 
                         <div class="flex justify-between">
-                            <span class="flex items-center">
+                            <span v-if="can('delete-user')" class="flex items-center">
                                 <vx-tooltip color="danger" :text="$t('Delete') || 'Delete'">
-                                    <vs-button color="danger" type="filled" icon-pack="feather" icon="icon-trash"></vs-button>
+                                    <vs-button :id="`btn-delete-${employee.id}`" class="vs-con-loading__container" @click="is_requesting?$store.dispatch('viewWaitMessage', $vs):confirmDeleteEmployee(employee)" color="danger" type="filled" icon-pack="feather" icon="icon-trash"></vs-button>
                                 </vx-tooltip>
                             </span>
-                            <span class="flex items-center">
-                                <vs-button :to="'/dashboard/employee/5/edit'" color="warning" type="filled" icon-pack="feather" icon="icon-edit"></vs-button>
+                            <span v-if="can('edit-user')" class="flex items-center">
+                                <vs-button :to="`/dashboard/employee/${employee.id}/edit`" color="warning" type="filled" icon-pack="feather" icon="icon-edit"></vs-button>
                             </span>
-                            <span class="flex items-center">
-                                <vs-button :to="'/dashboard/employee/5'" type="gradient" icon-pack="feather" icon="icon-eye">{{$t('ViewProfile') || 'View Profile'}}</vs-button>
+                            <span v-if="can('view-user')" class="flex items-center">
+                                <vs-button :to="`/dashboard/employee/${employee.id}`" type="gradient" icon-pack="feather" icon="icon-eye">View</vs-button>
                             </span>
                         </div>
                     </template>
@@ -77,46 +79,73 @@
             return {
                 searchText: "",
                 resultTime: 0,
-                employees: []
+                employees: [],
+                is_requesting: false
             }
         },
         methods: {
             getEmployeesData(InitialTime){
-                this.employees = [
-                    {
-                        id : 1,
-                        name: "Phil Gray",
-                        title: "Doctor",
-                        photo_url: "/images/avatar-s-3.png",
-                        email: "Phil_Gray@hotmail.com",
-                        telephones: ["01096436702", "01113689783"]
-                    },
-                    {
-                        id : 2,
-                        name: "Irene Baker",
-                        title: "Receptionist",
-                        photo_url: "/images/avatar-s-2.png",
-                        email: "Irene_Baker@hotmail.com",
-                        telephones: ["01096436702", "01113689783"]
-                    },
-                    {
-                        id : 3,
-                        name: "Evan White",
-                        title: "Assistant Doctor",
-                        photo_url: "/images/avatar-s-1.png",
-                        email: "Evan_White@hotmail.com",
-                        telephones: ["01096436702", "01113689783"]
-                    },
-                    {
-                        id : 4,
-                        name: "Sonia Clark",
-                        title: "Receptionist",
-                        photo_url: "/images/avatar-s-4.png",
-                        email: "Sonia_Clark@hotmail.com",
-                        telephones: ["01096436702", "01113689783"]
-                    }
-                ];
-                this.resultTime = Date.now() - InitialTime;
+                this.$vs.loading({container: this.$refs.browse, scale: 0.5});
+                this.$store.dispatch('employee/getData', '')
+                    .then(response => {
+                        this.$vs.loading.close(this.$refs.browse);
+                        this.resultTime = Date.now() - InitialTime;
+                        this.employees = response.data.data.data;
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        this.$vs.loading.close(this.$refs.browse);
+                        this.$vs.notify({
+                            title: 'Error',
+                            text: error.response.data.error,
+                            iconPack: 'feather',
+                            icon: 'icon-alert-circle',
+                            color: 'danger'
+                        });
+                    });
+            },
+
+            confirmDeleteEmployee(type)
+            {
+                this.$vs.dialog({
+                    type: 'confirm',
+                    color: 'danger',
+                    title: `Are you sure!`,
+                    text: 'This data can not be retrieved again.',
+                    accept: this.deleteEmployee,
+                    parameters: [type]
+                });
+            },
+
+            deleteEmployee(params)
+            {
+                this.is_requesting=true;
+                this.$vs.loading({container: `#btn-delete-${params[0].id}`, color: 'danger', scale: 0.45});
+                this.$store.dispatch('employee/delete', params[0].id)
+                    .then(response => {
+                        this.is_requesting = false;
+                        this.$vs.loading.close(`#btn-delete-${params[0].id} > .con-vs-loading`);
+                        this.employees = this.employees.filter(type => {return type.id !== params[0].id});
+                        this.$vs.notify({
+                            title: 'Success',
+                            text: response.data.message,
+                            iconPack: 'feather',
+                            icon: 'icon-check',
+                            color: 'success'
+                        });
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        this.is_requesting=false;
+                        this.$vs.loading.close(`#btn-delete-${params[0].id} > .con-vs-loading`);
+                        this.$vs.notify({
+                            title: 'Error',
+                            text: error.response.data.error,
+                            iconPack: 'feather',
+                            icon: 'icon-alert-circle',
+                            color: 'danger'
+                        });
+                    });
             },
 
             copyToClipboard(text) {

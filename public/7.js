@@ -131,87 +131,154 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "edit",
+  name: "edit-employee",
   mounted: function mounted() {
-    this.getData();
+    this.getRoles();
+  },
+  computed: {
+    validateForm: function validateForm() {
+      return !this.errors.any() && this.form.first_name !== "" && this.form.last_name !== "" && this.form.email !== '' && this.form.address !== '' && this.form.country !== '' && this.form.city !== '' && this.form.password !== '' && this.form.confirm_password !== '';
+    }
   },
   data: function data() {
     return {
-      EmployeeRoles: [{
-        text: 'Administrator',
-        value: 1
-      }, {
-        text: 'Doctor',
-        value: 2
-      }, {
-        text: 'Assistant Doctor',
-        value: 3
-      }, {
-        text: 'Receptionist',
-        value: 4
-      }, {
-        text: 'Accountant',
-        value: 5
-      }],
-      SelectedEmployeeType: 1,
-      FirstName: "",
-      LastName: "",
-      Telephone: "",
-      Email: "",
-      Telephones: ['01096436702', '01116436790'],
-      DOB: null,
-      gender: 1,
-      imageData: "/images/avatar-s-11.png",
-      address: {
+      roles: [],
+      form: {
+        email: '',
+        password: '',
+        confirm_password: '',
+        first_name: '',
+        last_name: '',
+        birth_date: '',
+        address: '',
         city: '',
         country: '',
-        address_text: ''
+        gender: '',
+        image: null,
+        role: '',
+        phones: []
       },
-      cities: [{
-        id: 1,
-        name: 'Cairo',
-        countries: [{
-          id: 1,
-          name: 'Heliopolis'
-        }, {
-          id: 2,
-          name: 'Maadi'
-        }, {
-          id: 3,
-          name: 'Nasr City'
-        }]
-      }, {
-        id: 2,
-        name: 'Alexandria',
-        countries: [{
-          id: 4,
-          name: 'Alex1'
-        }, {
-          id: 5,
-          name: 'Alex2'
-        }, {
-          id: 6,
-          name: 'Alex3'
-        }]
-      }]
+      uploadedImage: null,
+      Telephone: '',
+      is_requesting: false
     };
   },
   methods: {
-    getData: function getData() {
-      this.FirstName = 'Phil';
-      this.LastName = 'Gray';
-      this.Email = 'Phil_Gray@hotmail.com';
-      this.DOB = '1997-10-18';
-      this.address.city = 'Cairo';
-      this.address.address_text = 'Cairo, Maddi';
-      this.address.country = 'Maadi';
+    //Get A List Of All Roles.
+    getRoles: function getRoles() {
+      var _this = this;
+
+      this.$vs.loading({
+        container: this.$refs.edit.$refs.content,
+        scale: 0.5
+      });
+      this.$store.dispatch('rolesAndPermissions/getRoles', '').then(function (response) {
+        _this.roles = response.data.data.data;
+
+        _this.getEmployeeData();
+
+        _this.form.role = _this.roles[0].name;
+      })["catch"](function (error) {
+        console.log(error);
+
+        _this.$vs.notify({
+          title: 'Error',
+          text: error.response.data.error,
+          iconPack: 'feather',
+          icon: 'icon-alert-circle',
+          color: 'danger'
+        });
+      });
+    },
+    getEmployeeData: function getEmployeeData() {
+      var _this2 = this;
+
+      this.$store.dispatch('employee/view', this.$route.params.id).then(function (response) {
+        _this2.$vs.loading.close(_this2.$refs.edit.$refs.content);
+
+        _this2.form = response.data.data.data;
+        _this2.form.role = response.data.data.data.roles[0].name;
+        _this2.uploadedImage = _this2.form.image ? _this2.form.image : '/images/avatar-s-11.png';
+        _this2.form.image = null;
+      })["catch"](function (error) {
+        console.log(error);
+
+        _this2.$vs.loading.close(_this2.$refs.edit.$refs.content);
+
+        _this2.$vs.notify({
+          title: 'Error',
+          text: error.response.data.error,
+          iconPack: 'feather',
+          icon: 'icon-alert-circle',
+          color: 'danger'
+        });
+      });
+    },
+    edit: function edit() {
+      var _this3 = this;
+
+      if (!this.validateForm) return;
+      this.is_requesting = true;
+      this.$vs.loading({
+        container: "#btn-edit",
+        color: 'primary',
+        scale: 0.45
+      });
+      var form_data = new FormData();
+
+      for (var key in this.form) {
+        if (key === 'image' && this.form.hasOwnProperty(key)) {
+          if (this.form[key]) {
+            for (var i = 0; i < this.form[key].length; i++) {
+              form_data.append(key, this.form[key][i]);
+            }
+          }
+        } else if (key === 'phones') {
+          form_data.append(key, JSON.stringify(this.form[key]));
+        } else if (key === 'password') {
+          if (this.form[key] !== '') {
+            form_data.append(key, JSON.stringify(this.form[key]));
+          }
+        } else {
+          form_data.append(key, this.form[key]);
+        }
+      }
+
+      this.$store.dispatch('employee/update', {
+        id: this.$route.params.id,
+        data: form_data
+      }).then(function (response) {
+        _this3.is_requesting = false;
+
+        _this3.$vs.loading.close("#btn-edit > .con-vs-loading");
+
+        _this3.$router.push("/dashboard/employee/".concat(_this3.$route.params.id));
+
+        _this3.$vs.notify({
+          title: 'Success',
+          text: response.data.message,
+          iconPack: 'feather',
+          icon: 'icon-check',
+          color: 'success'
+        });
+      })["catch"](function (error) {
+        console.log(error);
+        _this3.is_requesting = false;
+
+        _this3.$vs.loading.close("#btn-edit > .con-vs-loading");
+
+        _this3.$vs.notify({
+          title: 'Error',
+          text: error.response.data.errors[Object.keys(error.response.data.errors)[0]][0],
+          iconPack: 'feather',
+          icon: 'icon-alert-circle',
+          color: 'danger'
+        });
+      });
     },
     previewImage: function previewImage(event) {
-      var _this = this;
+      var _this4 = this;
 
       // Reference to the DOM input element
       var input = event.target; // Ensure that you have a file before attempting to read it
@@ -223,7 +290,8 @@ __webpack_require__.r(__webpack_exports__);
         reader.onload = function (e) {
           // Note: arrow function used here, so that "this.imageData" refers to the imageData of Vue component
           // Read image as base64 and set to imageData
-          _this.imageData = e.target.result;
+          _this4.uploadedImage = e.target.result;
+          _this4.form.image = input.files;
         }; // Start the reader job - read file as a data url (base64 format)
 
 
@@ -231,13 +299,14 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     removeTelephone: function removeTelephone(item) {
-      this.Telephones.splice(this.Telephones.indexOf(item), 1);
+      this.form.phones.splice(this.form.phones.indexOf(item), 1);
     },
     addTelephone: function addTelephone() {
-      var item = this.Telephone;
-
-      if (item != '') {
-        this.Telephones.push(item);
+      if (this.Telephone !== '') {
+        this.form.phones.push({
+          'country_code': '+20',
+          'number': this.Telephone
+        });
         this.Telephone = "";
       }
     }
@@ -317,7 +386,7 @@ var render = function() {
       [
         _c(
           "vx-card",
-          { attrs: { title: "Personal Information" } },
+          { ref: "edit", attrs: { title: "Edit Employee" } },
           [
             _c("div", { staticClass: "vx-row" }, [
               _c(
@@ -337,17 +406,17 @@ var render = function() {
                         color: "primary"
                       },
                       model: {
-                        value: _vm.SelectedEmployeeType,
+                        value: _vm.form.role,
                         callback: function($$v) {
-                          _vm.SelectedEmployeeType = $$v
+                          _vm.$set(_vm.form, "role", $$v)
                         },
-                        expression: "SelectedEmployeeType"
+                        expression: "form.role"
                       }
                     },
-                    _vm._l(_vm.EmployeeRoles, function(item, index) {
+                    _vm._l(_vm.roles, function(item, index) {
                       return _c("vs-select-item", {
                         key: index,
-                        attrs: { value: item.value, text: item.text }
+                        attrs: { value: item.name, text: item.name }
                       })
                     }),
                     1
@@ -359,21 +428,24 @@ var render = function() {
             _vm._v(" "),
             _c("div", { staticClass: "vx-row" }, [
               _c("div", { staticClass: "vx-col sm:w-1/2 w-full mb-6" }, [
-                _vm.imageData.length > 0
-                  ? _c(
-                      "div",
-                      {
-                        staticClass: "image-preview",
-                        staticStyle: { display: "inline-flex" }
-                      },
-                      [
-                        _c("img", {
+                _c(
+                  "div",
+                  {
+                    staticClass: "image-preview",
+                    staticStyle: { display: "inline-flex" }
+                  },
+                  [
+                    _vm.uploadedImage
+                      ? _c("img", {
                           staticClass: "preview",
-                          attrs: { alt: "employee photo", src: _vm.imageData }
+                          attrs: {
+                            alt: "employee photo",
+                            src: _vm.uploadedImage
+                          }
                         })
-                      ]
-                    )
-                  : _vm._e(),
+                      : _vm._e()
+                  ]
+                ),
                 _vm._v(" "),
                 _c(
                   "div",
@@ -428,13 +500,13 @@ var render = function() {
                         _c(
                           "vs-radio",
                           {
-                            attrs: { "vs-value": "1" },
+                            attrs: { "vs-value": "Male" },
                             model: {
-                              value: _vm.gender,
+                              value: _vm.form.gender,
                               callback: function($$v) {
-                                _vm.gender = $$v
+                                _vm.$set(_vm.form, "gender", $$v)
                               },
-                              expression: "gender"
+                              expression: "form.gender"
                             }
                           },
                           [_vm._v("Male")]
@@ -445,13 +517,13 @@ var render = function() {
                         _c(
                           "vs-radio",
                           {
-                            attrs: { "vs-value": "0" },
+                            attrs: { "vs-value": "Female" },
                             model: {
-                              value: _vm.gender,
+                              value: _vm.form.gender,
                               callback: function($$v) {
-                                _vm.gender = $$v
+                                _vm.$set(_vm.form, "gender", $$v)
                               },
-                              expression: "gender"
+                              expression: "form.gender"
                             }
                           },
                           [_vm._v("Female")]
@@ -485,18 +557,30 @@ var render = function() {
                 { staticClass: "vx-col sm:w-1/2 w-full mb-6" },
                 [
                   _c("vs-input", {
+                    directives: [
+                      {
+                        name: "validate",
+                        rawName: "v-validate",
+                        value: "required|alpha_dash|min:3",
+                        expression: "'required|alpha_dash|min:3'"
+                      }
+                    ],
                     staticClass: "w-full",
                     attrs: {
+                      name: "first_name",
+                      danger: _vm.errors.has("first_name"),
+                      "val-icon-danger": "clear",
+                      "danger-text": _vm.errors.first("first_name"),
                       "icon-pack": "feather",
                       icon: "icon-user",
                       "label-placeholder": "First Name"
                     },
                     model: {
-                      value: _vm.FirstName,
+                      value: _vm.form.first_name,
                       callback: function($$v) {
-                        _vm.FirstName = $$v
+                        _vm.$set(_vm.form, "first_name", $$v)
                       },
-                      expression: "FirstName"
+                      expression: "form.first_name"
                     }
                   })
                 ],
@@ -508,18 +592,30 @@ var render = function() {
                 { staticClass: "vx-col sm:w-1/2 w-full mb-6" },
                 [
                   _c("vs-input", {
+                    directives: [
+                      {
+                        name: "validate",
+                        rawName: "v-validate",
+                        value: "required|alpha_dash|min:3",
+                        expression: "'required|alpha_dash|min:3'"
+                      }
+                    ],
                     staticClass: "w-full",
                     attrs: {
+                      name: "last_name",
+                      danger: _vm.errors.has("last_name"),
+                      "val-icon-danger": "clear",
+                      "danger-text": _vm.errors.first("last_name"),
                       "icon-pack": "feather",
                       icon: "icon-user",
                       "label-placeholder": "Last Name"
                     },
                     model: {
-                      value: _vm.LastName,
+                      value: _vm.form.last_name,
                       callback: function($$v) {
-                        _vm.LastName = $$v
+                        _vm.$set(_vm.form, "last_name", $$v)
                       },
-                      expression: "LastName"
+                      expression: "form.last_name"
                     }
                   })
                 ],
@@ -542,21 +638,25 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.DOB,
-                            expression: "DOB"
+                            value: _vm.form.birth_date,
+                            expression: "form.birth_date"
                           }
                         ],
                         staticClass:
                           "vs-inputx vs-input--input normal hasIcon hasValue dob-input",
                         staticStyle: { border: "1px solid rgba(0, 0, 0, 0.2)" },
                         attrs: { required: "", type: "date" },
-                        domProps: { value: _vm.DOB },
+                        domProps: { value: _vm.form.birth_date },
                         on: {
                           input: function($event) {
                             if ($event.target.composing) {
                               return
                             }
-                            _vm.DOB = $event.target.value
+                            _vm.$set(
+                              _vm.form,
+                              "birth_date",
+                              $event.target.value
+                            )
                           }
                         }
                       }),
@@ -590,18 +690,30 @@ var render = function() {
                 { staticClass: "vx-col sm:w-1/2 w-full mb-6" },
                 [
                   _c("vs-input", {
+                    directives: [
+                      {
+                        name: "validate",
+                        rawName: "v-validate",
+                        value: "required",
+                        expression: "'required'"
+                      }
+                    ],
                     staticClass: "w-full",
                     attrs: {
+                      name: "address",
+                      danger: _vm.errors.has("address"),
+                      "val-icon-danger": "clear",
+                      "danger-text": _vm.errors.first("address"),
                       "icon-pack": "feather",
                       icon: "icon-map-pin",
                       "label-placeholder": "Address"
                     },
                     model: {
-                      value: _vm.address.address_text,
+                      value: _vm.form.address,
                       callback: function($$v) {
-                        _vm.$set(_vm.address, "address_text", $$v)
+                        _vm.$set(_vm.form, "address", $$v)
                       },
-                      expression: "address.address_text"
+                      expression: "form.address"
                     }
                   })
                 ],
@@ -614,27 +726,33 @@ var render = function() {
                 "div",
                 { staticClass: "vx-col sm:w-1/2 w-full mb-6" },
                 [
-                  _c(
-                    "vs-select",
-                    {
-                      staticClass: "w-full",
-                      attrs: { label: "City" },
-                      model: {
-                        value: _vm.address.city,
-                        callback: function($$v) {
-                          _vm.$set(_vm.address, "city", $$v)
-                        },
-                        expression: "address.city"
+                  _c("vs-input", {
+                    directives: [
+                      {
+                        name: "validate",
+                        rawName: "v-validate",
+                        value: "required",
+                        expression: "'required'"
                       }
+                    ],
+                    staticClass: "w-full",
+                    attrs: {
+                      name: "city",
+                      danger: _vm.errors.has("city"),
+                      "val-icon-danger": "clear",
+                      "danger-text": _vm.errors.first("city"),
+                      "icon-pack": "feather",
+                      icon: "icon-map-pin",
+                      "label-placeholder": "City"
                     },
-                    _vm._l(_vm.cities, function(city, index) {
-                      return _c("vs-select-item", {
-                        key: index,
-                        attrs: { value: city, text: city.name }
-                      })
-                    }),
-                    1
-                  )
+                    model: {
+                      value: _vm.form.city,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form, "city", $$v)
+                      },
+                      expression: "form.city"
+                    }
+                  })
                 ],
                 1
               ),
@@ -643,30 +761,33 @@ var render = function() {
                 "div",
                 { staticClass: "vx-col sm:w-1/2 w-full mb-6" },
                 [
-                  _c(
-                    "vs-select",
-                    {
-                      staticClass: "w-full",
-                      attrs: { label: "Country" },
-                      model: {
-                        value: _vm.address.country,
-                        callback: function($$v) {
-                          _vm.$set(_vm.address, "country", $$v)
-                        },
-                        expression: "address.country"
+                  _c("vs-input", {
+                    directives: [
+                      {
+                        name: "validate",
+                        rawName: "v-validate",
+                        value: "required",
+                        expression: "'required'"
                       }
+                    ],
+                    staticClass: "w-full",
+                    attrs: {
+                      name: "country",
+                      danger: _vm.errors.has("country"),
+                      "val-icon-danger": "clear",
+                      "danger-text": _vm.errors.first("country"),
+                      "icon-pack": "feather",
+                      icon: "icon-map-pin",
+                      "label-placeholder": "Country"
                     },
-                    _vm._l(_vm.address.city.countries, function(
-                      country,
-                      index
-                    ) {
-                      return _c("vs-select-item", {
-                        key: index,
-                        attrs: { value: country.id, text: country.name }
-                      })
-                    }),
-                    1
-                  )
+                    model: {
+                      value: _vm.form.country,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form, "country", $$v)
+                      },
+                      expression: "form.country"
+                    }
+                  })
                 ],
                 1
               )
@@ -742,11 +863,11 @@ var render = function() {
                       _c(
                         "vs-col",
                         { attrs: { "vs-w": "12" } },
-                        _vm._l(_vm.Telephones, function(telephone) {
+                        _vm._l(_vm.form.phones, function(telephone, index) {
                           return _c(
                             "vs-chip",
                             {
-                              key: telephone,
+                              key: index,
                               attrs: { closable: "" },
                               on: {
                                 click: function($event) {
@@ -757,7 +878,7 @@ var render = function() {
                             [
                               _vm._v(
                                 "\n                                " +
-                                  _vm._s(telephone) +
+                                  _vm._s(telephone.number) +
                                   "\n                            "
                               )
                             ]
@@ -777,18 +898,105 @@ var render = function() {
                 { staticClass: "vx-col sm:w-1/2 w-full mb-6" },
                 [
                   _c("vs-input", {
+                    directives: [
+                      {
+                        name: "validate",
+                        rawName: "v-validate",
+                        value: "required|email",
+                        expression: "'required|email'"
+                      }
+                    ],
                     staticClass: "w-full",
                     attrs: {
+                      name: "email",
+                      danger: _vm.errors.has("email"),
+                      "val-icon-danger": "clear",
+                      "danger-text": _vm.errors.first("email"),
                       "icon-pack": "feather",
                       icon: "icon-mail",
                       "label-placeholder": "Email"
                     },
                     model: {
-                      value: _vm.Email,
+                      value: _vm.form.email,
                       callback: function($$v) {
-                        _vm.Email = $$v
+                        _vm.$set(_vm.form, "email", $$v)
                       },
-                      expression: "Email"
+                      expression: "form.email"
+                    }
+                  })
+                ],
+                1
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "vx-row" }, [
+              _c(
+                "div",
+                { staticClass: "vx-col sm:w-1/2 w-full mb-6" },
+                [
+                  _c("vs-input", {
+                    directives: [
+                      {
+                        name: "validate",
+                        rawName: "v-validate",
+                        value: "min:6|max:10",
+                        expression: "'min:6|max:10'"
+                      }
+                    ],
+                    ref: "password",
+                    staticClass: "w-full",
+                    attrs: {
+                      name: "password",
+                      danger: _vm.errors.has("password"),
+                      "val-icon-danger": "clear",
+                      "danger-text": _vm.errors.first("password"),
+                      type: "password",
+                      "icon-pack": "feather",
+                      icon: "icon-lock",
+                      "label-placeholder": "Password"
+                    },
+                    model: {
+                      value: _vm.form.password,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form, "password", $$v)
+                      },
+                      expression: "form.password"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "vx-col sm:w-1/2 w-full mb-6" },
+                [
+                  _c("vs-input", {
+                    directives: [
+                      {
+                        name: "validate",
+                        rawName: "v-validate",
+                        value: "min:6|max:10|confirmed:password",
+                        expression: "'min:6|max:10|confirmed:password'"
+                      }
+                    ],
+                    staticClass: "w-full",
+                    attrs: {
+                      type: "password",
+                      name: "confirm_password",
+                      danger: _vm.errors.has("confirm_password"),
+                      "val-icon-danger": "clear",
+                      "danger-text": _vm.errors.first("confirm_password"),
+                      "icon-pack": "feather",
+                      icon: "icon-lock",
+                      "label-placeholder": "Confirm Password"
+                    },
+                    model: {
+                      value: _vm.form.confirm_password,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form, "confirm_password", $$v)
+                      },
+                      expression: "form.confirm_password"
                     }
                   })
                 ],
@@ -822,12 +1030,21 @@ var render = function() {
                       "vs-button",
                       {
                         attrs: {
+                          id: "btn-edit",
+                          disabled: !_vm.validateForm,
                           "icon-pack": "feather",
                           icon: "icon-save",
                           type: "gradient"
+                        },
+                        on: {
+                          click: function($event) {
+                            _vm.is_requesting
+                              ? _vm.$store.dispatch("viewWaitMessage", _vm.$vs)
+                              : _vm.edit()
+                          }
                         }
                       },
-                      [_vm._v("Save Employee")]
+                      [_vm._v("Edit Employee")]
                     )
                   ],
                   1
