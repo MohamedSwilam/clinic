@@ -6,10 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Appointment extends Model
 {
+    protected $with = ['patient', 'reservationType', 'reservationDuration', 'doctor', 'receptionist', 'payment', 'status'];
 
-    protected $with = ['patient', 'reservationType', 'reservationDuration', 'doctor', 'receptionist', 'payment'];
-
-    protected $fillable = ['status', 'illness_description', 'patient_id', 'reservation_type_id', 'reservation_duration_id', 'doctor_id', 'receptionist_id'];
+    protected $fillable = ['status_id', 'illness_description', 'patient_id', 'reservation_type_id', 'reservation_duration_id', 'doctor_id', 'receptionist_id'];
 
     public function patient()
     {
@@ -36,6 +35,11 @@ class Appointment extends Model
         return $this->hasMany(Payment::class);
     }
 
+    public function status()
+    {
+        return $this->belongsTo(Status::class, 'status_id');
+    }
+
     public function receptionist()
     {
         return $this->belongsTo(User::class, 'receptionist_id');
@@ -54,5 +58,12 @@ class Appointment extends Model
     public function scopePatient($query, $id)
     {
         return $query->where('patient_id', $id);
+    }
+
+    public function scopeStatus($query, $id)
+    {
+        return $query->whereHas('status', function ($query) use ($id){
+            $query->where('id', $id);
+        });
     }
 }

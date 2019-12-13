@@ -69,7 +69,7 @@ class AppointmentController extends Controller
         return $this->respond(
             'Appointment Created Successfully',
             fractal(
-                Appointment::where('id', $appointment->id)->with('payment')->get(),
+                Appointment::where('id', $appointment->id)->get(),
                 new AppointmentTransformer()
             )
         );
