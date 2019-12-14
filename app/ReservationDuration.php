@@ -17,4 +17,9 @@ class ReservationDuration extends Model
     {
         return $this->hasMany(Appointment::class);
     }
+
+    public function scopeDate($query, $date)
+    {
+        return $query->where('date', $date);
+    }
 }

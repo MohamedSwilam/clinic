@@ -184,4 +184,31 @@ return [
             'display_name' => 'Delete Payment',
         ],
     ],
+    'Prescription' => [
+        [
+            'name' => 'create-prescription',
+            'guard_name' => 'api',
+            'display_name' => 'Create Prescription',
+        ],
+        [
+            'name' => 'browse-prescription',
+            'guard_name' => 'api',
+            'display_name' => 'Browse Prescription',
+        ],
+        [
+            'name' => 'view-prescription',
+            'guard_name' => 'api',
+            'display_name' => 'View Prescription',
+        ],
+        [
+            'name' => 'edit-prescription',
+            'guard_name' => 'api',
+            'display_name' => 'Edit Prescription',
+        ],
+        [
+            'name' => 'delete-prescription',
+            'guard_name' => 'api',
+            'display_name' => 'Delete Prescription',
+        ],
+    ],
 ];

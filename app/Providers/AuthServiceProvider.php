@@ -9,9 +9,11 @@ use App\Policies\EmployeePolicy;
 use App\Policies\PatientPolicy;
 use App\Policies\PaymentPolicy;
 use App\Policies\PermissionPolicy;
+use App\Policies\PrescriptionPolicy;
 use App\Policies\ReservationPolicy;
 use App\Policies\ReservationTypePolicy;
 use App\Policies\RolePolicy;
+use App\Prescription;
 use App\ReservationDuration;
 use App\ReservationType;
 use App\User;
@@ -38,6 +40,7 @@ class AuthServiceProvider extends ServiceProvider
         ReservationDuration::class => ReservationPolicy::class,
         Appointment::class => ReservationPolicy::class,
         Payment::class => PaymentPolicy::class,
+        Prescription::class => PrescriptionPolicy::class,
     ];
 
     /**

@@ -34,6 +34,11 @@ class Patient extends Model
         return $this->hasMany(Payment::class);
     }
 
+    public function prescriptions()
+    {
+        return $this->hasMany(Prescription::class);
+    }
+
     public function scopePaymentStatistics($query)
     {
         $query->withCount([
@@ -43,6 +48,18 @@ class Patient extends Model
             'payments AS remaining_payments' => function ($query) {
                 $query->select(DB::raw("SUM(to_be_paid - paid) as paid"));
             },
+            'payments AS paid_payments' => function ($query) {
+                $query->select(DB::raw("SUM(paid) as paid"));
+            },
+        ]);
+    }
+
+    public function scopeNotPaidPayments($query, $data)
+    {
+        return $query->with([
+            'payments' => function ($query) {
+                $query->whereRaw("to_be_paid != paid");
+            }
         ]);
     }
 
@@ -68,5 +85,4 @@ class Patient extends Model
             $query->where('number', 'like', "%$phone%");
         });
     }
-
 }
