@@ -72,3 +72,10 @@ Route::group(['prefix' => 'payment', 'middleware' => 'auth:api'], function () {
     Route::delete('{id}', 'PaymentController@destroy');
     Route::resource('', 'PaymentController');
 });
+
+Route::group(['prefix' => 'prescription', 'middleware' => 'auth:api'], function () {
+    Route::post('{id}', 'PrescriptionController@update');
+    Route::get('{id}', 'PrescriptionController@show');
+    Route::delete('{id}', 'PrescriptionController@destroy');
+    Route::resource('', 'PrescriptionController');
+});

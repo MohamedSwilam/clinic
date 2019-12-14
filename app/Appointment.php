@@ -71,7 +71,6 @@ class Appointment extends Model
     {
         return $query->whereHas('reservationDuration', function ($query) use ($date){
             $query->where('date', $date);
-            $query->where('date', $date);
         });
     }
 }

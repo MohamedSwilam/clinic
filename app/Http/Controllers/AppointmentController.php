@@ -62,6 +62,7 @@ class AppointmentController extends Controller
         if ($data['has_payment']){
             $data = $data['payment'];
             $data['appointment_id'] = $appointment->id;
+            $data['to_be_paid'] = $appointment->reservationType->max_price;
             $data['patient_id'] = $appointment->patient->id;
             Payment::create($data);
         }

@@ -54,6 +54,13 @@ class User extends Authenticatable
         });
     }
 
+    public function scopeDoctor($query)
+    {
+        return $query->whereHas('roles', function ($query) {
+            $query->where('name', 'doctor');
+        });
+    }
+
     public function phones()
     {
         return $this->morphMany(Phone::class, 'phoneable');
@@ -67,6 +74,11 @@ class User extends Authenticatable
     public function reservedAppointments()
     {
         return $this->hasMany(Appointment::class, 'receptionist_id');
+    }
+
+    public function prescriptions()
+    {
+        return $this->hasMany(Prescription::class, 'creator_id');
     }
 
 }
