@@ -27,7 +27,7 @@ class AppointmentRequest extends FormRequest
         if (sizeof($segments) == 2){
             return [
                 'illness_description' => 'required',
-                'status' => 'required',
+                'status_id' => 'required|exists:statuses,id',
                 'reservation_type_id' => 'required|exists:reservation_types,id',
                 'reservation_duration_id' => 'required|exists:reservation_durations,id',
                 'doctor_id' => 'required|exists:users,id',
@@ -55,7 +55,7 @@ class AppointmentRequest extends FormRequest
         else if (sizeof($segments) == 3) {
             return [
                 'illness_description' => '',
-                'status' => '',
+                'status_id' => 'exists:statuses,id',
                 'reservation_type_id' => 'exists:reservation_types,id',
                 'reservation_duration_id' => 'exists:reservation_durations,id',
                 'doctor_id' => 'exists:users,id',
