@@ -4,7 +4,7 @@
             <vs-table :sst="true" @sort="handleSort" :data="patients">
                 <template slot="header">
                     <vs-row>
-                        <vs-col vs-lg="6" vs-sm="12" vs-xs="12" class="mb-5">
+                        <vs-col vs-lg="6" vs-sm="12" vs-xs="12">
                             <vs-button size="small" to="/dashboard/patient/create" icon-pack="feather" icon="icon-plus" type="filled">New Patient</vs-button>
                         </vs-col>
                         <vs-col vs-lg="3" vs-sm="6" vs-xs="6" class="mb-5">
@@ -77,7 +77,7 @@
                                         <vs-button :to="`/dashboard/patient/${patient.id}`" radius color="primary" type="border" icon-pack="feather" icon="icon-eye"></vs-button>
                                     </div>
                                     <div class="w-1/4 pl-2">
-                                        <vs-button disabled @click="reserveAppointement(patient.id)" radius color="dark" type="border" icon-pack="feather" icon="icon-edit-2"></vs-button>
+                                        <vs-button @click="reserveAppointement(patient.id)" radius color="dark" type="border" icon-pack="feather" icon="icon-edit-2"></vs-button>
                                     </div>
                                     <div class="w-1/4 pl-2">
                                         <vs-button :to="`/dashboard/patient/${patient.id}/edit`" radius color="warning" type="border" icon-pack="feather" icon="icon-edit"></vs-button>
@@ -196,7 +196,6 @@
 
             handleSearch()
             {
-                console.log('aa',this.searchText);
                 this.currentDurationPage=1;
                 this.getPatientsData();
             },

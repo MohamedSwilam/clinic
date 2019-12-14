@@ -211,7 +211,6 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     handleSearch: function handleSearch() {
-      console.log('aa', this.searchText);
       this.currentDurationPage = 1;
       this.getPatientsData();
     },
@@ -427,7 +426,6 @@ var render = function() {
                                     [
                                       _c("vs-button", {
                                         attrs: {
-                                          disabled: "",
                                           radius: "",
                                           color: "dark",
                                           type: "border",
@@ -515,7 +513,6 @@ var render = function() {
                       _c(
                         "vs-col",
                         {
-                          staticClass: "mb-5",
                           attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
                         },
                         [

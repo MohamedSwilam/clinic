@@ -108502,7 +108502,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
         }],
         pageTitle: 'Appointment',
         pageTitle_i18n: 'Appointment',
-        permission: 'view-appointment'
+        permission: 'browse-appointment'
       }
     }, {
       path: '/dashboard/appointment/add-appointment/:patient_id',
