@@ -1,17 +1,39 @@
 <template>
     <div>
-        <vx-card title='Patients List' collapse-action>
-            <vs-table search :data="patients">
+        <vx-card ref="browse" title='Patients List' collapse-action refreshContentAction @refresh="getPatientsData">
+            <vs-table :sst="true" @sort="handleSort" :data="patients">
                 <template slot="header">
-                    <vs-button size="small" to="/dashboard/patient/create" icon-pack="feather" icon="icon-plus" type="filled">New Patient</vs-button>
+                    <vs-row>
+                        <vs-col vs-lg="6" vs-sm="12" vs-xs="12" class="mb-5">
+                            <vs-button size="small" to="/dashboard/patient/create" icon-pack="feather" icon="icon-plus" type="filled">New Patient</vs-button>
+                        </vs-col>
+                        <vs-col vs-lg="3" vs-sm="6" vs-xs="6" class="mb-5">
+                            <vs-select
+                                autocomplete
+                                class="selectExample"
+                                v-model="filterBy"
+                                icon-pack="feather"
+                                icon="icon-filter"
+                            >
+                                <vs-select-item value="id" text="ID"/>
+                                <vs-select-item value="name" text="Name"/>
+                                <vs-select-item value="email" text="Email"/>
+                                <vs-select-item value="phone" text="Phone"/>
+                            </vs-select>
+                        </vs-col>
+                        <vs-col vs-lg="3" vs-sm="6" vs-xs="6" class="mb-5">
+                            <vs-input icon-pack="feather" icon="icon-search" icon-after placeholder="search" v-model="searchText"></vs-input>
+                        </vs-col>
+                    </vs-row>
+
                 </template>
                 <template slot="thead">
                     <vs-th>#</vs-th>
-                    <vs-th sort-key="public_id">ID</vs-th>
-                    <vs-th sort-key="name">Name</vs-th>
-                    <vs-th sort-key="age">Birth Date</vs-th>
+                    <vs-th sort-key="id">ID</vs-th>
+                    <vs-th sort-key="first_name">Name</vs-th>
+                    <vs-th sort-key="birth_date">Birth Date</vs-th>
                     <vs-th>Telephones</vs-th>
-                    <vs-th sort-key="payment_percentage">Payment</vs-th>
+                    <vs-th>Payment</vs-th>
                     <vs-th>Action</vs-th>
                 </template>
                 <template slot-scope="{data}">
@@ -20,47 +42,48 @@
                             {{ index+1 }}
                         </vs-td>
 
-                        <vs-td :data="patient.public_id">
-                            {{ patient.public_id}}
+                        <vs-td :data="patient.id">
+                            {{ patient.id}}
                         </vs-td>
 
-                        <vs-td :data="patient.name">
-                            {{ patient.name}}
+                        <vs-td :data="patient.first_name">
+                            {{ patient.first_name}} {{ patient.last_name}}
                         </vs-td>
 
-                        <vs-td :data="patient.dob">
-                            {{ patient.dob}}
+                        <vs-td :data="patient.birth_date">
+                            {{ patient.birth_date?patient.birth_date:'Not Specified'}}
                         </vs-td>
 
                         <vs-td>
-                            <template v-for="(telephone, telephone_index) in patient.telephones">
-                                {{ telephone }}<template v-if="telephone_index !== patient.telephones.length-1">, </template>
+                            <template v-for="(telephone, telephone_index) in patient.phones">
+                                {{ telephone.number }}<template v-if="telephone_index !== patient.phones.length-1">, </template>
                             </template>
                         </vs-td>
 
                         <vs-td :data="patient.counter">
-                            <template v-if="patient.payment_percentage===100"><i class="fas fa-check"></i> <b>Complete</b></template>
-                            <template v-else><b>{{patient.payment.paid}}</b> Out of <b>{{patient.payment.total}}</b></template>
-                            <br>
-                            <vs-progress v-if="patient.payment_percentage === 100" :percent="patient.payment_percentage" color="success"></vs-progress>
-                            <vs-progress v-else-if="patient.payment_percentage > 25" :percent="patient.payment_percentage" color="warning"></vs-progress>
-                            <vs-progress v-else-if="patient.payment_percentage <= 25" :percent="patient.payment_percentage" color="danger"></vs-progress>
+                            Comming Soon
+<!--                            <template v-if="patient.payment_percentage===100"><i class="fas fa-check"></i> <b>Complete</b></template>-->
+<!--                            <template v-else><b>{{patient.payment.paid}}</b> Out of <b>{{patient.payment.total}}</b></template>-->
+<!--                            <br>-->
+<!--                            <vs-progress v-if="patient.payment_percentage === 100" :percent="patient.payment_percentage" color="success"></vs-progress>-->
+<!--                            <vs-progress v-else-if="patient.payment_percentage > 25" :percent="patient.payment_percentage" color="warning"></vs-progress>-->
+<!--                            <vs-progress v-else-if="patient.payment_percentage <= 25" :percent="patient.payment_percentage" color="danger"></vs-progress>-->
                         </vs-td>
 
                         <vs-td>
                             <vs-row>
                                 <div class="flex mb-4">
                                     <div class="w-1/4 pl-2">
-                                        <vs-button :to="`/dashboard/patient/${patient.public_id}`" radius color="primary" type="border" icon-pack="feather" icon="icon-eye"></vs-button>
+                                        <vs-button :to="`/dashboard/patient/${patient.id}`" radius color="primary" type="border" icon-pack="feather" icon="icon-eye"></vs-button>
                                     </div>
                                     <div class="w-1/4 pl-2">
-                                        <vs-button @click="reserveAppointement(patient.public_id)" radius color="dark" type="border" icon-pack="feather" icon="icon-edit-2"></vs-button>
+                                        <vs-button disabled @click="reserveAppointement(patient.id)" radius color="dark" type="border" icon-pack="feather" icon="icon-edit-2"></vs-button>
                                     </div>
                                     <div class="w-1/4 pl-2">
-                                        <vs-button :to="`/dashboard/patient/${patient.public_id}/edit`" radius color="warning" type="border" icon-pack="feather" icon="icon-edit"></vs-button>
+                                        <vs-button :to="`/dashboard/patient/${patient.id}/edit`" radius color="warning" type="border" icon-pack="feather" icon="icon-edit"></vs-button>
                                     </div>
                                     <div class="w-1/4 pl-2">
-                                        <vs-button radius color="danger" type="border" icon-pack="feather" icon="icon-trash" @click="confirmDeletePatient(patient)"></vs-button>
+                                        <vs-button :id="`btn-delete-${patient.id}`" radius color="danger" type="border" icon-pack="feather" icon="icon-trash" @click="confirmDeletePatient(patient)"></vs-button>
                                     </div>
                                 </div>
                             </vs-row>
@@ -68,6 +91,7 @@
                     </vs-tr>
                 </template>
             </vs-table>
+            <vs-pagination goto class="mt-5" @change="handleChangePage" :total="total_pages" v-model="currentDurationPage"></vs-pagination>
         </vx-card>
     </div>
 </template>
@@ -91,8 +115,12 @@
                     'header: Slot'
                 ],
                 searchText: "",
-                resultTime: 0,
-                patients: []
+                patients: [],
+                currentDurationPage: 1,
+                sortFilter: 'sortDesc=id',
+                paginate: 1,
+                total_pages: 0,
+                filterBy: 'id'
             }
         },
         methods: {
@@ -101,121 +129,79 @@
                 this.$router.push({name: 'add-appointment', params: {patient_id: patientID}});
             },
 
-            getPatientsData(){
-                this.patients = [
-                    {
-                        id : 1,
-                        name: "Phil Gray",
-                        public_id: "p-105",
-                        dob: "18/10/1997",
-                        telephones: ["01096436702", "01113689783"],
-                        payment_percentage: (200*100)/1000,
-                        payment: {
-                            paid: 200,
-                            total: 1000
-                        },
-                    },
-                    {
-                        id : 2,
-                        name: "Irene Baker",
-                        public_id: "p-116",
-                        dob: "05/09/1989",
-                        telephones: ["01116568369"],
-                        payment_percentage: (750*100)/750,
-                        payment: {
-                            paid: 750,
-                            total: 750,
-                        },
-                    },
-                    {
-                        id : 3,
-                        name: "Evan White",
-                        public_id: "p-118",
-                        dob: "16/03/1991",
-                        telephones: ["01096123366", "01115696966"],
-                        payment_percentage: (950*100)/950,
-                        payment: {
-                            paid: 950,
-                            total: 950
-                        },
-                    },
-                    {
-                        id : 4,
-                        name: "Sonia Clark",
-                        public_id: "p-120",
-                        dob: "04/12/1975",
-                        telephones: ["01086123445", "01007865613"],
-                        payment_percentage: (700*100)/800,
-                        payment: {
-                            paid: 700,
-                            total: 800,
-                        },
-                    },{
-                        id : 5,
-                        name: "Phil Gray",
-                        public_id: "p-121",
-                        dob: "18/10/1997",
-                        telephones: ["01096436702", "01113689783"],
-                        payment_percentage: (300*100)/1250,
-                        payment: {
-                            paid: 300,
-                            total: 1250,
-                        },
-                    },
-                    {
-                        id : 6,
-                        name: "Irene Baker",
-                        public_id: "p-122",
-                        dob: "05/09/1989",
-                        telephones: ["01116568369"],
-                        payment_percentage: (1250*100)/1250,
-                        payment: {
-                            paid: 1250,
-                            total: 1250,
-                        },
-                    },
-                    {
-                        id : 7,
-                        name: "Evan White",
-                        public_id: "p-123",
-                        dob: "16/03/1991",
-                        telephones: ["01096123366", "01115696966"],
-                        payment_percentage: (700*100)/800,
-                        payment: {
-                            paid: 700,
-                            total: 800,
-                        }
-                    },
-                    {
-                        id : 8,
-                        name: "Sonia Clark",
-                        public_id: "p-124",
-                        dob: "04/12/1975",
-                        telephones: ["01086123445", "01007865613"],
-                        payment_percentage: (1000*100)/1000,
-                        payment: {
-                            paid: 1000,
-                            total: 1000,
-                        }
-                    }
-                ];
+            getPatientsData()
+            {
+                this.$vs.loading({container: this.$refs.browse.$refs.content, scale: 0.5});
+                this.$store.dispatch('patient/getData', `?page=${this.currentDurationPage}&paginate=${this.paginate}&${this.sortFilter}`)
+                    .then(response => {
+                        this.$vs.loading.close(this.$refs.browse.$refs.content);
+                        this.patients = response.data.data.data;
+                        this.total_pages = response.data.data.meta.pagination.total_pages;
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        this.$vs.loading.close(this.$refs.browse.$refs.content);
+                        this.$vs.notify({
+                            title: 'Error',
+                            text: error.response.data.error,
+                            iconPack: 'feather',
+                            icon: 'icon-alert-circle',
+                            color: 'danger'
+                        });
+                    });
             },
 
             confirmDeletePatient(patinet)
             {
-                this.patientIdToDelete = patinet.id;
                 this.$vs.dialog({
                     type: 'confirm',
                     color: 'danger',
                     title: `Are you sure!`,
                     text: 'This data can not be retrieved again.',
-                    accept: this.deletePatient
+                    accept: this.deletePatient,
+                    parameters: [patinet]
                 });
             },
 
-            deletePatient()
+            deletePatient(params)
             {
-                this.vs_alert('Success', 'Reservation Duration Successfully Deleted.', 'success', 'icon-check');
+                this.is_requesting=true;
+                this.$vs.loading({container: `#btn-delete-${params[0].id}`, color: 'danger', scale: 0.45});
+                this.$store.dispatch('patient/delete', params[0].id)
+                    .then(response => {
+                        this.is_requesting = false;
+                        this.$vs.loading.close(`#btn-delete-${params[0].id} > .con-vs-loading`);
+                        this.patients = this.patients.filter(patient => {return patient.id !== params[0].id});
+                        this.$vs.notify({
+                            title: 'Success',
+                            text: response.data.message,
+                            iconPack: 'feather',
+                            icon: 'icon-check',
+                            color: 'success'
+                        });
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        this.is_requesting=false;
+                        this.$vs.loading.close(`#btn-delete-${params[0].id} > .con-vs-loading`);
+                        this.$vs.notify({
+                            title: 'Error',
+                            text: error.response.data.error,
+                            iconPack: 'feather',
+                            icon: 'icon-alert-circle',
+                            color: 'danger'
+                        });
+                    });
+            },
+
+            handleSort(key, active) {
+                this.sortFilter = active?`sortDesc=${key}`:`sortAsc=${key}`;
+                this.currentDurationPage=1;
+                this.getPatientsData();
+            },
+
+            handleChangePage(page) {
+                this.getPatientsData();
             },
 
             //Vuesax alert
@@ -234,5 +220,12 @@
 </script>
 
 <style>
+    .con-select {
+        /*display: flex;*/
+    }
 
+    .con-select .vs-select--input {
+        /*border-radius: 26px;*/
+        /*border-color: #ebebeb;*/
+    }
 </style>

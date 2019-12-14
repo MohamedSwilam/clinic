@@ -226,8 +226,50 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "profile"
+  name: "profile",
+  mounted: function mounted() {
+    this.getPatientData();
+  },
+  data: function data() {
+    return {
+      patient: null
+    };
+  },
+  methods: {
+    getPatientData: function getPatientData() {
+      var _this = this;
+
+      this.$vs.loading({
+        container: this.$refs.view.$refs.content,
+        scale: 0.5
+      });
+      this.$store.dispatch('patient/view', this.$route.params.id).then(function (response) {
+        _this.$vs.loading.close(_this.$refs.view.$refs.content);
+
+        _this.patient = response.data.data.data;
+      })["catch"](function (error) {
+        console.log(error);
+
+        _this.$vs.loading.close(_this.$refs.view.$refs.content);
+
+        _this.$vs.notify({
+          title: 'Error',
+          text: error.response.data.error,
+          iconPack: 'feather',
+          icon: 'icon-alert-circle',
+          color: 'danger'
+        });
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -254,133 +296,238 @@ var render = function() {
       [
         _c(
           "vx-card",
-          { attrs: { title: "Personal Information", collapseAction: "" } },
+          {
+            ref: "view",
+            attrs: {
+              title: "Personal Information",
+              collapseAction: "",
+              refreshContentAction: ""
+            },
+            on: { refresh: _vm.getPatientData }
+          },
           [
-            _c(
-              "vs-row",
-              [
-                _c(
-                  "vs-col",
-                  {
-                    staticClass: "mb-5",
-                    attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
-                  },
+            _vm.patient
+              ? _c(
+                  "vs-row",
                   [
-                    _c("b", [_vm._v("Name: ")]),
-                    _vm._v(" Mohamed Ehab Swilam\n                ")
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "vs-col",
-                  {
-                    staticClass: "mb-5",
-                    attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
-                  },
-                  [
-                    _c("b", [_vm._v("Gender: ")]),
-                    _vm._v(" Male\n                ")
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "vs-col",
-                  {
-                    staticClass: "mb-5",
-                    attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
-                  },
-                  [
-                    _c("b", [_vm._v("Email: ")]),
-                    _vm._v(" mohamed_swilam@hotmail.com\n                ")
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "vs-col",
-                  {
-                    staticClass: "mb-5",
-                    attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
-                  },
-                  [
-                    _c("b", [_vm._v("Phone(s): ")]),
-                    _vm._v(" 01096436702, 01112336987\n                ")
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "vs-col",
-                  {
-                    staticClass: "mb-5",
-                    attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
-                  },
-                  [
-                    _c("b", [_vm._v("Address: ")]),
-                    _vm._v(" 25, Street name - cairo, Egypt\n                ")
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "vs-col",
-                  {
-                    staticClass: "mb-5",
-                    attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
-                  },
-                  [
-                    _c("b", [_vm._v("Martial Status: ")]),
-                    _vm._v(" Not Defined\n                ")
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "vs-col",
-                  {
-                    staticClass: "mb-5",
-                    attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
-                  },
-                  [
-                    _c("b", [_vm._v("Age: ")]),
-                    _vm._v(" 22 Years, 01 Month(s)\n                ")
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "vs-col",
-                  {
-                    staticClass: "mb-5",
-                    attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
-                  },
-                  [
-                    _c("b", [_vm._v("Occupation: ")]),
-                    _vm._v(" Not Defined\n                ")
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "vs-col",
-                  {
-                    staticClass: "mb-5",
-                    attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
-                  },
-                  [
-                    _c("b", [_vm._v("Referred From: ")]),
-                    _vm._v(" No body\n                ")
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "vs-col",
-                  {
-                    staticClass: "mb-5",
-                    attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
-                  },
-                  [
-                    _c("b", [_vm._v("Last Visit: ")]),
-                    _vm._v(" 02/11/2019\n                ")
-                  ]
+                    _c(
+                      "vs-col",
+                      {
+                        staticClass: "mb-5",
+                        attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
+                      },
+                      [
+                        _c("b", [_vm._v("Name: ")]),
+                        _vm._v(
+                          " " +
+                            _vm._s(_vm.patient.first_name) +
+                            " " +
+                            _vm._s(_vm.patient.last_name) +
+                            "\n                "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "vs-col",
+                      {
+                        staticClass: "mb-5",
+                        attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
+                      },
+                      [
+                        _c("b", [_vm._v("Gender: ")]),
+                        _vm._v(
+                          " " +
+                            _vm._s(_vm.patient.gender) +
+                            "\n                "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "vs-col",
+                      {
+                        staticClass: "mb-5",
+                        attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
+                      },
+                      [
+                        _c("b", [_vm._v("Email: ")]),
+                        _vm._v(
+                          " " +
+                            _vm._s(
+                              _vm.patient.email
+                                ? _vm.patient.email
+                                : "Not Specified!"
+                            ) +
+                            "\n                "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "vs-col",
+                      {
+                        staticClass: "mb-5",
+                        attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
+                      },
+                      [
+                        _c("b", [_vm._v("Phone(s): ")]),
+                        _vm._v(" "),
+                        _vm._l(_vm.patient.phones, function(phone, index) {
+                          return [
+                            _c(
+                              "span",
+                              {
+                                staticClass: "txt-hover",
+                                on: {
+                                  click: function($event) {
+                                    return _vm.copyToClipboard(phone.number)
+                                  }
+                                }
+                              },
+                              [_vm._v(_vm._s(phone.number))]
+                            ),
+                            _vm._v(" "),
+                            index !== _vm.patient.phones.length - 1
+                              ? [_vm._v(", ")]
+                              : _vm._e()
+                          ]
+                        }),
+                        _vm._v(" "),
+                        _vm.patient.phones.length === 0
+                          ? [
+                              _vm._v(
+                                "\n                        No Telephones Assigned!\n                    "
+                              )
+                            ]
+                          : _vm._e()
+                      ],
+                      2
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "vs-col",
+                      {
+                        staticClass: "mb-5",
+                        attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
+                      },
+                      [
+                        _c("b", [_vm._v("City: ")]),
+                        _vm._v(
+                          " " +
+                            _vm._s(
+                              _vm.patient.city
+                                ? _vm.patient.city
+                                : "Not Specified!"
+                            ) +
+                            "\n                "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "vs-col",
+                      {
+                        staticClass: "mb-5",
+                        attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
+                      },
+                      [
+                        _c("b", [_vm._v("Country: ")]),
+                        _vm._v(
+                          " " +
+                            _vm._s(
+                              _vm.patient.country
+                                ? _vm.patient.country
+                                : "Not Specified!"
+                            ) +
+                            "\n                "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "vs-col",
+                      {
+                        staticClass: "mb-5",
+                        attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
+                      },
+                      [
+                        _c("b", [_vm._v("Address: ")]),
+                        _vm._v(
+                          " " +
+                            _vm._s(
+                              _vm.patient.address
+                                ? _vm.patient.address
+                                : "Not Specified!"
+                            ) +
+                            "\n                "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "vs-col",
+                      {
+                        staticClass: "mb-5",
+                        attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
+                      },
+                      [
+                        _c("b", [_vm._v("Birth Date: ")]),
+                        _vm._v(
+                          " " +
+                            _vm._s(
+                              _vm.patient.birth_date
+                                ? _vm.patient.birth_date
+                                : "Not Specified!"
+                            ) +
+                            "\n                "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "vs-col",
+                      {
+                        staticClass: "mb-5",
+                        attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
+                      },
+                      [
+                        _c("b", [_vm._v("Occupation: ")]),
+                        _vm._v(
+                          " " +
+                            _vm._s(
+                              _vm.patient.occupation
+                                ? _vm.patient.occupation
+                                : "Not Specified!"
+                            ) +
+                            "\n                "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "vs-col",
+                      {
+                        staticClass: "mb-5",
+                        attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
+                      },
+                      [
+                        _c("b", [_vm._v("Referred From: ")]),
+                        _vm._v(
+                          " " +
+                            _vm._s(
+                              _vm.patient.reference
+                                ? _vm.patient.reference
+                                : "No Body"
+                            ) +
+                            "\n                "
+                        )
+                      ]
+                    )
+                  ],
+                  1
                 )
-              ],
-              1
-            ),
+              : _vm._e(),
             _vm._v(" "),
             _c(
               "vs-row",

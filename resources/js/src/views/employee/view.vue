@@ -190,7 +190,7 @@
     export default {
         name: "viewData",
         mounted() {
-            // this.getAppointments();
+            this.getAppointments();
             this.getEmployeeData();
         },
         data: () => {
