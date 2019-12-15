@@ -22,4 +22,16 @@ class ReservationDuration extends Model
     {
         return $query->where('date', $date);
     }
+
+    public function decrementCounter()
+    {
+        $this->counter--;
+        $this->save();
+    }
+
+    public function incrementCounter()
+    {
+        $this->counter++;
+        $this->save();
+    }
 }
