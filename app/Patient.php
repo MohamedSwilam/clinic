@@ -39,6 +39,11 @@ class Patient extends Model
         return $this->hasMany(Prescription::class);
     }
 
+    public function medicalReports()
+    {
+        return $this->hasMany(MedicalReport::class);
+    }
+
     public function scopePaymentStatistics($query)
     {
         $query->withCount([

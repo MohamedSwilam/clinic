@@ -79,3 +79,10 @@ Route::group(['prefix' => 'prescription', 'middleware' => 'auth:api'], function 
     Route::delete('{id}', 'PrescriptionController@destroy');
     Route::resource('', 'PrescriptionController');
 });
+
+Route::group(['prefix' => 'medical-report', 'middleware' => 'auth:api'], function () {
+    Route::post('{id}', 'MedicalReportController@update');
+    Route::get('{id}', 'MedicalReportController@show');
+    Route::delete('{id}', 'MedicalReportController@destroy');
+    Route::resource('', 'MedicalReportController');
+});
