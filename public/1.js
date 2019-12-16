@@ -7688,7 +7688,7 @@ __webpack_require__.r(__webpack_exports__);
   slug: "appointment",
   icon: "EditIcon",
   i18n: "Appointment",
-  permission: "view-appointment"
+  permission: "browse-appointment"
 }, {
   name: "Settings",
   icon: "SettingsIcon",

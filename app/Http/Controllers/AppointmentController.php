@@ -44,10 +44,10 @@ class AppointmentController extends Controller
      */
     public function store(AppointmentRequest $request)
     {
+//        return $request;
         $this->authorize('store', Appointment::class);
 
         $data = $request->validated();
-
         if ($data['new_patient']){
             $patient = Patient::create($data['patient']);
 
@@ -90,7 +90,7 @@ class AppointmentController extends Controller
     {
         $this->authorize('show', Appointment::class);
         return $this->respond('fetched successfully', fractal(
-                Appointment::where('id', $id)
+                Appointment::query()->where('id', $id)
                     ->first(),
                 new AppointmentTransformer()
             )

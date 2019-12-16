@@ -107,6 +107,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Patient",
   mounted: function mounted() {
@@ -118,9 +121,9 @@ __webpack_require__.r(__webpack_exports__);
       'tableList': ['vs-th: Component', 'vs-tr: Component', 'vs-td: Component', 'thread: Slot', 'tbody: Slot', 'header: Slot'],
       searchText: "",
       patients: [],
-      currentDurationPage: 1,
+      currentPage: 1,
       sortFilter: 'sortDesc=id',
-      paginate: 1,
+      paginate: 15,
       total_pages: 0,
       filterBy: 'id'
     };
@@ -141,7 +144,7 @@ __webpack_require__.r(__webpack_exports__);
         container: this.$refs.browse.$refs.content,
         scale: 0.5
       });
-      this.$store.dispatch('patient/getData', "?page=".concat(this.currentDurationPage, "&paginate=").concat(this.paginate, "&").concat(this.sortFilter, "&").concat(this.filterBy, "=").concat(this.searchText)).then(function (response) {
+      this.$store.dispatch('patient/getData', "?page=".concat(this.currentPage, "&paginate=").concat(this.paginate, "&").concat(this.sortFilter, "&").concat(this.filterBy, "=").concat(this.searchText, "&")).then(function (response) {
         _this.$vs.loading.close(_this.$refs.browse.$refs.content);
 
         _this.patients = response.data.data.data;
@@ -211,13 +214,12 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     handleSearch: function handleSearch() {
-      console.log('aa', this.searchText);
-      this.currentDurationPage = 1;
+      this.currentPage = 1;
       this.getPatientsData();
     },
     handleSort: function handleSort(key, active) {
       this.sortFilter = active ? "sortDesc=".concat(key) : "sortAsc=".concat(key);
-      this.currentDurationPage = 1;
+      this.currentPage = 1;
       this.getPatientsData();
     },
     handleChangePage: function handleChangePage(page) {
@@ -334,39 +336,39 @@ var render = function() {
                         [
                           _c("vs-td", { attrs: { data: index + 1 } }, [
                             _vm._v(
-                              "\n                            " +
+                              "\n                        " +
                                 _vm._s(index + 1) +
-                                "\n                        "
+                                "\n                    "
                             )
                           ]),
                           _vm._v(" "),
                           _c("vs-td", { attrs: { data: patient.id } }, [
                             _vm._v(
-                              "\n                            " +
+                              "\n                        " +
                                 _vm._s(patient.id) +
-                                "\n                        "
+                                "\n                    "
                             )
                           ]),
                           _vm._v(" "),
                           _c("vs-td", { attrs: { data: patient.first_name } }, [
                             _vm._v(
-                              "\n                            " +
+                              "\n                        " +
                                 _vm._s(patient.first_name) +
                                 " " +
                                 _vm._s(patient.last_name) +
-                                "\n                        "
+                                "\n                    "
                             )
                           ]),
                           _vm._v(" "),
                           _c("vs-td", { attrs: { data: patient.birth_date } }, [
                             _vm._v(
-                              "\n                            " +
+                              "\n                        " +
                                 _vm._s(
                                   patient.birth_date
                                     ? patient.birth_date
                                     : "Not Specified"
                                 ) +
-                                "\n                        "
+                                "\n                    "
                             )
                           ]),
                           _vm._v(" "),
@@ -379,7 +381,7 @@ var render = function() {
                               ) {
                                 return [
                                   _vm._v(
-                                    "\n                                " +
+                                    "\n                            " +
                                       _vm._s(telephone.number)
                                   ),
                                   telephone_index !== patient.phones.length - 1
@@ -391,11 +393,81 @@ var render = function() {
                             2
                           ),
                           _vm._v(" "),
-                          _c("vs-td", { attrs: { data: patient.counter } }, [
-                            _vm._v(
-                              "\n                            Comming Soon\n"
-                            )
-                          ]),
+                          _c(
+                            "vs-td",
+                            { attrs: { data: patient.counter } },
+                            [
+                              patient.paid_payments
+                                ? [
+                                    (patient.paid_payments * 100) /
+                                      patient.payments_total ===
+                                    100
+                                      ? [
+                                          _c("i", {
+                                            staticClass: "fas fa-check"
+                                          }),
+                                          _vm._v(" "),
+                                          _c("b", [_vm._v("Complete")])
+                                        ]
+                                      : [
+                                          _c("b", [
+                                            _vm._v(
+                                              _vm._s(patient.paid_payments)
+                                            )
+                                          ]),
+                                          _vm._v(" Out of "),
+                                          _c("b", [
+                                            _vm._v(
+                                              _vm._s(patient.payments_total)
+                                            )
+                                          ])
+                                        ],
+                                    _vm._v(" "),
+                                    _c("br"),
+                                    _vm._v(" "),
+                                    (patient.paid_payments * 100) /
+                                      patient.payments_total ===
+                                    100
+                                      ? _c("vs-progress", {
+                                          attrs: {
+                                            percent:
+                                              (patient.paid_payments * 100) /
+                                              patient.payments_total,
+                                            color: "success"
+                                          }
+                                        })
+                                      : (patient.paid_payments * 100) /
+                                          patient.payments_total >
+                                        25
+                                      ? _c("vs-progress", {
+                                          attrs: {
+                                            percent:
+                                              (patient.paid_payments * 100) /
+                                              patient.payments_total,
+                                            color: "warning"
+                                          }
+                                        })
+                                      : (patient.paid_payments * 100) /
+                                          patient.payments_total <=
+                                        25
+                                      ? _c("vs-progress", {
+                                          attrs: {
+                                            percent:
+                                              (patient.paid_payments * 100) /
+                                              patient.payments_total,
+                                            color: "danger"
+                                          }
+                                        })
+                                      : _vm._e()
+                                  ]
+                                : [
+                                    _vm._v(
+                                      "\n                            No Payments Yet\n                        "
+                                    )
+                                  ]
+                            ],
+                            2
+                          ),
                           _vm._v(" "),
                           _c(
                             "vs-td",
@@ -427,7 +499,6 @@ var render = function() {
                                     [
                                       _c("vs-button", {
                                         attrs: {
-                                          disabled: "",
                                           radius: "",
                                           color: "dark",
                                           type: "border",
@@ -515,7 +586,6 @@ var render = function() {
                       _c(
                         "vs-col",
                         {
-                          staticClass: "mb-5",
                           attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
                         },
                         [
@@ -649,11 +719,11 @@ var render = function() {
             attrs: { goto: "", total: _vm.total_pages },
             on: { change: _vm.handleChangePage },
             model: {
-              value: _vm.currentDurationPage,
+              value: _vm.currentPage,
               callback: function($$v) {
-                _vm.currentDurationPage = $$v
+                _vm.currentPage = $$v
               },
-              expression: "currentDurationPage"
+              expression: "currentPage"
             }
           })
         ],

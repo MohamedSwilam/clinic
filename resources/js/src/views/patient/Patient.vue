@@ -4,7 +4,7 @@
             <vs-table :sst="true" @sort="handleSort" :data="patients">
                 <template slot="header">
                     <vs-row>
-                        <vs-col vs-lg="6" vs-sm="12" vs-xs="12" class="mb-5">
+                        <vs-col vs-lg="6" vs-sm="12" vs-xs="12">
                             <vs-button size="small" to="/dashboard/patient/create" icon-pack="feather" icon="icon-plus" type="filled">New Patient</vs-button>
                         </vs-col>
                         <vs-col vs-lg="3" vs-sm="6" vs-xs="6" class="mb-5">
@@ -25,7 +25,6 @@
                             <vs-input icon-pack="feather" icon="icon-search" icon-after placeholder="search" v-model="searchText" @change="handleSearch"></vs-input>
                         </vs-col>
                     </vs-row>
-
                 </template>
                 <template slot="thead">
                     <vs-th>#</vs-th>
@@ -61,13 +60,17 @@
                         </vs-td>
 
                         <vs-td :data="patient.counter">
-                            Comming Soon
-<!--                            <template v-if="patient.payment_percentage===100"><i class="fas fa-check"></i> <b>Complete</b></template>-->
-<!--                            <template v-else><b>{{patient.payment.paid}}</b> Out of <b>{{patient.payment.total}}</b></template>-->
-<!--                            <br>-->
-<!--                            <vs-progress v-if="patient.payment_percentage === 100" :percent="patient.payment_percentage" color="success"></vs-progress>-->
-<!--                            <vs-progress v-else-if="patient.payment_percentage > 25" :percent="patient.payment_percentage" color="warning"></vs-progress>-->
-<!--                            <vs-progress v-else-if="patient.payment_percentage <= 25" :percent="patient.payment_percentage" color="danger"></vs-progress>-->
+                            <template v-if="patient.paid_payments">
+                                <template v-if="((patient.paid_payments*100)/patient.payments_total)===100"><i class="fas fa-check"></i> <b>Complete</b></template>
+                                <template v-else><b>{{patient.paid_payments}}</b> Out of <b>{{patient.payments_total}}</b></template>
+                                <br>
+                                <vs-progress v-if="((patient.paid_payments*100)/patient.payments_total) === 100" :percent="((patient.paid_payments*100)/patient.payments_total)" color="success"></vs-progress>
+                                <vs-progress v-else-if="((patient.paid_payments*100)/patient.payments_total) > 25" :percent="((patient.paid_payments*100)/patient.payments_total)" color="warning"></vs-progress>
+                                <vs-progress v-else-if="((patient.paid_payments*100)/patient.payments_total) <= 25" :percent="((patient.paid_payments*100)/patient.payments_total)" color="danger"></vs-progress>
+                            </template>
+                            <template v-else>
+                                No Payments Yet
+                            </template>
                         </vs-td>
 
                         <vs-td>
@@ -77,7 +80,7 @@
                                         <vs-button :to="`/dashboard/patient/${patient.id}`" radius color="primary" type="border" icon-pack="feather" icon="icon-eye"></vs-button>
                                     </div>
                                     <div class="w-1/4 pl-2">
-                                        <vs-button disabled @click="reserveAppointement(patient.id)" radius color="dark" type="border" icon-pack="feather" icon="icon-edit-2"></vs-button>
+                                        <vs-button @click="reserveAppointement(patient.id)" radius color="dark" type="border" icon-pack="feather" icon="icon-edit-2"></vs-button>
                                     </div>
                                     <div class="w-1/4 pl-2">
                                         <vs-button :to="`/dashboard/patient/${patient.id}/edit`" radius color="warning" type="border" icon-pack="feather" icon="icon-edit"></vs-button>
@@ -91,7 +94,7 @@
                     </vs-tr>
                 </template>
             </vs-table>
-            <vs-pagination goto class="mt-5" @change="handleChangePage" :total="total_pages" v-model="currentDurationPage"></vs-pagination>
+            <vs-pagination goto class="mt-5" @change="handleChangePage" :total="total_pages" v-model="currentPage"></vs-pagination>
         </vx-card>
     </div>
 </template>
@@ -116,9 +119,9 @@
                 ],
                 searchText: "",
                 patients: [],
-                currentDurationPage: 1,
+                currentPage: 1,
                 sortFilter: 'sortDesc=id',
-                paginate: 1,
+                paginate: 15,
                 total_pages: 0,
                 filterBy: 'id'
             }
@@ -132,7 +135,7 @@
             getPatientsData()
             {
                 this.$vs.loading({container: this.$refs.browse.$refs.content, scale: 0.5});
-                this.$store.dispatch('patient/getData', `?page=${this.currentDurationPage}&paginate=${this.paginate}&${this.sortFilter}&${this.filterBy}=${this.searchText}`)
+                this.$store.dispatch('patient/getData', `?page=${this.currentPage}&paginate=${this.paginate}&${this.sortFilter}&${this.filterBy}=${this.searchText}&`)
                     .then(response => {
                         this.$vs.loading.close(this.$refs.browse.$refs.content);
                         this.patients = response.data.data.data;
@@ -196,15 +199,14 @@
 
             handleSearch()
             {
-                console.log('aa',this.searchText);
-                this.currentDurationPage=1;
+                this.currentPage=1;
                 this.getPatientsData();
             },
 
             handleSort(key, active)
             {
                 this.sortFilter = active?`sortDesc=${key}`:`sortAsc=${key}`;
-                this.currentDurationPage=1;
+                this.currentPage=1;
                 this.getPatientsData();
             },
 

@@ -27,7 +27,7 @@ class ReservationDurationController extends Controller
         return $this->respond(
             'Data Loaded Successfully',
             fractal(
-                (new IndexResponse(ReservationDuration::with('reservationType')))->execute(),
+                (new IndexResponse(ReservationDuration::query()->with('reservationType')))->execute(),
                 new ReservationDurationTransformer()
             )
         );

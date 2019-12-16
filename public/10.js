@@ -93,7 +93,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "create",
   data: function data() {
@@ -772,11 +771,7 @@ var render = function() {
                       },
                       expression: "form.reference"
                     }
-                  }),
-                  _vm._v(" "),
-                  _c("span", { staticClass: "text-danger" }, [
-                    _vm._v(_vm._s(_vm.errors.first("reference")))
-                  ])
+                  })
                 ],
                 1
               )
