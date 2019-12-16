@@ -28,7 +28,7 @@ class PatientController extends Controller
         return $this->respond(
             'Data Loaded Successfully',
             fractal(
-                (new IndexResponse(Patient::query()))->execute()
+                (new IndexResponse(Patient::query()->paymentStatistics()->notPaidPayments()))->execute()
                 , new PatientTransformer()
             )
         );
@@ -75,7 +75,8 @@ class PatientController extends Controller
         $this->authorize('show', Patient::class);
         return $this->respond('fetched successfully', fractal(
                 Patient::where('id', $id)
-//                    ->paymentStatistics()
+                    ->paymentStatistics()
+                    ->notPaidPayments()
                     ->first(),
                 new PatientTransformer()
             )

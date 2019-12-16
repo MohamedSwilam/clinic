@@ -168,10 +168,10 @@
                                             <vs-list-item icon-pack="feather" icon="icon-arrow-right" :title="'Appointment Information'"></vs-list-item>
                                             <vs-list-item icon-pack="feather" icon="icon-arrow-right" :title="'Appointment Information'"></vs-list-item>
                                             <vs-list-item icon-pack="feather" icon="icon-arrow-right" :title="'Update Status'">
-                                                <vs-button size="small" color="primary" :type="appointment.status.title=='Coming'?'filled':'border'" icon-pack="feather">Coming</vs-button>
-                                                <vs-button size="small" color="danger" :type="appointment.status.title=='Inside'?'filled':'border'" icon-pack="feather">Inside</vs-button>
-                                                <vs-button size="small" color="warning" :type="appointment.status.title=='Postponed'?'filled':'border'" icon-pack="feather">Postponed</vs-button>
-                                                <vs-button size="small" color="success" :type="appointment.status.title=='Finished'?'filled':'border'" icon-pack="feather">Finished</vs-button>
+                                                <vs-button size="small" color="primary" :type="appointment.status.title==='Coming'?'filled':'border'" icon-pack="feather">Coming</vs-button>
+                                                <vs-button size="small" color="danger" :type="appointment.status.title==='Inside'?'filled':'border'" icon-pack="feather">Inside</vs-button>
+                                                <vs-button size="small" color="warning" :type="appointment.status.title==='Postponed'?'filled':'border'" icon-pack="feather">Postponed</vs-button>
+                                                <vs-button size="small" color="success" :type="appointment.status.title==='Finished'?'filled':'border'" icon-pack="feather">Finished</vs-button>
                                             </vs-list-item>
                                         </vs-list>
                                     </div>

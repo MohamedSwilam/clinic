@@ -1144,7 +1144,7 @@ var render = function() {
                                                                 type:
                                                                   appointment
                                                                     .status
-                                                                    .title ==
+                                                                    .title ===
                                                                   "Coming"
                                                                     ? "filled"
                                                                     : "border",
@@ -1164,7 +1164,7 @@ var render = function() {
                                                                 type:
                                                                   appointment
                                                                     .status
-                                                                    .title ==
+                                                                    .title ===
                                                                   "Inside"
                                                                     ? "filled"
                                                                     : "border",
@@ -1185,7 +1185,7 @@ var render = function() {
                                                                 type:
                                                                   appointment
                                                                     .status
-                                                                    .title ==
+                                                                    .title ===
                                                                   "Postponed"
                                                                     ? "filled"
                                                                     : "border",
@@ -1210,7 +1210,7 @@ var render = function() {
                                                                 type:
                                                                   appointment
                                                                     .status
-                                                                    .title ==
+                                                                    .title ===
                                                                   "Finished"
                                                                     ? "filled"
                                                                     : "border",
@@ -1242,7 +1242,7 @@ var render = function() {
                           ],
                           null,
                           false,
-                          3769268058
+                          1421448826
                         )
                       },
                       [

@@ -107531,6 +107531,38 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/src/http/requests/appointment/index.js":
+/*!*************************************************************!*\
+  !*** ./resources/js/src/http/requests/appointment/index.js ***!
+  \*************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _axios_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../axios/index.js */ "./resources/js/src/http/axios/index.js");
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  getAll: function getAll(filters) {
+    //filters=?paginate=5&sortAsc=id
+    return _axios_index_js__WEBPACK_IMPORTED_MODULE_0__["default"].get("appointment".concat(filters));
+  },
+  view: function view(id) {
+    return _axios_index_js__WEBPACK_IMPORTED_MODULE_0__["default"].get("appointment/".concat(id));
+  },
+  create: function create(data) {
+    return _axios_index_js__WEBPACK_IMPORTED_MODULE_0__["default"].post("appointment", data);
+  },
+  update: function update(id, data) {
+    return _axios_index_js__WEBPACK_IMPORTED_MODULE_0__["default"].post("appointment/".concat(id), data);
+  },
+  "delete": function _delete(id) {
+    return _axios_index_js__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"]("appointment/".concat(id));
+  }
+});
+
+/***/ }),
+
 /***/ "./resources/js/src/http/requests/auth/jwt/index.js":
 /*!**********************************************************!*\
   !*** ./resources/js/src/http/requests/auth/jwt/index.js ***!
@@ -107670,6 +107702,38 @@ __webpack_require__.r(__webpack_exports__);
   },
   "delete": function _delete(id) {
     return _axios_index_js__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"]("patient/".concat(id));
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/src/http/requests/payment/index.js":
+/*!*********************************************************!*\
+  !*** ./resources/js/src/http/requests/payment/index.js ***!
+  \*********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _axios_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../axios/index.js */ "./resources/js/src/http/axios/index.js");
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  getAll: function getAll(filters) {
+    //filters=?paginate=5&sortAsc=id
+    return _axios_index_js__WEBPACK_IMPORTED_MODULE_0__["default"].get("payment".concat(filters));
+  },
+  view: function view(id) {
+    return _axios_index_js__WEBPACK_IMPORTED_MODULE_0__["default"].get("payment/".concat(id));
+  },
+  create: function create(data) {
+    return _axios_index_js__WEBPACK_IMPORTED_MODULE_0__["default"].post("payment", data);
+  },
+  update: function update(id, data) {
+    return _axios_index_js__WEBPACK_IMPORTED_MODULE_0__["default"].post("payment/".concat(id), data);
+  },
+  "delete": function _delete(id) {
+    return _axios_index_js__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"]("payment/".concat(id));
   }
 });
 
@@ -108487,7 +108551,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/dashboard/appointment',
       name: 'appointment',
       component: function component() {
-        return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(27), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, /*! ./views/appointment/Appointment.vue */ "./resources/js/src/views/appointment/Appointment.vue"));
+        return __webpack_require__.e(/*! import() */ 28).then(__webpack_require__.bind(null, /*! ./views/appointment/Appointment.vue */ "./resources/js/src/views/appointment/Appointment.vue"));
       },
       beforeEnter: guard,
       meta: {
@@ -108854,6 +108918,168 @@ var actions = {
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = (actions);
+
+/***/ }),
+
+/***/ "./resources/js/src/store/appointment/moduleAppointment.js":
+/*!*****************************************************************!*\
+  !*** ./resources/js/src/store/appointment/moduleAppointment.js ***!
+  \*****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _moduleAppointmentState__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./moduleAppointmentState */ "./resources/js/src/store/appointment/moduleAppointmentState.js");
+/* harmony import */ var _moduleAppointmentMutations__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./moduleAppointmentMutations */ "./resources/js/src/store/appointment/moduleAppointmentMutations.js");
+/* harmony import */ var _moduleAppointmentActions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./moduleAppointmentActions */ "./resources/js/src/store/appointment/moduleAppointmentActions.js");
+/* harmony import */ var _moduleAppointmentGetters__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./moduleAppointmentGetters */ "./resources/js/src/store/appointment/moduleAppointmentGetters.js");
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  namespaced: true,
+  state: _moduleAppointmentState__WEBPACK_IMPORTED_MODULE_0__["default"],
+  mutations: _moduleAppointmentMutations__WEBPACK_IMPORTED_MODULE_1__["default"],
+  actions: _moduleAppointmentActions__WEBPACK_IMPORTED_MODULE_2__["default"],
+  getters: _moduleAppointmentGetters__WEBPACK_IMPORTED_MODULE_3__["default"]
+});
+
+/***/ }),
+
+/***/ "./resources/js/src/store/appointment/moduleAppointmentActions.js":
+/*!************************************************************************!*\
+  !*** ./resources/js/src/store/appointment/moduleAppointmentActions.js ***!
+  \************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _http_requests_appointment_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../http/requests/appointment/index */ "./resources/js/src/http/requests/appointment/index.js");
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  getData: function getData(_ref, payload) {
+    var commit = _ref.commit,
+        dispatch = _ref.dispatch;
+    return new Promise(function (resolve, reject) {
+      _http_requests_appointment_index__WEBPACK_IMPORTED_MODULE_0__["default"].getAll(payload).then(function (response) {
+        resolve(response);
+      })["catch"](function (error) {
+        dispatch('handleError', {
+          reject: reject,
+          error: error
+        }, {
+          root: true
+        });
+      });
+    });
+  },
+  view: function view(_ref2, id) {
+    var commit = _ref2.commit,
+        dispatch = _ref2.dispatch;
+    return new Promise(function (resolve, reject) {
+      _http_requests_appointment_index__WEBPACK_IMPORTED_MODULE_0__["default"].view(id).then(function (response) {
+        resolve(response);
+      })["catch"](function (error) {
+        dispatch('handleError', {
+          reject: reject,
+          error: error
+        }, {
+          root: true
+        });
+      });
+    });
+  },
+  create: function create(_ref3, payload) {
+    var commit = _ref3.commit,
+        dispatch = _ref3.dispatch;
+    return new Promise(function (resolve, reject) {
+      _http_requests_appointment_index__WEBPACK_IMPORTED_MODULE_0__["default"].create(payload).then(function (response) {
+        resolve(response);
+      })["catch"](function (error) {
+        dispatch('handleError', {
+          reject: reject,
+          error: error
+        }, {
+          root: true
+        });
+      });
+    });
+  },
+  update: function update(_ref4, payload) {
+    var commit = _ref4.commit,
+        dispatch = _ref4.dispatch;
+    return new Promise(function (resolve, reject) {
+      _http_requests_appointment_index__WEBPACK_IMPORTED_MODULE_0__["default"].update(payload.id, payload.data).then(function (response) {
+        resolve(response);
+      })["catch"](function (error) {
+        dispatch('handleError', {
+          reject: reject,
+          error: error
+        }, {
+          root: true
+        });
+      });
+    });
+  },
+  "delete": function _delete(_ref5, id) {
+    var commit = _ref5.commit,
+        dispatch = _ref5.dispatch;
+    return new Promise(function (resolve, reject) {
+      _http_requests_appointment_index__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"](id).then(function (response) {
+        resolve(response);
+      })["catch"](function (error) {
+        dispatch('handleError', {
+          reject: reject,
+          error: error
+        }, {
+          root: true
+        });
+      });
+    });
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/src/store/appointment/moduleAppointmentGetters.js":
+/*!************************************************************************!*\
+  !*** ./resources/js/src/store/appointment/moduleAppointmentGetters.js ***!
+  \************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({});
+
+/***/ }),
+
+/***/ "./resources/js/src/store/appointment/moduleAppointmentMutations.js":
+/*!**************************************************************************!*\
+  !*** ./resources/js/src/store/appointment/moduleAppointmentMutations.js ***!
+  \**************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({});
+
+/***/ }),
+
+/***/ "./resources/js/src/store/appointment/moduleAppointmentState.js":
+/*!**********************************************************************!*\
+  !*** ./resources/js/src/store/appointment/moduleAppointmentState.js ***!
+  \**********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({});
 
 /***/ }),
 
@@ -109502,6 +109728,168 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/src/store/payment/modulePayment.js":
+/*!*********************************************************!*\
+  !*** ./resources/js/src/store/payment/modulePayment.js ***!
+  \*********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _modulePaymentState__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modulePaymentState */ "./resources/js/src/store/payment/modulePaymentState.js");
+/* harmony import */ var _modulePaymentMutations__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modulePaymentMutations */ "./resources/js/src/store/payment/modulePaymentMutations.js");
+/* harmony import */ var _modulePaymentActions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modulePaymentActions */ "./resources/js/src/store/payment/modulePaymentActions.js");
+/* harmony import */ var _modulePaymentGetters__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modulePaymentGetters */ "./resources/js/src/store/payment/modulePaymentGetters.js");
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  namespaced: true,
+  state: _modulePaymentState__WEBPACK_IMPORTED_MODULE_0__["default"],
+  mutations: _modulePaymentMutations__WEBPACK_IMPORTED_MODULE_1__["default"],
+  actions: _modulePaymentActions__WEBPACK_IMPORTED_MODULE_2__["default"],
+  getters: _modulePaymentGetters__WEBPACK_IMPORTED_MODULE_3__["default"]
+});
+
+/***/ }),
+
+/***/ "./resources/js/src/store/payment/modulePaymentActions.js":
+/*!****************************************************************!*\
+  !*** ./resources/js/src/store/payment/modulePaymentActions.js ***!
+  \****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _http_requests_payment_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../http/requests/payment/index */ "./resources/js/src/http/requests/payment/index.js");
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  getData: function getData(_ref, payload) {
+    var commit = _ref.commit,
+        dispatch = _ref.dispatch;
+    return new Promise(function (resolve, reject) {
+      _http_requests_payment_index__WEBPACK_IMPORTED_MODULE_0__["default"].getAll(payload).then(function (response) {
+        resolve(response);
+      })["catch"](function (error) {
+        dispatch('handleError', {
+          reject: reject,
+          error: error
+        }, {
+          root: true
+        });
+      });
+    });
+  },
+  view: function view(_ref2, id) {
+    var commit = _ref2.commit,
+        dispatch = _ref2.dispatch;
+    return new Promise(function (resolve, reject) {
+      _http_requests_payment_index__WEBPACK_IMPORTED_MODULE_0__["default"].view(id).then(function (response) {
+        resolve(response);
+      })["catch"](function (error) {
+        dispatch('handleError', {
+          reject: reject,
+          error: error
+        }, {
+          root: true
+        });
+      });
+    });
+  },
+  create: function create(_ref3, payload) {
+    var commit = _ref3.commit,
+        dispatch = _ref3.dispatch;
+    return new Promise(function (resolve, reject) {
+      _http_requests_payment_index__WEBPACK_IMPORTED_MODULE_0__["default"].create(payload).then(function (response) {
+        resolve(response);
+      })["catch"](function (error) {
+        dispatch('handleError', {
+          reject: reject,
+          error: error
+        }, {
+          root: true
+        });
+      });
+    });
+  },
+  update: function update(_ref4, payload) {
+    var commit = _ref4.commit,
+        dispatch = _ref4.dispatch;
+    return new Promise(function (resolve, reject) {
+      _http_requests_payment_index__WEBPACK_IMPORTED_MODULE_0__["default"].update(payload.id, payload.data).then(function (response) {
+        resolve(response);
+      })["catch"](function (error) {
+        dispatch('handleError', {
+          reject: reject,
+          error: error
+        }, {
+          root: true
+        });
+      });
+    });
+  },
+  "delete": function _delete(_ref5, id) {
+    var commit = _ref5.commit,
+        dispatch = _ref5.dispatch;
+    return new Promise(function (resolve, reject) {
+      _http_requests_payment_index__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"](id).then(function (response) {
+        resolve(response);
+      })["catch"](function (error) {
+        dispatch('handleError', {
+          reject: reject,
+          error: error
+        }, {
+          root: true
+        });
+      });
+    });
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/src/store/payment/modulePaymentGetters.js":
+/*!****************************************************************!*\
+  !*** ./resources/js/src/store/payment/modulePaymentGetters.js ***!
+  \****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({});
+
+/***/ }),
+
+/***/ "./resources/js/src/store/payment/modulePaymentMutations.js":
+/*!******************************************************************!*\
+  !*** ./resources/js/src/store/payment/modulePaymentMutations.js ***!
+  \******************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({});
+
+/***/ }),
+
+/***/ "./resources/js/src/store/payment/modulePaymentState.js":
+/*!**************************************************************!*\
+  !*** ./resources/js/src/store/payment/modulePaymentState.js ***!
+  \**************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({});
+
+/***/ }),
+
 /***/ "./resources/js/src/store/reservation-duration/moduleReservationDuration.js":
 /*!**********************************************************************************!*\
   !*** ./resources/js/src/store/reservation-duration/moduleReservationDuration.js ***!
@@ -110092,9 +110480,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _auth_moduleAuth_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./auth/moduleAuth.js */ "./resources/js/src/store/auth/moduleAuth.js");
 /* harmony import */ var _employee_moduleEmployee__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./employee/moduleEmployee */ "./resources/js/src/store/employee/moduleEmployee.js");
 /* harmony import */ var _patient_modulePatient__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./patient/modulePatient */ "./resources/js/src/store/patient/modulePatient.js");
-/* harmony import */ var _reservation_type_moduleReservationType__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./reservation-type/moduleReservationType */ "./resources/js/src/store/reservation-type/moduleReservationType.js");
-/* harmony import */ var _reservation_duration_moduleReservationDuration__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./reservation-duration/moduleReservationDuration */ "./resources/js/src/store/reservation-duration/moduleReservationDuration.js");
-/* harmony import */ var _roles_and_permissions_moduleRolesAndPermissions__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./roles-and-permissions/moduleRolesAndPermissions */ "./resources/js/src/store/roles-and-permissions/moduleRolesAndPermissions.js");
+/* harmony import */ var _appointment_moduleAppointment__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./appointment/moduleAppointment */ "./resources/js/src/store/appointment/moduleAppointment.js");
+/* harmony import */ var _payment_modulePayment__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./payment/modulePayment */ "./resources/js/src/store/payment/modulePayment.js");
+/* harmony import */ var _reservation_type_moduleReservationType__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./reservation-type/moduleReservationType */ "./resources/js/src/store/reservation-type/moduleReservationType.js");
+/* harmony import */ var _reservation_duration_moduleReservationDuration__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./reservation-duration/moduleReservationDuration */ "./resources/js/src/store/reservation-duration/moduleReservationDuration.js");
+/* harmony import */ var _roles_and_permissions_moduleRolesAndPermissions__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./roles-and-permissions/moduleRolesAndPermissions */ "./resources/js/src/store/roles-and-permissions/moduleRolesAndPermissions.js");
 
 
 
@@ -110103,6 +110493,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
+
+
 
 
 
@@ -110122,9 +110514,11 @@ var vuexLocal = new vuex_persist__WEBPACK_IMPORTED_MODULE_6__["default"]({
     auth: _auth_moduleAuth_js__WEBPACK_IMPORTED_MODULE_7__["default"],
     employee: _employee_moduleEmployee__WEBPACK_IMPORTED_MODULE_8__["default"],
     patient: _patient_modulePatient__WEBPACK_IMPORTED_MODULE_9__["default"],
-    rolesAndPermissions: _roles_and_permissions_moduleRolesAndPermissions__WEBPACK_IMPORTED_MODULE_12__["default"],
-    reservationType: _reservation_type_moduleReservationType__WEBPACK_IMPORTED_MODULE_10__["default"],
-    reservationDuration: _reservation_duration_moduleReservationDuration__WEBPACK_IMPORTED_MODULE_11__["default"]
+    appointment: _appointment_moduleAppointment__WEBPACK_IMPORTED_MODULE_10__["default"],
+    payment: _payment_modulePayment__WEBPACK_IMPORTED_MODULE_11__["default"],
+    rolesAndPermissions: _roles_and_permissions_moduleRolesAndPermissions__WEBPACK_IMPORTED_MODULE_14__["default"],
+    reservationType: _reservation_type_moduleReservationType__WEBPACK_IMPORTED_MODULE_12__["default"],
+    reservationDuration: _reservation_duration_moduleReservationDuration__WEBPACK_IMPORTED_MODULE_13__["default"]
   },
   plugins: [vuexLocal.plugin],
   strict: "development" !== 'production'

@@ -94,7 +94,7 @@
                             <vs-col vs-lg="6" vs-sm="12" vs-xs="12" class="mb-5">
                                 <b>Phone(s): </b>
                                 <template v-for="(phone, index) in form.patient.phones">
-                                    <span class="txt-hover" @click="copyToClipboard(phone.number)">{{ phone.number }}</span>
+                                    <span class="txt-hover">{{ phone.number }}</span>
                                     <template v-if="index !== form.patient.phones.length-1">, </template>
                                 </template>
                                 <template v-if="form.patient.phones.length===0">
@@ -131,17 +131,37 @@
                         <vs-row>
                             <vs-col vs-lg="6" vs-sm="12" vs-xs="12" class="mb-5 pl-5">
                                 <vs-select
+                                    name="reservation_type"
                                     class="w-full"
                                     label="Reservation Type"
                                     v-model="form.reservation_type_id"
+                                    @change="getReservationDurations"
+                                    val-icon-danger="clear"
+                                    :danger="errors.has('step-2.reservation_type')"
+                                    :danger-text="errors.first('step-reservation_type')"
+                                    v-validate="'required'"
                                 >
                                     <vs-select-item :key="index" :value="type.id" :text="type.name" v-for="(type, index) in reservation_types" />
                                 </vs-select>
                             </vs-col>
-                            <vs-col vs-lg="6" vs-sm="12" vs-xs="12" class="mb-5 pl-5 pt-1">
+                            <vs-col vs-lg="6" vs-sm="12" vs-xs="12" class="mb-5 pl-5">
+                                <vs-select
+                                    name="doctor"
+                                    class="w-full"
+                                    label="Doctor"
+                                    v-model="form.doctor_id"
+                                    val-icon-danger="clear"
+                                    :danger="errors.has('step-2.doctor')"
+                                    :danger-text="errors.first('step-doctor')"
+                                    v-validate="'required'"
+                                >
+                                    <vs-select-item :key="index" :value="doctor.id" :text="`${doctor.first_name} ${doctor.last_name}`" v-for="(doctor, index) in doctors" />
+                                </vs-select>
+                            </vs-col>
+                            <vs-col vs-lg="6" vs-sm="12" vs-xs="12" class="mb-5 pt-1 pl-5">
                                 <div class="vs-component vs-con-input-label vs-input w-full vs-input-primary is-label-placeholder">
                                     <div class="vs-con-input">
-                                        <input v-model="reservation_date" required type="date" class="vs-inputx vs-input--input normal hasIcon hasValue dob-input" style="border: 1px solid rgba(0, 0, 0, 0.2);">
+                                        <input v-model="reservation_date" @change="getReservationDurations" required type="date" class="vs-inputx vs-input--input normal hasIcon hasValue dob-input" style="border: 1px solid rgba(0, 0, 0, 0.2);">
                                         <span class="input-span-placeholder vs-input--placeholder normal normal vs-placeholder-label">
                                     Reservation Date
                                     </span>
@@ -150,23 +170,30 @@
                                     <span></span>
                                 </div>
                             </vs-col>
-                            <vs-col vs-lg="6" vs-sm="12" vs-xs="12" class="mb-5 pl-5">
-                                <vs-select
-                                    class="w-full"
-                                    label="Doctor"
-                                    v-model="form.doctor_id"
-                                >
-                                    <vs-select-item :key="index" :value="doctor.id" :text="`${doctor.first_name} ${doctor.last_name}`" v-for="(doctor, index) in doctors" />
-                                </vs-select>
+
+                            <vs-col vs-lg="6" vs-sm="12" vs-xs="12" class="mb-5 pl-5 pt-5" v-if="durations.length===0 && reservation_date !== null">
+                                No Durations Found In The Specified Date!
                             </vs-col>
-                            <vs-col vs-lg="6" vs-sm="12" vs-xs="12" class="mb-5 pl-5">
+
+                            <vs-col vs-lg="6" vs-sm="12" vs-xs="12" class="mb-5 pl-5" v-if="reservation_date === null || durations.length>0">
                                 <vs-select
+                                    ref="reservation_duration_input"
+                                    name="reservation_duration"
                                     class="w-full"
                                     label="Reservation Duration"
+                                    :disabled="durations.length===0"
                                     v-model="form.reservation_duration_id"
+                                    val-icon-danger="clear"
+                                    :danger="errors.has('step-2.reservation_duration')"
+                                    :danger-text="errors.first('step-2.reservation_duration')"
+                                    v-validate="'required'"
                                 >
-                                    <vs-select-item :key="index" :value="duration.id" :text="duration.duration" v-for="(duration, index) in durations" />
+                                    <vs-select-item :key="index" :value="duration.id" :text="`From ${duration.start_time} To ${duration.end_time} (${duration.counter})`" v-for="(duration, index) in durations" />
                                 </vs-select>
+                            </vs-col>
+
+                            <vs-col vs-lg="12" vs-sm="12" vs-xs="12" class="mb-5 pl-5">
+                                <vs-textarea label="Illness Description" v-model="form.illness_description" />
                             </vs-col>
                         </vs-row>
                     </div>
@@ -183,37 +210,35 @@
                                     <template slot="thead">
                                         <vs-th>Title</vs-th>
                                         <vs-th>Cost</vs-th>
-                                        <vs-th>Discount</vs-th>
-                                        <vs-th>Total</vs-th>
                                     </template>
 
                                     <template slot-scope="{data}">
-                                        <vs-tr>
-                                            <vs-td>Operation</vs-td>
-                                            <vs-td>5000 EGP</vs-td>
-                                            <vs-td>0%</vs-td>
-                                            <vs-td>5000 EGP</vs-td>
+                                        <vs-tr v-if="form.reservation_type_id">
+                                            <vs-td>
+                                                {{reservation_types.filter(type =>{return type.id === form.reservation_type_id;})[0].name}}
+                                            </vs-td>
+                                            <vs-td>
+                                                {{reservation_types.filter(type =>{return type.id === form.reservation_type_id;})[0].max_price}} EGP
+                                            </vs-td>
                                         </vs-tr>
-                                        <vs-tr>
+                                        <vs-tr v-if="form.patient.payments_total">
                                             <vs-td>Old Payments</vs-td>
-                                            <vs-td>600 EGP</vs-td>
-                                            <vs-td>-</vs-td>
-                                            <vs-td>5000 EGP</vs-td>
+                                            <vs-td>
+                                                {{(form.patient.payments_total-form.patient.paid_payments)}} EGP
+                                            </vs-td>
                                         </vs-tr>
                                         <vs-tr>
-                                            <vs-td></vs-td>
-                                            <vs-td></vs-td>
                                             <vs-td><b>TOTAL: </b></vs-td>
-                                            <vs-td>5600 EGP</vs-td>
+                                            <vs-td>{{total_to_be_paid}} EGP</vs-td>
                                         </vs-tr>
                                     </template>
                                 </vs-table>
                             </vs-col>
                             <vs-col vs-lg="12" vs-sm="12" vs-xs="12" class="mb-5" vs-justify="center" vs-align="center">
-                                <vs-input-number min="0" max="5600" v-model="amount_to_pay" label="Amount To Pay:" :step="50"/>
+                                <vs-input-number min="0" :max="total_to_be_paid" v-model="form.payment.paid" label="Amount To Pay:" :step="50"/>
                             </vs-col>
                             <vs-col vs-lg="12" vs-sm="12" vs-xs="12" class="mb-5" vs-justify="center" vs-align="center">
-                                <b>Remaining: </b>{{5600-amount_to_pay}}
+                                <b>Remaining: </b>{{total_to_be_paid-form.payment.paid}}
                             </vs-col>
                         </vs-row>
                     </div>
@@ -259,11 +284,13 @@
     export default {
         name: "AddAppointment",
         created() {
-            this.form.patient_id = this.$route.params.patient_id;
-            if(this.form.patient_id !== 'new'){
+            if(this.$route.params.patient_id !== 'new'){
+                this.form.patient_id = parseInt(this.$route.params.patient_id);
                 this.startIndex = 1;
-                this.form.new_patient = 1;
+                this.form.new_patient = 0;
                 this.getPatientData();
+            } else {
+                this.form.patient_id = this.$route.params.patient_id;
             }
         },
         mounted() {
@@ -273,7 +300,8 @@
             return {
                 reservation_types: [],
                 form: {
-                    new_patient: 0,//False
+                    new_patient: 1,//True
+                    receptionist_id: this.$store.getters['auth/userData'].id,
                     patient: {
                         email: '',
                         first_name: '',
@@ -288,7 +316,7 @@
                         gender: 'Male'
                     },
                     illness_description: '',
-                    status: 'Pending',
+                    status_id: 1,
                     reservation_type_id: null,
                     reservation_duration_id: null,
                     doctor_id: 1,
@@ -296,43 +324,18 @@
                     payment: {
                         description: '',
                         to_be_paid: '',
-                        paid: '',
-                        has_payment: 1
-                    }
-
+                        paid: 0,
+                    },
+                    has_payment: 1
                 },
                 is_requesting: false,
                 Telephone: '',
-
-
-
+                reservation_date: null,
+                durations: [],
                 startIndex: 0,
-                firstName: "",
-                lastName: "",
-                Telephones: [
-                    '01096436702',
-                    '01116436790',
-                ],
-                reservation_type: 1,
-                reservation_date: '',
-                reservation_doctor: 1,
-                reservation_duration: 1,
-                amount_to_pay: 0,
-                durations: [
-                    {
-                        id: 1,
-                        duration: '8:00AM - 10:00AM'
-                    },
-                    {
-                        id: 2,
-                        duration: '10:00AM - 12:00PM'
-                    },
-                    {
-                        id: 3,
-                        duration: '12:00PM - 2:00PM'
-                    }
-                ],
                 doctors: [],
+
+                total_to_be_paid: 0
             }
         },
         methods: {
@@ -400,8 +403,34 @@
                     });
             },
 
+            getReservationDurations()
+            {
+                this.$vs.loading({container: this.$refs.create.$refs.reservation_duration_input, scale: 0.5});
+                this.$store.dispatch('reservationDuration/getData', `?date=${this.reservation_date}&reservationType=${this.form.reservation_type_id}`)
+                    .then(response => {
+                        this.$vs.loading.close(this.$refs.create.$refs.reservation_duration_input);
+                        this.durations = response.data.data.data;
+                        if (this.durations.length>0) {
+                            this.form.reservation_duration_id = this.durations[0].id;
+                        } else {
+                            this.form.reservation_duration_id = null;
+                        }
+
+                    })
+                    .catch(error => {
+                        this.$vs.loading.close(this.$refs.create.$refs.reservation_duration_input);
+                        this.$vs.notify({
+                            title: 'Error',
+                            text: error.response.data.error,
+                            iconPack: 'feather',
+                            icon: 'icon-alert-circle',
+                            color: 'danger'
+                        });
+                    });
+            },
+
             getDoctors(){
-                this.$store.dispatch('employee/getData', '')
+                this.$store.dispatch('employee/getData', '?doctor=true')
                     .then(response => {
                         this.$vs.loading.close(this.$refs.create.$refs.content);
                         this.doctors = response.data.data.data;
@@ -424,7 +453,24 @@
                 return new Promise((resolve, reject) => {
                     this.$validator.validateAll("step-2").then(result => {
                         if (result) {
-                            resolve(true)
+                            if (!this.form.reservation_duration_id){
+                                this.$vs.notify({
+                                    title: 'Oops..',
+                                    text: 'Please, select a duration to continue',
+                                    iconPack: 'feather',
+                                    icon: 'icon-alert-circle',
+                                    color: 'danger'
+                                });
+                                reject("correct all values");
+                            } else {
+                                this.total_to_be_paid = this.reservation_types.filter(type => {
+                                    return type.id === this.form.reservation_type_id;
+                                })[0].max_price;
+                                if(this.form.patient.payments_total){
+                                    this.total_to_be_paid+=(this.form.patient.payments_total-this.form.patient.paid_payments);
+                                }
+                                resolve(true)
+                            }
                         } else {
                             reject("correct all values");
                         }
@@ -435,7 +481,42 @@
                 return new Promise((resolve, reject) => {
                     this.$validator.validateAll("step-3").then(result => {
                         if (result) {
-                            this.vs_alert('Done', 'Reservation has been placed successfully', 'success', 'icon-check');
+                            // this.$vs.loading({container: `#btn-create`, color: 'primary', scale: 0.45});
+                            let reservationType = this.reservation_types.filter(type => {
+                                return type.id === this.form.reservation_type_id;
+                            })[0];
+                            this.form.payment.to_be_paid = reservationType.max_price;
+                            this.form.payment.description = `${reservationType.name}`;
+                            if (this.form.new_patient) {
+                                delete this.form.patient_id;
+                            } else {
+                                delete this.form.patient;
+                            }
+                            this.$store.dispatch('appointment/create', this.form)
+                                .then(response => {
+                                    this.is_requesting=false;
+                                    // this.$vs.loading.close(`#btn-create > .con-vs-loading`);
+                                    this.$router.push(`/dashboard/appointment`);
+                                    this.$vs.notify({
+                                        title: 'Success',
+                                        text: response.data.message,
+                                        iconPack: 'feather',
+                                        icon: 'icon-check',
+                                        color: 'success'
+                                    });
+                                })
+                                .catch(error => {
+                                    console.log(error);
+                                    this.is_requesting=false;
+                                    // this.$vs.loading.close(`#btn-create > .con-vs-loading`);
+                                    this.$vs.notify({
+                                        title: 'Error',
+                                        text: error.response.data.errors[Object.keys(error.response.data.errors)[0]][0],
+                                        iconPack: 'feather',
+                                        icon: 'icon-alert-circle',
+                                        color: 'danger'
+                                    });
+                                });
                             resolve(true)
                         } else {
                             reject("correct all values");
@@ -443,6 +524,7 @@
                     })
                 })
             },
+
             removeTelephone (item) {
                 this.form.patient.phones.splice(this.form.patient.phones.indexOf(item), 1)
             },

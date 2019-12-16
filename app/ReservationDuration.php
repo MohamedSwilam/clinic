@@ -22,4 +22,11 @@ class ReservationDuration extends Model
     {
         return $query->where('date', $date);
     }
+
+    public function scopeReservationType($query, $id)
+    {
+        $query->whereHas('reservationType', function($query) use ($id){
+            $query->where('id', $id);
+        });
+    }
 }

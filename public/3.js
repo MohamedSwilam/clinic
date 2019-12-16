@@ -239,6 +239,31 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
  // For custom error message
 
@@ -274,12 +299,13 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "AddAppointment",
   created: function created() {
-    this.form.patient_id = this.$route.params.patient_id;
-
-    if (this.form.patient_id !== 'new') {
+    if (this.$route.params.patient_id !== 'new') {
+      this.form.patient_id = parseInt(this.$route.params.patient_id);
       this.startIndex = 1;
-      this.form.new_patient = 1;
+      this.form.new_patient = 0;
       this.getPatientData();
+    } else {
+      this.form.patient_id = this.$route.params.patient_id;
     }
   },
   mounted: function mounted() {
@@ -289,8 +315,9 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
     return {
       reservation_types: [],
       form: {
-        new_patient: 0,
-        //False
+        new_patient: 1,
+        //True
+        receptionist_id: this.$store.getters['auth/userData'].id,
         patient: {
           email: '',
           first_name: '',
@@ -305,7 +332,7 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
           gender: 'Male'
         },
         illness_description: '',
-        status: 'Pending',
+        status_id: 1,
         reservation_type_id: null,
         reservation_duration_id: null,
         doctor_id: 1,
@@ -313,32 +340,17 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
         payment: {
           description: '',
           to_be_paid: '',
-          paid: '',
-          has_payment: 1
-        }
+          paid: 0
+        },
+        has_payment: 1
       },
       is_requesting: false,
       Telephone: '',
+      reservation_date: null,
+      durations: [],
       startIndex: 0,
-      firstName: "",
-      lastName: "",
-      Telephones: ['01096436702', '01116436790'],
-      reservation_type: 1,
-      reservation_date: '',
-      reservation_doctor: 1,
-      reservation_duration: 1,
-      amount_to_pay: 0,
-      durations: [{
-        id: 1,
-        duration: '8:00AM - 10:00AM'
-      }, {
-        id: 2,
-        duration: '10:00AM - 12:00PM'
-      }, {
-        id: 3,
-        duration: '12:00PM - 2:00PM'
-      }],
-      doctors: []
+      doctors: [],
+      total_to_be_paid: 0
     };
   },
   methods: {
@@ -412,18 +424,25 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
         });
       });
     },
-    getDoctors: function getDoctors() {
+    getReservationDurations: function getReservationDurations() {
       var _this4 = this;
 
-      this.$store.dispatch('employee/getData', '').then(function (response) {
-        _this4.$vs.loading.close(_this4.$refs.create.$refs.content);
+      this.$vs.loading({
+        container: this.$refs.create.$refs.reservation_duration_input,
+        scale: 0.5
+      });
+      this.$store.dispatch('reservationDuration/getData', "?date=".concat(this.reservation_date, "&reservationType=").concat(this.form.reservation_type_id)).then(function (response) {
+        _this4.$vs.loading.close(_this4.$refs.create.$refs.reservation_duration_input);
 
-        _this4.doctors = response.data.data.data;
-        _this4.form.doctor_id = _this4.doctors[0].id;
+        _this4.durations = response.data.data.data;
+
+        if (_this4.durations.length > 0) {
+          _this4.form.reservation_duration_id = _this4.durations[0].id;
+        } else {
+          _this4.form.reservation_duration_id = null;
+        }
       })["catch"](function (error) {
-        console.log(error);
-
-        _this4.$vs.loading.close(_this4.$refs.create.$refs.content);
+        _this4.$vs.loading.close(_this4.$refs.create.$refs.reservation_duration_input);
 
         _this4.$vs.notify({
           title: 'Error',
@@ -434,13 +453,55 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
         });
       });
     },
-    validateStep2: function validateStep2() {
+    getDoctors: function getDoctors() {
       var _this5 = this;
 
+      this.$store.dispatch('employee/getData', '?doctor=true').then(function (response) {
+        _this5.$vs.loading.close(_this5.$refs.create.$refs.content);
+
+        _this5.doctors = response.data.data.data;
+        _this5.form.doctor_id = _this5.doctors[0].id;
+      })["catch"](function (error) {
+        console.log(error);
+
+        _this5.$vs.loading.close(_this5.$refs.create.$refs.content);
+
+        _this5.$vs.notify({
+          title: 'Error',
+          text: error.response.data.error,
+          iconPack: 'feather',
+          icon: 'icon-alert-circle',
+          color: 'danger'
+        });
+      });
+    },
+    validateStep2: function validateStep2() {
+      var _this6 = this;
+
       return new Promise(function (resolve, reject) {
-        _this5.$validator.validateAll("step-2").then(function (result) {
+        _this6.$validator.validateAll("step-2").then(function (result) {
           if (result) {
-            resolve(true);
+            if (!_this6.form.reservation_duration_id) {
+              _this6.$vs.notify({
+                title: 'Oops..',
+                text: 'Please, select a duration to continue',
+                iconPack: 'feather',
+                icon: 'icon-alert-circle',
+                color: 'danger'
+              });
+
+              reject("correct all values");
+            } else {
+              _this6.total_to_be_paid = _this6.reservation_types.filter(function (type) {
+                return type.id === _this6.form.reservation_type_id;
+              })[0].max_price;
+
+              if (_this6.form.patient.payments_total) {
+                _this6.total_to_be_paid += _this6.form.patient.payments_total - _this6.form.patient.paid_payments;
+              }
+
+              resolve(true);
+            }
           } else {
             reject("correct all values");
           }
@@ -448,12 +509,49 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
       });
     },
     validateStep3: function validateStep3() {
-      var _this6 = this;
+      var _this7 = this;
 
       return new Promise(function (resolve, reject) {
-        _this6.$validator.validateAll("step-3").then(function (result) {
+        _this7.$validator.validateAll("step-3").then(function (result) {
           if (result) {
-            _this6.vs_alert('Done', 'Reservation has been placed successfully', 'success', 'icon-check');
+            // this.$vs.loading({container: `#btn-create`, color: 'primary', scale: 0.45});
+            var reservationType = _this7.reservation_types.filter(function (type) {
+              return type.id === _this7.form.reservation_type_id;
+            })[0];
+
+            _this7.form.payment.to_be_paid = reservationType.max_price;
+            _this7.form.payment.description = "".concat(reservationType.name);
+
+            if (_this7.form.new_patient) {
+              delete _this7.form.patient_id;
+            } else {
+              delete _this7.form.patient;
+            }
+
+            _this7.$store.dispatch('appointment/create', _this7.form).then(function (response) {
+              _this7.is_requesting = false; // this.$vs.loading.close(`#btn-create > .con-vs-loading`);
+
+              _this7.$router.push("/dashboard/appointment");
+
+              _this7.$vs.notify({
+                title: 'Success',
+                text: response.data.message,
+                iconPack: 'feather',
+                icon: 'icon-check',
+                color: 'success'
+              });
+            })["catch"](function (error) {
+              console.log(error);
+              _this7.is_requesting = false; // this.$vs.loading.close(`#btn-create > .con-vs-loading`);
+
+              _this7.$vs.notify({
+                title: 'Error',
+                text: error.response.data.errors[Object.keys(error.response.data.errors)[0]][0],
+                iconPack: 'feather',
+                icon: 'icon-alert-circle',
+                color: 'danger'
+              });
+            });
 
             resolve(true);
           } else {
@@ -1304,16 +1402,7 @@ var render = function() {
                                       return [
                                         _c(
                                           "span",
-                                          {
-                                            staticClass: "txt-hover",
-                                            on: {
-                                              click: function($event) {
-                                                return _vm.copyToClipboard(
-                                                  phone.number
-                                                )
-                                              }
-                                            }
-                                          },
+                                          { staticClass: "txt-hover" },
                                           [_vm._v(_vm._s(phone.number))]
                                         ),
                                         _vm._v(" "),
@@ -1522,8 +1611,27 @@ var render = function() {
                             _c(
                               "vs-select",
                               {
+                                directives: [
+                                  {
+                                    name: "validate",
+                                    rawName: "v-validate",
+                                    value: "required",
+                                    expression: "'required'"
+                                  }
+                                ],
                                 staticClass: "w-full",
-                                attrs: { label: "Reservation Type" },
+                                attrs: {
+                                  name: "reservation_type",
+                                  label: "Reservation Type",
+                                  "val-icon-danger": "clear",
+                                  danger: _vm.errors.has(
+                                    "step-2.reservation_type"
+                                  ),
+                                  "danger-text": _vm.errors.first(
+                                    "step-reservation_type"
+                                  )
+                                },
+                                on: { change: _vm.getReservationDurations },
                                 model: {
                                   value: _vm.form.reservation_type_id,
                                   callback: function($$v) {
@@ -1554,7 +1662,61 @@ var render = function() {
                         _c(
                           "vs-col",
                           {
-                            staticClass: "mb-5 pl-5 pt-1",
+                            staticClass: "mb-5 pl-5",
+                            attrs: {
+                              "vs-lg": "6",
+                              "vs-sm": "12",
+                              "vs-xs": "12"
+                            }
+                          },
+                          [
+                            _c(
+                              "vs-select",
+                              {
+                                directives: [
+                                  {
+                                    name: "validate",
+                                    rawName: "v-validate",
+                                    value: "required",
+                                    expression: "'required'"
+                                  }
+                                ],
+                                staticClass: "w-full",
+                                attrs: {
+                                  name: "doctor",
+                                  label: "Doctor",
+                                  "val-icon-danger": "clear",
+                                  danger: _vm.errors.has("step-2.doctor"),
+                                  "danger-text": _vm.errors.first("step-doctor")
+                                },
+                                model: {
+                                  value: _vm.form.doctor_id,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.form, "doctor_id", $$v)
+                                  },
+                                  expression: "form.doctor_id"
+                                }
+                              },
+                              _vm._l(_vm.doctors, function(doctor, index) {
+                                return _c("vs-select-item", {
+                                  key: index,
+                                  attrs: {
+                                    value: doctor.id,
+                                    text:
+                                      doctor.first_name + " " + doctor.last_name
+                                  }
+                                })
+                              }),
+                              1
+                            )
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "vs-col",
+                          {
+                            staticClass: "mb-5 pt-1 pl-5",
                             attrs: {
                               "vs-lg": "6",
                               "vs-sm": "12",
@@ -1587,6 +1749,7 @@ var render = function() {
                                     attrs: { required: "", type: "date" },
                                     domProps: { value: _vm.reservation_date },
                                     on: {
+                                      change: _vm.getReservationDurations,
                                       input: function($event) {
                                         if ($event.target.composing) {
                                           return
@@ -1622,85 +1785,123 @@ var render = function() {
                           ]
                         ),
                         _vm._v(" "),
-                        _c(
-                          "vs-col",
-                          {
-                            staticClass: "mb-5 pl-5",
-                            attrs: {
-                              "vs-lg": "6",
-                              "vs-sm": "12",
-                              "vs-xs": "12"
-                            }
-                          },
-                          [
-                            _c(
-                              "vs-select",
+                        _vm.durations.length === 0 &&
+                        _vm.reservation_date !== null
+                          ? _c(
+                              "vs-col",
                               {
-                                staticClass: "w-full",
-                                attrs: { label: "Doctor" },
-                                model: {
-                                  value: _vm.form.doctor_id,
-                                  callback: function($$v) {
-                                    _vm.$set(_vm.form, "doctor_id", $$v)
-                                  },
-                                  expression: "form.doctor_id"
+                                staticClass: "mb-5 pl-5 pt-5",
+                                attrs: {
+                                  "vs-lg": "6",
+                                  "vs-sm": "12",
+                                  "vs-xs": "12"
                                 }
                               },
-                              _vm._l(_vm.doctors, function(doctor, index) {
-                                return _c("vs-select-item", {
-                                  key: index,
-                                  attrs: {
-                                    value: doctor.id,
-                                    text:
-                                      doctor.first_name + " " + doctor.last_name
-                                  }
-                                })
-                              }),
+                              [
+                                _vm._v(
+                                  "\n                            No Durations Found In The Specified Date!\n                        "
+                                )
+                              ]
+                            )
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.reservation_date === null ||
+                        _vm.durations.length > 0
+                          ? _c(
+                              "vs-col",
+                              {
+                                staticClass: "mb-5 pl-5",
+                                attrs: {
+                                  "vs-lg": "6",
+                                  "vs-sm": "12",
+                                  "vs-xs": "12"
+                                }
+                              },
+                              [
+                                _c(
+                                  "vs-select",
+                                  {
+                                    directives: [
+                                      {
+                                        name: "validate",
+                                        rawName: "v-validate",
+                                        value: "required",
+                                        expression: "'required'"
+                                      }
+                                    ],
+                                    ref: "reservation_duration_input",
+                                    staticClass: "w-full",
+                                    attrs: {
+                                      name: "reservation_duration",
+                                      label: "Reservation Duration",
+                                      disabled: _vm.durations.length === 0,
+                                      "val-icon-danger": "clear",
+                                      danger: _vm.errors.has(
+                                        "step-2.reservation_duration"
+                                      ),
+                                      "danger-text": _vm.errors.first(
+                                        "step-2.reservation_duration"
+                                      )
+                                    },
+                                    model: {
+                                      value: _vm.form.reservation_duration_id,
+                                      callback: function($$v) {
+                                        _vm.$set(
+                                          _vm.form,
+                                          "reservation_duration_id",
+                                          $$v
+                                        )
+                                      },
+                                      expression: "form.reservation_duration_id"
+                                    }
+                                  },
+                                  _vm._l(_vm.durations, function(
+                                    duration,
+                                    index
+                                  ) {
+                                    return _c("vs-select-item", {
+                                      key: index,
+                                      attrs: {
+                                        value: duration.id,
+                                        text:
+                                          "From " +
+                                          duration.start_time +
+                                          " To " +
+                                          duration.end_time +
+                                          " (" +
+                                          duration.counter +
+                                          ")"
+                                      }
+                                    })
+                                  }),
+                                  1
+                                )
+                              ],
                               1
                             )
-                          ],
-                          1
-                        ),
+                          : _vm._e(),
                         _vm._v(" "),
                         _c(
                           "vs-col",
                           {
                             staticClass: "mb-5 pl-5",
                             attrs: {
-                              "vs-lg": "6",
+                              "vs-lg": "12",
                               "vs-sm": "12",
                               "vs-xs": "12"
                             }
                           },
                           [
-                            _c(
-                              "vs-select",
-                              {
-                                staticClass: "w-full",
-                                attrs: { label: "Reservation Duration" },
-                                model: {
-                                  value: _vm.form.reservation_duration_id,
-                                  callback: function($$v) {
-                                    _vm.$set(
-                                      _vm.form,
-                                      "reservation_duration_id",
-                                      $$v
-                                    )
-                                  },
-                                  expression: "form.reservation_duration_id"
-                                }
-                              },
-                              _vm._l(_vm.durations, function(duration, index) {
-                                return _c("vs-select-item", {
-                                  key: index,
-                                  attrs: {
-                                    value: duration.id,
-                                    text: duration.duration
-                                  }
-                                })
-                              }),
-                              1
-                            )
+                            _c("vs-textarea", {
+                              attrs: { label: "Illness Description" },
+                              model: {
+                                value: _vm.form.illness_description,
+                                callback: function($$v) {
+                                  _vm.$set(_vm.form, "illness_description", $$v)
+                                },
+                                expression: "form.illness_description"
+                              }
+                            })
                           ],
                           1
                         )
@@ -1754,48 +1955,88 @@ var render = function() {
                                     fn: function(ref) {
                                       var data = ref.data
                                       return [
-                                        _c(
-                                          "vs-tr",
-                                          [
-                                            _c("vs-td", [_vm._v("Operation")]),
-                                            _vm._v(" "),
-                                            _c("vs-td", [_vm._v("5000 EGP")]),
-                                            _vm._v(" "),
-                                            _c("vs-td", [_vm._v("0%")]),
-                                            _vm._v(" "),
-                                            _c("vs-td", [_vm._v("5000 EGP")])
-                                          ],
-                                          1
-                                        ),
+                                        _vm.form.reservation_type_id
+                                          ? _c(
+                                              "vs-tr",
+                                              [
+                                                _c("vs-td", [
+                                                  _vm._v(
+                                                    "\n                                            " +
+                                                      _vm._s(
+                                                        _vm.reservation_types.filter(
+                                                          function(type) {
+                                                            return (
+                                                              type.id ===
+                                                              _vm.form
+                                                                .reservation_type_id
+                                                            )
+                                                          }
+                                                        )[0].name
+                                                      ) +
+                                                      "\n                                        "
+                                                  )
+                                                ]),
+                                                _vm._v(" "),
+                                                _c("vs-td", [
+                                                  _vm._v(
+                                                    "\n                                            " +
+                                                      _vm._s(
+                                                        _vm.reservation_types.filter(
+                                                          function(type) {
+                                                            return (
+                                                              type.id ===
+                                                              _vm.form
+                                                                .reservation_type_id
+                                                            )
+                                                          }
+                                                        )[0].max_price
+                                                      ) +
+                                                      " EGP\n                                        "
+                                                  )
+                                                ])
+                                              ],
+                                              1
+                                            )
+                                          : _vm._e(),
+                                        _vm._v(" "),
+                                        _vm.form.patient.payments_total
+                                          ? _c(
+                                              "vs-tr",
+                                              [
+                                                _c("vs-td", [
+                                                  _vm._v("Old Payments")
+                                                ]),
+                                                _vm._v(" "),
+                                                _c("vs-td", [
+                                                  _vm._v(
+                                                    "\n                                            " +
+                                                      _vm._s(
+                                                        _vm.form.patient
+                                                          .payments_total -
+                                                          _vm.form.patient
+                                                            .paid_payments
+                                                      ) +
+                                                      " EGP\n                                        "
+                                                  )
+                                                ])
+                                              ],
+                                              1
+                                            )
+                                          : _vm._e(),
                                         _vm._v(" "),
                                         _c(
                                           "vs-tr",
                                           [
-                                            _c("vs-td", [
-                                              _vm._v("Old Payments")
-                                            ]),
-                                            _vm._v(" "),
-                                            _c("vs-td", [_vm._v("600 EGP")]),
-                                            _vm._v(" "),
-                                            _c("vs-td", [_vm._v("-")]),
-                                            _vm._v(" "),
-                                            _c("vs-td", [_vm._v("5000 EGP")])
-                                          ],
-                                          1
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "vs-tr",
-                                          [
-                                            _c("vs-td"),
-                                            _vm._v(" "),
-                                            _c("vs-td"),
-                                            _vm._v(" "),
                                             _c("vs-td", [
                                               _c("b", [_vm._v("TOTAL: ")])
                                             ]),
                                             _vm._v(" "),
-                                            _c("vs-td", [_vm._v("5600 EGP")])
+                                            _c("vs-td", [
+                                              _vm._v(
+                                                _vm._s(_vm.total_to_be_paid) +
+                                                  " EGP"
+                                              )
+                                            ])
                                           ],
                                           1
                                         )
@@ -1811,11 +2052,7 @@ var render = function() {
                                   [
                                     _c("vs-th", [_vm._v("Title")]),
                                     _vm._v(" "),
-                                    _c("vs-th", [_vm._v("Cost")]),
-                                    _vm._v(" "),
-                                    _c("vs-th", [_vm._v("Discount")]),
-                                    _vm._v(" "),
-                                    _c("vs-th", [_vm._v("Total")])
+                                    _c("vs-th", [_vm._v("Cost")])
                                   ],
                                   1
                                 )
@@ -1842,16 +2079,16 @@ var render = function() {
                             _c("vs-input-number", {
                               attrs: {
                                 min: "0",
-                                max: "5600",
+                                max: _vm.total_to_be_paid,
                                 label: "Amount To Pay:",
                                 step: 50
                               },
                               model: {
-                                value: _vm.amount_to_pay,
+                                value: _vm.form.payment.paid,
                                 callback: function($$v) {
-                                  _vm.amount_to_pay = $$v
+                                  _vm.$set(_vm.form.payment, "paid", $$v)
                                 },
-                                expression: "amount_to_pay"
+                                expression: "form.payment.paid"
                               }
                             })
                           ],
@@ -1873,8 +2110,9 @@ var render = function() {
                           [
                             _c("b", [_vm._v("Remaining: ")]),
                             _vm._v(
-                              _vm._s(5600 - _vm.amount_to_pay) +
-                                "\n                        "
+                              _vm._s(
+                                _vm.total_to_be_paid - _vm.form.payment.paid
+                              ) + "\n                        "
                             )
                           ]
                         )
