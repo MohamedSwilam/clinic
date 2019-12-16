@@ -1,1 +1,132 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[24],{308:function(t,e,a){"use strict";a.r(e);var s={name:"Patient",mounted:function(){this.getPatientsData()},data:function(){return{selected:[],tableList:["vs-th: Component","vs-tr: Component","vs-td: Component","thread: Slot","tbody: Slot","header: Slot"],searchText:"",patients:[],currentPage:1,sortFilter:"sortDesc=id",paginate:15,total_pages:0,filterBy:"id"}},methods:{reserveAppointment:function(t){this.$router.push({name:"add-appointment",params:{patient_id:t}})},getPatientsData:function(){var t=this;this.$vs.loading({container:this.$refs.browse.$refs.content,scale:.5}),this.$store.dispatch("patient/getData","?page=".concat(this.currentPage,"&paginate=").concat(this.paginate,"&").concat(this.sortFilter,"&").concat(this.filterBy,"=").concat(this.searchText,"&")).then((function(e){t.$vs.loading.close(t.$refs.browse.$refs.content),t.patients=e.data.data.data,t.total_pages=e.data.data.meta.pagination.total_pages})).catch((function(e){console.log(e),t.$vs.loading.close(t.$refs.browse.$refs.content),t.$vs.notify({title:"Error",text:e.response.data.error,iconPack:"feather",icon:"icon-alert-circle",color:"danger"})}))},confirmDeletePatient:function(t){this.$vs.dialog({type:"confirm",color:"danger",title:"Are you sure!",text:"This data can not be retrieved again.",accept:this.deletePatient,parameters:[t]})},deletePatient:function(t){var e=this;this.is_requesting=!0,this.$vs.loading({container:"#btn-delete-".concat(t[0].id),color:"danger",scale:.45}),this.$store.dispatch("patient/delete",t[0].id).then((function(a){e.is_requesting=!1,e.$vs.loading.close("#btn-delete-".concat(t[0].id," > .con-vs-loading")),e.patients=e.patients.filter((function(e){return e.id!==t[0].id})),e.$vs.notify({title:"Success",text:a.data.message,iconPack:"feather",icon:"icon-check",color:"success"})})).catch((function(a){console.log(a),e.is_requesting=!1,e.$vs.loading.close("#btn-delete-".concat(t[0].id," > .con-vs-loading")),e.$vs.notify({title:"Error",text:a.response.data.error,iconPack:"feather",icon:"icon-alert-circle",color:"danger"})}))},handleSearch:function(){this.currentPage=1,this.getPatientsData()},handleSort:function(t,e){this.sortFilter=e?"sortDesc=".concat(t):"sortAsc=".concat(t),this.currentPage=1,this.getPatientsData()},handleChangePage:function(t){this.getPatientsData()}}},n=a(1),i=Object(n.a)(s,(function(){var t=this,e=t.$createElement,a=t._self._c||e;return a("div",[t.can("browse-patient")?a("vx-card",{ref:"browse",attrs:{title:"Patients List","collapse-action":"",refreshContentAction:""},on:{refresh:t.getPatientsData}},[a("vs-table",{attrs:{sst:!0,data:t.patients},on:{sort:t.handleSort},scopedSlots:t._u([{key:"default",fn:function(e){e.data;return t._l(t.patients,(function(e,s){return a("vs-tr",{key:s},[a("vs-td",{attrs:{data:s+1}},[t._v("\n                        "+t._s(s+1)+"\n                    ")]),t._v(" "),a("vs-td",{attrs:{data:e.id}},[t._v("\n                        "+t._s(e.id)+"\n                    ")]),t._v(" "),a("vs-td",{attrs:{data:e.first_name}},[t._v("\n                        "+t._s(e.first_name)+" "+t._s(e.last_name)+"\n                    ")]),t._v(" "),a("vs-td",{attrs:{data:e.birth_date}},[t._v("\n                        "+t._s(e.birth_date?e.birth_date:"Not Specified")+"\n                    ")]),t._v(" "),a("vs-td",[t._l(e.phones,(function(a,s){return[t._v("\n                            "+t._s(a.number)),s!==e.phones.length-1?[t._v(", ")]:t._e()]}))],2),t._v(" "),a("vs-td",{attrs:{data:e.counter}},[e.paid_payments?[100*e.paid_payments/e.payments_total==100?[a("i",{staticClass:"fas fa-check"}),t._v(" "),a("b",[t._v("Complete")])]:[a("b",[t._v(t._s(e.paid_payments))]),t._v(" Out of "),a("b",[t._v(t._s(e.payments_total))])],t._v(" "),a("br"),t._v(" "),100*e.paid_payments/e.payments_total==100?a("vs-progress",{attrs:{percent:100*e.paid_payments/e.payments_total,color:"success"}}):100*e.paid_payments/e.payments_total>25?a("vs-progress",{attrs:{percent:100*e.paid_payments/e.payments_total,color:"warning"}}):100*e.paid_payments/e.payments_total<=25?a("vs-progress",{attrs:{percent:100*e.paid_payments/e.payments_total,color:"danger"}}):t._e()]:[t._v("\n                            No Payments Yet\n                        ")]],2),t._v(" "),a("vs-td",[a("vs-row",[a("div",{staticClass:"flex mb-4"},[a("div",{staticClass:"w-1/4 pl-2"},[t.can("view-patient")?a("vs-button",{attrs:{to:"/dashboard/patient/"+e.id,radius:"",color:"primary",type:"border","icon-pack":"feather",icon:"icon-eye"}}):t._e()],1),t._v(" "),a("div",{staticClass:"w-1/4 pl-2"},[t.can("create-appointment")?a("vs-button",{attrs:{radius:"",color:"dark",type:"border","icon-pack":"feather",icon:"icon-edit-2"},on:{click:function(a){return t.reserveAppointment(e.id)}}}):t._e()],1),t._v(" "),a("div",{staticClass:"w-1/4 pl-2"},[t.can("edit-patient")?a("vs-button",{attrs:{to:"/dashboard/patient/"+e.id+"/edit",radius:"",color:"warning",type:"border","icon-pack":"feather",icon:"icon-edit"}}):t._e()],1),t._v(" "),a("div",{staticClass:"w-1/4 pl-2"},[t.can("delete-patient")?a("vs-button",{attrs:{id:"btn-delete-"+e.id,radius:"",color:"danger",type:"border","icon-pack":"feather",icon:"icon-trash"},on:{click:function(a){return t.confirmDeletePatient(e)}}}):t._e()],1)])])],1)],1)}))}}],null,!1,1475328692)},[a("template",{slot:"header"},[a("vs-row",[a("vs-col",{attrs:{"vs-lg":"6","vs-sm":"12","vs-xs":"12"}},[t.can("create-patient")?a("vs-button",{attrs:{size:"small",to:"/dashboard/patient/create","icon-pack":"feather",icon:"icon-plus",type:"filled"}},[t._v("New Patient")]):t._e()],1),t._v(" "),a("vs-col",{staticClass:"mb-5",attrs:{"vs-lg":"3","vs-sm":"6","vs-xs":"6"}},[a("vs-select",{staticClass:"selectExample",attrs:{autocomplete:"","icon-pack":"feather",icon:"icon-filter"},model:{value:t.filterBy,callback:function(e){t.filterBy=e},expression:"filterBy"}},[a("vs-select-item",{attrs:{value:"id",text:"ID"}}),t._v(" "),a("vs-select-item",{attrs:{value:"name",text:"Name"}}),t._v(" "),a("vs-select-item",{attrs:{value:"email",text:"Email"}}),t._v(" "),a("vs-select-item",{attrs:{value:"phone",text:"Phone"}})],1)],1),t._v(" "),a("vs-col",{staticClass:"mb-5",attrs:{"vs-lg":"3","vs-sm":"6","vs-xs":"6"}},[a("vs-input",{attrs:{"icon-pack":"feather",icon:"icon-search","icon-after":"",placeholder:"search"},on:{change:t.handleSearch},model:{value:t.searchText,callback:function(e){t.searchText=e},expression:"searchText"}})],1)],1)],1),t._v(" "),a("template",{slot:"thead"},[a("vs-th",[t._v("#")]),t._v(" "),a("vs-th",{attrs:{"sort-key":"id"}},[t._v("ID")]),t._v(" "),a("vs-th",{attrs:{"sort-key":"first_name"}},[t._v("Name")]),t._v(" "),a("vs-th",{attrs:{"sort-key":"birth_date"}},[t._v("Birth Date")]),t._v(" "),a("vs-th",[t._v("Telephones")]),t._v(" "),a("vs-th",[t._v("Payment")]),t._v(" "),a("vs-th",[t._v("Action")])],1)],2),t._v(" "),a("vs-pagination",{staticClass:"mt-5",attrs:{goto:"",total:t.total_pages},on:{change:t.handleChangePage},model:{value:t.currentPage,callback:function(e){t.currentPage=e},expression:"currentPage"}})],1):t._e()],1)}),[],!1,null,null,null);e.default=i.exports}}]);
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[24],{
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/NotAuthorized.vue?vue&type=template&id=f90601ee&":
+/*!*********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/NotAuthorized.vue?vue&type=template&id=f90601ee& ***!
+  \*********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "h-screen flex w-full bg-img" }, [
+    _c(
+      "div",
+      {
+        staticClass:
+          "vx-col flex items-center justify-center flex-col sm:w-1/2 md:w-3/5 lg:w-3/4 xl:w-1/2 mx-auto text-center"
+      },
+      [
+        _c("img", {
+          staticClass: "mx-auto mb-4",
+          attrs: {
+            src: __webpack_require__(/*! @assets/images/pages/not-authorized.png */ "./resources/assets/images/pages/not-authorized.png"),
+            alt: "graphic-not-authorized"
+          }
+        }),
+        _vm._v(" "),
+        _c(
+          "h1",
+          {
+            staticClass:
+              "sm:mx-0 mx-4 sm:mb-12 mb-8 text-5xl d-theme-heading-color"
+          },
+          [_vm._v("You are not authorized!")]
+        ),
+        _vm._v(" "),
+        _c(
+          "p",
+          { staticClass: "sm:mx-0 mx-4 sm:mb-12 mb-8 d-theme-text-inverse" },
+          [
+            _vm._v(
+              "\n            Contact your administrator for access.\n        "
+            )
+          ]
+        ),
+        _vm._v(" "),
+        _c("vs-button", { attrs: { size: "large", to: "/dashboard" } }, [
+          _vm._v("Back to Home")
+        ])
+      ],
+      1
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./resources/assets/images/pages/not-authorized.png":
+/*!**********************************************************!*\
+  !*** ./resources/assets/images/pages/not-authorized.png ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/not-authorized.png?388ffe4626a1621c661f5de9ceb2463d";
+
+/***/ }),
+
+/***/ "./resources/js/src/views/pages/NotAuthorized.vue":
+/*!********************************************************!*\
+  !*** ./resources/js/src/views/pages/NotAuthorized.vue ***!
+  \********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _NotAuthorized_vue_vue_type_template_id_f90601ee___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./NotAuthorized.vue?vue&type=template&id=f90601ee& */ "./resources/js/src/views/pages/NotAuthorized.vue?vue&type=template&id=f90601ee&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+var script = {}
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
+  script,
+  _NotAuthorized_vue_vue_type_template_id_f90601ee___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _NotAuthorized_vue_vue_type_template_id_f90601ee___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/src/views/pages/NotAuthorized.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/src/views/pages/NotAuthorized.vue?vue&type=template&id=f90601ee&":
+/*!***************************************************************************************!*\
+  !*** ./resources/js/src/views/pages/NotAuthorized.vue?vue&type=template&id=f90601ee& ***!
+  \***************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_NotAuthorized_vue_vue_type_template_id_f90601ee___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./NotAuthorized.vue?vue&type=template&id=f90601ee& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/NotAuthorized.vue?vue&type=template&id=f90601ee&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_NotAuthorized_vue_vue_type_template_id_f90601ee___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_NotAuthorized_vue_vue_type_template_id_f90601ee___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ })
+
+}]);

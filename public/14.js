@@ -1,1 +1,662 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[14],{166:function(e,s,i){"use strict";var o=i(36);i.n(o).a},167:function(e,s,i){(e.exports=i(2)(!1)).push([e.i,".centerx li {\n  display: inline-flex;\n  margin: 10px;\n}\n",""])},317:function(e,s,i){"use strict";i.r(s);var o={mounted:function(){this.getPermissions()},data:function(){return{role:null,permissions:[],role_name:"",rolePermissions:[],groupPermissions:[],is_requesting:!1}},computed:{validateForm:function(){return!this.errors.any()&&""!==this.role_name}},methods:{getPermissions:function(){var e=this;this.$vs.loading({container:this.$refs.edit.$refs.content,scale:.5}),this.$store.dispatch("rolesAndPermissions/getPermissions").then((function(s){e.permissions=s.data.data,e.getRole()})).catch((function(s){console.log(s),e.$vs.loading.close(e.$refs.edit.$refs.content),e.$vs.notify({title:"Error",text:s.response.data.error,iconPack:"feather",icon:"icon-alert-circle",color:"danger"})}))},getRole:function(){var e=this;this.$store.dispatch("rolesAndPermissions/view",this.$route.params.id).then((function(s){e.$vs.loading.close(e.$refs.edit.$refs.content),e.role=s.data.data.data,0===s.data.data.data.length?e.$router.push("/dashboard/error-404"):(s.data.data.data.permissions.forEach((function(s){e.rolePermissions.push(s.name)})),e.role_name=s.data.data.data.name)})).catch((function(s){console.log(s),e.$vs.loading.close(e.$refs.edit.$refs.content),e.$vs.notify({title:"Error",text:s.response.data.error,iconPack:"feather",icon:"icon-alert-circle",color:"danger"})}))},saveRole:function(){var e=this;this.validateForm&&(this.is_requesting=!0,this.$vs.loading({container:"#btn-save",color:"primary",scale:.45}),this.$store.dispatch("rolesAndPermissions/update",{id:this.$route.params.id,data:{permissions:this.rolePermissions,name:this.role_name,display_name:this.role_name}}).then((function(s){e.is_requesting=!1,e.$vs.loading.close("#btn-save > .con-vs-loading"),e.$router.push("/dashboard/settings/role/".concat(e.$route.params.id)),e.$vs.notify({title:"Success",text:s.data.message,iconPack:"feather",icon:"icon-check",color:"success"})})).catch((function(s){console.log(s),e.is_requesting=!1,e.$vs.loading.close("#btn-save > .con-vs-loading"),e.$vs.notify({title:"Error",text:s.response.data.errors[Object.keys(s.response.data.errors)[0]][0],iconPack:"feather",icon:"icon-alert-circle",color:"danger"})})))},groupPressed:function(e){if(this.groupPermissions.includes(e[0].group))for(var s=0;s<e.length;s++)this.rolePermissions.includes(e[s].name)||this.rolePermissions.push(e[s].name);else for(var i=0;i<e.length;i++)this.rolePermissions.includes(e[i].name)&&this.rolePermissions.splice(this.rolePermissions.indexOf(e[i].name),1)},startBtnLoader:function(e){this.is_loading=!0,this.$vs.loading({background:"primary",color:"#fff",container:e,scale:.45})},endBtnLoader:function(e){this.is_loading=!1,this.$vs.loading.close("".concat(e," > .con-vs-loading"))},notifyToWait:function(){this.vs_alert("Please, wait!","Your request is under process","warning","icon-clock")},vs_alert:function(e,s,i,o){this.$vs.notify({title:e,text:s,color:i,iconPack:"feather",icon:o})}}},n=(i(166),i(1)),t=Object(n.a)(o,(function(){var e=this,s=e.$createElement,i=e._self._c||s;return i("div",[e.can("edit-role")?i("vx-card",{ref:"edit",attrs:{title:"Update Role"}},[i("form",[i("div",{staticClass:"vx-row"},[i("div",{staticClass:"vx-col w-full mb-2"},[i("vs-input",{directives:[{name:"validate",rawName:"v-validate",value:"required",expression:"'required'"}],staticClass:"w-full",attrs:{danger:e.errors.has("role_name"),"danger-text":e.errors.first("role_name"),"val-icon-danger":"clear","icon-pack":"feather",icon:"icon-shield","icon-no-border":"","label-placeholder":"Role Name",name:"role_name"},model:{value:e.role_name,callback:function(s){e.role_name=s},expression:"role_name"}})],1)]),e._v(" "),i("div",{staticClass:"vx-row mt-5"},[i("div",{staticClass:"vx-col w-full"},[i("b",[e._v("Role Permissions:")]),e._v(" "),e._l(e.permissions,(function(s,o){return i("ul",[i("br"),e._v(" "),i("vs-checkbox",{attrs:{"vs-value":o},on:{change:function(i){return e.groupPressed(s)}},model:{value:e.groupPermissions,callback:function(s){e.groupPermissions=s},expression:"groupPermissions"}},[i("b",[e._v(e._s(o))])]),e._v(" "),e._l(s,(function(s,o){return i("li",{key:o,staticClass:"ml-8"},[i("vs-checkbox",{attrs:{"vs-value":s.name},model:{value:e.rolePermissions,callback:function(s){e.rolePermissions=s},expression:"rolePermissions"}},[e._v(e._s(s.display_name))])],1)}))],2)}))],2)]),e._v(" "),i("div",{staticClass:"vx-row mt-10"},[i("div",{staticClass:"vx-col w-full"},[i("vs-button",{staticClass:"vs-con-loading__container",attrs:{id:"btn-save",disabled:!e.validateForm,"icon-pack":"feather",icon:"icon-save"},on:{click:function(s){e.is_requesting?e.$store.dispatch("viewWaitMessage",e.$vs):e.saveRole()}}},[e._v("Save")])],1)])])]):e._e()],1)}),[],!1,null,null,null);s.default=t.exports},36:function(e,s,i){var o=i(167);"string"==typeof o&&(o=[[e.i,o,""]]);var n={hmr:!0,transform:void 0,insertInto:void 0};i(3)(o,n);o.locals&&(e.exports=o.locals)}}]);
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[14],{
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/settings/reservation/create-duration.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/settings/reservation/create-duration.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "create-duration",
+  mounted: function mounted() {
+    this.getReservationTypes();
+  },
+  data: function data() {
+    return {
+      form: {
+        reservation_type_id: null,
+        date: null,
+        start_time: null,
+        end_time: null,
+        counter: 1
+      },
+      is_requesting: false,
+      reservation_types: []
+    };
+  },
+  methods: {
+    getReservationTypes: function getReservationTypes() {
+      var _this = this;
+
+      this.$vs.loading({
+        container: this.$refs.create.$refs.content,
+        scale: 0.5
+      });
+      this.$store.dispatch('reservationType/getData').then(function (response) {
+        _this.reservation_types = response.data.data.data;
+        _this.form.reservation_type_id = _this.reservation_types[0].id;
+
+        _this.$vs.loading.close(_this.$refs.create.$refs.content);
+      })["catch"](function (error) {
+        console.log(error);
+
+        _this.$vs.loading.close(_this.$refs.create.$refs.content);
+
+        _this.$vs.notify({
+          title: 'Error',
+          text: error.response.data.error,
+          iconPack: 'feather',
+          icon: 'icon-alert-circle',
+          color: 'danger'
+        });
+      });
+    },
+    createReservationDuration: function createReservationDuration(createNew) {
+      var _this2 = this;
+
+      this.is_requesting = true;
+      this.$vs.loading({
+        container: "#btn-create-".concat(createNew),
+        color: 'primary',
+        scale: 0.45
+      });
+      this.$store.dispatch('reservationDuration/create', this.form).then(function (response) {
+        _this2.is_requesting = false;
+
+        _this2.$vs.loading.close("#btn-create-".concat(createNew, " > .con-vs-loading"));
+
+        _this2.$vs.notify({
+          title: 'Success',
+          text: response.data.message,
+          iconPack: 'feather',
+          icon: 'icon-check',
+          color: 'success'
+        });
+
+        if (!createNew) {
+          _this2.$router.push('/dashboard/settings/reservation');
+        }
+      })["catch"](function (error) {
+        console.log(error);
+        _this2.is_requesting = false;
+
+        _this2.$vs.loading.close("#btn-create-".concat(createNew, " > .con-vs-loading"));
+
+        _this2.$vs.notify({
+          title: 'Error',
+          text: error.response.data.errors[Object.keys(error.response.data.errors)[0]][0],
+          iconPack: 'feather',
+          icon: 'icon-alert-circle',
+          color: 'danger'
+        });
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/settings/reservation/create-duration.vue?vue&type=style&index=0&lang=css&":
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--7-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/settings/reservation/create-duration.vue?vue&type=style&index=0&lang=css& ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".vs-input-number {\n  width: -webkit-fit-content;\n  width: -moz-fit-content;\n  width: fit-content;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/settings/reservation/create-duration.vue?vue&type=style&index=0&lang=css&":
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--7-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/settings/reservation/create-duration.vue?vue&type=style&index=0&lang=css& ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../../../node_modules/css-loader??ref--7-1!../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../node_modules/postcss-loader/src??ref--7-2!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./create-duration.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/settings/reservation/create-duration.vue?vue&type=style&index=0&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/settings/reservation/create-duration.vue?vue&type=template&id=79099c20&":
+/*!**************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/settings/reservation/create-duration.vue?vue&type=template&id=79099c20& ***!
+  \**************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _vm.can("view-reservation")
+        ? _c(
+            "vx-card",
+            {
+              ref: "create",
+              attrs: {
+                title: "Add Reservation Duration",
+                "collapse-action": ""
+              }
+            },
+            [
+              _c(
+                "vs-row",
+                [
+                  _c(
+                    "vs-col",
+                    {
+                      staticClass: "mb-5 pl-5",
+                      attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
+                    },
+                    [
+                      _c(
+                        "vs-select",
+                        {
+                          staticClass: "w-full",
+                          attrs: {
+                            label: "Reservation Type",
+                            autocomplete: "",
+                            "label-placeholder": "Employee Role",
+                            "icon-pack": "feather",
+                            icon: "icon-chevron-down",
+                            color: "primary"
+                          },
+                          model: {
+                            value: _vm.form.reservation_type_id,
+                            callback: function($$v) {
+                              _vm.$set(_vm.form, "reservation_type_id", $$v)
+                            },
+                            expression: "form.reservation_type_id"
+                          }
+                        },
+                        _vm._l(_vm.reservation_types, function(item, index) {
+                          return _c("vs-select-item", {
+                            key: index,
+                            attrs: { value: item.id, text: item.name }
+                          })
+                        }),
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "vs-col",
+                    {
+                      staticClass: "mb-5 pl-5",
+                      attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
+                    },
+                    [
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "vs-component vs-con-input-label vs-input w-full vs-input-primary is-label-placeholder"
+                        },
+                        [
+                          _c("div", { staticClass: "vs-con-input" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.date,
+                                  expression: "form.date"
+                                }
+                              ],
+                              staticClass:
+                                "vs-inputx vs-input--input normal hasIcon hasValue dob-input",
+                              staticStyle: {
+                                border: "1px solid rgba(0, 0, 0, 0.2)"
+                              },
+                              attrs: { required: "", type: "date" },
+                              domProps: { value: _vm.form.date },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.form,
+                                    "date",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c(
+                              "span",
+                              {
+                                staticClass:
+                                  "input-span-placeholder vs-input--placeholder normal normal vs-placeholder-label"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                            Reservation Date\n                            "
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c("i", {
+                              staticClass:
+                                "vs-icon notranslate icon-scale icon-inputx notranslate vs-input--icon feather icon-calendar null"
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("span")
+                        ]
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "vs-col",
+                    {
+                      staticClass: "mb-5 pl-5",
+                      attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
+                    },
+                    [
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "vs-component vs-con-input-label vs-input w-full vs-input-primary is-label-placeholder"
+                        },
+                        [
+                          _c("div", { staticClass: "vs-con-input" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.start_time,
+                                  expression: "form.start_time"
+                                }
+                              ],
+                              staticClass:
+                                "vs-inputx vs-input--input normal hasIcon hasValue dob-input",
+                              staticStyle: {
+                                border: "1px solid rgba(0, 0, 0, 0.2)"
+                              },
+                              attrs: { required: "", type: "time" },
+                              domProps: { value: _vm.form.start_time },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.form,
+                                    "start_time",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c(
+                              "span",
+                              {
+                                staticClass:
+                                  "input-span-placeholder vs-input--placeholder normal normal vs-placeholder-label"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                            Start Time\n                            "
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c("i", {
+                              staticClass:
+                                "vs-icon notranslate icon-scale icon-inputx notranslate vs-input--icon feather icon-clock null"
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("span")
+                        ]
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "vs-col",
+                    {
+                      staticClass: "mb-5 pl-5",
+                      attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
+                    },
+                    [
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "vs-component vs-con-input-label vs-input w-full vs-input-primary is-label-placeholder"
+                        },
+                        [
+                          _c("div", { staticClass: "vs-con-input" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.end_time,
+                                  expression: "form.end_time"
+                                }
+                              ],
+                              staticClass:
+                                "vs-inputx vs-input--input normal hasIcon hasValue dob-input",
+                              staticStyle: {
+                                border: "1px solid rgba(0, 0, 0, 0.2)"
+                              },
+                              attrs: { required: "", type: "time" },
+                              domProps: { value: _vm.form.end_time },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.form,
+                                    "end_time",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c(
+                              "span",
+                              {
+                                staticClass:
+                                  "input-span-placeholder vs-input--placeholder normal normal vs-placeholder-label"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                            End Time\n                            "
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c("i", {
+                              staticClass:
+                                "vs-icon notranslate icon-scale icon-inputx notranslate vs-input--icon feather icon-clock null"
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("span")
+                        ]
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "vs-col",
+                    {
+                      staticClass: "mb-5 pl-5",
+                      attrs: {
+                        "vs-justify": "center",
+                        "vs-align": "center",
+                        "vs-lg": "12",
+                        "vs-sm": "12",
+                        "vs-xs": "12"
+                      }
+                    },
+                    [
+                      _c("vs-input-number", {
+                        attrs: { min: "0", label: "Counter:", step: 5 },
+                        model: {
+                          value: _vm.form.counter,
+                          callback: function($$v) {
+                            _vm.$set(_vm.form, "counter", $$v)
+                          },
+                          expression: "form.counter"
+                        }
+                      })
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("vs-divider"),
+              _vm._v(" "),
+              _c(
+                "vs-row",
+                { attrs: { "vs-justify": "center", "vs-align": "center" } },
+                [
+                  _c(
+                    "vs-button",
+                    {
+                      staticClass: "vs-con-loading__container mr-5",
+                      attrs: { id: "btn-create-false", size: "small" },
+                      on: {
+                        click: function($event) {
+                          _vm.is_requesting
+                            ? _vm.$store.dispatch("viewWaitMessage", _vm.$vs)
+                            : _vm.createReservationDuration(false)
+                        }
+                      }
+                    },
+                    [_vm._v("Add Duration & Browse")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "vs-button",
+                    {
+                      staticClass: "vs-con-loading__container",
+                      attrs: { id: "btn-create-true", size: "small" },
+                      on: {
+                        click: function($event) {
+                          _vm.is_requesting
+                            ? _vm.$store.dispatch("viewWaitMessage", _vm.$vs)
+                            : _vm.createReservationDuration(true)
+                        }
+                      }
+                    },
+                    [_vm._v("Add Duration & Create Another")]
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        : _vm._e()
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./resources/js/src/views/settings/reservation/create-duration.vue":
+/*!*************************************************************************!*\
+  !*** ./resources/js/src/views/settings/reservation/create-duration.vue ***!
+  \*************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _create_duration_vue_vue_type_template_id_79099c20___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./create-duration.vue?vue&type=template&id=79099c20& */ "./resources/js/src/views/settings/reservation/create-duration.vue?vue&type=template&id=79099c20&");
+/* harmony import */ var _create_duration_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./create-duration.vue?vue&type=script&lang=js& */ "./resources/js/src/views/settings/reservation/create-duration.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _create_duration_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./create-duration.vue?vue&type=style&index=0&lang=css& */ "./resources/js/src/views/settings/reservation/create-duration.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _create_duration_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _create_duration_vue_vue_type_template_id_79099c20___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _create_duration_vue_vue_type_template_id_79099c20___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/src/views/settings/reservation/create-duration.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/src/views/settings/reservation/create-duration.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************!*\
+  !*** ./resources/js/src/views/settings/reservation/create-duration.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_create_duration_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./create-duration.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/settings/reservation/create-duration.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_create_duration_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/src/views/settings/reservation/create-duration.vue?vue&type=style&index=0&lang=css&":
+/*!**********************************************************************************************************!*\
+  !*** ./resources/js/src/views/settings/reservation/create-duration.vue?vue&type=style&index=0&lang=css& ***!
+  \**********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_create_duration_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/style-loader!../../../../../../node_modules/css-loader??ref--7-1!../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../node_modules/postcss-loader/src??ref--7-2!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./create-duration.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/settings/reservation/create-duration.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_create_duration_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_create_duration_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_create_duration_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_create_duration_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_create_duration_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./resources/js/src/views/settings/reservation/create-duration.vue?vue&type=template&id=79099c20&":
+/*!********************************************************************************************************!*\
+  !*** ./resources/js/src/views/settings/reservation/create-duration.vue?vue&type=template&id=79099c20& ***!
+  \********************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_create_duration_vue_vue_type_template_id_79099c20___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./create-duration.vue?vue&type=template&id=79099c20& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/settings/reservation/create-duration.vue?vue&type=template&id=79099c20&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_create_duration_vue_vue_type_template_id_79099c20___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_create_duration_vue_vue_type_template_id_79099c20___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ })
+
+}]);
