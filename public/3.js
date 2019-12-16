@@ -360,6 +360,10 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
       // this.$vs.loading({container: this.$refs.create.$refs.content, scale: 0.5});
       this.$store.dispatch('patient/view', this.$route.params.patient_id).then(function (response) {
         // this.$vs.loading.close(this.$refs.create.$refs.content);
+        if (response.data.data.data.length === 0) {
+          _this.$router.push('/dashboard/error-404');
+        }
+
         _this.form.patient = response.data.data.data;
       })["catch"](function (error) {
         console.log(error); // this.$vs.loading.close(this.$refs.create.$refs.content);
@@ -657,45 +661,990 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "vx-card",
-    {
-      ref: "create",
-      attrs: {
-        title:
-          _vm.form.patient_id === "new"
-            ? "Creating Reservation For New Patient"
-            : "Creating Reservation For Existing Patient"
-      }
-    },
-    [
-      _c(
-        "form-wizard",
+  return _vm.can("create-appointment")
+    ? _c(
+        "vx-card",
         {
+          ref: "create",
           attrs: {
-            startIndex: _vm.startIndex,
-            color: "rgba(var(--vs-primary), 1)",
-            errorColor: "rgba(var(--vs-danger), 1)",
-            title: null,
-            subtitle: null,
-            finishButtonText: "Submit"
+            title:
+              _vm.form.patient_id === "new"
+                ? "Creating Reservation For New Patient"
+                : "Creating Reservation For Existing Patient"
           }
         },
         [
           _c(
-            "tab-content",
+            "form-wizard",
             {
-              staticClass: "mb-5",
               attrs: {
-                title: "Patient Information",
-                icon: "feather icon-user",
-                "before-change": _vm.validateStep1
+                startIndex: _vm.startIndex,
+                color: "rgba(var(--vs-primary), 1)",
+                errorColor: "rgba(var(--vs-danger), 1)",
+                title: null,
+                subtitle: null,
+                finishButtonText: "Submit"
               }
             },
             [
-              _c("form", { attrs: { "data-vv-scope": "step-1" } }, [
-                _vm.form.patient_id === "new"
-                  ? _c(
+              _c(
+                "tab-content",
+                {
+                  staticClass: "mb-5",
+                  attrs: {
+                    title: "Patient Information",
+                    icon: "feather icon-user",
+                    "before-change": _vm.validateStep1
+                  }
+                },
+                [
+                  _c("form", { attrs: { "data-vv-scope": "step-1" } }, [
+                    _vm.form.patient_id === "new"
+                      ? _c(
+                          "div",
+                          { staticClass: "vx-row" },
+                          [
+                            _c(
+                              "vs-row",
+                              [
+                                _c(
+                                  "vs-col",
+                                  {
+                                    staticClass: "mb-5 pl-5",
+                                    attrs: {
+                                      "vs-lg": "6",
+                                      "vs-sm": "12",
+                                      "vs-xs": "12"
+                                    }
+                                  },
+                                  [
+                                    _c("vs-input", {
+                                      directives: [
+                                        {
+                                          name: "validate",
+                                          rawName: "v-validate",
+                                          value: "required|alpha_dash|min:3",
+                                          expression:
+                                            "'required|alpha_dash|min:3'"
+                                        }
+                                      ],
+                                      staticClass: "w-full",
+                                      attrs: {
+                                        danger: _vm.errors.has(
+                                          "step-1.first_name"
+                                        ),
+                                        "danger-text": _vm.errors.first(
+                                          "step-1.first_name"
+                                        ),
+                                        "val-icon-danger": "clear",
+                                        "icon-pack": "feather",
+                                        icon: "icon-user",
+                                        "label-placeholder": "First Name",
+                                        name: "first_name"
+                                      },
+                                      model: {
+                                        value: _vm.form.patient.first_name,
+                                        callback: function($$v) {
+                                          _vm.$set(
+                                            _vm.form.patient,
+                                            "first_name",
+                                            $$v
+                                          )
+                                        },
+                                        expression: "form.patient.first_name"
+                                      }
+                                    })
+                                  ],
+                                  1
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "vs-col",
+                                  {
+                                    staticClass: "mb-5 pl-5",
+                                    attrs: {
+                                      "vs-lg": "6",
+                                      "vs-sm": "12",
+                                      "vs-xs": "12"
+                                    }
+                                  },
+                                  [
+                                    _c("vs-input", {
+                                      directives: [
+                                        {
+                                          name: "validate",
+                                          rawName: "v-validate",
+                                          value: "required|alpha_dash|min:3",
+                                          expression:
+                                            "'required|alpha_dash|min:3'"
+                                        }
+                                      ],
+                                      staticClass: "w-full",
+                                      attrs: {
+                                        danger: _vm.errors.has(
+                                          "step-1.last_name"
+                                        ),
+                                        "danger-text": _vm.errors.first(
+                                          "step-1.last_name"
+                                        ),
+                                        "val-icon-danger": "clear",
+                                        "icon-pack": "feather",
+                                        icon: "icon-user",
+                                        "label-placeholder": "Last Name",
+                                        name: "last_name"
+                                      },
+                                      model: {
+                                        value: _vm.form.patient.last_name,
+                                        callback: function($$v) {
+                                          _vm.$set(
+                                            _vm.form.patient,
+                                            "last_name",
+                                            $$v
+                                          )
+                                        },
+                                        expression: "form.patient.last_name"
+                                      }
+                                    })
+                                  ],
+                                  1
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "vs-col",
+                                  {
+                                    staticClass: "mb-5 pl-5",
+                                    attrs: {
+                                      "vs-lg": "6",
+                                      "vs-sm": "12",
+                                      "vs-xs": "12"
+                                    }
+                                  },
+                                  [
+                                    _c(
+                                      "div",
+                                      {
+                                        staticClass:
+                                          "vs-component vs-con-input-label vs-input w-full vs-input-primary is-label-placeholder"
+                                      },
+                                      [
+                                        _c(
+                                          "div",
+                                          { staticClass: "vs-con-input" },
+                                          [
+                                            _c("input", {
+                                              directives: [
+                                                {
+                                                  name: "model",
+                                                  rawName: "v-model",
+                                                  value:
+                                                    _vm.form.patient.birth_date,
+                                                  expression:
+                                                    "form.patient.birth_date"
+                                                }
+                                              ],
+                                              staticClass:
+                                                "vs-inputx vs-input--input normal hasIcon hasValue dob-input",
+                                              staticStyle: {
+                                                border:
+                                                  "1px solid rgba(0, 0, 0, 0.2)"
+                                              },
+                                              attrs: {
+                                                required: "",
+                                                type: "date"
+                                              },
+                                              domProps: {
+                                                value:
+                                                  _vm.form.patient.birth_date
+                                              },
+                                              on: {
+                                                input: function($event) {
+                                                  if ($event.target.composing) {
+                                                    return
+                                                  }
+                                                  _vm.$set(
+                                                    _vm.form.patient,
+                                                    "birth_date",
+                                                    $event.target.value
+                                                  )
+                                                }
+                                              }
+                                            }),
+                                            _vm._v(" "),
+                                            _c(
+                                              "span",
+                                              {
+                                                staticClass:
+                                                  "input-span-placeholder vs-input--placeholder normal normal vs-placeholder-label"
+                                              },
+                                              [
+                                                _vm._v(
+                                                  "\n                                Date of birth\n                                "
+                                                )
+                                              ]
+                                            ),
+                                            _vm._v(" "),
+                                            _c("i", {
+                                              staticClass:
+                                                "vs-icon notranslate icon-scale icon-inputx notranslate vs-input--icon feather icon-calendar null"
+                                            })
+                                          ]
+                                        ),
+                                        _vm._v(" "),
+                                        _c("span")
+                                      ]
+                                    )
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "vs-col",
+                                  {
+                                    staticClass: "mb-5 pl-5",
+                                    attrs: {
+                                      "vs-lg": "6",
+                                      "vs-sm": "12",
+                                      "vs-xs": "12"
+                                    }
+                                  },
+                                  [
+                                    _c("vs-input", {
+                                      staticClass: "w-full",
+                                      attrs: {
+                                        name: "address",
+                                        danger: _vm.errors.has(
+                                          "step-1.address"
+                                        ),
+                                        "val-icon-danger": "clear",
+                                        "danger-text": _vm.errors.first(
+                                          "step-1.address"
+                                        ),
+                                        "icon-pack": "feather",
+                                        icon: "icon-map-pin",
+                                        "label-placeholder": "Address"
+                                      },
+                                      model: {
+                                        value: _vm.form.patient.address,
+                                        callback: function($$v) {
+                                          _vm.$set(
+                                            _vm.form.patient,
+                                            "address",
+                                            $$v
+                                          )
+                                        },
+                                        expression: "form.patient.address"
+                                      }
+                                    })
+                                  ],
+                                  1
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "vs-col",
+                                  {
+                                    staticClass: "mb-5 pl-5",
+                                    attrs: {
+                                      "vs-lg": "6",
+                                      "vs-sm": "12",
+                                      "vs-xs": "12"
+                                    }
+                                  },
+                                  [
+                                    _c("vs-input", {
+                                      staticClass: "w-full",
+                                      attrs: {
+                                        name: "city",
+                                        danger: _vm.errors.has("step-1.city"),
+                                        "val-icon-danger": "clear",
+                                        "danger-text": _vm.errors.first(
+                                          "step-1.city"
+                                        ),
+                                        "icon-pack": "feather",
+                                        icon: "icon-map-pin",
+                                        "label-placeholder": "City"
+                                      },
+                                      model: {
+                                        value: _vm.form.patient.city,
+                                        callback: function($$v) {
+                                          _vm.$set(
+                                            _vm.form.patient,
+                                            "city",
+                                            $$v
+                                          )
+                                        },
+                                        expression: "form.patient.city"
+                                      }
+                                    })
+                                  ],
+                                  1
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "vs-col",
+                                  {
+                                    staticClass: "mb-5 pl-5",
+                                    attrs: {
+                                      "vs-lg": "6",
+                                      "vs-sm": "12",
+                                      "vs-xs": "12"
+                                    }
+                                  },
+                                  [
+                                    _c("vs-input", {
+                                      staticClass: "w-full",
+                                      attrs: {
+                                        name: "country",
+                                        danger: _vm.errors.has(
+                                          "step-1.country"
+                                        ),
+                                        "val-icon-danger": "clear",
+                                        "danger-text": _vm.errors.first(
+                                          "step-1.country"
+                                        ),
+                                        "icon-pack": "feather",
+                                        icon: "icon-map-pin",
+                                        "label-placeholder": "Country"
+                                      },
+                                      model: {
+                                        value: _vm.form.patient.country,
+                                        callback: function($$v) {
+                                          _vm.$set(
+                                            _vm.form.patient,
+                                            "country",
+                                            $$v
+                                          )
+                                        },
+                                        expression: "form.patient.country"
+                                      }
+                                    })
+                                  ],
+                                  1
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "vs-col",
+                                  {
+                                    staticClass: "mb-5 pl-5",
+                                    attrs: {
+                                      "vs-lg": "6",
+                                      "vs-sm": "12",
+                                      "vs-xs": "12"
+                                    }
+                                  },
+                                  [
+                                    _c(
+                                      "vs-row",
+                                      [
+                                        _c(
+                                          "vs-col",
+                                          { attrs: { "vs-w": "9" } },
+                                          [
+                                            _c("vs-input", {
+                                              staticClass: "w-full",
+                                              attrs: {
+                                                "icon-pack": "feather",
+                                                icon: "icon-phone",
+                                                "label-placeholder":
+                                                  "Telephone(s)"
+                                              },
+                                              on: {
+                                                keydown: function($event) {
+                                                  $event.keyCode === 13
+                                                    ? _vm.addTelephone
+                                                    : false
+                                                }
+                                              },
+                                              model: {
+                                                value: _vm.Telephone,
+                                                callback: function($$v) {
+                                                  _vm.Telephone = $$v
+                                                },
+                                                expression: "Telephone"
+                                              }
+                                            })
+                                          ],
+                                          1
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "vs-col",
+                                          { attrs: { "vs-w": "3" } },
+                                          [
+                                            _c(
+                                              "vs-button",
+                                              {
+                                                staticClass: "w-full input-btn",
+                                                attrs: {
+                                                  "icon-pack": "feather",
+                                                  icon: "icon-plus",
+                                                  type: "gradient"
+                                                },
+                                                on: { click: _vm.addTelephone }
+                                              },
+                                              [_vm._v("Add")]
+                                            )
+                                          ],
+                                          1
+                                        )
+                                      ],
+                                      1
+                                    ),
+                                    _vm._v(" "),
+                                    _c("br"),
+                                    _vm._v(" "),
+                                    _c(
+                                      "vs-row",
+                                      [
+                                        _c(
+                                          "vs-col",
+                                          { attrs: { "vs-w": "12" } },
+                                          _vm._l(
+                                            _vm.form.patient.phones,
+                                            function(telephone, index) {
+                                              return _c(
+                                                "vs-chip",
+                                                {
+                                                  key: index,
+                                                  attrs: { closable: "" },
+                                                  on: {
+                                                    click: function($event) {
+                                                      return _vm.removeTelephone(
+                                                        telephone
+                                                      )
+                                                    }
+                                                  }
+                                                },
+                                                [
+                                                  _vm._v(
+                                                    "\n                                        " +
+                                                      _vm._s(telephone.number) +
+                                                      "\n                                    "
+                                                  )
+                                                ]
+                                              )
+                                            }
+                                          ),
+                                          1
+                                        )
+                                      ],
+                                      1
+                                    )
+                                  ],
+                                  1
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "vs-col",
+                                  {
+                                    staticClass: "mb-5 pl-5",
+                                    attrs: {
+                                      "vs-lg": "6",
+                                      "vs-sm": "12",
+                                      "vs-xs": "12"
+                                    }
+                                  },
+                                  [
+                                    _c(
+                                      "div",
+                                      {
+                                        staticClass:
+                                          "vs-component vs-con-input-label vs-input w-full vs-input-primary is-label-placeholder"
+                                      },
+                                      [
+                                        _c(
+                                          "div",
+                                          { staticClass: "gender-container" },
+                                          [
+                                            _c(
+                                              "vs-radio",
+                                              {
+                                                attrs: { "vs-value": "Male" },
+                                                model: {
+                                                  value:
+                                                    _vm.form.patient.gender,
+                                                  callback: function($$v) {
+                                                    _vm.$set(
+                                                      _vm.form.patient,
+                                                      "gender",
+                                                      $$v
+                                                    )
+                                                  },
+                                                  expression:
+                                                    "form.patient.gender"
+                                                }
+                                              },
+                                              [_vm._v("Male")]
+                                            ),
+                                            _vm._v(
+                                              "\n                                      \n                                    "
+                                            ),
+                                            _c(
+                                              "vs-radio",
+                                              {
+                                                attrs: { "vs-value": "Female" },
+                                                model: {
+                                                  value:
+                                                    _vm.form.patient.gender,
+                                                  callback: function($$v) {
+                                                    _vm.$set(
+                                                      _vm.form.patient,
+                                                      "gender",
+                                                      $$v
+                                                    )
+                                                  },
+                                                  expression:
+                                                    "form.patient.gender"
+                                                }
+                                              },
+                                              [_vm._v("Female")]
+                                            ),
+                                            _vm._v(" "),
+                                            _c(
+                                              "span",
+                                              {
+                                                staticClass:
+                                                  "input-span-placeholder vs-input--placeholder normal normal vs-placeholder-label gender-placeholder"
+                                              },
+                                              [
+                                                _vm._v(
+                                                  "\n                                Gender\n                                "
+                                                )
+                                              ]
+                                            )
+                                          ],
+                                          1
+                                        ),
+                                        _vm._v(" "),
+                                        _c("span")
+                                      ]
+                                    )
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "vs-col",
+                                  {
+                                    staticClass: "mb-5 pl-5",
+                                    attrs: {
+                                      "vs-lg": "6",
+                                      "vs-sm": "12",
+                                      "vs-xs": "12"
+                                    }
+                                  },
+                                  [
+                                    _c("vs-input", {
+                                      directives: [
+                                        {
+                                          name: "validate",
+                                          rawName: "v-validate",
+                                          value: "email",
+                                          expression: "'email'"
+                                        }
+                                      ],
+                                      staticClass: "w-full",
+                                      attrs: {
+                                        danger: _vm.errors.has(
+                                          "step-1.step-1.email"
+                                        ),
+                                        "danger-text": _vm.errors.first(
+                                          "step-1.email"
+                                        ),
+                                        "val-icon-danger": "clear",
+                                        "icon-pack": "feather",
+                                        icon: "icon-mail",
+                                        "label-placeholder": "Email",
+                                        name: "email"
+                                      },
+                                      model: {
+                                        value: _vm.form.patient.email,
+                                        callback: function($$v) {
+                                          _vm.$set(
+                                            _vm.form.patient,
+                                            "email",
+                                            $$v
+                                          )
+                                        },
+                                        expression: "form.patient.email"
+                                      }
+                                    })
+                                  ],
+                                  1
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "vs-col",
+                                  {
+                                    staticClass: "mb-5 pl-5",
+                                    attrs: {
+                                      "vs-lg": "6",
+                                      "vs-sm": "12",
+                                      "vs-xs": "12"
+                                    }
+                                  },
+                                  [
+                                    _c("vs-input", {
+                                      staticClass: "w-full",
+                                      attrs: {
+                                        danger: _vm.errors.has(
+                                          "step-1.occupation"
+                                        ),
+                                        "danger-text": _vm.errors.first(
+                                          "step-1.occupation"
+                                        ),
+                                        "val-icon-danger": "clear",
+                                        "icon-pack": "feather",
+                                        icon: "icon-briefcase",
+                                        "label-placeholder": "Occupation",
+                                        name: "occupation"
+                                      },
+                                      model: {
+                                        value: _vm.form.patient.occupation,
+                                        callback: function($$v) {
+                                          _vm.$set(
+                                            _vm.form.patient,
+                                            "occupation",
+                                            $$v
+                                          )
+                                        },
+                                        expression: "form.patient.occupation"
+                                      }
+                                    })
+                                  ],
+                                  1
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "vs-col",
+                                  {
+                                    staticClass: "mb-5 pl-5",
+                                    attrs: {
+                                      "vs-lg": "6",
+                                      "vs-sm": "12",
+                                      "vs-xs": "12"
+                                    }
+                                  },
+                                  [
+                                    _c("vs-input", {
+                                      staticClass: "w-full",
+                                      attrs: {
+                                        danger: _vm.errors.has(
+                                          "step-1.reference"
+                                        ),
+                                        "danger-text": _vm.errors.first(
+                                          "step-1.reference"
+                                        ),
+                                        "val-icon-danger": "clear",
+                                        "icon-pack": "feather",
+                                        icon: "icon-git-branch",
+                                        "label-placeholder": "Referred From",
+                                        name: "reference"
+                                      },
+                                      model: {
+                                        value: _vm.form.patient.reference,
+                                        callback: function($$v) {
+                                          _vm.$set(
+                                            _vm.form.patient,
+                                            "reference",
+                                            $$v
+                                          )
+                                        },
+                                        expression: "form.patient.reference"
+                                      }
+                                    })
+                                  ],
+                                  1
+                                )
+                              ],
+                              1
+                            )
+                          ],
+                          1
+                        )
+                      : _c(
+                          "div",
+                          [
+                            _vm.form.patient
+                              ? _c(
+                                  "vs-row",
+                                  [
+                                    _c(
+                                      "vs-col",
+                                      {
+                                        staticClass: "mb-5",
+                                        attrs: {
+                                          "vs-lg": "6",
+                                          "vs-sm": "12",
+                                          "vs-xs": "12"
+                                        }
+                                      },
+                                      [
+                                        _c("b", [_vm._v("Name: ")]),
+                                        _vm._v(
+                                          " " +
+                                            _vm._s(
+                                              _vm.form.patient.first_name
+                                            ) +
+                                            " " +
+                                            _vm._s(_vm.form.patient.last_name) +
+                                            "\n                        "
+                                        )
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "vs-col",
+                                      {
+                                        staticClass: "mb-5",
+                                        attrs: {
+                                          "vs-lg": "6",
+                                          "vs-sm": "12",
+                                          "vs-xs": "12"
+                                        }
+                                      },
+                                      [
+                                        _c("b", [_vm._v("Gender: ")]),
+                                        _vm._v(
+                                          " " +
+                                            _vm._s(_vm.form.patient.gender) +
+                                            "\n                        "
+                                        )
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "vs-col",
+                                      {
+                                        staticClass: "mb-5",
+                                        attrs: {
+                                          "vs-lg": "6",
+                                          "vs-sm": "12",
+                                          "vs-xs": "12"
+                                        }
+                                      },
+                                      [
+                                        _c("b", [_vm._v("Email: ")]),
+                                        _vm._v(
+                                          " " +
+                                            _vm._s(
+                                              _vm.form.patient.email
+                                                ? _vm.form.patient.email
+                                                : "Not Specified!"
+                                            ) +
+                                            "\n                        "
+                                        )
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "vs-col",
+                                      {
+                                        staticClass: "mb-5",
+                                        attrs: {
+                                          "vs-lg": "6",
+                                          "vs-sm": "12",
+                                          "vs-xs": "12"
+                                        }
+                                      },
+                                      [
+                                        _c("b", [_vm._v("Phone(s): ")]),
+                                        _vm._v(" "),
+                                        _vm._l(
+                                          _vm.form.patient.phones,
+                                          function(phone, index) {
+                                            return [
+                                              _c(
+                                                "span",
+                                                { staticClass: "txt-hover" },
+                                                [_vm._v(_vm._s(phone.number))]
+                                              ),
+                                              _vm._v(" "),
+                                              index !==
+                                              _vm.form.patient.phones.length - 1
+                                                ? [_vm._v(", ")]
+                                                : _vm._e()
+                                            ]
+                                          }
+                                        ),
+                                        _vm._v(" "),
+                                        _vm.form.patient.phones.length === 0
+                                          ? [
+                                              _vm._v(
+                                                "\n                                No Telephones Assigned!\n                            "
+                                              )
+                                            ]
+                                          : _vm._e()
+                                      ],
+                                      2
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "vs-col",
+                                      {
+                                        staticClass: "mb-5",
+                                        attrs: {
+                                          "vs-lg": "6",
+                                          "vs-sm": "12",
+                                          "vs-xs": "12"
+                                        }
+                                      },
+                                      [
+                                        _c("b", [_vm._v("City: ")]),
+                                        _vm._v(
+                                          " " +
+                                            _vm._s(
+                                              _vm.form.patient.city
+                                                ? _vm.form.patient.city
+                                                : "Not Specified!"
+                                            ) +
+                                            "\n                        "
+                                        )
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "vs-col",
+                                      {
+                                        staticClass: "mb-5",
+                                        attrs: {
+                                          "vs-lg": "6",
+                                          "vs-sm": "12",
+                                          "vs-xs": "12"
+                                        }
+                                      },
+                                      [
+                                        _c("b", [_vm._v("Country: ")]),
+                                        _vm._v(
+                                          " " +
+                                            _vm._s(
+                                              _vm.form.patient.country
+                                                ? _vm.form.patient.country
+                                                : "Not Specified!"
+                                            ) +
+                                            "\n                        "
+                                        )
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "vs-col",
+                                      {
+                                        staticClass: "mb-5",
+                                        attrs: {
+                                          "vs-lg": "6",
+                                          "vs-sm": "12",
+                                          "vs-xs": "12"
+                                        }
+                                      },
+                                      [
+                                        _c("b", [_vm._v("Address: ")]),
+                                        _vm._v(
+                                          " " +
+                                            _vm._s(
+                                              _vm.form.patient.address
+                                                ? _vm.form.patient.address
+                                                : "Not Specified!"
+                                            ) +
+                                            "\n                        "
+                                        )
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "vs-col",
+                                      {
+                                        staticClass: "mb-5",
+                                        attrs: {
+                                          "vs-lg": "6",
+                                          "vs-sm": "12",
+                                          "vs-xs": "12"
+                                        }
+                                      },
+                                      [
+                                        _c("b", [_vm._v("Birth Date: ")]),
+                                        _vm._v(
+                                          " " +
+                                            _vm._s(
+                                              _vm.form.patient.birth_date
+                                                ? _vm.form.patient.birth_date
+                                                : "Not Specified!"
+                                            ) +
+                                            "\n                        "
+                                        )
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "vs-col",
+                                      {
+                                        staticClass: "mb-5",
+                                        attrs: {
+                                          "vs-lg": "6",
+                                          "vs-sm": "12",
+                                          "vs-xs": "12"
+                                        }
+                                      },
+                                      [
+                                        _c("b", [_vm._v("Occupation: ")]),
+                                        _vm._v(
+                                          " " +
+                                            _vm._s(
+                                              _vm.form.patient.occupation
+                                                ? _vm.form.patient.occupation
+                                                : "Not Specified!"
+                                            ) +
+                                            "\n                        "
+                                        )
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "vs-col",
+                                      {
+                                        staticClass: "mb-5",
+                                        attrs: {
+                                          "vs-lg": "6",
+                                          "vs-sm": "12",
+                                          "vs-xs": "12"
+                                        }
+                                      },
+                                      [
+                                        _c("b", [
+                                          _vm._v("form.Referred From: ")
+                                        ]),
+                                        _vm._v(
+                                          " " +
+                                            _vm._s(
+                                              _vm.form.patient.reference
+                                                ? _vm.form.patient.reference
+                                                : "No Body"
+                                            ) +
+                                            "\n                        "
+                                        )
+                                      ]
+                                    )
+                                  ],
+                                  1
+                                )
+                              : _vm._e()
+                          ],
+                          1
+                        )
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "tab-content",
+                {
+                  staticClass: "mb-5",
+                  attrs: {
+                    title: "Appointment",
+                    icon: "feather icon-edit",
+                    "before-change": _vm.validateStep2
+                  }
+                },
+                [
+                  _c("form", { attrs: { "data-vv-scope": "step-2" } }, [
+                    _c(
                       "div",
                       { staticClass: "vx-row" },
                       [
@@ -703,1111 +1652,6 @@ var render = function() {
                           "vs-row",
                           [
                             _c(
-                              "vs-col",
-                              {
-                                staticClass: "mb-5 pl-5",
-                                attrs: {
-                                  "vs-lg": "6",
-                                  "vs-sm": "12",
-                                  "vs-xs": "12"
-                                }
-                              },
-                              [
-                                _c("vs-input", {
-                                  directives: [
-                                    {
-                                      name: "validate",
-                                      rawName: "v-validate",
-                                      value: "required|alpha_dash|min:3",
-                                      expression: "'required|alpha_dash|min:3'"
-                                    }
-                                  ],
-                                  staticClass: "w-full",
-                                  attrs: {
-                                    danger: _vm.errors.has("step-1.first_name"),
-                                    "danger-text": _vm.errors.first(
-                                      "step-1.first_name"
-                                    ),
-                                    "val-icon-danger": "clear",
-                                    "icon-pack": "feather",
-                                    icon: "icon-user",
-                                    "label-placeholder": "First Name",
-                                    name: "first_name"
-                                  },
-                                  model: {
-                                    value: _vm.form.patient.first_name,
-                                    callback: function($$v) {
-                                      _vm.$set(
-                                        _vm.form.patient,
-                                        "first_name",
-                                        $$v
-                                      )
-                                    },
-                                    expression: "form.patient.first_name"
-                                  }
-                                })
-                              ],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "vs-col",
-                              {
-                                staticClass: "mb-5 pl-5",
-                                attrs: {
-                                  "vs-lg": "6",
-                                  "vs-sm": "12",
-                                  "vs-xs": "12"
-                                }
-                              },
-                              [
-                                _c("vs-input", {
-                                  directives: [
-                                    {
-                                      name: "validate",
-                                      rawName: "v-validate",
-                                      value: "required|alpha_dash|min:3",
-                                      expression: "'required|alpha_dash|min:3'"
-                                    }
-                                  ],
-                                  staticClass: "w-full",
-                                  attrs: {
-                                    danger: _vm.errors.has("step-1.last_name"),
-                                    "danger-text": _vm.errors.first(
-                                      "step-1.last_name"
-                                    ),
-                                    "val-icon-danger": "clear",
-                                    "icon-pack": "feather",
-                                    icon: "icon-user",
-                                    "label-placeholder": "Last Name",
-                                    name: "last_name"
-                                  },
-                                  model: {
-                                    value: _vm.form.patient.last_name,
-                                    callback: function($$v) {
-                                      _vm.$set(
-                                        _vm.form.patient,
-                                        "last_name",
-                                        $$v
-                                      )
-                                    },
-                                    expression: "form.patient.last_name"
-                                  }
-                                })
-                              ],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "vs-col",
-                              {
-                                staticClass: "mb-5 pl-5",
-                                attrs: {
-                                  "vs-lg": "6",
-                                  "vs-sm": "12",
-                                  "vs-xs": "12"
-                                }
-                              },
-                              [
-                                _c(
-                                  "div",
-                                  {
-                                    staticClass:
-                                      "vs-component vs-con-input-label vs-input w-full vs-input-primary is-label-placeholder"
-                                  },
-                                  [
-                                    _c("div", { staticClass: "vs-con-input" }, [
-                                      _c("input", {
-                                        directives: [
-                                          {
-                                            name: "model",
-                                            rawName: "v-model",
-                                            value: _vm.form.patient.birth_date,
-                                            expression:
-                                              "form.patient.birth_date"
-                                          }
-                                        ],
-                                        staticClass:
-                                          "vs-inputx vs-input--input normal hasIcon hasValue dob-input",
-                                        staticStyle: {
-                                          border: "1px solid rgba(0, 0, 0, 0.2)"
-                                        },
-                                        attrs: { required: "", type: "date" },
-                                        domProps: {
-                                          value: _vm.form.patient.birth_date
-                                        },
-                                        on: {
-                                          input: function($event) {
-                                            if ($event.target.composing) {
-                                              return
-                                            }
-                                            _vm.$set(
-                                              _vm.form.patient,
-                                              "birth_date",
-                                              $event.target.value
-                                            )
-                                          }
-                                        }
-                                      }),
-                                      _vm._v(" "),
-                                      _c(
-                                        "span",
-                                        {
-                                          staticClass:
-                                            "input-span-placeholder vs-input--placeholder normal normal vs-placeholder-label"
-                                        },
-                                        [
-                                          _vm._v(
-                                            "\n                                Date of birth\n                                "
-                                          )
-                                        ]
-                                      ),
-                                      _vm._v(" "),
-                                      _c("i", {
-                                        staticClass:
-                                          "vs-icon notranslate icon-scale icon-inputx notranslate vs-input--icon feather icon-calendar null"
-                                      })
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("span")
-                                  ]
-                                )
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "vs-col",
-                              {
-                                staticClass: "mb-5 pl-5",
-                                attrs: {
-                                  "vs-lg": "6",
-                                  "vs-sm": "12",
-                                  "vs-xs": "12"
-                                }
-                              },
-                              [
-                                _c("vs-input", {
-                                  staticClass: "w-full",
-                                  attrs: {
-                                    name: "address",
-                                    danger: _vm.errors.has("step-1.address"),
-                                    "val-icon-danger": "clear",
-                                    "danger-text": _vm.errors.first(
-                                      "step-1.address"
-                                    ),
-                                    "icon-pack": "feather",
-                                    icon: "icon-map-pin",
-                                    "label-placeholder": "Address"
-                                  },
-                                  model: {
-                                    value: _vm.form.patient.address,
-                                    callback: function($$v) {
-                                      _vm.$set(_vm.form.patient, "address", $$v)
-                                    },
-                                    expression: "form.patient.address"
-                                  }
-                                })
-                              ],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "vs-col",
-                              {
-                                staticClass: "mb-5 pl-5",
-                                attrs: {
-                                  "vs-lg": "6",
-                                  "vs-sm": "12",
-                                  "vs-xs": "12"
-                                }
-                              },
-                              [
-                                _c("vs-input", {
-                                  staticClass: "w-full",
-                                  attrs: {
-                                    name: "city",
-                                    danger: _vm.errors.has("step-1.city"),
-                                    "val-icon-danger": "clear",
-                                    "danger-text": _vm.errors.first(
-                                      "step-1.city"
-                                    ),
-                                    "icon-pack": "feather",
-                                    icon: "icon-map-pin",
-                                    "label-placeholder": "City"
-                                  },
-                                  model: {
-                                    value: _vm.form.patient.city,
-                                    callback: function($$v) {
-                                      _vm.$set(_vm.form.patient, "city", $$v)
-                                    },
-                                    expression: "form.patient.city"
-                                  }
-                                })
-                              ],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "vs-col",
-                              {
-                                staticClass: "mb-5 pl-5",
-                                attrs: {
-                                  "vs-lg": "6",
-                                  "vs-sm": "12",
-                                  "vs-xs": "12"
-                                }
-                              },
-                              [
-                                _c("vs-input", {
-                                  staticClass: "w-full",
-                                  attrs: {
-                                    name: "country",
-                                    danger: _vm.errors.has("step-1.country"),
-                                    "val-icon-danger": "clear",
-                                    "danger-text": _vm.errors.first(
-                                      "step-1.country"
-                                    ),
-                                    "icon-pack": "feather",
-                                    icon: "icon-map-pin",
-                                    "label-placeholder": "Country"
-                                  },
-                                  model: {
-                                    value: _vm.form.patient.country,
-                                    callback: function($$v) {
-                                      _vm.$set(_vm.form.patient, "country", $$v)
-                                    },
-                                    expression: "form.patient.country"
-                                  }
-                                })
-                              ],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "vs-col",
-                              {
-                                staticClass: "mb-5 pl-5",
-                                attrs: {
-                                  "vs-lg": "6",
-                                  "vs-sm": "12",
-                                  "vs-xs": "12"
-                                }
-                              },
-                              [
-                                _c(
-                                  "vs-row",
-                                  [
-                                    _c(
-                                      "vs-col",
-                                      { attrs: { "vs-w": "9" } },
-                                      [
-                                        _c("vs-input", {
-                                          staticClass: "w-full",
-                                          attrs: {
-                                            "icon-pack": "feather",
-                                            icon: "icon-phone",
-                                            "label-placeholder": "Telephone(s)"
-                                          },
-                                          on: {
-                                            keydown: function($event) {
-                                              $event.keyCode === 13
-                                                ? _vm.addTelephone
-                                                : false
-                                            }
-                                          },
-                                          model: {
-                                            value: _vm.Telephone,
-                                            callback: function($$v) {
-                                              _vm.Telephone = $$v
-                                            },
-                                            expression: "Telephone"
-                                          }
-                                        })
-                                      ],
-                                      1
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "vs-col",
-                                      { attrs: { "vs-w": "3" } },
-                                      [
-                                        _c(
-                                          "vs-button",
-                                          {
-                                            staticClass: "w-full input-btn",
-                                            attrs: {
-                                              "icon-pack": "feather",
-                                              icon: "icon-plus",
-                                              type: "gradient"
-                                            },
-                                            on: { click: _vm.addTelephone }
-                                          },
-                                          [_vm._v("Add")]
-                                        )
-                                      ],
-                                      1
-                                    )
-                                  ],
-                                  1
-                                ),
-                                _vm._v(" "),
-                                _c("br"),
-                                _vm._v(" "),
-                                _c(
-                                  "vs-row",
-                                  [
-                                    _c(
-                                      "vs-col",
-                                      { attrs: { "vs-w": "12" } },
-                                      _vm._l(_vm.form.patient.phones, function(
-                                        telephone,
-                                        index
-                                      ) {
-                                        return _c(
-                                          "vs-chip",
-                                          {
-                                            key: index,
-                                            attrs: { closable: "" },
-                                            on: {
-                                              click: function($event) {
-                                                return _vm.removeTelephone(
-                                                  telephone
-                                                )
-                                              }
-                                            }
-                                          },
-                                          [
-                                            _vm._v(
-                                              "\n                                        " +
-                                                _vm._s(telephone.number) +
-                                                "\n                                    "
-                                            )
-                                          ]
-                                        )
-                                      }),
-                                      1
-                                    )
-                                  ],
-                                  1
-                                )
-                              ],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "vs-col",
-                              {
-                                staticClass: "mb-5 pl-5",
-                                attrs: {
-                                  "vs-lg": "6",
-                                  "vs-sm": "12",
-                                  "vs-xs": "12"
-                                }
-                              },
-                              [
-                                _c(
-                                  "div",
-                                  {
-                                    staticClass:
-                                      "vs-component vs-con-input-label vs-input w-full vs-input-primary is-label-placeholder"
-                                  },
-                                  [
-                                    _c(
-                                      "div",
-                                      { staticClass: "gender-container" },
-                                      [
-                                        _c(
-                                          "vs-radio",
-                                          {
-                                            attrs: { "vs-value": "Male" },
-                                            model: {
-                                              value: _vm.form.patient.gender,
-                                              callback: function($$v) {
-                                                _vm.$set(
-                                                  _vm.form.patient,
-                                                  "gender",
-                                                  $$v
-                                                )
-                                              },
-                                              expression: "form.patient.gender"
-                                            }
-                                          },
-                                          [_vm._v("Male")]
-                                        ),
-                                        _vm._v(
-                                          "\n                                      \n                                    "
-                                        ),
-                                        _c(
-                                          "vs-radio",
-                                          {
-                                            attrs: { "vs-value": "Female" },
-                                            model: {
-                                              value: _vm.form.patient.gender,
-                                              callback: function($$v) {
-                                                _vm.$set(
-                                                  _vm.form.patient,
-                                                  "gender",
-                                                  $$v
-                                                )
-                                              },
-                                              expression: "form.patient.gender"
-                                            }
-                                          },
-                                          [_vm._v("Female")]
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "span",
-                                          {
-                                            staticClass:
-                                              "input-span-placeholder vs-input--placeholder normal normal vs-placeholder-label gender-placeholder"
-                                          },
-                                          [
-                                            _vm._v(
-                                              "\n                                Gender\n                                "
-                                            )
-                                          ]
-                                        )
-                                      ],
-                                      1
-                                    ),
-                                    _vm._v(" "),
-                                    _c("span")
-                                  ]
-                                )
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "vs-col",
-                              {
-                                staticClass: "mb-5 pl-5",
-                                attrs: {
-                                  "vs-lg": "6",
-                                  "vs-sm": "12",
-                                  "vs-xs": "12"
-                                }
-                              },
-                              [
-                                _c("vs-input", {
-                                  directives: [
-                                    {
-                                      name: "validate",
-                                      rawName: "v-validate",
-                                      value: "email",
-                                      expression: "'email'"
-                                    }
-                                  ],
-                                  staticClass: "w-full",
-                                  attrs: {
-                                    danger: _vm.errors.has(
-                                      "step-1.step-1.email"
-                                    ),
-                                    "danger-text": _vm.errors.first(
-                                      "step-1.email"
-                                    ),
-                                    "val-icon-danger": "clear",
-                                    "icon-pack": "feather",
-                                    icon: "icon-mail",
-                                    "label-placeholder": "Email",
-                                    name: "email"
-                                  },
-                                  model: {
-                                    value: _vm.form.patient.email,
-                                    callback: function($$v) {
-                                      _vm.$set(_vm.form.patient, "email", $$v)
-                                    },
-                                    expression: "form.patient.email"
-                                  }
-                                })
-                              ],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "vs-col",
-                              {
-                                staticClass: "mb-5 pl-5",
-                                attrs: {
-                                  "vs-lg": "6",
-                                  "vs-sm": "12",
-                                  "vs-xs": "12"
-                                }
-                              },
-                              [
-                                _c("vs-input", {
-                                  staticClass: "w-full",
-                                  attrs: {
-                                    danger: _vm.errors.has("step-1.occupation"),
-                                    "danger-text": _vm.errors.first(
-                                      "step-1.occupation"
-                                    ),
-                                    "val-icon-danger": "clear",
-                                    "icon-pack": "feather",
-                                    icon: "icon-briefcase",
-                                    "label-placeholder": "Occupation",
-                                    name: "occupation"
-                                  },
-                                  model: {
-                                    value: _vm.form.patient.occupation,
-                                    callback: function($$v) {
-                                      _vm.$set(
-                                        _vm.form.patient,
-                                        "occupation",
-                                        $$v
-                                      )
-                                    },
-                                    expression: "form.patient.occupation"
-                                  }
-                                })
-                              ],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "vs-col",
-                              {
-                                staticClass: "mb-5 pl-5",
-                                attrs: {
-                                  "vs-lg": "6",
-                                  "vs-sm": "12",
-                                  "vs-xs": "12"
-                                }
-                              },
-                              [
-                                _c("vs-input", {
-                                  staticClass: "w-full",
-                                  attrs: {
-                                    danger: _vm.errors.has("step-1.reference"),
-                                    "danger-text": _vm.errors.first(
-                                      "step-1.reference"
-                                    ),
-                                    "val-icon-danger": "clear",
-                                    "icon-pack": "feather",
-                                    icon: "icon-git-branch",
-                                    "label-placeholder": "Referred From",
-                                    name: "reference"
-                                  },
-                                  model: {
-                                    value: _vm.form.patient.reference,
-                                    callback: function($$v) {
-                                      _vm.$set(
-                                        _vm.form.patient,
-                                        "reference",
-                                        $$v
-                                      )
-                                    },
-                                    expression: "form.patient.reference"
-                                  }
-                                })
-                              ],
-                              1
-                            )
-                          ],
-                          1
-                        )
-                      ],
-                      1
-                    )
-                  : _c(
-                      "div",
-                      [
-                        _vm.form.patient
-                          ? _c(
-                              "vs-row",
-                              [
-                                _c(
-                                  "vs-col",
-                                  {
-                                    staticClass: "mb-5",
-                                    attrs: {
-                                      "vs-lg": "6",
-                                      "vs-sm": "12",
-                                      "vs-xs": "12"
-                                    }
-                                  },
-                                  [
-                                    _c("b", [_vm._v("Name: ")]),
-                                    _vm._v(
-                                      " " +
-                                        _vm._s(_vm.form.patient.first_name) +
-                                        " " +
-                                        _vm._s(_vm.form.patient.last_name) +
-                                        "\n                        "
-                                    )
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "vs-col",
-                                  {
-                                    staticClass: "mb-5",
-                                    attrs: {
-                                      "vs-lg": "6",
-                                      "vs-sm": "12",
-                                      "vs-xs": "12"
-                                    }
-                                  },
-                                  [
-                                    _c("b", [_vm._v("Gender: ")]),
-                                    _vm._v(
-                                      " " +
-                                        _vm._s(_vm.form.patient.gender) +
-                                        "\n                        "
-                                    )
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "vs-col",
-                                  {
-                                    staticClass: "mb-5",
-                                    attrs: {
-                                      "vs-lg": "6",
-                                      "vs-sm": "12",
-                                      "vs-xs": "12"
-                                    }
-                                  },
-                                  [
-                                    _c("b", [_vm._v("Email: ")]),
-                                    _vm._v(
-                                      " " +
-                                        _vm._s(
-                                          _vm.form.patient.email
-                                            ? _vm.form.patient.email
-                                            : "Not Specified!"
-                                        ) +
-                                        "\n                        "
-                                    )
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "vs-col",
-                                  {
-                                    staticClass: "mb-5",
-                                    attrs: {
-                                      "vs-lg": "6",
-                                      "vs-sm": "12",
-                                      "vs-xs": "12"
-                                    }
-                                  },
-                                  [
-                                    _c("b", [_vm._v("Phone(s): ")]),
-                                    _vm._v(" "),
-                                    _vm._l(_vm.form.patient.phones, function(
-                                      phone,
-                                      index
-                                    ) {
-                                      return [
-                                        _c(
-                                          "span",
-                                          { staticClass: "txt-hover" },
-                                          [_vm._v(_vm._s(phone.number))]
-                                        ),
-                                        _vm._v(" "),
-                                        index !==
-                                        _vm.form.patient.phones.length - 1
-                                          ? [_vm._v(", ")]
-                                          : _vm._e()
-                                      ]
-                                    }),
-                                    _vm._v(" "),
-                                    _vm.form.patient.phones.length === 0
-                                      ? [
-                                          _vm._v(
-                                            "\n                                No Telephones Assigned!\n                            "
-                                          )
-                                        ]
-                                      : _vm._e()
-                                  ],
-                                  2
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "vs-col",
-                                  {
-                                    staticClass: "mb-5",
-                                    attrs: {
-                                      "vs-lg": "6",
-                                      "vs-sm": "12",
-                                      "vs-xs": "12"
-                                    }
-                                  },
-                                  [
-                                    _c("b", [_vm._v("City: ")]),
-                                    _vm._v(
-                                      " " +
-                                        _vm._s(
-                                          _vm.form.patient.city
-                                            ? _vm.form.patient.city
-                                            : "Not Specified!"
-                                        ) +
-                                        "\n                        "
-                                    )
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "vs-col",
-                                  {
-                                    staticClass: "mb-5",
-                                    attrs: {
-                                      "vs-lg": "6",
-                                      "vs-sm": "12",
-                                      "vs-xs": "12"
-                                    }
-                                  },
-                                  [
-                                    _c("b", [_vm._v("Country: ")]),
-                                    _vm._v(
-                                      " " +
-                                        _vm._s(
-                                          _vm.form.patient.country
-                                            ? _vm.form.patient.country
-                                            : "Not Specified!"
-                                        ) +
-                                        "\n                        "
-                                    )
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "vs-col",
-                                  {
-                                    staticClass: "mb-5",
-                                    attrs: {
-                                      "vs-lg": "6",
-                                      "vs-sm": "12",
-                                      "vs-xs": "12"
-                                    }
-                                  },
-                                  [
-                                    _c("b", [_vm._v("Address: ")]),
-                                    _vm._v(
-                                      " " +
-                                        _vm._s(
-                                          _vm.form.patient.address
-                                            ? _vm.form.patient.address
-                                            : "Not Specified!"
-                                        ) +
-                                        "\n                        "
-                                    )
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "vs-col",
-                                  {
-                                    staticClass: "mb-5",
-                                    attrs: {
-                                      "vs-lg": "6",
-                                      "vs-sm": "12",
-                                      "vs-xs": "12"
-                                    }
-                                  },
-                                  [
-                                    _c("b", [_vm._v("Birth Date: ")]),
-                                    _vm._v(
-                                      " " +
-                                        _vm._s(
-                                          _vm.form.patient.birth_date
-                                            ? _vm.form.patient.birth_date
-                                            : "Not Specified!"
-                                        ) +
-                                        "\n                        "
-                                    )
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "vs-col",
-                                  {
-                                    staticClass: "mb-5",
-                                    attrs: {
-                                      "vs-lg": "6",
-                                      "vs-sm": "12",
-                                      "vs-xs": "12"
-                                    }
-                                  },
-                                  [
-                                    _c("b", [_vm._v("Occupation: ")]),
-                                    _vm._v(
-                                      " " +
-                                        _vm._s(
-                                          _vm.form.patient.occupation
-                                            ? _vm.form.patient.occupation
-                                            : "Not Specified!"
-                                        ) +
-                                        "\n                        "
-                                    )
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "vs-col",
-                                  {
-                                    staticClass: "mb-5",
-                                    attrs: {
-                                      "vs-lg": "6",
-                                      "vs-sm": "12",
-                                      "vs-xs": "12"
-                                    }
-                                  },
-                                  [
-                                    _c("b", [_vm._v("form.Referred From: ")]),
-                                    _vm._v(
-                                      " " +
-                                        _vm._s(
-                                          _vm.form.patient.reference
-                                            ? _vm.form.patient.reference
-                                            : "No Body"
-                                        ) +
-                                        "\n                        "
-                                    )
-                                  ]
-                                )
-                              ],
-                              1
-                            )
-                          : _vm._e()
-                      ],
-                      1
-                    )
-              ])
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "tab-content",
-            {
-              staticClass: "mb-5",
-              attrs: {
-                title: "Appointment",
-                icon: "feather icon-edit",
-                "before-change": _vm.validateStep2
-              }
-            },
-            [
-              _c("form", { attrs: { "data-vv-scope": "step-2" } }, [
-                _c(
-                  "div",
-                  { staticClass: "vx-row" },
-                  [
-                    _c(
-                      "vs-row",
-                      [
-                        _c(
-                          "vs-col",
-                          {
-                            staticClass: "mb-5 pl-5",
-                            attrs: {
-                              "vs-lg": "6",
-                              "vs-sm": "12",
-                              "vs-xs": "12"
-                            }
-                          },
-                          [
-                            _c(
-                              "vs-select",
-                              {
-                                directives: [
-                                  {
-                                    name: "validate",
-                                    rawName: "v-validate",
-                                    value: "required",
-                                    expression: "'required'"
-                                  }
-                                ],
-                                staticClass: "w-full",
-                                attrs: {
-                                  name: "reservation_type",
-                                  label: "Reservation Type",
-                                  "val-icon-danger": "clear",
-                                  danger: _vm.errors.has(
-                                    "step-2.reservation_type"
-                                  ),
-                                  "danger-text": _vm.errors.first(
-                                    "step-reservation_type"
-                                  )
-                                },
-                                on: { change: _vm.getReservationDurations },
-                                model: {
-                                  value: _vm.form.reservation_type_id,
-                                  callback: function($$v) {
-                                    _vm.$set(
-                                      _vm.form,
-                                      "reservation_type_id",
-                                      $$v
-                                    )
-                                  },
-                                  expression: "form.reservation_type_id"
-                                }
-                              },
-                              _vm._l(_vm.reservation_types, function(
-                                type,
-                                index
-                              ) {
-                                return _c("vs-select-item", {
-                                  key: index,
-                                  attrs: { value: type.id, text: type.name }
-                                })
-                              }),
-                              1
-                            )
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "vs-col",
-                          {
-                            staticClass: "mb-5 pl-5",
-                            attrs: {
-                              "vs-lg": "6",
-                              "vs-sm": "12",
-                              "vs-xs": "12"
-                            }
-                          },
-                          [
-                            _c(
-                              "vs-select",
-                              {
-                                directives: [
-                                  {
-                                    name: "validate",
-                                    rawName: "v-validate",
-                                    value: "required",
-                                    expression: "'required'"
-                                  }
-                                ],
-                                staticClass: "w-full",
-                                attrs: {
-                                  name: "doctor",
-                                  label: "Doctor",
-                                  "val-icon-danger": "clear",
-                                  danger: _vm.errors.has("step-2.doctor"),
-                                  "danger-text": _vm.errors.first("step-doctor")
-                                },
-                                model: {
-                                  value: _vm.form.doctor_id,
-                                  callback: function($$v) {
-                                    _vm.$set(_vm.form, "doctor_id", $$v)
-                                  },
-                                  expression: "form.doctor_id"
-                                }
-                              },
-                              _vm._l(_vm.doctors, function(doctor, index) {
-                                return _c("vs-select-item", {
-                                  key: index,
-                                  attrs: {
-                                    value: doctor.id,
-                                    text:
-                                      doctor.first_name + " " + doctor.last_name
-                                  }
-                                })
-                              }),
-                              1
-                            )
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "vs-col",
-                          {
-                            staticClass: "mb-5 pt-1 pl-5",
-                            attrs: {
-                              "vs-lg": "6",
-                              "vs-sm": "12",
-                              "vs-xs": "12"
-                            }
-                          },
-                          [
-                            _c(
-                              "div",
-                              {
-                                staticClass:
-                                  "vs-component vs-con-input-label vs-input w-full vs-input-primary is-label-placeholder"
-                              },
-                              [
-                                _c("div", { staticClass: "vs-con-input" }, [
-                                  _c("input", {
-                                    directives: [
-                                      {
-                                        name: "model",
-                                        rawName: "v-model",
-                                        value: _vm.reservation_date,
-                                        expression: "reservation_date"
-                                      }
-                                    ],
-                                    staticClass:
-                                      "vs-inputx vs-input--input normal hasIcon hasValue dob-input",
-                                    staticStyle: {
-                                      border: "1px solid rgba(0, 0, 0, 0.2)"
-                                    },
-                                    attrs: { required: "", type: "date" },
-                                    domProps: { value: _vm.reservation_date },
-                                    on: {
-                                      change: _vm.getReservationDurations,
-                                      input: function($event) {
-                                        if ($event.target.composing) {
-                                          return
-                                        }
-                                        _vm.reservation_date =
-                                          $event.target.value
-                                      }
-                                    }
-                                  }),
-                                  _vm._v(" "),
-                                  _c(
-                                    "span",
-                                    {
-                                      staticClass:
-                                        "input-span-placeholder vs-input--placeholder normal normal vs-placeholder-label"
-                                    },
-                                    [
-                                      _vm._v(
-                                        "\n                                Reservation Date\n                                "
-                                      )
-                                    ]
-                                  ),
-                                  _vm._v(" "),
-                                  _c("i", {
-                                    staticClass:
-                                      "vs-icon notranslate icon-scale icon-inputx notranslate vs-input--icon feather icon-calendar null"
-                                  })
-                                ]),
-                                _vm._v(" "),
-                                _c("span")
-                              ]
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _vm.durations.length === 0 &&
-                        _vm.reservation_date !== null
-                          ? _c(
-                              "vs-col",
-                              {
-                                staticClass: "mb-5 pl-5 pt-5",
-                                attrs: {
-                                  "vs-lg": "6",
-                                  "vs-sm": "12",
-                                  "vs-xs": "12"
-                                }
-                              },
-                              [
-                                _vm._v(
-                                  "\n                            No Durations Found In The Specified Date!\n                        "
-                                )
-                              ]
-                            )
-                          : _vm._e(),
-                        _vm._v(" "),
-                        _vm.reservation_date === null ||
-                        _vm.durations.length > 0
-                          ? _c(
                               "vs-col",
                               {
                                 staticClass: "mb-5 pl-5",
@@ -1829,48 +1673,95 @@ var render = function() {
                                         expression: "'required'"
                                       }
                                     ],
-                                    ref: "reservation_duration_input",
                                     staticClass: "w-full",
                                     attrs: {
-                                      name: "reservation_duration",
-                                      label: "Reservation Duration",
-                                      disabled: _vm.durations.length === 0,
+                                      name: "reservation_type",
+                                      label: "Reservation Type",
                                       "val-icon-danger": "clear",
                                       danger: _vm.errors.has(
-                                        "step-2.reservation_duration"
+                                        "step-2.reservation_type"
                                       ),
                                       "danger-text": _vm.errors.first(
-                                        "step-2.reservation_duration"
+                                        "step-reservation_type"
                                       )
                                     },
+                                    on: { change: _vm.getReservationDurations },
                                     model: {
-                                      value: _vm.form.reservation_duration_id,
+                                      value: _vm.form.reservation_type_id,
                                       callback: function($$v) {
                                         _vm.$set(
                                           _vm.form,
-                                          "reservation_duration_id",
+                                          "reservation_type_id",
                                           $$v
                                         )
                                       },
-                                      expression: "form.reservation_duration_id"
+                                      expression: "form.reservation_type_id"
                                     }
                                   },
-                                  _vm._l(_vm.durations, function(
-                                    duration,
+                                  _vm._l(_vm.reservation_types, function(
+                                    type,
                                     index
                                   ) {
                                     return _c("vs-select-item", {
                                       key: index,
+                                      attrs: { value: type.id, text: type.name }
+                                    })
+                                  }),
+                                  1
+                                )
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "vs-col",
+                              {
+                                staticClass: "mb-5 pl-5",
+                                attrs: {
+                                  "vs-lg": "6",
+                                  "vs-sm": "12",
+                                  "vs-xs": "12"
+                                }
+                              },
+                              [
+                                _c(
+                                  "vs-select",
+                                  {
+                                    directives: [
+                                      {
+                                        name: "validate",
+                                        rawName: "v-validate",
+                                        value: "required",
+                                        expression: "'required'"
+                                      }
+                                    ],
+                                    staticClass: "w-full",
+                                    attrs: {
+                                      name: "doctor",
+                                      label: "Doctor",
+                                      "val-icon-danger": "clear",
+                                      danger: _vm.errors.has("step-2.doctor"),
+                                      "danger-text": _vm.errors.first(
+                                        "step-doctor"
+                                      )
+                                    },
+                                    model: {
+                                      value: _vm.form.doctor_id,
+                                      callback: function($$v) {
+                                        _vm.$set(_vm.form, "doctor_id", $$v)
+                                      },
+                                      expression: "form.doctor_id"
+                                    }
+                                  },
+                                  _vm._l(_vm.doctors, function(doctor, index) {
+                                    return _c("vs-select-item", {
+                                      key: index,
                                       attrs: {
-                                        value: duration.id,
+                                        value: doctor.id,
                                         text:
-                                          "From " +
-                                          duration.start_time +
-                                          " To " +
-                                          duration.end_time +
-                                          " (" +
-                                          duration.counter +
-                                          ")"
+                                          doctor.first_name +
+                                          " " +
+                                          doctor.last_name
                                       }
                                     })
                                   }),
@@ -1878,259 +1769,441 @@ var render = function() {
                                 )
                               ],
                               1
-                            )
-                          : _vm._e(),
-                        _vm._v(" "),
-                        _c(
-                          "vs-col",
-                          {
-                            staticClass: "mb-5 pl-5",
-                            attrs: {
-                              "vs-lg": "12",
-                              "vs-sm": "12",
-                              "vs-xs": "12"
-                            }
-                          },
-                          [
-                            _c("vs-textarea", {
-                              attrs: { label: "Illness Description" },
-                              model: {
-                                value: _vm.form.illness_description,
-                                callback: function($$v) {
-                                  _vm.$set(_vm.form, "illness_description", $$v)
-                                },
-                                expression: "form.illness_description"
-                              }
-                            })
-                          ],
-                          1
-                        )
-                      ],
-                      1
-                    )
-                  ],
-                  1
-                )
-              ])
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "tab-content",
-            {
-              staticClass: "mb-5",
-              attrs: {
-                title: "Payment",
-                icon: "feather icon-dollar-sign",
-                "before-change": _vm.validateStep3
-              }
-            },
-            [
-              _c("form", { attrs: { "data-vv-scope": "step-3" } }, [
-                _c(
-                  "div",
-                  { staticClass: "vx-row" },
-                  [
-                    _c(
-                      "vs-row",
-                      [
-                        _c(
-                          "vs-col",
-                          {
-                            staticClass: "mb-5",
-                            attrs: {
-                              "vs-lg": "12",
-                              "vs-sm": "12",
-                              "vs-xs": "12"
-                            }
-                          },
-                          [
+                            ),
+                            _vm._v(" "),
                             _c(
-                              "vs-table",
+                              "vs-col",
                               {
-                                attrs: { data: ["", ""] },
-                                scopedSlots: _vm._u([
-                                  {
-                                    key: "default",
-                                    fn: function(ref) {
-                                      var data = ref.data
-                                      return [
-                                        _vm.form.reservation_type_id
-                                          ? _c(
-                                              "vs-tr",
-                                              [
-                                                _c("vs-td", [
-                                                  _vm._v(
-                                                    "\n                                            " +
-                                                      _vm._s(
-                                                        _vm.reservation_types.filter(
-                                                          function(type) {
-                                                            return (
-                                                              type.id ===
-                                                              _vm.form
-                                                                .reservation_type_id
-                                                            )
-                                                          }
-                                                        )[0].name
-                                                      ) +
-                                                      "\n                                        "
-                                                  )
-                                                ]),
-                                                _vm._v(" "),
-                                                _c("vs-td", [
-                                                  _vm._v(
-                                                    "\n                                            " +
-                                                      _vm._s(
-                                                        _vm.reservation_types.filter(
-                                                          function(type) {
-                                                            return (
-                                                              type.id ===
-                                                              _vm.form
-                                                                .reservation_type_id
-                                                            )
-                                                          }
-                                                        )[0].max_price
-                                                      ) +
-                                                      " EGP\n                                        "
-                                                  )
-                                                ])
-                                              ],
-                                              1
-                                            )
-                                          : _vm._e(),
-                                        _vm._v(" "),
-                                        _vm.form.patient.payments_total
-                                          ? _c(
-                                              "vs-tr",
-                                              [
-                                                _c("vs-td", [
-                                                  _vm._v("Old Payments")
-                                                ]),
-                                                _vm._v(" "),
-                                                _c("vs-td", [
-                                                  _vm._v(
-                                                    "\n                                            " +
-                                                      _vm._s(
-                                                        _vm.form.patient
-                                                          .payments_total -
-                                                          _vm.form.patient
-                                                            .paid_payments
-                                                      ) +
-                                                      " EGP\n                                        "
-                                                  )
-                                                ])
-                                              ],
-                                              1
-                                            )
-                                          : _vm._e(),
-                                        _vm._v(" "),
-                                        _c(
-                                          "vs-tr",
-                                          [
-                                            _c("vs-td", [
-                                              _c("b", [_vm._v("TOTAL: ")])
-                                            ]),
-                                            _vm._v(" "),
-                                            _c("vs-td", [
-                                              _vm._v(
-                                                _vm._s(_vm.total_to_be_paid) +
-                                                  " EGP"
-                                              )
-                                            ])
-                                          ],
-                                          1
-                                        )
-                                      ]
-                                    }
-                                  }
-                                ])
+                                staticClass: "mb-5 pt-1 pl-5",
+                                attrs: {
+                                  "vs-lg": "6",
+                                  "vs-sm": "12",
+                                  "vs-xs": "12"
+                                }
                               },
                               [
                                 _c(
-                                  "template",
-                                  { slot: "thead" },
+                                  "div",
+                                  {
+                                    staticClass:
+                                      "vs-component vs-con-input-label vs-input w-full vs-input-primary is-label-placeholder"
+                                  },
                                   [
-                                    _c("vs-th", [_vm._v("Title")]),
+                                    _c("div", { staticClass: "vs-con-input" }, [
+                                      _c("input", {
+                                        directives: [
+                                          {
+                                            name: "model",
+                                            rawName: "v-model",
+                                            value: _vm.reservation_date,
+                                            expression: "reservation_date"
+                                          }
+                                        ],
+                                        staticClass:
+                                          "vs-inputx vs-input--input normal hasIcon hasValue dob-input",
+                                        staticStyle: {
+                                          border: "1px solid rgba(0, 0, 0, 0.2)"
+                                        },
+                                        attrs: { required: "", type: "date" },
+                                        domProps: {
+                                          value: _vm.reservation_date
+                                        },
+                                        on: {
+                                          change: _vm.getReservationDurations,
+                                          input: function($event) {
+                                            if ($event.target.composing) {
+                                              return
+                                            }
+                                            _vm.reservation_date =
+                                              $event.target.value
+                                          }
+                                        }
+                                      }),
+                                      _vm._v(" "),
+                                      _c(
+                                        "span",
+                                        {
+                                          staticClass:
+                                            "input-span-placeholder vs-input--placeholder normal normal vs-placeholder-label"
+                                        },
+                                        [
+                                          _vm._v(
+                                            "\n                                Reservation Date\n                                "
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c("i", {
+                                        staticClass:
+                                          "vs-icon notranslate icon-scale icon-inputx notranslate vs-input--icon feather icon-calendar null"
+                                      })
+                                    ]),
                                     _vm._v(" "),
-                                    _c("vs-th", [_vm._v("Cost")])
+                                    _c("span")
+                                  ]
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _vm.durations.length === 0 &&
+                            _vm.reservation_date !== null
+                              ? _c(
+                                  "vs-col",
+                                  {
+                                    staticClass: "mb-5 pl-5 pt-5",
+                                    attrs: {
+                                      "vs-lg": "6",
+                                      "vs-sm": "12",
+                                      "vs-xs": "12"
+                                    }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                            No Durations Found In The Specified Date!\n                        "
+                                    )
+                                  ]
+                                )
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _vm.reservation_date === null ||
+                            _vm.durations.length > 0
+                              ? _c(
+                                  "vs-col",
+                                  {
+                                    staticClass: "mb-5 pl-5",
+                                    attrs: {
+                                      "vs-lg": "6",
+                                      "vs-sm": "12",
+                                      "vs-xs": "12"
+                                    }
+                                  },
+                                  [
+                                    _c(
+                                      "vs-select",
+                                      {
+                                        directives: [
+                                          {
+                                            name: "validate",
+                                            rawName: "v-validate",
+                                            value: "required",
+                                            expression: "'required'"
+                                          }
+                                        ],
+                                        ref: "reservation_duration_input",
+                                        staticClass: "w-full",
+                                        attrs: {
+                                          name: "reservation_duration",
+                                          label: "Reservation Duration",
+                                          disabled: _vm.durations.length === 0,
+                                          "val-icon-danger": "clear",
+                                          danger: _vm.errors.has(
+                                            "step-2.reservation_duration"
+                                          ),
+                                          "danger-text": _vm.errors.first(
+                                            "step-2.reservation_duration"
+                                          )
+                                        },
+                                        model: {
+                                          value:
+                                            _vm.form.reservation_duration_id,
+                                          callback: function($$v) {
+                                            _vm.$set(
+                                              _vm.form,
+                                              "reservation_duration_id",
+                                              $$v
+                                            )
+                                          },
+                                          expression:
+                                            "form.reservation_duration_id"
+                                        }
+                                      },
+                                      _vm._l(_vm.durations, function(
+                                        duration,
+                                        index
+                                      ) {
+                                        return _c("vs-select-item", {
+                                          key: index,
+                                          attrs: {
+                                            value: duration.id,
+                                            text:
+                                              "From " +
+                                              duration.start_time +
+                                              " To " +
+                                              duration.end_time +
+                                              " (" +
+                                              duration.counter +
+                                              ")"
+                                          }
+                                        })
+                                      }),
+                                      1
+                                    )
                                   ],
                                   1
                                 )
-                              ],
-                              2
-                            )
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "vs-col",
-                          {
-                            staticClass: "mb-5",
-                            attrs: {
-                              "vs-lg": "12",
-                              "vs-sm": "12",
-                              "vs-xs": "12",
-                              "vs-justify": "center",
-                              "vs-align": "center"
-                            }
-                          },
-                          [
-                            _c("vs-input-number", {
-                              attrs: {
-                                min: "0",
-                                max: _vm.total_to_be_paid,
-                                label: "Amount To Pay:",
-                                step: 50
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _c(
+                              "vs-col",
+                              {
+                                staticClass: "mb-5 pl-5",
+                                attrs: {
+                                  "vs-lg": "12",
+                                  "vs-sm": "12",
+                                  "vs-xs": "12"
+                                }
                               },
-                              model: {
-                                value: _vm.form.payment.paid,
-                                callback: function($$v) {
-                                  _vm.$set(_vm.form.payment, "paid", $$v)
-                                },
-                                expression: "form.payment.paid"
-                              }
-                            })
+                              [
+                                _c("vs-textarea", {
+                                  attrs: { label: "Illness Description" },
+                                  model: {
+                                    value: _vm.form.illness_description,
+                                    callback: function($$v) {
+                                      _vm.$set(
+                                        _vm.form,
+                                        "illness_description",
+                                        $$v
+                                      )
+                                    },
+                                    expression: "form.illness_description"
+                                  }
+                                })
+                              ],
+                              1
+                            )
                           ],
                           1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "vs-col",
-                          {
-                            staticClass: "mb-5",
-                            attrs: {
-                              "vs-lg": "12",
-                              "vs-sm": "12",
-                              "vs-xs": "12",
-                              "vs-justify": "center",
-                              "vs-align": "center"
-                            }
-                          },
-                          [
-                            _c("b", [_vm._v("Remaining: ")]),
-                            _vm._v(
-                              _vm._s(
-                                _vm.total_to_be_paid - _vm.form.payment.paid
-                              ) + "\n                        "
-                            )
-                          ]
                         )
                       ],
                       1
                     )
-                  ],
-                  1
-                )
-              ])
-            ]
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "tab-content",
+                {
+                  staticClass: "mb-5",
+                  attrs: {
+                    title: "Payment",
+                    icon: "feather icon-dollar-sign",
+                    "before-change": _vm.validateStep3
+                  }
+                },
+                [
+                  _c("form", { attrs: { "data-vv-scope": "step-3" } }, [
+                    _c(
+                      "div",
+                      { staticClass: "vx-row" },
+                      [
+                        _c(
+                          "vs-row",
+                          [
+                            _c(
+                              "vs-col",
+                              {
+                                staticClass: "mb-5",
+                                attrs: {
+                                  "vs-lg": "12",
+                                  "vs-sm": "12",
+                                  "vs-xs": "12"
+                                }
+                              },
+                              [
+                                _c(
+                                  "vs-table",
+                                  {
+                                    attrs: { data: ["", ""] },
+                                    scopedSlots: _vm._u(
+                                      [
+                                        {
+                                          key: "default",
+                                          fn: function(ref) {
+                                            var data = ref.data
+                                            return [
+                                              _vm.form.reservation_type_id
+                                                ? _c(
+                                                    "vs-tr",
+                                                    [
+                                                      _c("vs-td", [
+                                                        _vm._v(
+                                                          "\n                                            " +
+                                                            _vm._s(
+                                                              _vm.reservation_types.filter(
+                                                                function(type) {
+                                                                  return (
+                                                                    type.id ===
+                                                                    _vm.form
+                                                                      .reservation_type_id
+                                                                  )
+                                                                }
+                                                              )[0].name
+                                                            ) +
+                                                            "\n                                        "
+                                                        )
+                                                      ]),
+                                                      _vm._v(" "),
+                                                      _c("vs-td", [
+                                                        _vm._v(
+                                                          "\n                                            " +
+                                                            _vm._s(
+                                                              _vm.reservation_types.filter(
+                                                                function(type) {
+                                                                  return (
+                                                                    type.id ===
+                                                                    _vm.form
+                                                                      .reservation_type_id
+                                                                  )
+                                                                }
+                                                              )[0].max_price
+                                                            ) +
+                                                            " EGP\n                                        "
+                                                        )
+                                                      ])
+                                                    ],
+                                                    1
+                                                  )
+                                                : _vm._e(),
+                                              _vm._v(" "),
+                                              _vm.form.patient.payments_total
+                                                ? _c(
+                                                    "vs-tr",
+                                                    [
+                                                      _c("vs-td", [
+                                                        _vm._v("Old Payments")
+                                                      ]),
+                                                      _vm._v(" "),
+                                                      _c("vs-td", [
+                                                        _vm._v(
+                                                          "\n                                            " +
+                                                            _vm._s(
+                                                              _vm.form.patient
+                                                                .payments_total -
+                                                                _vm.form.patient
+                                                                  .paid_payments
+                                                            ) +
+                                                            " EGP\n                                        "
+                                                        )
+                                                      ])
+                                                    ],
+                                                    1
+                                                  )
+                                                : _vm._e(),
+                                              _vm._v(" "),
+                                              _c(
+                                                "vs-tr",
+                                                [
+                                                  _c("vs-td", [
+                                                    _c("b", [_vm._v("TOTAL: ")])
+                                                  ]),
+                                                  _vm._v(" "),
+                                                  _c("vs-td", [
+                                                    _vm._v(
+                                                      _vm._s(
+                                                        _vm.total_to_be_paid
+                                                      ) + " EGP"
+                                                    )
+                                                  ])
+                                                ],
+                                                1
+                                              )
+                                            ]
+                                          }
+                                        }
+                                      ],
+                                      null,
+                                      false,
+                                      922304504
+                                    )
+                                  },
+                                  [
+                                    _c(
+                                      "template",
+                                      { slot: "thead" },
+                                      [
+                                        _c("vs-th", [_vm._v("Title")]),
+                                        _vm._v(" "),
+                                        _c("vs-th", [_vm._v("Cost")])
+                                      ],
+                                      1
+                                    )
+                                  ],
+                                  2
+                                )
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "vs-col",
+                              {
+                                staticClass: "mb-5",
+                                attrs: {
+                                  "vs-lg": "12",
+                                  "vs-sm": "12",
+                                  "vs-xs": "12",
+                                  "vs-justify": "center",
+                                  "vs-align": "center"
+                                }
+                              },
+                              [
+                                _c("vs-input-number", {
+                                  attrs: {
+                                    min: "0",
+                                    max: _vm.total_to_be_paid,
+                                    label: "Amount To Pay:",
+                                    step: 50
+                                  },
+                                  model: {
+                                    value: _vm.form.payment.paid,
+                                    callback: function($$v) {
+                                      _vm.$set(_vm.form.payment, "paid", $$v)
+                                    },
+                                    expression: "form.payment.paid"
+                                  }
+                                })
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "vs-col",
+                              {
+                                staticClass: "mb-5",
+                                attrs: {
+                                  "vs-lg": "12",
+                                  "vs-sm": "12",
+                                  "vs-xs": "12",
+                                  "vs-justify": "center",
+                                  "vs-align": "center"
+                                }
+                              },
+                              [
+                                _c("b", [_vm._v("Remaining: ")]),
+                                _vm._v(
+                                  _vm._s(
+                                    _vm.total_to_be_paid - _vm.form.payment.paid
+                                  ) + "\n                        "
+                                )
+                              ]
+                            )
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    )
+                  ])
+                ]
+              )
+            ],
+            1
           )
         ],
         1
       )
-    ],
-    1
-  )
+    : _vm._e()
 }
 var staticRenderFns = []
 render._withStripped = true

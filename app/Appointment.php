@@ -50,7 +50,12 @@ class Appointment extends Model
         return $query->where('receptionist_id', $id);
     }
 
-    public function scopeDoctor($query, $name)
+    public function scopeDoctor($query, $id)
+    {
+        return $query->where('doctor_id', $id);
+    }
+
+    public function scopeDoctorName($query, $name)
     {
         return $query->whereHas('doctor', function ($query) use ($name){
             $query->where('first_name', 'like', "%$name%");

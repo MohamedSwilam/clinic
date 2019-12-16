@@ -1,6 +1,6 @@
 <template>
     <div>
-        <vx-card ref="create" title='Add Reservation Duration' collapse-action>
+        <vx-card v-if="can('view-reservation')" ref="create" title='Add Reservation Duration' collapse-action>
             <vs-row>
                 <vs-col vs-lg="6" vs-sm="12" vs-xs="12" class="mb-5 pl-5">
                     <vs-select label="Reservation Type" autocomplete label-placeholder="Employee Role" icon-pack="feather" icon="icon-chevron-down"  color="primary" class="w-full" v-model="form.reservation_type_id">

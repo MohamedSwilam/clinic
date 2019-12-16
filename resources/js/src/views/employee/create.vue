@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="vx-col w-full mb-base">
+        <div v-if="can('create-user')" class="vx-col w-full mb-base">
             <vx-card ref="create" title="Personal Information">
 
                 <div class="vx-row">

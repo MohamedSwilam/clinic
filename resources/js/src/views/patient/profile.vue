@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="vx-col w-full mb-base">
-            <vx-card ref="view" title='Personal Information' collapseAction refreshContentAction @refresh="getPatientData">
+            <vx-card v-if="can('view-patient')" ref="view" title='Personal Information' collapseAction refreshContentAction @refresh="getPatientData">
                 <vs-row v-if="patient">
                     <vs-col vs-lg="6" vs-sm="12" vs-xs="12" class="mb-5">
                         <b>Name: </b> {{patient.first_name}} {{patient.last_name}}
@@ -42,163 +42,173 @@
                     </vs-col>
                 </vs-row>
                 <vs-row vs-justify="center">
-                    <vs-button :to="`/dashboard/patient/${$route.params.id}/edit`" size="small" icon-pack="feather" icon="icon-edit" type="filled">Edit Information</vs-button>
+                    <vs-button v-if="can('edit-patient')" :to="`/dashboard/patient/${$route.params.id}/edit`" size="small" icon-pack="feather" icon="icon-edit" type="filled">Edit Information</vs-button>
                 </vs-row>
             </vx-card>
         </div>
-        <div class="vx-col w-full mb-base">
-            <vx-card title='Payments Information' collapseAction>
-                <vs-table :data="['','']">
-                    <template slot="header">
-                        <vs-button class="mb-5" size="small" icon-pack="feather" icon="icon-plus" type="filled">Add Payment</vs-button>
-                    </template>
-                    <template slot="thead">
-                        <vs-th>#</vs-th>
-                        <vs-th>Type</vs-th>
-                        <vs-th>Date</vs-th>
-                        <vs-th>Time</vs-th>
-                        <vs-th>Amount</vs-th>
-                        <vs-th>Export</vs-th>
-                    </template>
 
-                    <template slot-scope="{data}">
-                        <vs-tr>
-                            <vs-td>1</vs-td>
-                            <vs-td>Operation</vs-td>
-                            <vs-td>01 NOV, 2019</vs-td>
-                            <vs-td>2:44 PM</vs-td>
-                            <vs-td>1800 EGP</vs-td>
-                            <vs-td>
-                                <vs-button size="small" icon-pack="feather" icon="icon-file-text" type="filled">Export PDF</vs-button>
-                            </vs-td>
-                        </vs-tr>
-                        <vs-tr>
-                            <vs-td>2</vs-td>
-                            <vs-td>Operation</vs-td>
-                            <vs-td>17 OCT, 2019</vs-td>
-                            <vs-td>11:16 AM</vs-td>
-                            <vs-td>1200 EGP</vs-td>
-                            <vs-td>
-                                <vs-button size="small" icon-pack="feather" icon="icon-file-text" type="filled">Export PDF</vs-button>
-                            </vs-td>
-                        </vs-tr>
-                        <vs-tr>
-                            <vs-td>3</vs-td>
-                            <vs-td>Reveal</vs-td>
-                            <vs-td>17 OCT, 2019</vs-td>
-                            <vs-td>12:45 PM</vs-td>
-                            <vs-td>300 EGP</vs-td>
-                            <vs-td>
-                                <vs-button size="small" icon-pack="feather" icon="icon-file-text" type="filled">Export PDF</vs-button>
-                            </vs-td>
-                        </vs-tr>
-                        <vs-tr>
-                            <vs-td>4</vs-td>
-                            <vs-td>Reveal</vs-td>
-                            <vs-td>15 OCT, 2019</vs-td>
-                            <vs-td>12:45 PM</vs-td>
-                            <vs-td>300 EGP</vs-td>
-                            <vs-td>
-                                <vs-button size="small" icon-pack="feather" icon="icon-file-text" type="filled">Export PDF</vs-button>
-                            </vs-td>
-                        </vs-tr>
-                    </template>
-                </vs-table>
-            </vx-card>
-        </div>
-        <div class="vx-col w-full mb-base">
-            <vx-card title='Medical Reports' collapseAction>
-                <vs-table :data="['','']">
-                    <template slot="header">
-                        <vs-button class="mb-5" size="small" icon-pack="feather" icon="icon-plus" type="filled">Add Medical Report</vs-button>
-                    </template>
+
+        <div class="vx-col w-full mb-base" v-if="can('browse-payment')">
+            <vx-card title='Payments Information' collapseAction>
+                <vs-table v-if="patient" :data="patient.payments">
                     <template slot="thead">
                         <vs-th>#</vs-th>
-                        <vs-th>Added By</vs-th>
+                        <vs-th>Description</vs-th>
                         <vs-th>Date</vs-th>
                         <vs-th>Time</vs-th>
+                        <vs-th>To Be Paid</vs-th>
+                        <vs-th>Paid</vs-th>
                         <vs-th>Action</vs-th>
                     </template>
 
                     <template slot-scope="{data}">
-                        <vs-tr>
-                            <vs-td>1</vs-td>
-                            <vs-td><a href="#" @click="$router.push({name: 'view-employee', params: {id: 5}})">Dr. Phil Gray</a></vs-td>
-                            <vs-td>01 NOV, 2019</vs-td>
-                            <vs-td>2:44 PM</vs-td>
+                        <vs-tr :key="index" v-for="(payment, index) in patient.payments">
+                            <vs-td>{{index+1}}</vs-td>
+                            <vs-td>{{payment.description}}</vs-td>
+                            <vs-td>{{payment.created_at.split(" ")[0]}}</vs-td>
+                            <vs-td>{{payment.created_at.split(" ")[1]}}</vs-td>
+                            <vs-td>{{payment.to_be_paid}}</vs-td>
+                            <vs-td>{{payment.paid}}</vs-td>
                             <vs-td>
                                 <div class="flex">
-                                    <div class="w-1/3">
-                                        <vs-button icon-pack="feather" icon="icon-eye" color="primary" radius type="border"></vs-button>
-                                    </div>
-                                    <div class="w-1/3">
-                                        <vs-button icon-pack="feather" icon="icon-edit" color="warning" radius type="border"></vs-button>
-                                    </div>
-                                    <div class="w-1/3">
-                                        <vs-button icon-pack="feather" icon="icon-trash" color="danger" radius type="border"></vs-button>
-                                    </div>
-                                </div>
-                            </vs-td>
-                        </vs-tr>
-                        <vs-tr>
-                            <vs-td>2</vs-td>
-                            <vs-td><a href="#" @click="$router.push({name: 'view-employee', params: {id: 5}})">Dr. Phil Gray</a></vs-td>
-                            <vs-td>17 OCT, 2019</vs-td>
-                            <vs-td>11:16 AM</vs-td>
-                            <vs-td>
-                                <div class="flex">
-                                    <div class="w-1/3">
-                                        <vs-button icon-pack="feather" icon="icon-eye" color="primary" radius type="border"></vs-button>
-                                    </div>
-                                    <div class="w-1/3">
-                                        <vs-button icon-pack="feather" icon="icon-edit" color="warning" radius type="border"></vs-button>
-                                    </div>
-                                    <div class="w-1/3">
-                                        <vs-button icon-pack="feather" icon="icon-trash" color="danger" radius type="border"></vs-button>
-                                    </div>
-                                </div>
-                            </vs-td>
-                        </vs-tr>
-                        <vs-tr>
-                            <vs-td>3</vs-td>
-                            <vs-td><a href="#" @click="$router.push({name: 'view-employee', params: {id: 5}})">Dr. Phil Gray</a></vs-td>
-                            <vs-td>17 OCT, 2019</vs-td>
-                            <vs-td>12:45 PM</vs-td>
-                            <vs-td>
-                                <div class="flex">
-                                    <div class="w-1/3">
-                                        <vs-button icon-pack="feather" icon="icon-eye" color="primary" radius type="border"></vs-button>
-                                    </div>
-                                    <div class="w-1/3">
-                                        <vs-button icon-pack="feather" icon="icon-edit" color="warning" radius type="border"></vs-button>
-                                    </div>
-                                    <div class="w-1/3">
-                                        <vs-button icon-pack="feather" icon="icon-trash" color="danger" radius type="border"></vs-button>
-                                    </div>
-                                </div>
-                            </vs-td>
-                        </vs-tr>
-                        <vs-tr>
-                            <vs-td>4</vs-td>
-                            <vs-td><a href="#" @click="$router.push({name: 'view-employee', params: {id: 5}})">Dr. Phil Gray</a></vs-td>
-                            <vs-td>15 OCT, 2019</vs-td>
-                            <vs-td>12:45 PM</vs-td>
-                            <vs-td>
-                                <div class="flex">
-                                    <div class="w-1/3">
-                                        <vs-button icon-pack="feather" icon="icon-eye" color="primary" radius type="border"></vs-button>
-                                    </div>
-                                    <div class="w-1/3">
-                                        <vs-button icon-pack="feather" icon="icon-edit" color="warning" radius type="border"></vs-button>
-                                    </div>
-                                    <div class="w-1/3">
-                                        <vs-button icon-pack="feather" icon="icon-trash" color="danger" radius type="border"></vs-button>
-                                    </div>
+                                    <vs-button icon-pack="feather" radius icon="icon-file-text" type="border"></vs-button>
+                                    <vs-button v-if="can('delete-payment')" :id="`delete-payment-btn-${payment.id}`" @click="confirmToDeletePayment(payment)" class="ml-3" icon-pack="feather" radius color="danger" icon="icon-trash" type="border"></vs-button>
                                 </div>
                             </vs-td>
                         </vs-tr>
                     </template>
                 </vs-table>
+                <vs-divider v-if="can('create-payment')"/>
+                <vs-row v-if="patient&&can('create-payment')">
+                    <vs-row vs-w="12" class="mb-5">
+                        <h3>Create Payment</h3>
+                    </vs-row>
+                    <vs-row vs-w="12" class="mb-5">
+                        <vs-col vs-lg="6" vs-sm="12" vs-xs="12" class="mb-5">
+                            <vs-input
+                                name="description"
+                                class="w-full"
+                                label-placeholder="Description"
+                                icon-pack="feather"
+                                icon="icon-file-text"
+                                v-model="form.description"
+                                v-validate="'required|min:3'"
+                                :danger="errors.has('description')"
+                                :danger-text="errors.first('description')"
+                                val-icon-danger="clear"/>
+                        </vs-col>
+                        <vs-col vs-lg="6" vs-sm="12" vs-xs="12" class="mb-5 pt-3" vs-type="flex" vs-justify="center" vs-align="center">
+                            <vs-input-number
+                                min="0"
+                                :max="patient.payments_total-patient.paid_payments"
+                                v-model="form.paid"
+                                label="Amount To Pay:"
+                                :step="50"/>
+                            <b class="ml-2"> Remaining: </b> <span class="ml-2">{{(patient.payments_total-patient.paid_payments)-form.paid}} EGP</span>
+                        </vs-col>
+                        <vs-col vs-w="12" vs-type="flex" vs-justify="center" vs-align="center" class="mt-3">
+                            <vs-button :disabled="!validateForm" @click="is_requesting?$store.dispatch('viewWaitMessage', $vs):createPayment()" id="add-payment-btn" size="small" type="filled" icon-pack="feather" icon="icon-plus">Add Payment</vs-button>
+                        </vs-col>
+                    </vs-row>
+                </vs-row>
+            </vx-card>
+        </div>
+
+
+        <div class="vx-col w-full mb-base" v-if="can('browse-medical-report')">
+            <vx-card title='Medical Reports' collapseAction>
+                <b>Comming Soon</b>
+<!--                <vs-table :data="['','']">-->
+<!--                    <template slot="header">-->
+<!--                        <vs-button class="mb-5" size="small" icon-pack="feather" icon="icon-plus" type="filled">Add Medical Report</vs-button>-->
+<!--                    </template>-->
+<!--                    <template slot="thead">-->
+<!--                        <vs-th>#</vs-th>-->
+<!--                        <vs-th>Added By</vs-th>-->
+<!--                        <vs-th>Date</vs-th>-->
+<!--                        <vs-th>Time</vs-th>-->
+<!--                        <vs-th>Action</vs-th>-->
+<!--                    </template>-->
+
+<!--                    <template slot-scope="{data}">-->
+<!--                        <vs-tr>-->
+<!--                            <vs-td>1</vs-td>-->
+<!--                            <vs-td><a href="#" @click="$router.push({name: 'view-employee', params: {id: 5}})">Dr. Phil Gray</a></vs-td>-->
+<!--                            <vs-td>01 NOV, 2019</vs-td>-->
+<!--                            <vs-td>2:44 PM</vs-td>-->
+<!--                            <vs-td>-->
+<!--                                <div class="flex">-->
+<!--                                    <div class="w-1/3">-->
+<!--                                        <vs-button icon-pack="feather" icon="icon-eye" color="primary" radius type="border"></vs-button>-->
+<!--                                    </div>-->
+<!--                                    <div class="w-1/3">-->
+<!--                                        <vs-button icon-pack="feather" icon="icon-edit" color="warning" radius type="border"></vs-button>-->
+<!--                                    </div>-->
+<!--                                    <div class="w-1/3">-->
+<!--                                        <vs-button icon-pack="feather" icon="icon-trash" color="danger" radius type="border"></vs-button>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </vs-td>-->
+<!--                        </vs-tr>-->
+<!--                        <vs-tr>-->
+<!--                            <vs-td>2</vs-td>-->
+<!--                            <vs-td><a href="#" @click="$router.push({name: 'view-employee', params: {id: 5}})">Dr. Phil Gray</a></vs-td>-->
+<!--                            <vs-td>17 OCT, 2019</vs-td>-->
+<!--                            <vs-td>11:16 AM</vs-td>-->
+<!--                            <vs-td>-->
+<!--                                <div class="flex">-->
+<!--                                    <div class="w-1/3">-->
+<!--                                        <vs-button icon-pack="feather" icon="icon-eye" color="primary" radius type="border"></vs-button>-->
+<!--                                    </div>-->
+<!--                                    <div class="w-1/3">-->
+<!--                                        <vs-button icon-pack="feather" icon="icon-edit" color="warning" radius type="border"></vs-button>-->
+<!--                                    </div>-->
+<!--                                    <div class="w-1/3">-->
+<!--                                        <vs-button icon-pack="feather" icon="icon-trash" color="danger" radius type="border"></vs-button>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </vs-td>-->
+<!--                        </vs-tr>-->
+<!--                        <vs-tr>-->
+<!--                            <vs-td>3</vs-td>-->
+<!--                            <vs-td><a href="#" @click="$router.push({name: 'view-employee', params: {id: 5}})">Dr. Phil Gray</a></vs-td>-->
+<!--                            <vs-td>17 OCT, 2019</vs-td>-->
+<!--                            <vs-td>12:45 PM</vs-td>-->
+<!--                            <vs-td>-->
+<!--                                <div class="flex">-->
+<!--                                    <div class="w-1/3">-->
+<!--                                        <vs-button icon-pack="feather" icon="icon-eye" color="primary" radius type="border"></vs-button>-->
+<!--                                    </div>-->
+<!--                                    <div class="w-1/3">-->
+<!--                                        <vs-button icon-pack="feather" icon="icon-edit" color="warning" radius type="border"></vs-button>-->
+<!--                                    </div>-->
+<!--                                    <div class="w-1/3">-->
+<!--                                        <vs-button icon-pack="feather" icon="icon-trash" color="danger" radius type="border"></vs-button>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </vs-td>-->
+<!--                        </vs-tr>-->
+<!--                        <vs-tr>-->
+<!--                            <vs-td>4</vs-td>-->
+<!--                            <vs-td><a href="#" @click="$router.push({name: 'view-employee', params: {id: 5}})">Dr. Phil Gray</a></vs-td>-->
+<!--                            <vs-td>15 OCT, 2019</vs-td>-->
+<!--                            <vs-td>12:45 PM</vs-td>-->
+<!--                            <vs-td>-->
+<!--                                <div class="flex">-->
+<!--                                    <div class="w-1/3">-->
+<!--                                        <vs-button icon-pack="feather" icon="icon-eye" color="primary" radius type="border"></vs-button>-->
+<!--                                    </div>-->
+<!--                                    <div class="w-1/3">-->
+<!--                                        <vs-button icon-pack="feather" icon="icon-edit" color="warning" radius type="border"></vs-button>-->
+<!--                                    </div>-->
+<!--                                    <div class="w-1/3">-->
+<!--                                        <vs-button icon-pack="feather" icon="icon-trash" color="danger" radius type="border"></vs-button>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </vs-td>-->
+<!--                        </vs-tr>-->
+<!--                    </template>-->
+<!--                </vs-table>-->
             </vx-card>
         </div>
         <!--<div class="vx-col w-full mb-base" v-for="i in 12" :key="i">-->
@@ -226,11 +236,26 @@
     export default {
         name: "profile",
         mounted() {
+            this.form.patient_id = this.$route.params.id;
           this.getPatientData();
         },
         data: () => {
             return {
-                patient: null
+                patient: null,
+
+                form: {
+                    description: '',
+                    to_be_paid: 0,
+                    paid: 0,
+                    patient_id: null
+                },
+
+                is_requesting: false
+            }
+        },
+        computed: {
+            validateForm() {
+                return !this.errors.any() && this.form.description !== "" && this.form.paid > 0;
             }
         },
         methods: {
@@ -253,10 +278,91 @@
                             color: 'danger'
                         });
                     });
+            },
+
+            createPayment()
+            {
+                if (!this.validateForm) return;
+                this.is_requesting=true;
+                this.$vs.loading({container: `#add-payment-btn`, color: 'danger', scale: 0.45});
+                this.$store.dispatch('payment/create', this.form)
+                    .then(response => {
+                        this.is_requesting = false;
+                        this.$vs.loading.close(`#add-payment-btn > .con-vs-loading`);
+                        this.patient.payments.push(response.data.data.data);
+                        this.patient.paid_payments+=this.form.paid;
+                        this.form.paid=0;
+                        this.$vs.notify({
+                            title: 'Success',
+                            text: response.data.message,
+                            iconPack: 'feather',
+                            icon: 'icon-check',
+                            color: 'success'
+                        });
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        this.is_requesting=false;
+                        this.$vs.loading.close(`#add-payment-btn > .con-vs-loading`);
+                        this.$vs.notify({
+                            title: 'Error',
+                            text: error.response.data.error,
+                            iconPack: 'feather',
+                            icon: 'icon-alert-circle',
+                            color: 'danger'
+                        });
+                    });
+            },
+
+            confirmToDeletePayment(payment)
+            {
+                this.$vs.dialog({
+                    type: 'confirm',
+                    color: 'danger',
+                    title: `Are you sure!`,
+                    text: 'This data can not be retrieved again.',
+                    accept: this.deletePayment,
+                    parameters: [payment]
+                });
+            },
+
+            deletePayment(params)
+            {
+                this.is_requesting=true;
+                this.$vs.loading({container: `#delete-payment-btn-${params[0].id}`, color: 'danger', scale: 0.45});
+                this.$store.dispatch('payment/delete', params[0].id)
+                    .then(response => {
+                        this.is_requesting = false;
+                        this.$vs.loading.close(`#delete-payment-btn-${params[0].id} > .con-vs-loading`);
+                        this.patient.payments = this.patient.payments.filter(payment => {return payment.id !== params[0].id});
+                        this.patient.paid_payments-=params[0].paid;
+                        this.$vs.notify({
+                            title: 'Success',
+                            text: response.data.message,
+                            iconPack: 'feather',
+                            icon: 'icon-check',
+                            color: 'success'
+                        });
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        this.is_requesting=false;
+                        this.$vs.loading.close(`#delete-payment-btn-${params[0].id} > .con-vs-loading`);
+                        this.$vs.notify({
+                            title: 'Error',
+                            text: error.response.data.error,
+                            iconPack: 'feather',
+                            icon: 'icon-alert-circle',
+                            color: 'danger'
+                        });
+                    });
             }
         }
     }
 </script>
 
 <style>
+    .vs-input-number {
+        width: fit-content;
+    }
 </style>

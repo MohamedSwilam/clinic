@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="vx-col w-full mb-base" v-if="can('view-user')||$store.getters['auth/userData'].id===$route.params.id">
+        <div class="vx-col w-full mb-base">
             <vx-card ref="view" title="Personal Information" collapseAction>
                 <vs-row v-if="employee">
                     <vs-row class="mb-5">
@@ -46,7 +46,13 @@
                             </p>
                         </vs-col>
                     </vs-row>
+                    <vs-row class="mt-5 mb-5">
+                        <vs-col vs-type="flex" vs-align="center" vs-justify="center">
+                            <vs-button :to="`/dashboard/employee/${employee.id}/edit`" color="warning" type="filled" icon-pack="feather" icon="icon-edit">Edit Information</vs-button>
+                        </vs-col>
+                    </vs-row>
                 </vs-row>
+
             </vx-card>
         </div>
 
@@ -123,8 +129,8 @@
 
                                 <vs-td>
                                     <div class="flex mb-4">
-                                        <vs-button :to="`/dashboard/patient/${appointment.patient.id}`" radius color="primary" type="border" icon-pack="feather" icon="icon-eye"></vs-button>
-                                        <vs-button class="ml-3" :id="`btn-delete-${appointment.id}`" radius color="danger" type="border" icon-pack="feather" icon="icon-trash" @click="confirmDeleteAppointement(appointment)"></vs-button>
+                                        <vs-button v-if="can('view-patient')" :to="`/dashboard/patient/${appointment.patient.id}`" radius color="primary" type="border" icon-pack="feather" icon="icon-eye"></vs-button>
+                                        <vs-button v-if="can('delete-appointment')" class="ml-3" :id="`btn-delete-${appointment.id}`" radius color="danger" type="border" icon-pack="feather" icon="icon-trash" @click="confirmDeleteAppointment(appointment)"></vs-button>
                                     </div>
                                 </vs-td>
 
@@ -155,7 +161,7 @@
 
 <script>
     export default {
-        name: "viewData",
+        name: "profile",
         mounted() {
             this.getEmployeeData();
         },
@@ -197,7 +203,7 @@
         methods: {
             getEmployeeData() {
                 this.$vs.loading({container: this.$refs.view.$refs.content, scale: 0.5});
-                this.$store.dispatch('employee/view', this.$route.params.id)
+                this.$store.dispatch('employee/view', this.$store.getters['auth/userData'].id)
                     .then(response => {
                         this.employee = response.data.data.data;
                         this.$vs.loading.close(this.$refs.view.$refs.content);
@@ -221,7 +227,7 @@
             getAppointments()
             {
                 this.$vs.loading({container: this.$refs.browse.$refs.content, scale: 0.5});
-                this.$store.dispatch('appointment/getData', `?page=${this.currentPage}&paginate=${this.paginate}&${this.sortFilter}&${this.filterBy}=${this.searchText}&doctor=${this.$route.params.id}`)
+                this.$store.dispatch('appointment/getData', `?page=${this.currentPage}&paginate=${this.paginate}&${this.sortFilter}&${this.filterBy}=${this.searchText}&doctor=${this.$store.getters['auth/userData'].id}`)
                     .then(response => {
                         this.$vs.loading.close(this.$refs.browse.$refs.content);
                         this.appointments = response.data.data.data;
@@ -271,7 +277,7 @@
                     });
             },
 
-            confirmDeleteAppointement(appointment)
+            confirmDeleteAppointment(appointment)
             {
                 this.$vs.dialog({
                     type: 'confirm',

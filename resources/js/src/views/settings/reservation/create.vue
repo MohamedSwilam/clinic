@@ -51,6 +51,7 @@
                     .then(response => {
                         this.is_requesting=false;
                         this.$vs.loading.close(`#btn-create > .con-vs-loading`);
+                        this.$router.push('/dashboard/settings/reservation');
                         this.$vs.notify({
                             title: 'Success',
                             text: response.data.message,
