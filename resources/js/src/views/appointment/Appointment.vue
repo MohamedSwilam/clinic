@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="vx-col w-full mb-base">
+        <div v-if="can('browse-appointment')" class="vx-col w-full mb-base">
             <vx-card ref="browse" title="Appointments" collapseAction refreshContentAction @refresh="getAppointmentsData">
                 <vs-table
                     :sst="true"
@@ -10,7 +10,7 @@
                     <template slot="header">
                         <vs-row>
                             <vs-col vs-lg="6" vs-sm="12" vs-xs="12">
-                                <vs-button size="small" to="/dashboard/appointment/add-appointment/new" icon-pack="feather" icon="icon-plus" type="filled">Add Appointment</vs-button>
+                                <vs-button v-if="can('create-appointment')" size="small" to="/dashboard/appointment/add-appointment/new" icon-pack="feather" icon="icon-plus" type="filled">Add Appointment</vs-button>
                             </vs-col>
                             <vs-col vs-lg="3" vs-sm="6" vs-xs="6" class="mb-5">
                                 <vs-select
@@ -22,9 +22,9 @@
                                 >
                                     <vs-select-item value="date" text="Date"/>
                                     <vs-select-item value="status" text="Status"/>
-                                    <vs-select-item value="doctor" text="Doctor"/>
                                     <vs-select-item value="patient" text="Patient ID"/>
                                     <vs-select-item value="patientName" text="Patient Name"/>
+                                    <vs-select-item value="doctorName" text="Doctor Name"/>
                                 </vs-select>
                             </vs-col>
                             <vs-col vs-lg="3" vs-sm="6" vs-xs="6" class="mb-5">
@@ -74,8 +74,8 @@
 
                                 <vs-td>
                                     <div class="flex mb-4">
-                                        <vs-button :to="`/dashboard/patient/${appointment.patient.id}`" radius color="primary" type="border" icon-pack="feather" icon="icon-eye"></vs-button>
-                                        <vs-button class="ml-3" :id="`btn-delete-${appointment.id}`" radius color="danger" type="border" icon-pack="feather" icon="icon-trash" @click="confirmDeleteAppointement(appointment)"></vs-button>
+                                        <vs-button v-if="can('view-patient')" :to="`/dashboard/patient/${appointment.patient.id}`" radius color="primary" type="border" icon-pack="feather" icon="icon-eye"></vs-button>
+                                        <vs-button v-if="can('delete-appointment')" class="ml-3" :id="`btn-delete-${appointment.id}`" radius color="danger" type="border" icon-pack="feather" icon="icon-trash" @click="confirmDeleteAppointement(appointment)"></vs-button>
                                     </div>
                                 </vs-td>
 
@@ -90,9 +90,6 @@
                                             <vs-list-item icon-pack="feather" icon="icon-arrow-right" :title="`Illness Description: ${appointment.illness_description}`"></vs-list-item>
                                             <vs-list-item icon-pack="feather" icon="icon-arrow-right" :title="'Update Status'">
                                                 <vs-button class="ml-3" :key="status_index" v-for="(status, status_index) in statuses" :id="`update-status-btn-${appointment.id}-${status.id}`" @click="is_requesting?$store.dispatch('viewWaitMessage', $vs):updateStatus(index, appointment.id, status.id)" size="small" :color="status.color" :type="appointment.status.id===status.id?'filled':'border'" icon-pack="feather">{{status.name}}</vs-button>
-<!--                                                <vs-button :id="`update-status-btn-${appointment.id}-2`" @click="is_requesting?$store.dispatch('viewWaitMessage', $vs):updateStatus(index, appointment.id, 2)" size="small" color="danger" :type="appointment.status.id===2?'filled':'border'" icon-pack="feather">Inside</vs-button>-->
-<!--                                                <vs-button :id="`update-status-btn-${appointment.id}-3`" @click="is_requesting?$store.dispatch('viewWaitMessage', $vs):updateStatus(index, appointment.id, 3)" size="small" color="warning" :type="appointment.status.id===3?'filled':'border'" icon-pack="feather">Postponed</vs-button>-->
-<!--                                                <vs-button :id="`update-status-btn-${appointment.id}-4`" @click="is_requesting?$store.dispatch('viewWaitMessage', $vs):updateStatus(index, appointment.id, 4)" size="small" color="success" :type="appointment.status.id===4?'filled':'border'" icon-pack="feather">Finished</vs-button>-->
                                             </vs-list-item>
                                         </vs-list>
                                     </div>
@@ -111,25 +108,15 @@
     export default {
         name: "Appointment",
         mounted() {
-            this.getAppointmentsData(Date.now());
+            this.getAppointmentsData();
         },
         data: function (){
             return {
-                selected: [],
-                'tableList': [
-                    'vs-th: Component',
-                    'vs-tr: Component',
-                    'vs-td: Component',
-                    'thread: Slot',
-                    'tbody: Slot',
-                    'header: Slot'
-                ],
                 searchText: "",
-                resultTime: 0,
                 appointments: [],
                 currentPage: 1,
                 sortFilter: 'sortDesc=id',
-                paginate: 3,
+                paginate: 15,
                 total_pages: 0,
                 filterBy: 'date',
                 is_requesting: false,
@@ -158,16 +145,6 @@
             }
         },
         methods: {
-            optionClicked(appointmentID, text) {
-                this.$vs.notify({
-                    title: 'Context Menu',
-                    text: text,
-                    icon: 'feather',
-                    iconPack: 'icon-alert-circle',
-                    color: 'primary'
-                })
-            },
-
             getAppointmentsData(){
                 this.$vs.loading({container: this.$refs.browse.$refs.content, scale: 0.5});
                 this.$store.dispatch('appointment/getData', `?page=${this.currentPage}&paginate=${this.paginate}&${this.sortFilter}&${this.filterBy}=${this.searchText}`)

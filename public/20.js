@@ -92,41 +92,45 @@ var render = function() {
   return _c(
     "div",
     [
-      _c(
-        "vx-card",
-        { ref: "view", attrs: { title: "Role Information" } },
-        [
-          _vm.role
-            ? [
-                _c("b", [_vm._v("ID: ")]),
-                _vm._v("  " + _vm._s(_vm.role.id) + "\n\t\t\t\t"),
-                _c("vs-divider"),
-                _vm._v(" "),
-                _c("b", [_vm._v("Name: ")]),
-                _vm._v(" " + _vm._s(_vm.role.name) + "\n\t\t\t\t"),
-                _c("vs-divider"),
-                _vm._v(" "),
-                _c("b", [_vm._v("Permissions: ")]),
-                _vm._v(" "),
-                _c("br"),
-                _vm._v(" "),
-                _vm._l(_vm.role.permissions, function(permission) {
-                  return [
-                    _c("vs-chip", [_vm._v(_vm._s(permission["display_name"]))])
+      _vm.can("view-role")
+        ? _c(
+            "vx-card",
+            { ref: "view", attrs: { title: "Role Information" } },
+            [
+              _vm.role
+                ? [
+                    _c("b", [_vm._v("ID: ")]),
+                    _vm._v("  " + _vm._s(_vm.role.id) + "\n\t\t\t\t"),
+                    _c("vs-divider"),
+                    _vm._v(" "),
+                    _c("b", [_vm._v("Name: ")]),
+                    _vm._v(" " + _vm._s(_vm.role.name) + "\n\t\t\t\t"),
+                    _c("vs-divider"),
+                    _vm._v(" "),
+                    _c("b", [_vm._v("Permissions: ")]),
+                    _vm._v(" "),
+                    _c("br"),
+                    _vm._v(" "),
+                    _vm._l(_vm.role.permissions, function(permission) {
+                      return [
+                        _c("vs-chip", [
+                          _vm._v(_vm._s(permission["display_name"]))
+                        ])
+                      ]
+                    }),
+                    _vm._v(" "),
+                    _c("br"),
+                    _vm._v(" "),
+                    _c("vs-divider"),
+                    _vm._v(" "),
+                    _c("b", [_vm._v("Created At: ")]),
+                    _vm._v(" " + _vm._s(_vm.role.created_at) + "\n\t\t\t")
                   ]
-                }),
-                _vm._v(" "),
-                _c("br"),
-                _vm._v(" "),
-                _c("vs-divider"),
-                _vm._v(" "),
-                _c("b", [_vm._v("Created At: ")]),
-                _vm._v(" " + _vm._s(_vm.role.created_at) + "\n\t\t\t")
-              ]
-            : _vm._e()
-        ],
-        2
-      )
+                : _vm._e()
+            ],
+            2
+          )
+        : _vm._e()
     ],
     1
   )

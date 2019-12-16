@@ -41,7 +41,7 @@ var render = function() {
           )
         ]),
         _vm._v(" "),
-        _c("vs-button", { attrs: { size: "large", to: "/" } }, [
+        _c("vs-button", { attrs: { size: "large", to: "/dashboard" } }, [
           _vm._v("Back to Home")
         ])
       ],

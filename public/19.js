@@ -173,7 +173,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _vm.can("view-role")
+    _vm.can("browse-role")
       ? _c(
           "div",
           { staticClass: "vx-col w-full mb-base" },

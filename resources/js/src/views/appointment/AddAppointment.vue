@@ -1,5 +1,5 @@
 <template>
-    <vx-card ref="create" :title="form.patient_id==='new'?'Creating Reservation For New Patient':'Creating Reservation For Existing Patient'">
+    <vx-card v-if="can('create-appointment')" ref="create" :title="form.patient_id==='new'?'Creating Reservation For New Patient':'Creating Reservation For Existing Patient'">
         <form-wizard :startIndex="startIndex" color="rgba(var(--vs-primary), 1)" errorColor="rgba(var(--vs-danger), 1)" :title="null" :subtitle="null" finishButtonText="Submit">
             <tab-content title="Patient Information" class="mb-5" icon="feather icon-user" :before-change="validateStep1">
                 <!-- tab 1 content -->
@@ -344,6 +344,9 @@
                 this.$store.dispatch('patient/view', this.$route.params.patient_id)
                     .then(response => {
                         // this.$vs.loading.close(this.$refs.create.$refs.content);
+                        if (response.data.data.data.length===0){
+                            this.$router.push('/dashboard/error-404');
+                        }
                         this.form.patient = response.data.data.data;
                     })
                     .catch(error => {

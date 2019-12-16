@@ -1,6 +1,6 @@
 <template>
     <div>
-        <vx-card ref="edit" title='Edit Reservation Type' collapse-action>
+        <vx-card v-if="can('edit-reservation')" ref="edit" title='Edit Reservation Type' collapse-action>
             <vs-row v-if="form">
                 <vs-col vs-lg="6" vs-sm="12" vs-xs="12" class="mb-5 pl-5">
                     <vs-input icon-pack="feather" icon="icon-file-text" label-placeholder="Type Name" v-model="form.name" class="w-full" name="type"/>

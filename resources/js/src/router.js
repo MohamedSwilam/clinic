@@ -320,6 +320,19 @@ const router = new Router({
                         permission: 'create-reservation'
                     }
                 },
+                {
+                    path: '/dashboard/profile',
+                    name: 'profile',
+                    component: () => import('./views/profile/profile'),
+                    beforeEnter: guard,
+                    meta: {
+                        breadcrumb: [
+                            { title: 'Home', url: '/dashboard'},
+                            { title: 'Profile', active: true}
+                        ],
+                        pageTitle: "Profile"
+                    }
+                },
             ],
         },
         // =============================================================================

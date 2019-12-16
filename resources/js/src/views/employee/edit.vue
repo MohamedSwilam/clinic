@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="vx-col w-full mb-base">
+        <div v-if="can('edit-user')||$store.getters['auth/userData'].id===$route.params.id" class="vx-col w-full mb-base">
             <vx-card ref="edit" title="Edit Employee">
 
                 <div class="vx-row">

@@ -574,213 +574,239 @@ var render = function() {
       "div",
       { staticClass: "vx-col w-full mb-base" },
       [
-        _c(
-          "vx-card",
-          {
-            ref: "reservation_duration",
-            attrs: {
-              title: "Reservation Durations",
-              "collapse-action": "",
-              refreshContentAction: ""
-            },
-            on: { refresh: _vm.getReservationDurations }
-          },
-          [
-            _c(
-              "vs-table",
+        _vm.can("browse-reservation")
+          ? _c(
+              "vx-card",
               {
-                attrs: { sst: true, data: _vm.reservation_durations },
-                on: { sort: _vm.handleSort },
-                scopedSlots: _vm._u([
-                  {
-                    key: "default",
-                    fn: function(ref) {
-                      var data = ref.data
-                      return _vm._l(data, function(duration, index) {
-                        return _c(
-                          "vs-tr",
-                          { key: index },
-                          [
-                            _c("vs-td", { attrs: { data: index + 1 } }, [
-                              _vm._v(
-                                "\n                        " +
-                                  _vm._s(index + 1) +
-                                  "\n                    "
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("vs-td", [
-                              _vm._v(
-                                "\n                        " +
-                                  _vm._s(duration.reservation_type.name) +
-                                  "\n                    "
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("vs-td", { attrs: { data: duration.date } }, [
-                              _vm._v(
-                                "\n                        " +
-                                  _vm._s(duration.date) +
-                                  "\n                    "
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c(
-                              "vs-td",
-                              { attrs: { data: duration.start_time } },
-                              [
-                                _vm._v(
-                                  "\n                        " +
-                                    _vm._s(duration.start_time) +
-                                    "\n                    "
-                                )
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "vs-td",
-                              { attrs: { data: duration.end_time } },
-                              [
-                                _vm._v(
-                                  "\n                        " +
-                                    _vm._s(duration.end_time) +
-                                    "\n                    "
-                                )
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c("vs-td", { attrs: { data: duration.counter } }, [
-                              _vm._v(
-                                "\n                        " +
-                                  _vm._s(duration.counter) +
-                                  "\n                    "
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c(
-                              "vs-td",
-                              [
-                                _c("vs-row", [
-                                  _c("div", { staticClass: "flex mb-4" }, [
-                                    _c(
-                                      "div",
-                                      { staticClass: "w-1/3" },
-                                      [
-                                        _c("vs-button", {
-                                          staticClass:
-                                            "vs-con-loading__container",
-                                          attrs: {
-                                            id:
-                                              "btn-duration-delete-" +
-                                              duration.id,
-                                            radius: "",
-                                            color: "danger",
-                                            type: "border",
-                                            "icon-pack": "feather",
-                                            icon: "icon-trash"
-                                          },
-                                          on: {
-                                            click: function($event) {
-                                              _vm.is_requesting
-                                                ? _vm.$store.dispatch(
-                                                    "viewWaitMessage",
-                                                    _vm.$vs
-                                                  )
-                                                : _vm.confirmDeleteReservationDuration(
-                                                    duration
-                                                  )
-                                            }
-                                          }
-                                        })
-                                      ],
-                                      1
-                                    )
-                                  ])
-                                ])
-                              ],
-                              1
-                            )
-                          ],
-                          1
-                        )
-                      })
-                    }
-                  }
-                ])
+                ref: "reservation_duration",
+                attrs: {
+                  title: "Reservation Durations",
+                  "collapse-action": "",
+                  refreshContentAction: ""
+                },
+                on: { refresh: _vm.getReservationDurations }
               },
               [
                 _c(
-                  "template",
-                  { slot: "header" },
+                  "vs-table",
+                  {
+                    attrs: { sst: true, data: _vm.reservation_durations },
+                    on: { sort: _vm.handleSort },
+                    scopedSlots: _vm._u(
+                      [
+                        {
+                          key: "default",
+                          fn: function(ref) {
+                            var data = ref.data
+                            return _vm._l(data, function(duration, index) {
+                              return _c(
+                                "vs-tr",
+                                { key: index },
+                                [
+                                  _c("vs-td", { attrs: { data: index + 1 } }, [
+                                    _vm._v(
+                                      "\n                        " +
+                                        _vm._s(index + 1) +
+                                        "\n                    "
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("vs-td", [
+                                    _vm._v(
+                                      "\n                        " +
+                                        _vm._s(duration.reservation_type.name) +
+                                        "\n                    "
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "vs-td",
+                                    { attrs: { data: duration.date } },
+                                    [
+                                      _vm._v(
+                                        "\n                        " +
+                                          _vm._s(duration.date) +
+                                          "\n                    "
+                                      )
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "vs-td",
+                                    { attrs: { data: duration.start_time } },
+                                    [
+                                      _vm._v(
+                                        "\n                        " +
+                                          _vm._s(duration.start_time) +
+                                          "\n                    "
+                                      )
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "vs-td",
+                                    { attrs: { data: duration.end_time } },
+                                    [
+                                      _vm._v(
+                                        "\n                        " +
+                                          _vm._s(duration.end_time) +
+                                          "\n                    "
+                                      )
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "vs-td",
+                                    { attrs: { data: duration.counter } },
+                                    [
+                                      _vm._v(
+                                        "\n                        " +
+                                          _vm._s(duration.counter) +
+                                          "\n                    "
+                                      )
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "vs-td",
+                                    [
+                                      _c("vs-row", [
+                                        _c(
+                                          "div",
+                                          { staticClass: "flex mb-4" },
+                                          [
+                                            _c(
+                                              "div",
+                                              { staticClass: "w-1/3" },
+                                              [
+                                                _vm.can("delete-reservation")
+                                                  ? _c("vs-button", {
+                                                      staticClass:
+                                                        "vs-con-loading__container",
+                                                      attrs: {
+                                                        id:
+                                                          "btn-duration-delete-" +
+                                                          duration.id,
+                                                        radius: "",
+                                                        color: "danger",
+                                                        type: "border",
+                                                        "icon-pack": "feather",
+                                                        icon: "icon-trash"
+                                                      },
+                                                      on: {
+                                                        click: function(
+                                                          $event
+                                                        ) {
+                                                          _vm.is_requesting
+                                                            ? _vm.$store.dispatch(
+                                                                "viewWaitMessage",
+                                                                _vm.$vs
+                                                              )
+                                                            : _vm.confirmDeleteReservationDuration(
+                                                                duration
+                                                              )
+                                                        }
+                                                      }
+                                                    })
+                                                  : _vm._e()
+                                              ],
+                                              1
+                                            )
+                                          ]
+                                        )
+                                      ])
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              )
+                            })
+                          }
+                        }
+                      ],
+                      null,
+                      false,
+                      4126331686
+                    )
+                  },
                   [
                     _c(
-                      "vs-button",
-                      {
-                        staticClass: "mb-5",
-                        attrs: {
-                          size: "small",
-                          to: "/dashboard/settings/reservation-duration/create",
-                          "icon-pack": "feather",
-                          icon: "icon-plus",
-                          type: "filled"
-                        }
-                      },
-                      [_vm._v("Add New Duration")]
+                      "template",
+                      { slot: "header" },
+                      [
+                        _vm.can("create-reservation")
+                          ? _c(
+                              "vs-button",
+                              {
+                                staticClass: "mb-5",
+                                attrs: {
+                                  size: "small",
+                                  to:
+                                    "/dashboard/settings/reservation-duration/create",
+                                  "icon-pack": "feather",
+                                  icon: "icon-plus",
+                                  type: "filled"
+                                }
+                              },
+                              [_vm._v("Add New Duration")]
+                            )
+                          : _vm._e()
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "template",
+                      { slot: "thead" },
+                      [
+                        _c("vs-th", [_vm._v("#")]),
+                        _vm._v(" "),
+                        _c("vs-th", [_vm._v("Type")]),
+                        _vm._v(" "),
+                        _c("vs-th", { attrs: { "sort-key": "date" } }, [
+                          _vm._v("Date")
+                        ]),
+                        _vm._v(" "),
+                        _c("vs-th", { attrs: { "sort-key": "start_time" } }, [
+                          _vm._v("Start Time")
+                        ]),
+                        _vm._v(" "),
+                        _c("vs-th", { attrs: { "sort-key": "end_time" } }, [
+                          _vm._v("End Time")
+                        ]),
+                        _vm._v(" "),
+                        _c("vs-th", { attrs: { "sort-key": "counter" } }, [
+                          _vm._v("Counter")
+                        ]),
+                        _vm._v(" "),
+                        _c("vs-th", [_vm._v("Action")])
+                      ],
+                      1
                     )
                   ],
-                  1
+                  2
                 ),
                 _vm._v(" "),
-                _c(
-                  "template",
-                  { slot: "thead" },
-                  [
-                    _c("vs-th", [_vm._v("#")]),
-                    _vm._v(" "),
-                    _c("vs-th", [_vm._v("Type")]),
-                    _vm._v(" "),
-                    _c("vs-th", { attrs: { "sort-key": "date" } }, [
-                      _vm._v("Date")
-                    ]),
-                    _vm._v(" "),
-                    _c("vs-th", { attrs: { "sort-key": "start_time" } }, [
-                      _vm._v("Start Time")
-                    ]),
-                    _vm._v(" "),
-                    _c("vs-th", { attrs: { "sort-key": "end_time" } }, [
-                      _vm._v("End Time")
-                    ]),
-                    _vm._v(" "),
-                    _c("vs-th", { attrs: { "sort-key": "counter" } }, [
-                      _vm._v("Counter")
-                    ]),
-                    _vm._v(" "),
-                    _c("vs-th", [_vm._v("Action")])
-                  ],
-                  1
-                )
+                _c("vs-pagination", {
+                  staticClass: "mt-5",
+                  attrs: {
+                    goto: "",
+                    total: Math.ceil(_vm.reservation_durations_total_items / 15)
+                  },
+                  on: { change: _vm.handleChangePage },
+                  model: {
+                    value: _vm.currentDurationPage,
+                    callback: function($$v) {
+                      _vm.currentDurationPage = $$v
+                    },
+                    expression: "currentDurationPage"
+                  }
+                })
               ],
-              2
-            ),
-            _vm._v(" "),
-            _c("vs-pagination", {
-              staticClass: "mt-5",
-              attrs: {
-                goto: "",
-                total: Math.ceil(_vm.reservation_durations_total_items / 15)
-              },
-              on: { change: _vm.handleChangePage },
-              model: {
-                value: _vm.currentDurationPage,
-                callback: function($$v) {
-                  _vm.currentDurationPage = $$v
-                },
-                expression: "currentDurationPage"
-              }
-            })
-          ],
-          1
-        )
+              1
+            )
+          : _vm._e()
       ],
       1
     )

@@ -1,11 +1,11 @@
 <template>
     <div>
-        <vx-card ref="browse" title='Patients List' collapse-action refreshContentAction @refresh="getPatientsData">
+        <vx-card v-if="can('browse-patient')" ref="browse" title='Patients List' collapse-action refreshContentAction @refresh="getPatientsData">
             <vs-table :sst="true" @sort="handleSort" :data="patients">
                 <template slot="header">
                     <vs-row>
                         <vs-col vs-lg="6" vs-sm="12" vs-xs="12">
-                            <vs-button size="small" to="/dashboard/patient/create" icon-pack="feather" icon="icon-plus" type="filled">New Patient</vs-button>
+                            <vs-button v-if="can('create-patient')" size="small" to="/dashboard/patient/create" icon-pack="feather" icon="icon-plus" type="filled">New Patient</vs-button>
                         </vs-col>
                         <vs-col vs-lg="3" vs-sm="6" vs-xs="6" class="mb-5">
                             <vs-select
@@ -77,16 +77,16 @@
                             <vs-row>
                                 <div class="flex mb-4">
                                     <div class="w-1/4 pl-2">
-                                        <vs-button :to="`/dashboard/patient/${patient.id}`" radius color="primary" type="border" icon-pack="feather" icon="icon-eye"></vs-button>
+                                        <vs-button v-if="can('view-patient')" :to="`/dashboard/patient/${patient.id}`" radius color="primary" type="border" icon-pack="feather" icon="icon-eye"></vs-button>
                                     </div>
                                     <div class="w-1/4 pl-2">
-                                        <vs-button @click="reserveAppointement(patient.id)" radius color="dark" type="border" icon-pack="feather" icon="icon-edit-2"></vs-button>
+                                        <vs-button v-if="can('create-appointment')" @click="reserveAppointment(patient.id)" radius color="dark" type="border" icon-pack="feather" icon="icon-edit-2"></vs-button>
                                     </div>
                                     <div class="w-1/4 pl-2">
-                                        <vs-button :to="`/dashboard/patient/${patient.id}/edit`" radius color="warning" type="border" icon-pack="feather" icon="icon-edit"></vs-button>
+                                        <vs-button v-if="can('edit-patient')" :to="`/dashboard/patient/${patient.id}/edit`" radius color="warning" type="border" icon-pack="feather" icon="icon-edit"></vs-button>
                                     </div>
                                     <div class="w-1/4 pl-2">
-                                        <vs-button :id="`btn-delete-${patient.id}`" radius color="danger" type="border" icon-pack="feather" icon="icon-trash" @click="confirmDeletePatient(patient)"></vs-button>
+                                        <vs-button v-if="can('delete-patient')" :id="`btn-delete-${patient.id}`" radius color="danger" type="border" icon-pack="feather" icon="icon-trash" @click="confirmDeletePatient(patient)"></vs-button>
                                     </div>
                                 </div>
                             </vs-row>
@@ -127,7 +127,7 @@
             }
         },
         methods: {
-            reserveAppointement(patientID)
+            reserveAppointment(patientID)
             {
                 this.$router.push({name: 'add-appointment', params: {patient_id: patientID}});
             },
@@ -212,30 +212,10 @@
 
             handleChangePage(page) {
                 this.getPatientsData();
-            },
-
-            //Vuesax alert
-            vs_alert (title, text, color, icon)
-            {
-                this.$vs.notify({
-                    title: title,
-                    text: text,
-                    color: color,
-                    iconPack: 'feather',
-                    icon: icon
-                });
             }
         }
     }
 </script>
 
 <style>
-    .con-select {
-        /*display: flex;*/
-    }
-
-    .con-select .vs-select--input {
-        /*border-radius: 26px;*/
-        /*border-color: #ebebeb;*/
-    }
 </style>
