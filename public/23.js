@@ -1,1 +1,123 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[23],{312:function(t,e,a){"use strict";a.r(e);var s={name:"Appointment",mounted:function(){this.getAppointmentsData()},data:function(){return{searchText:"",appointments:[],currentPage:1,sortFilter:"sortDesc=id",paginate:15,total_pages:0,filterBy:"date",is_requesting:!1,statuses:[{id:1,name:"Coming",color:"#7467F0"},{id:2,name:"Inside",color:"#EA5455"},{id:3,name:"Postponed",color:"#FF9F42"},{id:4,name:"Finished",color:"#27C76F"}]}},methods:{getAppointmentsData:function(){var t=this;this.$vs.loading({container:this.$refs.browse.$refs.content,scale:.5}),this.$store.dispatch("appointment/getData","?page=".concat(this.currentPage,"&paginate=").concat(this.paginate,"&").concat(this.sortFilter,"&").concat(this.filterBy,"=").concat(this.searchText)).then((function(e){t.$vs.loading.close(t.$refs.browse.$refs.content),t.appointments=e.data.data.data,t.total_pages=e.data.data.meta.pagination.total_pages})).catch((function(e){console.log(e),t.$vs.loading.close(t.$refs.browse.$refs.content),t.$vs.notify({title:"Error",text:e.response.data.error,iconPack:"feather",icon:"icon-alert-circle",color:"danger"})}))},updateStatus:function(t,e,a){var s=this;this.is_requesting=!0,this.$vs.loading({container:"#update-status-btn-".concat(e,"-").concat(a),color:"danger",scale:.45}),this.$store.dispatch("appointment/update",{id:e,data:{status_id:a,has_payment:0}}).then((function(n){s.is_requesting=!1,s.appointments[t].status_id=a,s.appointments[t].status=s.statuses.filter((function(t){return t.id===a}))[0],s.$vs.loading.close("#update-status-btn-".concat(e,"-").concat(a," > .con-vs-loading")),s.$vs.notify({title:"Success",text:n.data.message,iconPack:"feather",icon:"icon-check",color:"success"})})).catch((function(t){console.log(t),s.is_requesting=!1,s.$vs.loading.close("update-status-btn-".concat(e,"-").concat(a," > .con-vs-loading")),s.$vs.notify({title:"Error",text:t.response.data.error,iconPack:"feather",icon:"icon-alert-circle",color:"danger"})}))},confirmDeleteAppointement:function(t){this.$vs.dialog({type:"confirm",color:"danger",title:"Are you sure!",text:"This data can not be retrieved again.",accept:this.deleteAppointment,parameters:[t]})},deleteAppointment:function(t){var e=this;this.is_requesting=!0,this.$vs.loading({container:"#btn-delete-".concat(t[0].id),color:"danger",scale:.45}),this.$store.dispatch("appointment/delete",t[0].id).then((function(a){e.is_requesting=!1,e.$vs.loading.close("#btn-delete-".concat(t[0].id," > .con-vs-loading")),e.appointments=e.appointments.filter((function(e){return e.id!==t[0].id})),e.$vs.notify({title:"Success",text:a.data.message,iconPack:"feather",icon:"icon-check",color:"success"})})).catch((function(a){console.log(a),e.is_requesting=!1,e.$vs.loading.close("#btn-delete-".concat(t[0].id," > .con-vs-loading")),e.$vs.notify({title:"Error",text:a.response.data.error,iconPack:"feather",icon:"icon-alert-circle",color:"danger"})}))},handleSearch:function(){this.currentPage=1,this.getAppointmentsData()},handleSort:function(t,e){this.sortFilter=e?"sortDesc=".concat(t):"sortAsc=".concat(t),this.currentPage=1,this.getAppointmentsData()},handleChangePage:function(){this.getAppointmentsData()}}},n=a(1),i=Object(n.a)(s,(function(){var t=this,e=t.$createElement,a=t._self._c||e;return a("div",[t.can("browse-appointment")?a("div",{staticClass:"vx-col w-full mb-base"},[a("vx-card",{ref:"browse",attrs:{title:"Appointments",collapseAction:"",refreshContentAction:""},on:{refresh:t.getAppointmentsData}},[a("vs-table",{attrs:{sst:!0,data:t.appointments},on:{sort:t.handleSort},scopedSlots:t._u([{key:"default",fn:function(e){e.data;return[t._l(t.appointments,(function(e,s){return[a("vs-tr",{key:s},[a("vs-td",{attrs:{data:s+1}},[t._v("\n                                "+t._s(s+1)+"\n                            ")]),t._v(" "),a("vs-td",[t._v("\n                                "+t._s(e.patient.id)+"\n                            ")]),t._v(" "),a("vs-td",[t._v("\n                                "+t._s(e.patient.first_name)+" "+t._s(e.patient.last_name)+"\n                            ")]),t._v(" "),a("vs-td",[t._v("\n                                "+t._s(e.reservation_duration.date)+"\n                            ")]),t._v(" "),a("vs-td",[t._v("\n                                "+t._s(new Date(e.reservation_duration.date+" "+e.reservation_duration.start_time).toLocaleTimeString())+"\n                            ")]),t._v(" "),a("vs-td",[t._v("\n                                "+t._s(new Date(e.reservation_duration.date+" "+e.reservation_duration.end_time).toLocaleTimeString())+"\n                            ")]),t._v(" "),a("vs-td",[a("vs-chip",{attrs:{color:e.status.color}},[t._v(t._s(e.status.name))])],1),t._v(" "),a("vs-td",[a("div",{staticClass:"flex mb-4"},[t.can("view-patient")?a("vs-button",{attrs:{to:"/dashboard/patient/"+e.patient.id,radius:"",color:"primary",type:"border","icon-pack":"feather",icon:"icon-eye"}}):t._e(),t._v(" "),t.can("delete-appointment")?a("vs-button",{staticClass:"ml-3",attrs:{id:"btn-delete-"+e.id,radius:"",color:"danger",type:"border","icon-pack":"feather",icon:"icon-trash"},on:{click:function(a){return t.confirmDeleteAppointement(e)}}}):t._e()],1)]),t._v(" "),a("template",{staticClass:"expand-user",slot:"expand"},[a("div",{staticClass:"con-expand-users w-full"},[a("vs-list",[a("vs-list-item",{attrs:{"icon-pack":"feather",icon:"icon-arrow-right",title:"Payments"}},[t._v("\n                                            Paid "),a("b",[t._v(t._s(e.payment[0].paid)+" EGP")]),t._v(" Out of "),a("b",[t._v(t._s(e.payment[0].to_be_paid)+" EGP")])]),t._v(" "),a("vs-list-item",{attrs:{"icon-pack":"feather",icon:"icon-arrow-right",title:"Type: "+e.reservation_type.name}}),t._v(" "),a("vs-list-item",{attrs:{"icon-pack":"feather",icon:"icon-arrow-right",title:"Doctor: "+e.doctor.first_name+" "+e.doctor.last_name}}),t._v(" "),a("vs-list-item",{attrs:{"icon-pack":"feather",icon:"icon-arrow-right",title:"Illness Description: "+e.illness_description}}),t._v(" "),a("vs-list-item",{attrs:{"icon-pack":"feather",icon:"icon-arrow-right",title:"Update Status"}},t._l(t.statuses,(function(n,i){return a("vs-button",{key:i,staticClass:"ml-3",attrs:{id:"update-status-btn-"+e.id+"-"+n.id,size:"small",color:n.color,type:e.status.id===n.id?"filled":"border","icon-pack":"feather"},on:{click:function(a){t.is_requesting?t.$store.dispatch("viewWaitMessage",t.$vs):t.updateStatus(s,e.id,n.id)}}},[t._v(t._s(n.name))])})),1)],1)],1)])],2)]}))]}}],null,!1,2271676942)},[a("template",{slot:"header"},[a("vs-row",[a("vs-col",{attrs:{"vs-lg":"6","vs-sm":"12","vs-xs":"12"}},[t.can("create-appointment")?a("vs-button",{attrs:{size:"small",to:"/dashboard/appointment/add-appointment/new","icon-pack":"feather",icon:"icon-plus",type:"filled"}},[t._v("Add Appointment")]):t._e()],1),t._v(" "),a("vs-col",{staticClass:"mb-5",attrs:{"vs-lg":"3","vs-sm":"6","vs-xs":"6"}},[a("vs-select",{staticClass:"selectExample",attrs:{autocomplete:"","icon-pack":"feather",icon:"icon-filter"},model:{value:t.filterBy,callback:function(e){t.filterBy=e},expression:"filterBy"}},[a("vs-select-item",{attrs:{value:"date",text:"Date"}}),t._v(" "),a("vs-select-item",{attrs:{value:"status",text:"Status"}}),t._v(" "),a("vs-select-item",{attrs:{value:"patient",text:"Patient ID"}}),t._v(" "),a("vs-select-item",{attrs:{value:"patientName",text:"Patient Name"}}),t._v(" "),a("vs-select-item",{attrs:{value:"doctorName",text:"Doctor Name"}})],1)],1),t._v(" "),a("vs-col",{staticClass:"mb-5",attrs:{"vs-lg":"3","vs-sm":"6","vs-xs":"6"}},[a("vs-input",{attrs:{"icon-pack":"feather",icon:"icon-search","icon-after":"",placeholder:"search"},on:{change:t.handleSearch},model:{value:t.searchText,callback:function(e){t.searchText=e},expression:"searchText"}})],1)],1)],1),t._v(" "),a("template",{slot:"thead"},[a("vs-th",[t._v("#")]),t._v(" "),a("vs-th",{attrs:{"sort-key":"patient_id"}},[t._v("ID")]),t._v(" "),a("vs-th",[t._v("Name")]),t._v(" "),a("vs-th",[t._v("Date")]),t._v(" "),a("vs-th",[t._v("From")]),t._v(" "),a("vs-th",[t._v("To")]),t._v(" "),a("vs-th",{attrs:{"sort-key":"status"}},[t._v("Status")]),t._v(" "),a("vs-th",[t._v("Action")])],1)],2),t._v(" "),a("vs-pagination",{staticClass:"mt-5",attrs:{goto:"",total:t.total_pages},on:{change:t.handleChangePage},model:{value:t.currentPage,callback:function(e){t.currentPage=e},expression:"currentPage"}})],1)],1):t._e()])}),[],!1,null,null,null);e.default=i.exports}}]);
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[23],{
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/Error404.vue?vue&type=template&id=2e220845&":
+/*!****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/pages/Error404.vue?vue&type=template&id=2e220845& ***!
+  \****************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "h-screen flex w-full bg-img" }, [
+    _c(
+      "div",
+      {
+        staticClass:
+          "vx-col flex items-center justify-center flex-col sm:w-1/2 md:w-3/5 lg:w-3/4 xl:w-1/2 mx-auto text-center"
+      },
+      [
+        _c("img", {
+          staticClass: "mx-auto mb-4",
+          attrs: {
+            src: __webpack_require__(/*! @assets/images/pages/404.png */ "./resources/assets/images/pages/404.png"),
+            alt: "graphic-404"
+          }
+        }),
+        _vm._v(" "),
+        _c("h1", { staticClass: "mb-12 text-5xl d-theme-heading-color" }, [
+          _vm._v("404 - Page Not Found!")
+        ]),
+        _vm._v(" "),
+        _c("p", { staticClass: "mb-16 d-theme-text-inverse" }, [
+          _vm._v(
+            "paraphonic unassessable foramination Caulopteris worral Spirophyton encrimson esparcet aggerate chondrule restate whistler shallopy biosystematy area bertram plotting unstarting quarterstaff."
+          )
+        ]),
+        _vm._v(" "),
+        _c("vs-button", { attrs: { size: "large", to: "/dashboard" } }, [
+          _vm._v("Back to Home")
+        ])
+      ],
+      1
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./resources/assets/images/pages/404.png":
+/*!***********************************************!*\
+  !*** ./resources/assets/images/pages/404.png ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/404.png?0a38972b4083f43522258cbe550a3cb7";
+
+/***/ }),
+
+/***/ "./resources/js/src/views/pages/Error404.vue":
+/*!***************************************************!*\
+  !*** ./resources/js/src/views/pages/Error404.vue ***!
+  \***************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Error404_vue_vue_type_template_id_2e220845___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Error404.vue?vue&type=template&id=2e220845& */ "./resources/js/src/views/pages/Error404.vue?vue&type=template&id=2e220845&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+var script = {}
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
+  script,
+  _Error404_vue_vue_type_template_id_2e220845___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Error404_vue_vue_type_template_id_2e220845___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/src/views/pages/Error404.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/src/views/pages/Error404.vue?vue&type=template&id=2e220845&":
+/*!**********************************************************************************!*\
+  !*** ./resources/js/src/views/pages/Error404.vue?vue&type=template&id=2e220845& ***!
+  \**********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Error404_vue_vue_type_template_id_2e220845___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./Error404.vue?vue&type=template&id=2e220845& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/pages/Error404.vue?vue&type=template&id=2e220845&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Error404_vue_vue_type_template_id_2e220845___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Error404_vue_vue_type_template_id_2e220845___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ })
+
+}]);
