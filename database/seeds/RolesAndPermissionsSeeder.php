@@ -3,6 +3,8 @@
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Exceptions\PermissionDoesNotExist;
+use Spatie\Permission\Exceptions\RoleDoesNotExist;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\PermissionRegistrar;
@@ -20,28 +22,30 @@ class RolesAndPermissionsSeeder extends Seeder
         $roles = config('roles');
 
         Model::unguard();
-        env('DB_CONNECTION') != 'sqlite' ? DB::statement('SET FOREIGN_KEY_CHECKS=0;') : '';
-
-        DB::table('roles')->delete();
-        DB::table('roles')->truncate();
-
-        DB::table('permissions')->delete();
-        DB::table('permissions')->truncate();
 
         foreach ($permissions as $group_key => $permission_group){
             foreach ($permission_group as $key=>$permission){
                 $permission['group'] = $group_key;
-                Permission::create($permission);
+                try{
+                    Permission::findByName($permission['name']);
+                }catch (Exception $exception){
+                    if ($exception instanceof PermissionDoesNotExist)
+                        Permission::create($permission);
+                }
             }
         }
 
         foreach ($roles as $role){
-            Role::create($role);
+            try{
+                Role::findByName($role['name']);
+            }catch (Exception $exception){
+                if ($exception instanceof RoleDoesNotExist)
+                    Role::create($role);
+            }
         }
 
         $role = Role::where('name', 'super_admin')->first();
         $role->givePermissionTo(Permission::all());
 
-        env('DB_CONNECTION') != 'sqlite' ? DB::statement('SET FOREIGN_KEY_CHECKS=1;') : '';
     }
 }

@@ -211,4 +211,31 @@ return [
             'display_name' => 'Delete Prescription',
         ],
     ],
+    'Medical Report' => [
+        [
+            'name' => 'create-medical-report',
+            'guard_name' => 'api',
+            'display_name' => 'Create Medical Report',
+        ],
+        [
+            'name' => 'browse-medical-report',
+            'guard_name' => 'api',
+            'display_name' => 'Browse Medical Report',
+        ],
+        [
+            'name' => 'view-medical-report',
+            'guard_name' => 'api',
+            'display_name' => 'View Medical Report',
+        ],
+        [
+            'name' => 'edit-medical-report',
+            'guard_name' => 'api',
+            'display_name' => 'Edit Medical Report',
+        ],
+        [
+            'name' => 'delete-medical-report',
+            'guard_name' => 'api',
+            'display_name' => 'Delete Medical Report',
+        ],
+    ],
 ];

@@ -108,6 +108,10 @@ class EmployeeController extends Controller
             $data['password'] = bcrypt($data['password']);
         }
 
+        $user->phones()->each(function ($query){
+            $query->delete();
+        });
+
         $user->update($data);
 
         foreach (json_decode($request->phones) as $phone){

@@ -8,6 +8,7 @@ use App\IndexResponse;
 use App\Patient;
 use App\Payment;
 use App\Phone;
+use App\ReservationDuration;
 use App\Transformers\AppointmentTransformer;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\JsonResponse;
@@ -56,6 +57,8 @@ class AppointmentController extends Controller
             }
             $data['patient_id'] = $patient->id;
         }
+
+        ReservationDuration::find($data['reservation_duration_id'])->decrementCounter();
 
         $appointment = Appointment::create($data);
 
@@ -133,7 +136,11 @@ class AppointmentController extends Controller
     {
         $this->authorize('destroy', Appointment::class);
 
-        Appointment::find($id)->delete();
+        $appointment = Appointment::find($id);
+
+        $appointment->reservationDuration->incrementCounter();
+
+        $appointment->delete();
 
         return $this->respond('Appointment Deleted Successfully');
     }

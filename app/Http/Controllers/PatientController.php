@@ -101,6 +101,10 @@ class PatientController extends Controller
 
         $patient->update($data);
 
+        $patient->phones()->each(function ($query){
+            $query->delete();
+        });
+
         foreach ($data['phones'] as $phone){
             $phone= Phone::create($phone);
             $patient->phones()->save($phone);
