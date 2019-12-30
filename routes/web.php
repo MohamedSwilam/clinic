@@ -11,6 +11,8 @@
 |
 */
 
+Route::view('test','test');
+
 Route::view('/', 'en-website')->name('welcome');
 Route::view('/en', 'en-website')->name('welcome');
 Route::view('/ar', 'ar-website')->name('welcome');

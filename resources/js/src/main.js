@@ -8,8 +8,28 @@ Vue.use(Vuesax);
 
 import 'material-icons/iconfont/material-icons.css' //Material Icons
 import 'vuesax/dist/vuesax.css'; // Vuesax
-
 Vue.use(require('vue-moment'));
+import Echo from "laravel-echo";
+window.Pusher = require('pusher-js');
+Pusher.logToConsole = true;
+
+// window.Echo = new Echo({
+//     broadcaster: 'pusher',
+//     key: "6d5d9be65ddf8b631d3b",
+//     cluster: "eu",
+//     encrypted: true,
+//     // auth : {
+//     //     headers: {
+//     //         // authorization: 'Bearer ' + this.$store.getters['auth/token'],
+//     //     }
+//     // }
+// });
+
+// window.Echo.channel('private-appointment.1') //Should be Channel Name
+//     .listen('Illuminate\\Notifications\\Events\\BroadcastNotificationCreated', (e) => {
+//         console.log(e);
+//         alert(e);
+//     });
 
 // import '@fortawesome/fontawesome-free/css/all.css';
 // import '@fortawesome/fontawesome-free/js/all';

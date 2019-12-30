@@ -116,7 +116,10 @@
         "@syncfusion/ej2-vue-treegrid": "^17.1.42",
         "@syncfusion/ej2-vue-treemap": "^17.1.42",
         "jspdf": "^1.5.3",
+        "laravel-echo": "^1.6.1",
+        "pusher-js": "^5.0.3",
         "vue-easycm": "^1.0.4",
+        "vue-echo-laravel": "0.0.6",
         "vue-google-autocomplete": "^1.1.0",
         "vue-moment": "^4.0.0",
         "vuex-persist": "^2.2.0"
