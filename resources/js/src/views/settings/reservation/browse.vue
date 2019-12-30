@@ -55,10 +55,10 @@
         </div>
 
         <div class="vx-col w-full mb-base">
-        <vx-card ref="reservation_duration" title='Reservation Durations' collapse-action refreshContentAction @refresh="getReservationDurations">
+        <vx-card v-if="can('browse-reservation')" ref="reservation_duration" title='Reservation Durations' collapse-action refreshContentAction @refresh="getReservationDurations">
             <vs-table :sst="true" :data="reservation_durations" @sort="handleSort">
                 <template slot="header">
-                    <vs-button class="mb-5" size="small" to="/dashboard/settings/reservation-duration/create" icon-pack="feather" icon="icon-plus" type="filled">Add New Duration</vs-button>
+                    <vs-button v-if="can('create-reservation')" class="mb-5" size="small" to="/dashboard/settings/reservation-duration/create" icon-pack="feather" icon="icon-plus" type="filled">Add New Duration</vs-button>
                 </template>
                 <template slot="thead">
                     <vs-th>#</vs-th>
@@ -99,7 +99,7 @@
                             <vs-row>
                                 <div class="flex mb-4">
                                     <div class="w-1/3">
-                                        <vs-button :id="`btn-duration-delete-${duration.id}`" class="vs-con-loading__container" radius color="danger" type="border" icon-pack="feather" icon="icon-trash" @click="is_requesting?$store.dispatch('viewWaitMessage', $vs):confirmDeleteReservationDuration(duration)"></vs-button>
+                                        <vs-button v-if="can('delete-reservation')" :id="`btn-duration-delete-${duration.id}`" class="vs-con-loading__container" radius color="danger" type="border" icon-pack="feather" icon="icon-trash" @click="is_requesting?$store.dispatch('viewWaitMessage', $vs):confirmDeleteReservationDuration(duration)"></vs-button>
                                     </div>
                                 </div>
                             </vs-row>

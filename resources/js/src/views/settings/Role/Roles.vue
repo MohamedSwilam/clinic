@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<!-- Roles Table -->
-        <div class="vx-col w-full mb-base" v-if="can('view-role')">
+        <div class="vx-col w-full mb-base" v-if="can('browse-role')">
             <vx-card ref="roles" title="Roles List" collapse-action refreshContentAction @refresh="getRoles">
                 <vs-table search :data="roles">
                     <template slot="header">

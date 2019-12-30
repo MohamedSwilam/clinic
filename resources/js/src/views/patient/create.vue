@@ -1,6 +1,6 @@
 <template>
     <div>
-        <vx-card ref="create" title='Create Patient' collapse-action>
+        <vx-card v-if="can('create-patient')" ref="create" title='Create Patient' collapse-action>
             <vs-row>
                 <vs-col vs-lg="6" vs-sm="12" vs-xs="12" class="mb-5 pl-5">
                     <vs-input :danger="errors.has('first_name')" :danger-text="errors.first('first_name')" val-icon-danger="clear" icon-pack="feather" icon="icon-user" label-placeholder="First Name" v-model="form.first_name" class="w-full" name="first_name" v-validate="'required|alpha_dash|min:3'" />
@@ -72,7 +72,6 @@
                 </vs-col>
                 <vs-col vs-lg="6" vs-sm="12" vs-xs="12" class="mb-5 pl-5">
                     <vs-input :danger="errors.has('reference')" :danger-text="errors.first('reference')" val-icon-danger="clear" icon-pack="feather" icon="icon-git-branch" label-placeholder="Referred From" v-model="form.reference" class="w-full" name="reference" />
-                    <span class="text-danger">{{ errors.first('reference') }}</span>
                 </vs-col>
             </vs-row>
             <vs-divider></vs-divider>

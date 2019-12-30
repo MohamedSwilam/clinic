@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="can('browse-user')">
         <div class="centerx">
             <vs-row>
                 <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-w="9">
@@ -9,13 +9,6 @@
                     <vs-button to="/dashboard/employee/create" vs-w="3" color="primary" type="filled" icon-pack="feather" icon="icon-user-plus">&nbsp;&nbsp;Add Employee</vs-button>
                 </vs-col>
             </vs-row>
-<!--            <vs-row>-->
-<!--                <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-w="12">-->
-<!--                    <vs-input vs-w="9" icon-pack="feather" icon="icon-search" :label-placeholder="$t('Search') || 'Search'" v-model="searchText" class="is-label-placeholder w-full" />-->
-<!--                </vs-col>-->
-<!--            </vs-row>-->
-            <div class="vx-col w-full mb-base">
-            </div>
         </div>
 
         <!-- USER PROFILE CARD 2 - MINIMAL -->
@@ -53,10 +46,10 @@
                                     <vs-button :id="`btn-delete-${employee.id}`" class="vs-con-loading__container" @click="is_requesting?$store.dispatch('viewWaitMessage', $vs):confirmDeleteEmployee(employee)" color="danger" type="filled" icon-pack="feather" icon="icon-trash"></vs-button>
                                 </vx-tooltip>
                             </span>
-                            <span v-if="can('edit-user')" class="flex items-center">
+                            <span v-if="can('edit-user')||$store.getters['auth/userData'].id===$route.params.id" class="flex items-center">
                                 <vs-button :to="`/dashboard/employee/${employee.id}/edit`" color="warning" type="filled" icon-pack="feather" icon="icon-edit"></vs-button>
                             </span>
-                            <span v-if="can('view-user')" class="flex items-center">
+                            <span v-if="can('view-user')||$store.getters['auth/userData'].id===$route.params.id" class="flex items-center">
                                 <vs-button :to="`/dashboard/employee/${employee.id}`" type="gradient" icon-pack="feather" icon="icon-eye">View</vs-button>
                             </span>
                         </div>

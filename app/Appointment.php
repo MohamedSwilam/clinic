@@ -55,15 +55,29 @@ class Appointment extends Model
         return $query->where('doctor_id', $id);
     }
 
+    public function scopeDoctorName($query, $name)
+    {
+        return $query->whereHas('doctor', function ($query) use ($name){
+            $query->where('first_name', 'like', "%$name%");
+        });
+    }
+
     public function scopePatient($query, $id)
     {
         return $query->where('patient_id', $id);
     }
 
-    public function scopeStatus($query, $id)
+    public function scopePatientName($query, $name)
     {
-        return $query->whereHas('status', function ($query) use ($id){
-            $query->where('id', $id);
+        return $query->whereHas('patient', function ($query) use ($name){
+            $query->where('first_name', 'like', "%$name%");
+        });
+    }
+
+    public function scopeStatus($query, $name)
+    {
+        return $query->whereHas('status', function ($query) use ($name){
+            $query->where('name', 'like', "%$name%");
         });
     }
 

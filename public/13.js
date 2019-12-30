@@ -280,142 +280,144 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("vx-card", { ref: "edit", attrs: { title: "Update Role" } }, [
-        _c("form", [
-          _c("div", { staticClass: "vx-row" }, [
-            _c(
-              "div",
-              { staticClass: "vx-col w-full mb-2" },
-              [
-                _c("vs-input", {
-                  directives: [
-                    {
-                      name: "validate",
-                      rawName: "v-validate",
-                      value: "required",
-                      expression: "'required'"
-                    }
-                  ],
-                  staticClass: "w-full",
-                  attrs: {
-                    danger: _vm.errors.has("role_name"),
-                    "danger-text": _vm.errors.first("role_name"),
-                    "val-icon-danger": "clear",
-                    "icon-pack": "feather",
-                    icon: "icon-shield",
-                    "icon-no-border": "",
-                    "label-placeholder": "Role Name",
-                    name: "role_name"
-                  },
-                  model: {
-                    value: _vm.role_name,
-                    callback: function($$v) {
-                      _vm.role_name = $$v
-                    },
-                    expression: "role_name"
-                  }
-                })
-              ],
-              1
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "vx-row mt-5" }, [
-            _c(
-              "div",
-              { staticClass: "vx-col w-full" },
-              [
-                _c("b", [_vm._v("Role Permissions:")]),
-                _vm._v(" "),
-                _vm._l(_vm.permissions, function(group, groupName) {
-                  return _c(
-                    "ul",
-                    [
-                      _c("br"),
-                      _vm._v(" "),
-                      _c(
-                        "vs-checkbox",
+      _vm.can("edit-role")
+        ? _c("vx-card", { ref: "edit", attrs: { title: "Update Role" } }, [
+            _c("form", [
+              _c("div", { staticClass: "vx-row" }, [
+                _c(
+                  "div",
+                  { staticClass: "vx-col w-full mb-2" },
+                  [
+                    _c("vs-input", {
+                      directives: [
                         {
-                          attrs: { "vs-value": groupName },
-                          on: {
-                            change: function($event) {
-                              return _vm.groupPressed(group)
-                            }
-                          },
-                          model: {
-                            value: _vm.groupPermissions,
-                            callback: function($$v) {
-                              _vm.groupPermissions = $$v
-                            },
-                            expression: "groupPermissions"
-                          }
+                          name: "validate",
+                          rawName: "v-validate",
+                          value: "required",
+                          expression: "'required'"
+                        }
+                      ],
+                      staticClass: "w-full",
+                      attrs: {
+                        danger: _vm.errors.has("role_name"),
+                        "danger-text": _vm.errors.first("role_name"),
+                        "val-icon-danger": "clear",
+                        "icon-pack": "feather",
+                        icon: "icon-shield",
+                        "icon-no-border": "",
+                        "label-placeholder": "Role Name",
+                        name: "role_name"
+                      },
+                      model: {
+                        value: _vm.role_name,
+                        callback: function($$v) {
+                          _vm.role_name = $$v
                         },
-                        [_c("b", [_vm._v(_vm._s(groupName))])]
-                      ),
-                      _vm._v(" "),
-                      _vm._l(group, function(permission, index) {
-                        return _c(
-                          "li",
-                          { key: index, staticClass: "ml-8" },
-                          [
-                            _c(
-                              "vs-checkbox",
-                              {
-                                attrs: { "vs-value": permission.name },
-                                model: {
-                                  value: _vm.rolePermissions,
-                                  callback: function($$v) {
-                                    _vm.rolePermissions = $$v
-                                  },
-                                  expression: "rolePermissions"
+                        expression: "role_name"
+                      }
+                    })
+                  ],
+                  1
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "vx-row mt-5" }, [
+                _c(
+                  "div",
+                  { staticClass: "vx-col w-full" },
+                  [
+                    _c("b", [_vm._v("Role Permissions:")]),
+                    _vm._v(" "),
+                    _vm._l(_vm.permissions, function(group, groupName) {
+                      return _c(
+                        "ul",
+                        [
+                          _c("br"),
+                          _vm._v(" "),
+                          _c(
+                            "vs-checkbox",
+                            {
+                              attrs: { "vs-value": groupName },
+                              on: {
+                                change: function($event) {
+                                  return _vm.groupPressed(group)
                                 }
                               },
-                              [_vm._v(_vm._s(permission["display_name"]))]
+                              model: {
+                                value: _vm.groupPermissions,
+                                callback: function($$v) {
+                                  _vm.groupPermissions = $$v
+                                },
+                                expression: "groupPermissions"
+                              }
+                            },
+                            [_c("b", [_vm._v(_vm._s(groupName))])]
+                          ),
+                          _vm._v(" "),
+                          _vm._l(group, function(permission, index) {
+                            return _c(
+                              "li",
+                              { key: index, staticClass: "ml-8" },
+                              [
+                                _c(
+                                  "vs-checkbox",
+                                  {
+                                    attrs: { "vs-value": permission.name },
+                                    model: {
+                                      value: _vm.rolePermissions,
+                                      callback: function($$v) {
+                                        _vm.rolePermissions = $$v
+                                      },
+                                      expression: "rolePermissions"
+                                    }
+                                  },
+                                  [_vm._v(_vm._s(permission["display_name"]))]
+                                )
+                              ],
+                              1
                             )
-                          ],
-                          1
-                        )
-                      })
-                    ],
-                    2
-                  )
-                })
-              ],
-              2
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "vx-row mt-10" }, [
-            _c(
-              "div",
-              { staticClass: "vx-col w-full" },
-              [
-                _c(
-                  "vs-button",
-                  {
-                    staticClass: "vs-con-loading__container",
-                    attrs: {
-                      id: "btn-save",
-                      disabled: !_vm.validateForm,
-                      "icon-pack": "feather",
-                      icon: "icon-save"
-                    },
-                    on: {
-                      click: function($event) {
-                        _vm.is_requesting
-                          ? _vm.$store.dispatch("viewWaitMessage", _vm.$vs)
-                          : _vm.saveRole()
-                      }
-                    }
-                  },
-                  [_vm._v("Save")]
+                          })
+                        ],
+                        2
+                      )
+                    })
+                  ],
+                  2
                 )
-              ],
-              1
-            )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "vx-row mt-10" }, [
+                _c(
+                  "div",
+                  { staticClass: "vx-col w-full" },
+                  [
+                    _c(
+                      "vs-button",
+                      {
+                        staticClass: "vs-con-loading__container",
+                        attrs: {
+                          id: "btn-save",
+                          disabled: !_vm.validateForm,
+                          "icon-pack": "feather",
+                          icon: "icon-save"
+                        },
+                        on: {
+                          click: function($event) {
+                            _vm.is_requesting
+                              ? _vm.$store.dispatch("viewWaitMessage", _vm.$vs)
+                              : _vm.saveRole()
+                          }
+                        }
+                      },
+                      [_vm._v("Save")]
+                    )
+                  ],
+                  1
+                )
+              ])
+            ])
           ])
-        ])
-      ])
+        : _vm._e()
     ],
     1
   )

@@ -224,334 +224,343 @@ var render = function() {
   return _c(
     "div",
     [
-      _c(
-        "vx-card",
-        {
-          ref: "create",
-          attrs: { title: "Add Reservation Duration", "collapse-action": "" }
-        },
-        [
-          _c(
-            "vs-row",
+      _vm.can("view-reservation")
+        ? _c(
+            "vx-card",
+            {
+              ref: "create",
+              attrs: {
+                title: "Add Reservation Duration",
+                "collapse-action": ""
+              }
+            },
             [
               _c(
-                "vs-col",
-                {
-                  staticClass: "mb-5 pl-5",
-                  attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
-                },
+                "vs-row",
                 [
                   _c(
-                    "vs-select",
+                    "vs-col",
                     {
-                      staticClass: "w-full",
-                      attrs: {
-                        label: "Reservation Type",
-                        autocomplete: "",
-                        "label-placeholder": "Employee Role",
-                        "icon-pack": "feather",
-                        icon: "icon-chevron-down",
-                        color: "primary"
-                      },
-                      model: {
-                        value: _vm.form.reservation_type_id,
-                        callback: function($$v) {
-                          _vm.$set(_vm.form, "reservation_type_id", $$v)
+                      staticClass: "mb-5 pl-5",
+                      attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
+                    },
+                    [
+                      _c(
+                        "vs-select",
+                        {
+                          staticClass: "w-full",
+                          attrs: {
+                            label: "Reservation Type",
+                            autocomplete: "",
+                            "label-placeholder": "Employee Role",
+                            "icon-pack": "feather",
+                            icon: "icon-chevron-down",
+                            color: "primary"
+                          },
+                          model: {
+                            value: _vm.form.reservation_type_id,
+                            callback: function($$v) {
+                              _vm.$set(_vm.form, "reservation_type_id", $$v)
+                            },
+                            expression: "form.reservation_type_id"
+                          }
                         },
-                        expression: "form.reservation_type_id"
+                        _vm._l(_vm.reservation_types, function(item, index) {
+                          return _c("vs-select-item", {
+                            key: index,
+                            attrs: { value: item.id, text: item.name }
+                          })
+                        }),
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "vs-col",
+                    {
+                      staticClass: "mb-5 pl-5",
+                      attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
+                    },
+                    [
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "vs-component vs-con-input-label vs-input w-full vs-input-primary is-label-placeholder"
+                        },
+                        [
+                          _c("div", { staticClass: "vs-con-input" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.date,
+                                  expression: "form.date"
+                                }
+                              ],
+                              staticClass:
+                                "vs-inputx vs-input--input normal hasIcon hasValue dob-input",
+                              staticStyle: {
+                                border: "1px solid rgba(0, 0, 0, 0.2)"
+                              },
+                              attrs: { required: "", type: "date" },
+                              domProps: { value: _vm.form.date },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.form,
+                                    "date",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c(
+                              "span",
+                              {
+                                staticClass:
+                                  "input-span-placeholder vs-input--placeholder normal normal vs-placeholder-label"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                            Reservation Date\n                            "
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c("i", {
+                              staticClass:
+                                "vs-icon notranslate icon-scale icon-inputx notranslate vs-input--icon feather icon-calendar null"
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("span")
+                        ]
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "vs-col",
+                    {
+                      staticClass: "mb-5 pl-5",
+                      attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
+                    },
+                    [
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "vs-component vs-con-input-label vs-input w-full vs-input-primary is-label-placeholder"
+                        },
+                        [
+                          _c("div", { staticClass: "vs-con-input" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.start_time,
+                                  expression: "form.start_time"
+                                }
+                              ],
+                              staticClass:
+                                "vs-inputx vs-input--input normal hasIcon hasValue dob-input",
+                              staticStyle: {
+                                border: "1px solid rgba(0, 0, 0, 0.2)"
+                              },
+                              attrs: { required: "", type: "time" },
+                              domProps: { value: _vm.form.start_time },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.form,
+                                    "start_time",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c(
+                              "span",
+                              {
+                                staticClass:
+                                  "input-span-placeholder vs-input--placeholder normal normal vs-placeholder-label"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                            Start Time\n                            "
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c("i", {
+                              staticClass:
+                                "vs-icon notranslate icon-scale icon-inputx notranslate vs-input--icon feather icon-clock null"
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("span")
+                        ]
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "vs-col",
+                    {
+                      staticClass: "mb-5 pl-5",
+                      attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
+                    },
+                    [
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "vs-component vs-con-input-label vs-input w-full vs-input-primary is-label-placeholder"
+                        },
+                        [
+                          _c("div", { staticClass: "vs-con-input" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.end_time,
+                                  expression: "form.end_time"
+                                }
+                              ],
+                              staticClass:
+                                "vs-inputx vs-input--input normal hasIcon hasValue dob-input",
+                              staticStyle: {
+                                border: "1px solid rgba(0, 0, 0, 0.2)"
+                              },
+                              attrs: { required: "", type: "time" },
+                              domProps: { value: _vm.form.end_time },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.form,
+                                    "end_time",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c(
+                              "span",
+                              {
+                                staticClass:
+                                  "input-span-placeholder vs-input--placeholder normal normal vs-placeholder-label"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                            End Time\n                            "
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c("i", {
+                              staticClass:
+                                "vs-icon notranslate icon-scale icon-inputx notranslate vs-input--icon feather icon-clock null"
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("span")
+                        ]
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "vs-col",
+                    {
+                      staticClass: "mb-5 pl-5",
+                      attrs: {
+                        "vs-justify": "center",
+                        "vs-align": "center",
+                        "vs-lg": "12",
+                        "vs-sm": "12",
+                        "vs-xs": "12"
                       }
                     },
-                    _vm._l(_vm.reservation_types, function(item, index) {
-                      return _c("vs-select-item", {
-                        key: index,
-                        attrs: { value: item.id, text: item.name }
+                    [
+                      _c("vs-input-number", {
+                        attrs: { min: "0", label: "Counter:", step: 5 },
+                        model: {
+                          value: _vm.form.counter,
+                          callback: function($$v) {
+                            _vm.$set(_vm.form, "counter", $$v)
+                          },
+                          expression: "form.counter"
+                        }
                       })
-                    }),
+                    ],
                     1
                   )
                 ],
                 1
               ),
               _vm._v(" "),
-              _c(
-                "vs-col",
-                {
-                  staticClass: "mb-5 pl-5",
-                  attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
-                },
-                [
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "vs-component vs-con-input-label vs-input w-full vs-input-primary is-label-placeholder"
-                    },
-                    [
-                      _c("div", { staticClass: "vs-con-input" }, [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.form.date,
-                              expression: "form.date"
-                            }
-                          ],
-                          staticClass:
-                            "vs-inputx vs-input--input normal hasIcon hasValue dob-input",
-                          staticStyle: {
-                            border: "1px solid rgba(0, 0, 0, 0.2)"
-                          },
-                          attrs: { required: "", type: "date" },
-                          domProps: { value: _vm.form.date },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(_vm.form, "date", $event.target.value)
-                            }
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c(
-                          "span",
-                          {
-                            staticClass:
-                              "input-span-placeholder vs-input--placeholder normal normal vs-placeholder-label"
-                          },
-                          [
-                            _vm._v(
-                              "\n                            Reservation Date\n                            "
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c("i", {
-                          staticClass:
-                            "vs-icon notranslate icon-scale icon-inputx notranslate vs-input--icon feather icon-calendar null"
-                        })
-                      ]),
-                      _vm._v(" "),
-                      _c("span")
-                    ]
-                  )
-                ]
-              ),
+              _c("vs-divider"),
               _vm._v(" "),
               _c(
-                "vs-col",
-                {
-                  staticClass: "mb-5 pl-5",
-                  attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
-                },
+                "vs-row",
+                { attrs: { "vs-justify": "center", "vs-align": "center" } },
                 [
                   _c(
-                    "div",
+                    "vs-button",
                     {
-                      staticClass:
-                        "vs-component vs-con-input-label vs-input w-full vs-input-primary is-label-placeholder"
+                      staticClass: "vs-con-loading__container mr-5",
+                      attrs: { id: "btn-create-false", size: "small" },
+                      on: {
+                        click: function($event) {
+                          _vm.is_requesting
+                            ? _vm.$store.dispatch("viewWaitMessage", _vm.$vs)
+                            : _vm.createReservationDuration(false)
+                        }
+                      }
                     },
-                    [
-                      _c("div", { staticClass: "vs-con-input" }, [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.form.start_time,
-                              expression: "form.start_time"
-                            }
-                          ],
-                          staticClass:
-                            "vs-inputx vs-input--input normal hasIcon hasValue dob-input",
-                          staticStyle: {
-                            border: "1px solid rgba(0, 0, 0, 0.2)"
-                          },
-                          attrs: { required: "", type: "time" },
-                          domProps: { value: _vm.form.start_time },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.form,
-                                "start_time",
-                                $event.target.value
-                              )
-                            }
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c(
-                          "span",
-                          {
-                            staticClass:
-                              "input-span-placeholder vs-input--placeholder normal normal vs-placeholder-label"
-                          },
-                          [
-                            _vm._v(
-                              "\n                            Start Time\n                            "
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c("i", {
-                          staticClass:
-                            "vs-icon notranslate icon-scale icon-inputx notranslate vs-input--icon feather icon-clock null"
-                        })
-                      ]),
-                      _vm._v(" "),
-                      _c("span")
-                    ]
-                  )
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "vs-col",
-                {
-                  staticClass: "mb-5 pl-5",
-                  attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
-                },
-                [
+                    [_vm._v("Add Duration & Browse")]
+                  ),
+                  _vm._v(" "),
                   _c(
-                    "div",
+                    "vs-button",
                     {
-                      staticClass:
-                        "vs-component vs-con-input-label vs-input w-full vs-input-primary is-label-placeholder"
+                      staticClass: "vs-con-loading__container",
+                      attrs: { id: "btn-create-true", size: "small" },
+                      on: {
+                        click: function($event) {
+                          _vm.is_requesting
+                            ? _vm.$store.dispatch("viewWaitMessage", _vm.$vs)
+                            : _vm.createReservationDuration(true)
+                        }
+                      }
                     },
-                    [
-                      _c("div", { staticClass: "vs-con-input" }, [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.form.end_time,
-                              expression: "form.end_time"
-                            }
-                          ],
-                          staticClass:
-                            "vs-inputx vs-input--input normal hasIcon hasValue dob-input",
-                          staticStyle: {
-                            border: "1px solid rgba(0, 0, 0, 0.2)"
-                          },
-                          attrs: { required: "", type: "time" },
-                          domProps: { value: _vm.form.end_time },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.form,
-                                "end_time",
-                                $event.target.value
-                              )
-                            }
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c(
-                          "span",
-                          {
-                            staticClass:
-                              "input-span-placeholder vs-input--placeholder normal normal vs-placeholder-label"
-                          },
-                          [
-                            _vm._v(
-                              "\n                            End Time\n                            "
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c("i", {
-                          staticClass:
-                            "vs-icon notranslate icon-scale icon-inputx notranslate vs-input--icon feather icon-clock null"
-                        })
-                      ]),
-                      _vm._v(" "),
-                      _c("span")
-                    ]
+                    [_vm._v("Add Duration & Create Another")]
                   )
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "vs-col",
-                {
-                  staticClass: "mb-5 pl-5",
-                  attrs: {
-                    "vs-justify": "center",
-                    "vs-align": "center",
-                    "vs-lg": "12",
-                    "vs-sm": "12",
-                    "vs-xs": "12"
-                  }
-                },
-                [
-                  _c("vs-input-number", {
-                    attrs: { min: "0", label: "Counter:", step: 5 },
-                    model: {
-                      value: _vm.form.counter,
-                      callback: function($$v) {
-                        _vm.$set(_vm.form, "counter", $$v)
-                      },
-                      expression: "form.counter"
-                    }
-                  })
                 ],
                 1
               )
             ],
             1
-          ),
-          _vm._v(" "),
-          _c("vs-divider"),
-          _vm._v(" "),
-          _c(
-            "vs-row",
-            { attrs: { "vs-justify": "center", "vs-align": "center" } },
-            [
-              _c(
-                "vs-button",
-                {
-                  staticClass: "vs-con-loading__container mr-5",
-                  attrs: { id: "btn-create-false", size: "small" },
-                  on: {
-                    click: function($event) {
-                      _vm.is_requesting
-                        ? _vm.$store.dispatch("viewWaitMessage", _vm.$vs)
-                        : _vm.createReservationDuration(false)
-                    }
-                  }
-                },
-                [_vm._v("Add Duration & Browse")]
-              ),
-              _vm._v(" "),
-              _c(
-                "vs-button",
-                {
-                  staticClass: "vs-con-loading__container",
-                  attrs: { id: "btn-create-true", size: "small" },
-                  on: {
-                    click: function($event) {
-                      _vm.is_requesting
-                        ? _vm.$store.dispatch("viewWaitMessage", _vm.$vs)
-                        : _vm.createReservationDuration(true)
-                    }
-                  }
-                },
-                [_vm._v("Add Duration & Create Another")]
-              )
-            ],
-            1
           )
-        ],
-        1
-      )
+        : _vm._e()
     ],
     1
   )

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <vx-card ref="edit" title='Update Role'>
+    <vx-card v-if="can('edit-role')" ref="edit" title='Update Role'>
       <form>
         <div class="vx-row">
           <div class="vx-col w-full mb-2">

@@ -1,9 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[4],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/appointment/Appointment.vue?vue&type=script&lang=js&":
-/*!*********************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/appointment/Appointment.vue?vue&type=script&lang=js& ***!
-  \*********************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/employee/browse.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/employee/browse.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -13,9 +13,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _fortawesome_fontawesome_free_css_all_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_fortawesome_fontawesome_free_css_all_css__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _fortawesome_fontawesome_free_js_all_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @fortawesome/fontawesome-free/js/all.js */ "./node_modules/@fortawesome/fontawesome-free/js/all.js");
 /* harmony import */ var _fortawesome_fontawesome_free_js_all_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_fortawesome_fontawesome_free_js_all_js__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var vue_context__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-context */ "./node_modules/vue-context/dist/js/vue-context.js");
-/* harmony import */ var vue_context__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue_context__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var laravel_echo__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! laravel-echo */ "./node_modules/laravel-echo/dist/echo.js");
 //
 //
 //
@@ -78,306 +75,97 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "Appointment",
-  components: {
-    VueContext: vue_context__WEBPACK_IMPORTED_MODULE_2__["VueContext"]
-  },
+  name: "Employee",
   mounted: function mounted() {
-    this.getAppointmentsData(Date.now()); // window.Echo.channel('private-appointment.1') //Should be Channel Name
-    //     .listen('Illuminate\\Notifications\\Events\\BroadcastNotificationCreated', (e) => {
-    //         console.log(e);
-    //         alert(e);
-    //     });
+    this.getEmployeesData(Date.now());
   },
   data: function data() {
     return {
-      selected: [],
-      'tableList': ['vs-th: Component', 'vs-tr: Component', 'vs-td: Component', 'thread: Slot', 'tbody: Slot', 'header: Slot'],
       searchText: "",
       resultTime: 0,
-      appointments: []
+      employees: [],
+      is_requesting: false
     };
   },
   methods: {
-    optionClicked: function optionClicked(appointmentID, text) {
-      this.$vs.notify({
-        title: 'Context Menu',
-        text: text,
-        icon: 'feather',
-        iconPack: 'icon-alert-circle',
-        color: 'primary'
+    getEmployeesData: function getEmployeesData(InitialTime) {
+      var _this = this;
+
+      this.$vs.loading({
+        container: this.$refs.browse,
+        scale: 0.5
+      });
+      this.$store.dispatch('employee/getData', '').then(function (response) {
+        _this.$vs.loading.close(_this.$refs.browse);
+
+        _this.resultTime = Date.now() - InitialTime;
+        _this.employees = response.data.data.data;
+      })["catch"](function (error) {
+        console.log(error);
+
+        _this.$vs.loading.close(_this.$refs.browse);
+
+        _this.$vs.notify({
+          title: 'Error',
+          text: error.response.data.error,
+          iconPack: 'feather',
+          icon: 'icon-alert-circle',
+          color: 'danger'
+        });
       });
     },
-    getAppointmentsData: function getAppointmentsData(InitialTime) {
-      this.appointments = [{
-        id: 1,
-        type: 'Reservation Type1',
-        duration: new Date(),
-        doctor: {
-          id: 1,
-          name: 'Irene Baker'
-        },
-        patient: {
-          id: 1,
-          name: "Phil Gray",
-          public_id: "p-105",
-          dob: "18/10/1997",
-          telephones: ["01096436702", "01113689783"],
-          payment: {
-            paid: 200,
-            total: 1000,
-            percentage: 200 * 100 / 1000
-          }
-        },
-        status: {
-          id: 1,
-          title: 'Coming',
-          color: 'primary'
-        }
-      }, {
-        id: 2,
-        type: 'Reservation Type1',
-        duration: new Date(),
-        doctor: {
-          id: 1,
-          name: 'Irene Baker'
-        },
-        patient: {
-          id: 1,
-          name: "Phil Gray",
-          public_id: "p-106",
-          dob: "18/10/1997",
-          telephones: ["01096436702", "01113689783"],
-          payment: {
-            paid: 500,
-            total: 800,
-            percentage: 500 * 100 / 800
-          }
-        },
-        status: {
-          id: 2,
-          title: 'Inside',
+    confirmDeleteEmployee: function confirmDeleteEmployee(type) {
+      this.$vs.dialog({
+        type: 'confirm',
+        color: 'danger',
+        title: "Are you sure!",
+        text: 'This data can not be retrieved again.',
+        accept: this.deleteEmployee,
+        parameters: [type]
+      });
+    },
+    deleteEmployee: function deleteEmployee(params) {
+      var _this2 = this;
+
+      this.is_requesting = true;
+      this.$vs.loading({
+        container: "#btn-delete-".concat(params[0].id),
+        color: 'danger',
+        scale: 0.45
+      });
+      this.$store.dispatch('employee/delete', params[0].id).then(function (response) {
+        _this2.is_requesting = false;
+
+        _this2.$vs.loading.close("#btn-delete-".concat(params[0].id, " > .con-vs-loading"));
+
+        _this2.employees = _this2.employees.filter(function (type) {
+          return type.id !== params[0].id;
+        });
+
+        _this2.$vs.notify({
+          title: 'Success',
+          text: response.data.message,
+          iconPack: 'feather',
+          icon: 'icon-check',
+          color: 'success'
+        });
+      })["catch"](function (error) {
+        console.log(error);
+        _this2.is_requesting = false;
+
+        _this2.$vs.loading.close("#btn-delete-".concat(params[0].id, " > .con-vs-loading"));
+
+        _this2.$vs.notify({
+          title: 'Error',
+          text: error.response.data.error,
+          iconPack: 'feather',
+          icon: 'icon-alert-circle',
           color: 'danger'
-        }
-      }, {
-        id: 3,
-        type: 'Reservation Type1',
-        duration: new Date(),
-        doctor: {
-          id: 1,
-          name: 'Irene Baker'
-        },
-        patient: {
-          id: 1,
-          name: "Phil Gray",
-          public_id: "p-105",
-          dob: "18/10/1997",
-          telephones: ["01096436702", "01113689783"],
-          payment: {
-            paid: 900,
-            total: 900,
-            percentage: 900 * 100 / 900
-          }
-        },
-        status: {
-          id: 3,
-          title: 'Postponed',
-          color: 'warning'
-        }
-      }, {
-        id: 4,
-        type: 'Reservation Type1',
-        duration: new Date(),
-        doctor: {
-          id: 1,
-          name: 'Irene Baker'
-        },
-        patient: {
-          id: 1,
-          name: "Phil Gray",
-          public_id: "p-107",
-          dob: "18/10/1997",
-          telephones: ["01096436702", "01113689783"],
-          payment: {
-            paid: 200,
-            total: 1000,
-            percentage: 200 * 100 / 1000
-          }
-        },
-        status: {
-          id: 4,
-          title: 'Finished',
-          color: 'success'
-        }
-      }, {
-        id: 5,
-        type: 'Reservation Type1',
-        duration: new Date(),
-        doctor: {
-          id: 1,
-          name: 'Irene Baker'
-        },
-        patient: {
-          id: 1,
-          name: "Phil Gray",
-          public_id: "p-108",
-          dob: "18/10/1997",
-          telephones: ["01096436702", "01113689783"],
-          payment: {
-            paid: 200,
-            total: 1000,
-            percentage: 200 * 100 / 1000
-          }
-        },
-        status: {
-          id: 4,
-          title: 'Finished',
-          color: 'success'
-        }
-      }, {
-        id: 6,
-        type: 'Reservation Type1',
-        duration: new Date(),
-        doctor: {
-          id: 1,
-          name: 'Irene Baker'
-        },
-        patient: {
-          id: 1,
-          name: "Phil Gray",
-          public_id: "p-109",
-          dob: "18/10/1997",
-          telephones: ["01096436702", "01113689783"],
-          payment: {
-            paid: 700,
-            total: 1000,
-            percentage: 700 * 100 / 1000
-          }
-        },
-        status: {
-          id: 4,
-          title: 'Finished',
-          color: 'success'
-        }
-      }, {
-        id: 7,
-        type: 'Reservation Type2',
-        duration: new Date(),
-        doctor: {
-          id: 1,
-          name: 'Irene Baker'
-        },
-        patient: {
-          id: 2,
-          name: "Phil Gray",
-          public_id: "p-110",
-          dob: "18/10/1997",
-          telephones: ["01096436702", "01113689783"],
-          payment: {
-            paid: 200,
-            total: 1000,
-            percentage: 200 * 100 / 1000
-          }
-        },
-        status: {
-          id: 4,
-          title: 'Missed',
-          color: 'dark'
-        }
-      }];
-      this.resultTime = Date.now() - InitialTime;
+        });
+      });
     },
     copyToClipboard: function copyToClipboard(text) {
       if (window.clipboardData && window.clipboardData.setData) {
@@ -422,19 +210,16 @@ __webpack_require__.r(__webpack_exports__);
         position: 'bottom-right',
         icon: 'icon-alert-circle'
       });
-    },
-    openContext: function openContext(id) {
-      this.$refs["appointment-".concat(id)][0].open();
     }
   }
 });
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/appointment/Appointment.vue?vue&type=style&index=0&lang=css&":
-/*!****************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader??ref--7-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/appointment/Appointment.vue?vue&type=style&index=0&lang=css& ***!
-  \****************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/employee/browse.vue?vue&type=style&index=0&lang=css&":
+/*!********************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--7-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/employee/browse.vue?vue&type=style&index=0&lang=css& ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -443,22 +228,22 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, ".txt-hover:hover{\n  cursor: pointer;\n  color: black !important;\n}\n.v-context ul li{\n  margin: 0;\n  padding: 10px 35px;\n  cursor: pointer;\n}\n.v-context ul li:hover {\n  background: #1e88e5;\n  color: #fafafa;\n}\n", ""]);
+exports.push([module.i, ".txt-hover:hover{\n  cursor: pointer;\n  color: black !important;\n}\n", ""]);
 
 // exports
 
 
 /***/ }),
 
-/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/appointment/Appointment.vue?vue&type=style&index=0&lang=css&":
-/*!********************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--7-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/appointment/Appointment.vue?vue&type=style&index=0&lang=css& ***!
-  \********************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/employee/browse.vue?vue&type=style&index=0&lang=css&":
+/*!************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--7-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/employee/browse.vue?vue&type=style&index=0&lang=css& ***!
+  \************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(/*! !../../../../../node_modules/css-loader??ref--7-1!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--7-2!../../../../../node_modules/vue-loader/lib??vue-loader-options!./Appointment.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/appointment/Appointment.vue?vue&type=style&index=0&lang=css&");
+var content = __webpack_require__(/*! !../../../../../node_modules/css-loader??ref--7-1!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--7-2!../../../../../node_modules/vue-loader/lib??vue-loader-options!./browse.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/employee/browse.vue?vue&type=style&index=0&lang=css&");
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -480,10 +265,10 @@ if(false) {}
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/appointment/Appointment.vue?vue&type=template&id=5cd96d16&":
-/*!*************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/appointment/Appointment.vue?vue&type=template&id=5cd96d16& ***!
-  \*************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/employee/browse.vue?vue&type=template&id=1b95951e&":
+/*!*****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/employee/browse.vue?vue&type=template&id=1b95951e& ***!
+  \*****************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -495,589 +280,288 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c(
-      "div",
-      { staticClass: "vx-col w-full mb-base" },
-      [
+  return _vm.can("browse-user")
+    ? _c("div", [
         _c(
-          "vx-card",
-          { attrs: { title: "Appointments", collapseAction: "" } },
+          "div",
+          { staticClass: "centerx" },
           [
-            _vm.appointments.length > 0
-              ? _c(
-                  "vs-table",
+            _c(
+              "vs-row",
+              [
+                _c(
+                  "vs-col",
                   {
                     attrs: {
-                      sst: true,
-                      "max-items": "50",
-                      search: "",
-                      pagination: "",
-                      data: _vm.appointments
-                    },
-                    on: {
-                      search: _vm.handleSearch,
-                      "change-page": _vm.handleChangePage,
-                      sort: _vm.handleSort
-                    },
-                    scopedSlots: _vm._u(
-                      [
-                        {
-                          key: "default",
-                          fn: function(ref) {
-                            var data = ref.data
-                            return [
-                              _vm._l(_vm.appointments, function(
-                                appointment,
-                                index
-                              ) {
-                                return [
-                                  _c(
-                                    "vs-tr",
-                                    { key: index },
-                                    [
-                                      _c(
-                                        "vs-td",
-                                        { attrs: { data: index + 1 } },
-                                        [
-                                          _c(
-                                            "div",
-                                            {
-                                              on: {
-                                                contextmenu: function($event) {
-                                                  $event.preventDefault()
-                                                  return _vm.openContext(
-                                                    appointment.id
-                                                  )
-                                                }
-                                              }
-                                            },
-                                            [
-                                              _vm._v(
-                                                "\n                                    " +
-                                                  _vm._s(index + 1) +
-                                                  "\n                                "
-                                              )
-                                            ]
-                                          )
-                                        ]
-                                      ),
-                                      _vm._v(" "),
-                                      _c("vs-td", [
-                                        _c(
-                                          "div",
-                                          {
-                                            on: {
-                                              contextmenu: function($event) {
-                                                $event.preventDefault()
-                                                return _vm.openContext(
-                                                  appointment.id
-                                                )
-                                              }
-                                            }
-                                          },
-                                          [
-                                            _vm._v(
-                                              "\n                                    " +
-                                                _vm._s(
-                                                  appointment.patient.public_id
-                                                ) +
-                                                "\n                                "
-                                            )
-                                          ]
-                                        )
-                                      ]),
-                                      _vm._v(" "),
-                                      _c("vs-td", [
-                                        _c(
-                                          "div",
-                                          {
-                                            on: {
-                                              contextmenu: function($event) {
-                                                $event.preventDefault()
-                                                return _vm.openContext(
-                                                  appointment.id
-                                                )
-                                              }
-                                            }
-                                          },
-                                          [
-                                            _vm._v(
-                                              "\n                                    " +
-                                                _vm._s(
-                                                  appointment.patient.name
-                                                ) +
-                                                "\n                                "
-                                            )
-                                          ]
-                                        )
-                                      ]),
-                                      _vm._v(" "),
-                                      _c("vs-td", [
-                                        _c(
-                                          "div",
-                                          {
-                                            on: {
-                                              contextmenu: function($event) {
-                                                $event.preventDefault()
-                                                return _vm.openContext(
-                                                  appointment.id
-                                                )
-                                              }
-                                            }
-                                          },
-                                          [
-                                            _vm._v(
-                                              "\n                                    " +
-                                                _vm._s(
-                                                  appointment.duration.getUTCDay()
-                                                ) +
-                                                "/" +
-                                                _vm._s(
-                                                  appointment.duration.getUTCMonth()
-                                                ) +
-                                                "/" +
-                                                _vm._s(
-                                                  appointment.duration.getUTCFullYear()
-                                                ) +
-                                                " " +
-                                                _vm._s(
-                                                  appointment.duration.toLocaleTimeString()
-                                                ) +
-                                                "\n                                "
-                                            )
-                                          ]
-                                        )
-                                      ]),
-                                      _vm._v(" "),
-                                      _c("vs-td", [
-                                        _c(
-                                          "div",
-                                          {
-                                            on: {
-                                              contextmenu: function($event) {
-                                                $event.preventDefault()
-                                                return _vm.openContext(
-                                                  appointment.id
-                                                )
-                                              }
-                                            }
-                                          },
-                                          [
-                                            _vm._l(
-                                              appointment.patient.telephones,
-                                              function(telephone, index) {
-                                                return [
-                                                  _vm._v(
-                                                    "\n                                        " +
-                                                      _vm._s(telephone)
-                                                  ),
-                                                  index !==
-                                                  appointment.patient.telephones
-                                                    .length -
-                                                    1
-                                                    ? [_vm._v(", ")]
-                                                    : _vm._e()
-                                                ]
-                                              }
-                                            )
-                                          ],
-                                          2
-                                        )
-                                      ]),
-                                      _vm._v(" "),
-                                      _c(
-                                        "vs-td",
-                                        [
-                                          _c(
-                                            "vs-chip",
-                                            {
-                                              attrs: {
-                                                color: appointment.status.color
-                                              }
-                                            },
-                                            [
-                                              _vm._v(
-                                                _vm._s(appointment.status.title)
-                                              )
-                                            ]
-                                          )
-                                        ],
-                                        1
-                                      ),
-                                      _vm._v(" "),
-                                      _c("vs-td", [
-                                        _c(
-                                          "div",
-                                          { staticClass: "flex mb-4" },
-                                          [
-                                            _c(
-                                              "div",
-                                              { staticClass: "w-1/3 pl-2" },
-                                              [
-                                                _c("vs-button", {
-                                                  attrs: {
-                                                    to:
-                                                      "/dashboard/patient/" +
-                                                      appointment.patient
-                                                        .public_id,
-                                                    radius: "",
-                                                    color: "primary",
-                                                    type: "border",
-                                                    "icon-pack": "feather",
-                                                    icon: "icon-eye"
-                                                  }
-                                                })
-                                              ],
-                                              1
-                                            ),
-                                            _vm._v(" "),
-                                            _c(
-                                              "div",
-                                              { staticClass: "w-1/3 pl-2" },
-                                              [
-                                                _c("vs-button", {
-                                                  attrs: {
-                                                    to:
-                                                      "/dashboard/patient/" +
-                                                      appointment.patient
-                                                        .public_id +
-                                                      "/edit",
-                                                    radius: "",
-                                                    color: "warning",
-                                                    type: "border",
-                                                    "icon-pack": "feather",
-                                                    icon: "icon-edit"
-                                                  }
-                                                })
-                                              ],
-                                              1
-                                            ),
-                                            _vm._v(" "),
-                                            _c(
-                                              "div",
-                                              { staticClass: "w-1/3 pl-2" },
-                                              [
-                                                _c("vs-button", {
-                                                  attrs: {
-                                                    radius: "",
-                                                    color: "danger",
-                                                    type: "border",
-                                                    "icon-pack": "feather",
-                                                    icon: "icon-trash"
-                                                  },
-                                                  on: {
-                                                    click: function($event) {
-                                                      return _vm.confirmDeleteAppointement(
-                                                        appointment
-                                                      )
-                                                    }
-                                                  }
-                                                })
-                                              ],
-                                              1
-                                            )
-                                          ]
-                                        )
-                                      ]),
-                                      _vm._v(" "),
-                                      _c(
-                                        "template",
-                                        {
-                                          staticClass: "expand-user",
-                                          slot: "expand"
-                                        },
-                                        [
-                                          _c(
-                                            "div",
-                                            {
-                                              staticClass:
-                                                "con-expand-users w-full"
-                                            },
-                                            [
-                                              _c(
-                                                "vs-list",
-                                                [
-                                                  _c(
-                                                    "vs-list-item",
-                                                    {
-                                                      attrs: {
-                                                        "icon-pack": "feather",
-                                                        icon:
-                                                          "icon-arrow-right",
-                                                        title: "Payments"
-                                                      }
-                                                    },
-                                                    [
-                                                      appointment.patient
-                                                        .payment.percentage ===
-                                                      100
-                                                        ? [
-                                                            _c("i", {
-                                                              staticClass:
-                                                                "fas fa-check"
-                                                            }),
-                                                            _vm._v(" "),
-                                                            _c("b", [
-                                                              _vm._v("Complete")
-                                                            ])
-                                                          ]
-                                                        : [
-                                                            _c("b", [
-                                                              _vm._v(
-                                                                _vm._s(
-                                                                  appointment
-                                                                    .patient
-                                                                    .payment
-                                                                    .paid
-                                                                )
-                                                              )
-                                                            ]),
-                                                            _vm._v(" Out of "),
-                                                            _c("b", [
-                                                              _vm._v(
-                                                                _vm._s(
-                                                                  appointment
-                                                                    .patient
-                                                                    .payment
-                                                                    .total
-                                                                )
-                                                              )
-                                                            ])
-                                                          ],
-                                                      _vm._v(" "),
-                                                      _c("br"),
-                                                      _vm._v(" "),
-                                                      appointment.patient
-                                                        .payment.percentage ===
-                                                      100
-                                                        ? _c("vs-progress", {
-                                                            attrs: {
-                                                              percent:
-                                                                appointment
-                                                                  .patient
-                                                                  .payment
-                                                                  .percentage,
-                                                              color: "success"
-                                                            }
-                                                          })
-                                                        : appointment.patient
-                                                            .payment
-                                                            .percentage > 25
-                                                        ? _c("vs-progress", {
-                                                            attrs: {
-                                                              percent:
-                                                                appointment
-                                                                  .patient
-                                                                  .payment
-                                                                  .percentage,
-                                                              color: "warning"
-                                                            }
-                                                          })
-                                                        : appointment.patient
-                                                            .payment
-                                                            .percentage <= 25
-                                                        ? _c("vs-progress", {
-                                                            attrs: {
-                                                              percent:
-                                                                appointment
-                                                                  .patient
-                                                                  .payment
-                                                                  .percentage,
-                                                              color: "danger"
-                                                            }
-                                                          })
-                                                        : _vm._e()
-                                                    ],
-                                                    2
-                                                  ),
-                                                  _vm._v(" "),
-                                                  _c("vs-list-item", {
-                                                    attrs: {
-                                                      "icon-pack": "feather",
-                                                      icon: "icon-arrow-right",
-                                                      title:
-                                                        "Appointment Information"
-                                                    }
-                                                  }),
-                                                  _vm._v(" "),
-                                                  _c("vs-list-item", {
-                                                    attrs: {
-                                                      "icon-pack": "feather",
-                                                      icon: "icon-arrow-right",
-                                                      title:
-                                                        "Appointment Information"
-                                                    }
-                                                  }),
-                                                  _vm._v(" "),
-                                                  _c(
-                                                    "vs-list-item",
-                                                    {
-                                                      attrs: {
-                                                        "icon-pack": "feather",
-                                                        icon:
-                                                          "icon-arrow-right",
-                                                        title: "Update Status"
-                                                      }
-                                                    },
-                                                    [
-                                                      _c(
-                                                        "vs-button",
-                                                        {
-                                                          attrs: {
-                                                            size: "small",
-                                                            color: "primary",
-                                                            type:
-                                                              appointment.status
-                                                                .title ==
-                                                              "Coming"
-                                                                ? "filled"
-                                                                : "border",
-                                                            "icon-pack":
-                                                              "feather"
-                                                          }
-                                                        },
-                                                        [_vm._v("Coming")]
-                                                      ),
-                                                      _vm._v(" "),
-                                                      _c(
-                                                        "vs-button",
-                                                        {
-                                                          attrs: {
-                                                            size: "small",
-                                                            color: "danger",
-                                                            type:
-                                                              appointment.status
-                                                                .title ==
-                                                              "Inside"
-                                                                ? "filled"
-                                                                : "border",
-                                                            "icon-pack":
-                                                              "feather"
-                                                          }
-                                                        },
-                                                        [_vm._v("Inside")]
-                                                      ),
-                                                      _vm._v(" "),
-                                                      _c(
-                                                        "vs-button",
-                                                        {
-                                                          attrs: {
-                                                            size: "small",
-                                                            color: "warning",
-                                                            type:
-                                                              appointment.status
-                                                                .title ==
-                                                              "Postponed"
-                                                                ? "filled"
-                                                                : "border",
-                                                            "icon-pack":
-                                                              "feather"
-                                                          }
-                                                        },
-                                                        [_vm._v("Postponed")]
-                                                      ),
-                                                      _vm._v(" "),
-                                                      _c(
-                                                        "vs-button",
-                                                        {
-                                                          attrs: {
-                                                            size: "small",
-                                                            color: "success",
-                                                            type:
-                                                              appointment.status
-                                                                .title ==
-                                                              "Finished"
-                                                                ? "filled"
-                                                                : "border",
-                                                            "icon-pack":
-                                                              "feather"
-                                                          }
-                                                        },
-                                                        [_vm._v("Finished")]
-                                                      )
-                                                    ],
-                                                    1
-                                                  )
-                                                ],
-                                                1
-                                              )
-                                            ],
-                                            1
-                                          )
-                                        ]
-                                      )
-                                    ],
-                                    2
-                                  )
-                                ]
-                              })
-                            ]
-                          }
-                        }
-                      ],
-                      null,
-                      false,
-                      2779536475
-                    )
+                      "vs-type": "flex",
+                      "vs-justify": "center",
+                      "vs-align": "center",
+                      "vs-w": "9"
+                    }
                   },
                   [
-                    _c("template", { slot: "header" }, [
+                    _c("b", { staticClass: "text-left vx-col w-full" }, [
+                      _vm._v(
+                        _vm._s(_vm.employees.length) +
+                          " results found in " +
+                          _vm._s(_vm.resultTime) +
+                          "ms"
+                      )
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _vm.can("create-user")
+                  ? _c(
+                      "vs-col",
+                      {
+                        attrs: {
+                          "vs-type": "flex",
+                          "vs-justify": "center",
+                          "vs-align": "center",
+                          "vs-w": "3"
+                        }
+                      },
+                      [
+                        _c(
+                          "vs-button",
+                          {
+                            attrs: {
+                              to: "/dashboard/employee/create",
+                              "vs-w": "3",
+                              color: "primary",
+                              type: "filled",
+                              "icon-pack": "feather",
+                              icon: "icon-user-plus"
+                            }
+                          },
+                          [_vm._v("  Add Employee")]
+                        )
+                      ],
+                      1
+                    )
+                  : _vm._e()
+              ],
+              1
+            )
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { ref: "browse", staticClass: "vx-row" },
+          _vm._l(_vm.employees, function(employee) {
+            return _c(
+              "div",
+              { staticClass: "vx-col w-full sm:w-1/2 md:w-1/3 mb-base" },
+              [
+                _c(
+                  "vx-card",
+                  { staticClass: "p-2" },
+                  [
+                    _c("vs-avatar", {
+                      staticClass: "mx-auto mb-6 block",
+                      attrs: { size: "80px", src: employee.image }
+                    }),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "text-center" }, [
+                      _c("h4", [
+                        _vm._v(
+                          _vm._s(employee.first_name) +
+                            " " +
+                            _vm._s(employee.last_name)
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("p", { staticClass: "text-grey" }, [
+                        _vm._v(_vm._s(employee.roles[0].name))
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("br"),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "text-left vx-col w-full" }, [
+                      _c("i", { staticClass: "fas fa-envelope" }),
+                      _vm._v(
+                        " " +
+                          _vm._s(_vm.$t("Email") || "Email") +
+                          "\n                    "
+                      ),
                       _c(
-                        "div",
-                        { staticClass: "con-select-example" },
+                        "p",
+                        {
+                          staticClass: "text-grey txt-hover",
+                          on: {
+                            click: function($event) {
+                              return _vm.copyToClipboard(employee.email)
+                            }
+                          }
+                        },
+                        [_vm._v(_vm._s(employee.email))]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("br"),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "text-left vx-col w-full" }, [
+                      _c("i", { staticClass: "fas fa-phone" }),
+                      _vm._v(
+                        "  " +
+                          _vm._s(_vm.$t("Telephone") || "Telephone(s)") +
+                          "\n                    "
+                      ),
+                      _c(
+                        "p",
+                        { staticClass: "text-grey" },
                         [
-                          _c(
-                            "vs-button",
-                            {
-                              attrs: {
-                                size: "small",
-                                to:
-                                  "/dashboard/appointment/add-appointment/new",
-                                "icon-pack": "feather",
-                                icon: "icon-plus"
-                              }
-                            },
-                            [_vm._v("Add Appointment")]
-                          )
+                          _vm._l(employee.phones, function(phone, index) {
+                            return [
+                              _c(
+                                "span",
+                                {
+                                  staticClass: "txt-hover",
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.copyToClipboard(phone.number)
+                                    }
+                                  }
+                                },
+                                [_vm._v(_vm._s(phone.number))]
+                              ),
+                              index !== employee.phones.length - 1
+                                ? [_vm._v(", ")]
+                                : _vm._e()
+                            ]
+                          }),
+                          _vm._v(" "),
+                          employee.phones.length === 0
+                            ? [
+                                _vm._v(
+                                  "\n                            No Telephones Assigned!\n                        "
+                                )
+                              ]
+                            : _vm._e()
                         ],
-                        1
+                        2
                       )
                     ]),
                     _vm._v(" "),
                     _c(
                       "template",
-                      { slot: "thead" },
+                      { slot: "footer" },
                       [
-                        _c("vs-th", [_vm._v("#")]),
+                        _c("vs-divider"),
                         _vm._v(" "),
-                        _c("vs-th", [_vm._v("ID")]),
-                        _vm._v(" "),
-                        _c("vs-th", [_vm._v("Name")]),
-                        _vm._v(" "),
-                        _c("vs-th", { attrs: { "sort-key": "duration" } }, [
-                          _vm._v("Duration")
-                        ]),
-                        _vm._v(" "),
-                        _c("vs-th", [_vm._v("Telephones")]),
-                        _vm._v(" "),
-                        _c("vs-th", [_vm._v("Status")]),
-                        _vm._v(" "),
-                        _c("vs-th", [_vm._v("Action")])
+                        _c("div", { staticClass: "flex justify-between" }, [
+                          _vm.can("delete-user")
+                            ? _c(
+                                "span",
+                                { staticClass: "flex items-center" },
+                                [
+                                  _c(
+                                    "vx-tooltip",
+                                    {
+                                      attrs: {
+                                        color: "danger",
+                                        text: _vm.$t("Delete") || "Delete"
+                                      }
+                                    },
+                                    [
+                                      _c("vs-button", {
+                                        staticClass:
+                                          "vs-con-loading__container",
+                                        attrs: {
+                                          id: "btn-delete-" + employee.id,
+                                          color: "danger",
+                                          type: "filled",
+                                          "icon-pack": "feather",
+                                          icon: "icon-trash"
+                                        },
+                                        on: {
+                                          click: function($event) {
+                                            _vm.is_requesting
+                                              ? _vm.$store.dispatch(
+                                                  "viewWaitMessage",
+                                                  _vm.$vs
+                                                )
+                                              : _vm.confirmDeleteEmployee(
+                                                  employee
+                                                )
+                                          }
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _vm.can("edit-user") ||
+                          _vm.$store.getters["auth/userData"].id ===
+                            _vm.$route.params.id
+                            ? _c(
+                                "span",
+                                { staticClass: "flex items-center" },
+                                [
+                                  _c("vs-button", {
+                                    attrs: {
+                                      to:
+                                        "/dashboard/employee/" +
+                                        employee.id +
+                                        "/edit",
+                                      color: "warning",
+                                      type: "filled",
+                                      "icon-pack": "feather",
+                                      icon: "icon-edit"
+                                    }
+                                  })
+                                ],
+                                1
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _vm.can("view-user") ||
+                          _vm.$store.getters["auth/userData"].id ===
+                            _vm.$route.params.id
+                            ? _c(
+                                "span",
+                                { staticClass: "flex items-center" },
+                                [
+                                  _c(
+                                    "vs-button",
+                                    {
+                                      attrs: {
+                                        to:
+                                          "/dashboard/employee/" + employee.id,
+                                        type: "gradient",
+                                        "icon-pack": "feather",
+                                        icon: "icon-eye"
+                                      }
+                                    },
+                                    [_vm._v("View")]
+                                  )
+                                ],
+                                1
+                              )
+                            : _vm._e()
+                        ])
                       ],
                       1
                     )
                   ],
                   2
                 )
-              : _vm._e()
-          ],
-          1
+              ],
+              1
+            )
+          }),
+          0
         )
-      ],
-      1
-    )
-  ])
+      ])
+    : _vm._e()
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -1086,18 +570,18 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/src/views/appointment/Appointment.vue":
-/*!************************************************************!*\
-  !*** ./resources/js/src/views/appointment/Appointment.vue ***!
-  \************************************************************/
+/***/ "./resources/js/src/views/employee/browse.vue":
+/*!****************************************************!*\
+  !*** ./resources/js/src/views/employee/browse.vue ***!
+  \****************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Appointment_vue_vue_type_template_id_5cd96d16___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Appointment.vue?vue&type=template&id=5cd96d16& */ "./resources/js/src/views/appointment/Appointment.vue?vue&type=template&id=5cd96d16&");
-/* harmony import */ var _Appointment_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Appointment.vue?vue&type=script&lang=js& */ "./resources/js/src/views/appointment/Appointment.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _Appointment_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Appointment.vue?vue&type=style&index=0&lang=css& */ "./resources/js/src/views/appointment/Appointment.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _browse_vue_vue_type_template_id_1b95951e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./browse.vue?vue&type=template&id=1b95951e& */ "./resources/js/src/views/employee/browse.vue?vue&type=template&id=1b95951e&");
+/* harmony import */ var _browse_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./browse.vue?vue&type=script&lang=js& */ "./resources/js/src/views/employee/browse.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _browse_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./browse.vue?vue&type=style&index=0&lang=css& */ "./resources/js/src/views/employee/browse.vue?vue&type=style&index=0&lang=css&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -1108,9 +592,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
-  _Appointment_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _Appointment_vue_vue_type_template_id_5cd96d16___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _Appointment_vue_vue_type_template_id_5cd96d16___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _browse_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _browse_vue_vue_type_template_id_1b95951e___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _browse_vue_vue_type_template_id_1b95951e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -1120,54 +604,54 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/src/views/appointment/Appointment.vue"
+component.options.__file = "resources/js/src/views/employee/browse.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/src/views/appointment/Appointment.vue?vue&type=script&lang=js&":
-/*!*************************************************************************************!*\
-  !*** ./resources/js/src/views/appointment/Appointment.vue?vue&type=script&lang=js& ***!
-  \*************************************************************************************/
+/***/ "./resources/js/src/views/employee/browse.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************!*\
+  !*** ./resources/js/src/views/employee/browse.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Appointment_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./Appointment.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/appointment/Appointment.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Appointment_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_browse_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./browse.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/employee/browse.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_browse_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/src/views/appointment/Appointment.vue?vue&type=style&index=0&lang=css&":
-/*!*********************************************************************************************!*\
-  !*** ./resources/js/src/views/appointment/Appointment.vue?vue&type=style&index=0&lang=css& ***!
-  \*********************************************************************************************/
+/***/ "./resources/js/src/views/employee/browse.vue?vue&type=style&index=0&lang=css&":
+/*!*************************************************************************************!*\
+  !*** ./resources/js/src/views/employee/browse.vue?vue&type=style&index=0&lang=css& ***!
+  \*************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Appointment_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader!../../../../../node_modules/css-loader??ref--7-1!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--7-2!../../../../../node_modules/vue-loader/lib??vue-loader-options!./Appointment.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/appointment/Appointment.vue?vue&type=style&index=0&lang=css&");
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Appointment_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Appointment_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Appointment_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Appointment_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
- /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Appointment_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_browse_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader!../../../../../node_modules/css-loader??ref--7-1!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--7-2!../../../../../node_modules/vue-loader/lib??vue-loader-options!./browse.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/employee/browse.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_browse_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_browse_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_browse_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_browse_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_browse_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
-/***/ "./resources/js/src/views/appointment/Appointment.vue?vue&type=template&id=5cd96d16&":
-/*!*******************************************************************************************!*\
-  !*** ./resources/js/src/views/appointment/Appointment.vue?vue&type=template&id=5cd96d16& ***!
-  \*******************************************************************************************/
+/***/ "./resources/js/src/views/employee/browse.vue?vue&type=template&id=1b95951e&":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/src/views/employee/browse.vue?vue&type=template&id=1b95951e& ***!
+  \***********************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Appointment_vue_vue_type_template_id_5cd96d16___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./Appointment.vue?vue&type=template&id=5cd96d16& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/appointment/Appointment.vue?vue&type=template&id=5cd96d16&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Appointment_vue_vue_type_template_id_5cd96d16___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_browse_vue_vue_type_template_id_1b95951e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./browse.vue?vue&type=template&id=1b95951e& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/employee/browse.vue?vue&type=template&id=1b95951e&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_browse_vue_vue_type_template_id_1b95951e___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Appointment_vue_vue_type_template_id_5cd96d16___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_browse_vue_vue_type_template_id_1b95951e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

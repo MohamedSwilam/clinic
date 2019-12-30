@@ -14,6 +14,8 @@ Vue.use(Vuex);
 import moduleAuth from './auth/moduleAuth.js'
 import moduleEmployee from './employee/moduleEmployee'
 import modulePatient from './patient/modulePatient'
+import moduleAppointment from './appointment/moduleAppointment'
+import modulePayment from './payment/modulePayment'
 import moduleReservationType from './reservation-type/moduleReservationType'
 import moduleReservationDuration from './reservation-duration/moduleReservationDuration'
 import moduleRolesAndPermissions from './roles-and-permissions/moduleRolesAndPermissions'
@@ -32,6 +34,8 @@ export default new Vuex.Store({
         auth: moduleAuth,
         employee: moduleEmployee,
         patient: modulePatient,
+        appointment: moduleAppointment,
+        payment: modulePayment,
         rolesAndPermissions: moduleRolesAndPermissions,
         reservationType: moduleReservationType,
         reservationDuration: moduleReservationDuration,

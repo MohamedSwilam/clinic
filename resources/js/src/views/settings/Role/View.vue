@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<vx-card ref="view" title="Role Information">
+		<vx-card v-if="can('view-role')" ref="view" title="Role Information">
 			<template v-if="role">
 				<b>ID: </b>  {{role.id}}
 				<vs-divider/>

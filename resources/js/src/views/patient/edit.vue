@@ -1,6 +1,6 @@
 <template>
     <div>
-        <vx-card ref="edit" title='Edit Patient' collapse-action>
+        <vx-card v-if="can('edit-patient')" ref="edit" title='Edit Patient' collapse-action>
             <vs-row>
                 <vs-col vs-lg="6" vs-sm="12" vs-xs="12" class="mb-5 pl-5">
                     <vs-input :danger="errors.has('first_name')" :danger-text="errors.first('first_name')" val-icon-danger="clear" icon-pack="feather" icon="icon-user" label-placeholder="First Name" v-model="form.first_name" class="w-full" name="first_name" v-validate="'required|alpha_dash|min:3'" />

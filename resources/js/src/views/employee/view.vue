@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="vx-col w-full mb-base">
+        <div class="vx-col w-full mb-base" v-if="can('view-user')||$store.getters['auth/userData'].id===$route.params.id">
             <vx-card ref="view" title="Personal Information" collapseAction>
                 <vs-row v-if="employee">
                     <vs-row class="mb-5">
@@ -50,137 +50,104 @@
             </vx-card>
         </div>
 
-        <div class="vx-col w-full mb-base" v-if="this.appointments.length>0">
-            <vx-card title="Appointments" collapseAction>
-                <vs-table :sst="true"
-                          @search="handleSearch"
-                          @change-page="handleChangePage"
-                          @sort="handleSort"
-                          max-items="50" search pagination
-                          :data="appointments"
-                          v-if="appointments.length > 0">
+        <div class="vx-col w-full mb-base" v-if="employee&&employee.roles[0].id===3">
+            <vx-card ref="browse" title="Appointments" collapseAction refreshContentAction @refresh="getAppointments">
+                <vs-table
+                    :sst="true"
+                    @sort="handleSort"
+                    :data="appointments">
+
                     <template slot="header">
-                        <div class="con-select-example">
-                            <vs-select
-                                autocomplete
-                                class="selectExample"
-                                label="Filter"
-                                v-model="filterData"
-                                icon-pack="feather"
-                                icon="icon-filter"
-                            >
-                                <div>
-                                    <vs-select-group :title="'Duration'">
-                                        <vs-select-item value="today" text="Today"/>
-                                        <vs-select-item value="Tomorrow" text="Tomorrow"/>
-                                        <vs-select-item value="This Week" text="This Week"/>
-                                        <vs-select-item value="This Month" text="This Month"/>
-                                    </vs-select-group>
-                                </div>
-                                <div>
-                                    <vs-select-group :title="'Status'">
-                                        <vs-select-item value="Coming" text="Coming"/>
-                                        <vs-select-item value="Inside" text="Inside"/>
-                                        <vs-select-item value="Postponed" text="Postponed"/>
-                                        <vs-select-item value="Finished" text="Finished"/>
-                                    </vs-select-group>
-                                </div>
-                                <div>
-                                    <vs-select-group :title="'Gender'">
-                                        <vs-select-item value="Male" text="Male"/>
-                                        <vs-select-item value="Female" text="Female"/>
-                                    </vs-select-group>
-                                </div>
-                                <div>
-                                    <vs-select-group :title="'Payments'">
-                                        <vs-select-item value="Less Paid" text="Less Paid"/>
-                                        <vs-select-item value="Most Paid" text="Most Paid"/>
-                                        <vs-select-item value="Complete" text="Complete"/>
-                                    </vs-select-group>
-                                </div>
-                            </vs-select>
-                        </div>
+                        <vs-row>
+                            <vs-col vs-lg="6" vs-sm="12" vs-xs="12">
+                                <vs-button size="small" to="/dashboard/appointment/add-appointment/new" icon-pack="feather" icon="icon-plus" type="filled">Add Appointment</vs-button>
+                            </vs-col>
+                            <vs-col vs-lg="3" vs-sm="6" vs-xs="6" class="mb-5">
+                                <vs-select
+                                    autocomplete
+                                    class="selectExample"
+                                    v-model="filterBy"
+                                    icon-pack="feather"
+                                    icon="icon-filter"
+                                >
+                                    <vs-select-item value="date" text="Date"/>
+                                    <vs-select-item value="status" text="Status"/>
+                                    <vs-select-item value="patient" text="Patient ID"/>
+                                    <vs-select-item value="patientName" text="Patient Name"/>
+                                </vs-select>
+                            </vs-col>
+                            <vs-col vs-lg="3" vs-sm="6" vs-xs="6" class="mb-5">
+                                <vs-input icon-pack="feather" icon="icon-search" icon-after placeholder="search" v-model="searchText" @change="handleSearch"></vs-input>
+                            </vs-col>
+                        </vs-row>
                     </template>
                     <template slot="thead">
                         <vs-th>#</vs-th>
-                        <vs-th>ID</vs-th>
+                        <vs-th sort-key="patient_id">ID</vs-th>
                         <vs-th>Name</vs-th>
-                        <vs-th sort-key="duration">Duration</vs-th>
-                        <vs-th>Telephones</vs-th>
-                        <vs-th>Status</vs-th>
+                        <vs-th>Date</vs-th>
+                        <vs-th>From</vs-th>
+                        <vs-th>To</vs-th>
+                        <vs-th sort-key="status">Status</vs-th>
                         <vs-th>Action</vs-th>
                     </template>
                     <template slot-scope="{data}">
                         <template v-for="(appointment, index) in appointments">
                             <vs-tr :key="index">
                                 <vs-td :data="index + 1">
-                                    <div @contextmenu.prevent="openContext(appointment.id)">
-                                        {{ index + 1 }}
-                                    </div>
+                                    {{ index + 1 }}
                                 </vs-td>
 
                                 <vs-td>
-                                    <div @contextmenu.prevent="openContext(appointment.id)">
-                                        {{ appointment.patient.public_id }}
-                                    </div>
+                                    {{ appointment.patient.id }}
                                 </vs-td>
 
                                 <vs-td>
-                                    <div @contextmenu.prevent="openContext(appointment.id)">
-                                        {{ appointment.patient.name }}
-                                    </div>
+                                    {{ appointment.patient.first_name }} {{ appointment.patient.last_name }}
                                 </vs-td>
 
                                 <vs-td>
-                                    <div @contextmenu.prevent="openContext(appointment.id)">
-                                        {{appointment.duration.getUTCDay()}}/{{appointment.duration.getUTCMonth()}}/{{appointment.duration.getUTCFullYear()}} {{appointment.duration.toLocaleTimeString()}}
-                                    </div>
+                                    {{appointment.reservation_duration.date}}
                                 </vs-td>
 
                                 <vs-td>
-                                    <div @contextmenu.prevent="openContext(appointment.id)">
-                                        <template v-for="(telephone, index) in appointment.patient.telephones">
-                                            {{ telephone }}<template v-if="index !== appointment.patient.telephones.length-1">, </template>
-                                        </template>
-                                    </div>
+                                    {{new Date(`${appointment.reservation_duration.date} ${appointment.reservation_duration.start_time}`).toLocaleTimeString()}}
+                                </vs-td>
+
+                                <vs-td>
+                                    {{new Date(`${appointment.reservation_duration.date} ${appointment.reservation_duration.end_time}`).toLocaleTimeString()}}
                                 </vs-td>
                                 <vs-td>
-                                    <vs-chip :color="appointment.status.color">{{appointment.status.title}}</vs-chip>
+                                    <vs-chip :color="appointment.status.color">{{appointment.status.name}}</vs-chip>
                                 </vs-td>
 
                                 <vs-td>
                                     <div class="flex mb-4">
-                                        <div class="w-1/3 pl-2">
-                                            <vs-button :to="`/dashboard/patient/${appointment.patient.public_id}`" radius color="primary" type="border" icon-pack="feather" icon="icon-eye"></vs-button>
-                                        </div>
-                                        <div class="w-1/3 pl-2">
-                                            <vs-button :to="`/dashboard/patient/${appointment.patient.public_id}/edit`" radius color="warning" type="border" icon-pack="feather" icon="icon-edit"></vs-button>
-                                        </div>
-                                        <div class="w-1/3 pl-2">
-                                            <vs-button radius color="danger" type="border" icon-pack="feather" icon="icon-trash" @click="confirmDeleteAppointement(appointment)"></vs-button>
-                                        </div>
+                                        <vs-button :to="`/dashboard/patient/${appointment.patient.id}`" radius color="primary" type="border" icon-pack="feather" icon="icon-eye"></vs-button>
+                                        <vs-button class="ml-3" :id="`btn-delete-${appointment.id}`" radius color="danger" type="border" icon-pack="feather" icon="icon-trash" @click="confirmDeleteAppointement(appointment)"></vs-button>
                                     </div>
                                 </vs-td>
 
                                 <template class="expand-user" slot="expand">
                                     <div class="con-expand-users w-full">
                                         <vs-list>
-                                            <vs-list-item icon-pack="feather" icon="icon-arrow-right" :title="'Appointment Information'"></vs-list-item>
-                                            <vs-list-item icon-pack="feather" icon="icon-arrow-right" :title="'Appointment Information'"></vs-list-item>
+                                            <vs-list-item icon-pack="feather" icon="icon-arrow-right" :title="'Payments'">
+                                                Paid <b>{{appointment.payment[0].paid}} EGP</b> Out of <b>{{appointment.payment[0].to_be_paid}} EGP</b>
+                                            </vs-list-item>
+                                            <vs-list-item icon-pack="feather" icon="icon-arrow-right" :title="`Type: ${appointment.reservation_type.name}`"></vs-list-item>
+                                            <vs-list-item icon-pack="feather" icon="icon-arrow-right" :title="`Doctor: ${appointment.doctor.first_name} ${appointment.doctor.last_name}`"></vs-list-item>
+                                            <vs-list-item icon-pack="feather" icon="icon-arrow-right" :title="`Illness Description: ${appointment.illness_description}`"></vs-list-item>
                                             <vs-list-item icon-pack="feather" icon="icon-arrow-right" :title="'Update Status'">
-                                                <vs-button size="small" color="primary" :type="appointment.status.title=='Coming'?'filled':'border'" icon-pack="feather">Coming</vs-button>
-                                                <vs-button size="small" color="danger" :type="appointment.status.title=='Inside'?'filled':'border'" icon-pack="feather">Inside</vs-button>
-                                                <vs-button size="small" color="warning" :type="appointment.status.title=='Postponed'?'filled':'border'" icon-pack="feather">Postponed</vs-button>
-                                                <vs-button size="small" color="success" :type="appointment.status.title=='Finished'?'filled':'border'" icon-pack="feather">Finished</vs-button>
+                                                <vs-button class="ml-3" :key="status_index" v-for="(status, status_index) in statuses" :id="`update-status-btn-${appointment.id}-${status.id}`" @click="is_requesting?$store.dispatch('viewWaitMessage', $vs):updateStatus(index, appointment.id, status.id)" size="small" :color="status.color" :type="appointment.status.id===status.id?'filled':'border'" icon-pack="feather">{{status.name}}</vs-button>
                                             </vs-list-item>
                                         </vs-list>
                                     </div>
                                 </template>
-
                             </vs-tr>
                         </template>
                     </template>
                 </vs-table>
+                <vs-pagination goto class="mt-5" @change="handleChangePage" :total="total_pages" v-model="currentPage"></vs-pagination>
             </vx-card>
         </div>
     </div>
@@ -190,16 +157,41 @@
     export default {
         name: "viewData",
         mounted() {
-            this.getAppointments();
             this.getEmployeeData();
         },
         data: () => {
             return {
                 employee: null,
-
+                searchText: "",
                 appointments: [],
-
-                filterData: []
+                currentPage: 1,
+                sortFilter: 'sortDesc=id',
+                paginate: 15,
+                total_pages: 0,
+                filterBy: 'date',
+                is_requesting: false,
+                statuses: [
+                    {
+                        id: 1,
+                        name: 'Coming',
+                        color: '#7467F0'
+                    },
+                    {
+                        id: 2,
+                        name: 'Inside',
+                        color: '#EA5455'
+                    },
+                    {
+                        id: 3,
+                        name: 'Postponed',
+                        color: '#FF9F42'
+                    },
+                    {
+                        id: 4,
+                        name: 'Finished',
+                        color: '#27C76F'
+                    }
+                ]
             }
         },
         methods: {
@@ -207,8 +199,11 @@
                 this.$vs.loading({container: this.$refs.view.$refs.content, scale: 0.5});
                 this.$store.dispatch('employee/view', this.$route.params.id)
                     .then(response => {
-                        this.$vs.loading.close(this.$refs.view.$refs.content);
                         this.employee = response.data.data.data;
+                        this.$vs.loading.close(this.$refs.view.$refs.content);
+                        if(this.employee.roles[0].id===3){
+                            this.getAppointments();
+                        }
                     })
                     .catch(error => {
                         console.log(error);
@@ -223,208 +218,119 @@
                     });
             },
 
-            handleSearch()
-            {
-
-            },
-
-            handleChangePage()
-            {
-
-            },
-
-            handleSort()
-            {
-
-            },
-
             getAppointments()
             {
-                this.appointments = [
-                    {
-                        id: 1,
-                        type: 'Reservation Type1',
-                        duration: new Date(),
-                        doctor: {
-                            id: 1,
-                            name: 'Irene Baker'
-                        },
-                        patient: {
-                            id : 1,
-                            name: "Phil Gray",
-                            public_id: "p-105",
-                            dob: "18/10/1997",
-                            telephones: ["01096436702", "01113689783"],
-                            payment: {
-                                paid: 200,
-                                total: 1000,
-                                percentage: (200*100)/1000
-                            },
-                        },
-                        status: {
-                            id: 1,
-                            title: 'Coming',
-                            color: 'primary'
-                        }
-                    },
-                    {
-                        id: 2,
-                        type: 'Reservation Type1',
-                        duration: new Date(),
-                        doctor: {
-                            id: 1,
-                            name: 'Irene Baker'
-                        },
-                        patient: {
-                            id : 1,
-                            name: "Phil Gray",
-                            public_id: "p-106",
-                            dob: "18/10/1997",
-                            telephones: ["01096436702", "01113689783"],
-                            payment: {
-                                paid: 500,
-                                total: 800,
-                                percentage: (500*100)/800
-                            },
-                        },
-                        status: {
-                            id: 2,
-                            title: 'Inside',
+                this.$vs.loading({container: this.$refs.browse.$refs.content, scale: 0.5});
+                this.$store.dispatch('appointment/getData', `?page=${this.currentPage}&paginate=${this.paginate}&${this.sortFilter}&${this.filterBy}=${this.searchText}&doctor=${this.$route.params.id}`)
+                    .then(response => {
+                        this.$vs.loading.close(this.$refs.browse.$refs.content);
+                        this.appointments = response.data.data.data;
+                        this.total_pages = response.data.data.meta.pagination.total_pages;
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        this.$vs.loading.close(this.$refs.browse.$refs.content);
+                        this.$vs.notify({
+                            title: 'Error',
+                            text: error.response.data.error,
+                            iconPack: 'feather',
+                            icon: 'icon-alert-circle',
                             color: 'danger'
-                        }
-                    },
-                    {
-                        id: 3,
-                        type: 'Reservation Type1',
-                        duration: new Date(),
-                        doctor: {
-                            id: 1,
-                            name: 'Irene Baker'
-                        },
-                        patient: {
-                            id : 1,
-                            name: "Phil Gray",
-                            public_id: "p-105",
-                            dob: "18/10/1997",
-                            telephones: ["01096436702", "01113689783"],
-                            payment: {
-                                paid: 900,
-                                total: 900,
-                                percentage: (900*100)/900
-                            },
-                        },
-                        status: {
-                            id: 3,
-                            title: 'Postponed',
-                            color: 'warning'
-                        }
-                    },
-                    {
-                        id: 4,
-                        type: 'Reservation Type1',
-                        duration: new Date(),
-                        doctor: {
-                            id: 1,
-                            name: 'Irene Baker'
-                        },
-                        patient: {
-                            id : 1,
-                            name: "Phil Gray",
-                            public_id: "p-107",
-                            dob: "18/10/1997",
-                            telephones: ["01096436702", "01113689783"],
-                            payment: {
-                                paid: 200,
-                                total: 1000,
-                                percentage: (200*100)/1000
-                            }
-                        },
-                        status: {
-                            id: 4,
-                            title: 'Finished',
-                            color: 'success'
-                        },
-                    },
-                    {
-                        id: 5,
-                        type: 'Reservation Type1',
-                        duration: new Date(),
-                        doctor: {
-                            id: 1,
-                            name: 'Irene Baker'
-                        },
-                        patient: {
-                            id : 1,
-                            name: "Phil Gray",
-                            public_id: "p-108",
-                            dob: "18/10/1997",
-                            telephones: ["01096436702", "01113689783"],
-                            payment: {
-                                paid: 200,
-                                total: 1000,
-                                percentage: (200*100)/1000
-                            },
-                        },
-                        status: {
-                            id: 4,
-                            title: 'Finished',
-                            color: 'success'
-                        }
-                    },
-                    {
-                        id: 6,
-                        type: 'Reservation Type1',
-                        duration: new Date(),
-                        doctor: {
-                            id: 1,
-                            name: 'Irene Baker'
-                        },
-                        patient: {
-                            id : 1,
-                            name: "Phil Gray",
-                            public_id: "p-109",
-                            dob: "18/10/1997",
-                            telephones: ["01096436702", "01113689783"],
-                            payment: {
-                                paid: 700,
-                                total: 1000,
-                                percentage: (700*100)/1000
-                            },
-                        },
-                        status: {
-                            id: 4,
-                            title: 'Finished',
-                            color: 'success'
-                        },
-                    },
-                    {
-                        id: 7,
-                        type: 'Reservation Type2',
-                        duration: new Date(),
-                        doctor: {
-                            id: 1,
-                            name: 'Irene Baker'
-                        },
-                        patient: {
-                            id : 2,
-                            name: "Phil Gray",
-                            public_id: "p-110",
-                            dob: "18/10/1997",
-                            telephones: ["01096436702", "01113689783"],
-                            payment: {
-                                paid: 200,
-                                total: 1000,
-                                percentage: (200*100)/1000
-                            },
-                        },
-                        status: {
-                            id: 4,
-                            title: 'Missed',
-                            color: 'dark'
-                        },
-                    },
-                ];
+                        });
+                    });
             },
+
+            updateStatus(index, appointmentId, statusId){
+                this.is_requesting=true;
+                this.$vs.loading({container: `#update-status-btn-${appointmentId}-${statusId}`, color: 'danger', scale: 0.45});
+                this.$store.dispatch('appointment/update', {id: appointmentId, data: {status_id: statusId, has_payment: 0}})
+                    .then(response => {
+                        this.is_requesting = false;
+                        this.appointments[index].status_id = statusId;
+                        this.appointments[index].status = this.statuses.filter(status => {return status.id===statusId})[0];
+                        this.$vs.loading.close(`#update-status-btn-${appointmentId}-${statusId} > .con-vs-loading`);
+                        this.$vs.notify({
+                            title: 'Success',
+                            text: response.data.message,
+                            iconPack: 'feather',
+                            icon: 'icon-check',
+                            color: 'success'
+                        });
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        this.is_requesting=false;
+                        this.$vs.loading.close(`update-status-btn-${appointmentId}-${statusId} > .con-vs-loading`);
+                        this.$vs.notify({
+                            title: 'Error',
+                            text: error.response.data.error,
+                            iconPack: 'feather',
+                            icon: 'icon-alert-circle',
+                            color: 'danger'
+                        });
+                    });
+            },
+
+            confirmDeleteAppointement(appointment)
+            {
+                this.$vs.dialog({
+                    type: 'confirm',
+                    color: 'danger',
+                    title: `Are you sure!`,
+                    text: 'This data can not be retrieved again.',
+                    accept: this.deleteAppointment,
+                    parameters: [appointment]
+                });
+            },
+
+            deleteAppointment(params)
+            {
+                this.is_requesting=true;
+                this.$vs.loading({container: `#btn-delete-${params[0].id}`, color: 'danger', scale: 0.45});
+                this.$store.dispatch('appointment/delete', params[0].id)
+                    .then(response => {
+                        this.is_requesting = false;
+                        this.$vs.loading.close(`#btn-delete-${params[0].id} > .con-vs-loading`);
+                        this.appointments = this.appointments.filter(appointment => {return appointment.id !== params[0].id});
+                        this.$vs.notify({
+                            title: 'Success',
+                            text: response.data.message,
+                            iconPack: 'feather',
+                            icon: 'icon-check',
+                            color: 'success'
+                        });
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        this.is_requesting=false;
+                        this.$vs.loading.close(`#btn-delete-${params[0].id} > .con-vs-loading`);
+                        this.$vs.notify({
+                            title: 'Error',
+                            text: error.response.data.error,
+                            iconPack: 'feather',
+                            icon: 'icon-alert-circle',
+                            color: 'danger'
+                        });
+                    });
+            },
+
+            handleSearch()
+            {
+                this.currentPage=1;
+                this.getAppointments();
+            },
+
+            handleSort(key, active)
+            {
+                this.sortFilter = active?`sortDesc=${key}`:`sortAsc=${key}`;
+                this.currentPage=1;
+                this.getAppointments();
+            },
+
+            handleChangePage() {
+                this.getAppointments();
+            },
+
             copyToClipboard(text) {
                 if (window.clipboardData && window.clipboardData.setData) {
                     // IE specific code path to prevent textarea being shown while dialog is visible.
@@ -473,27 +379,8 @@
 </script>
 
 <style>
-    .selectExample {
-        margin: 10px;
-    }
-    .con-select-example {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    .con-select .vs-select {
-        width: 100%
-    }
     .txt-hover:hover{
         cursor: pointer;
         color: black !important;
-    }
-    @media (max-width: 550px) {
-        .con-select {
-            flex-direction: column;
-        }
-        .con-select .vs-select {
-            width: 100%
-        }
     }
 </style>

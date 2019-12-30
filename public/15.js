@@ -67,6 +67,8 @@ __webpack_require__.r(__webpack_exports__);
 
         _this.$vs.loading.close("#btn-create > .con-vs-loading");
 
+        _this.$router.push('/dashboard/settings/reservation');
+
         _this.$vs.notify({
           title: 'Success',
           text: response.data.message,

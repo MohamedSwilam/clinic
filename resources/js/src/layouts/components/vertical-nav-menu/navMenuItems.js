@@ -49,7 +49,7 @@ export default [
         slug: "appointment",
         icon: "EditIcon",
         i18n: "Appointment",
-        permission: "view-appointment"
+        permission: "browse-appointment"
     },
     {
         name: "Settings",

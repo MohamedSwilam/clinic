@@ -59,7 +59,7 @@ class Patient extends Model
         ]);
     }
 
-    public function scopeNotPaidPayments($query, $data)
+    public function scopeNotPaidPayments($query)
     {
         return $query->with([
             'payments' => function ($query) {
