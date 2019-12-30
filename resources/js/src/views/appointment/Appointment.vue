@@ -151,6 +151,8 @@
     import "@fortawesome/fontawesome-free/css/all.css";
     import "@fortawesome/fontawesome-free/js/all.js";
     import { VueContext } from 'vue-context';
+
+    import Echo from "laravel-echo";
     export default {
         name: "Appointment",
         components: {
@@ -158,6 +160,13 @@
         },
         mounted() {
             this.getAppointmentsData(Date.now());
+
+            // window.Echo.channel('private-appointment.1') //Should be Channel Name
+            //     .listen('Illuminate\\Notifications\\Events\\BroadcastNotificationCreated', (e) => {
+            //         console.log(e);
+            //         alert(e);
+            //     });
+
         },
         data: function (){
             return {

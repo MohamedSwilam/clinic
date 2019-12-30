@@ -86,3 +86,5 @@ Route::group(['prefix' => 'medical-report', 'middleware' => 'auth:api'], functio
     Route::delete('{id}', 'MedicalReportController@destroy');
     Route::resource('', 'MedicalReportController');
 });
+
+Route::get('test', 'TestController@index');

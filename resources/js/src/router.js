@@ -175,7 +175,7 @@ const router = new Router({
                         ],
                         pageTitle: 'Appointment',
                         pageTitle_i18n: 'Appointment',
-                        permission: 'view-appointment'
+                        permission: 'browse-appointment'
                     }
                 },
                 {

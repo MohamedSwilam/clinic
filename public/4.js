@@ -15,6 +15,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _fortawesome_fontawesome_free_js_all_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_fortawesome_fontawesome_free_js_all_js__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var vue_context__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-context */ "./node_modules/vue-context/dist/js/vue-context.js");
 /* harmony import */ var vue_context__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue_context__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var laravel_echo__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! laravel-echo */ "./node_modules/laravel-echo/dist/echo.js");
 //
 //
 //
@@ -164,6 +165,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 
@@ -173,7 +175,11 @@ __webpack_require__.r(__webpack_exports__);
     VueContext: vue_context__WEBPACK_IMPORTED_MODULE_2__["VueContext"]
   },
   mounted: function mounted() {
-    this.getAppointmentsData(Date.now());
+    this.getAppointmentsData(Date.now()); // window.Echo.channel('private-appointment.1') //Should be Channel Name
+    //     .listen('Illuminate\\Notifications\\Events\\BroadcastNotificationCreated', (e) => {
+    //         console.log(e);
+    //         alert(e);
+    //     });
   },
   data: function data() {
     return {

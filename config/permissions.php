@@ -142,11 +142,6 @@ return [
             'display_name' => 'View Reservation',
         ],
         [
-            'name' => 'assign-reservation',
-            'guard_name' => 'api',
-            'display_name' => 'Assign Reservation',
-        ],
-        [
             'name' => 'edit-reservation',
             'guard_name' => 'api',
             'display_name' => 'Edit Reservation',

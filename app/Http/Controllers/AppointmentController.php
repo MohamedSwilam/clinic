@@ -5,14 +5,17 @@ namespace App\Http\Controllers;
 use App\Appointment;
 use App\Http\Requests\AppointmentRequest;
 use App\IndexResponse;
+use App\Notifications\AppointmentCreated;
 use App\Patient;
 use App\Payment;
 use App\Phone;
 use App\ReservationDuration;
 use App\Transformers\AppointmentTransformer;
+use App\User;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Notifications\Notification;
 
 class AppointmentController extends Controller
 {
@@ -62,6 +65,8 @@ class AppointmentController extends Controller
 
         $appointment = Appointment::create($data);
 
+        $doctor = User::find($data['doctor_id']);
+
         if ($data['has_payment']){
             $data = $data['payment'];
             $data['appointment_id'] = $appointment->id;
@@ -69,6 +74,8 @@ class AppointmentController extends Controller
             $data['patient_id'] = $appointment->patient->id;
             Payment::create($data);
         }
+
+        $doctor->notify(new AppointmentCreated($appointment));
 
         return $this->respond(
             'Appointment Created Successfully',
