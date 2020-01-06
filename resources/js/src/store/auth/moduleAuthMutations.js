@@ -1,18 +1,8 @@
-/*=========================================================================================
-  File Name: moduleAuthMutations.js
-  Description: Auth Module Mutations
-  ----------------------------------------------------------------------------------------
-  Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
-  Author: Pixinvent
-  Author URL: http://www.themeforest.net/user/pixinvent
-==========================================================================================*/
-
-import axios from "../../http/axios/index.js"
+import axios from "../../http/axios/index.js";
 
 export default {
     SET_BEARER(state, payload) {
         state.accessToken = payload.accessToken;
-        // console.log(payload.accessToken.accessToken);
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + payload.accessToken.accessToken;
     },
 

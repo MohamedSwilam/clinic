@@ -11,14 +11,15 @@ import VuexPersistence from 'vuex-persist'
 
 Vue.use(Vuex);
 
-import moduleAuth from './auth/moduleAuth.js'
-import moduleEmployee from './employee/moduleEmployee'
-import modulePatient from './patient/modulePatient'
-import moduleAppointment from './appointment/moduleAppointment'
-import modulePayment from './payment/modulePayment'
-import moduleReservationType from './reservation-type/moduleReservationType'
-import moduleReservationDuration from './reservation-duration/moduleReservationDuration'
-import moduleRolesAndPermissions from './roles-and-permissions/moduleRolesAndPermissions'
+import moduleAppointment from './appointment/moduleAppointment';
+import moduleAuth from './auth/moduleAuth.js';
+import moduleEmployee from './employee/moduleEmployee';
+import moduleNotification from './notification/moduleNotification';
+import modulePatient from './patient/modulePatient';
+import modulePayment from './payment/modulePayment';
+import moduleReservationDuration from './reservation-duration/moduleReservationDuration';
+import moduleReservationType from './reservation-type/moduleReservationType';
+import moduleRolesAndPermissions from './roles-and-permissions/moduleRolesAndPermissions';
 
 const vuexLocal = new VuexPersistence({
     storage: window.localStorage
@@ -31,14 +32,15 @@ export default new Vuex.Store({
     state,
     actions,
     modules: {
+        appointment: moduleAppointment,
         auth: moduleAuth,
         employee: moduleEmployee,
+        notification: moduleNotification,
         patient: modulePatient,
-        appointment: moduleAppointment,
         payment: modulePayment,
-        rolesAndPermissions: moduleRolesAndPermissions,
-        reservationType: moduleReservationType,
         reservationDuration: moduleReservationDuration,
+        reservationType: moduleReservationType,
+        rolesAndPermissions: moduleRolesAndPermissions,
     },
     plugins: [vuexLocal.plugin],
     strict: process.env.NODE_ENV !== 'production'
