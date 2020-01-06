@@ -1823,7 +1823,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 
@@ -1840,52 +1839,7 @@ __webpack_require__.r(__webpack_exports__);
       navbarSearchAndPinList: this.$store.state.navbarSearchAndPinList,
       searchQuery: '',
       showFullSearch: false,
-      unreadNotifications: [{
-        index: 0,
-        title: 'New Message',
-        msg: 'Are your going to meet me tonight?',
-        icon: 'MessageSquareIcon',
-        time: this.randomDate({
-          sec: 10
-        }),
-        category: 'primary'
-      }, {
-        index: 1,
-        title: 'New Order Recieved',
-        msg: 'You got new order of goods.',
-        icon: 'PackageIcon',
-        time: this.randomDate({
-          sec: 40
-        }),
-        category: 'success'
-      }, {
-        index: 2,
-        title: 'Server Limit Reached!',
-        msg: 'Server have 99% CPU usage.',
-        icon: 'AlertOctagonIcon',
-        time: this.randomDate({
-          min: 1
-        }),
-        category: 'danger'
-      }, {
-        index: 3,
-        title: 'New Mail From Peter',
-        msg: 'Cake sesame snaps cupcake',
-        icon: 'MailIcon',
-        time: this.randomDate({
-          min: 6
-        }),
-        category: 'primary'
-      }, {
-        index: 4,
-        title: 'Bruce\'s Party',
-        msg: 'Chocolate cake oat cake tiramisu',
-        icon: 'CalendarIcon',
-        time: this.randomDate({
-          hr: 2
-        }),
-        category: 'warning'
-      }],
+      unreadNotifications: this.$store.getters['notification/unReadNotifications'],
       settings: {
         // perfectscrollbar settings
         maxScrollbarLength: 60,
@@ -1964,7 +1918,7 @@ __webpack_require__.r(__webpack_exports__);
       return this.$store.getters['auth/userData'].email;
     },
     activeUserImg: function activeUserImg() {
-      return this.$store.getters['auth/userData'].image ? this.$store.getters['auth/userData'].image : this.$store.getters.defaultPhoto;
+      return this.$store.getters['auth/userData'].image ? "/storage/user/profile-picture/".concat(this.$store.getters['auth/userData'].image) : this.$store.getters.defaultPhoto;
     }
   },
   methods: {
@@ -2103,16 +2057,6 @@ function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) ||
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -2988,6 +2932,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+ // import Echo from 'laravel-echo';
+// import VueEcho from 'vue-echo-laravel';
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -2998,6 +2944,26 @@ __webpack_require__.r(__webpack_exports__);
     TheNavbarHorizontal: _layouts_components_navbar_TheNavbarHorizontal_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
     TheNavbarVertical: _layouts_components_navbar_TheNavbarVertical_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
     VNavMenu: _layouts_components_vertical_nav_menu_VerticalNavMenu_vue__WEBPACK_IMPORTED_MODULE_8__["default"]
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    this.$store.dispatch('auth/createEchoInstance').then(function () {
+      console.log(_this.$store.getters['auth/userData'].id);
+
+      _this.$echo["private"]("appointment.".concat(_this.$store.getters['auth/userData'].id)).notification(function (notification) {
+        console.log("Notification", notification);
+
+        _this.$vs.notify({
+          time: 4000,
+          title: 'New Appointment',
+          text: 'New appointment has been assigned to you.',
+          iconPack: 'feather',
+          icon: 'icon-bell',
+          color: 'primary'
+        });
+      });
+    });
   },
   data: function data() {
     return {
@@ -5726,7 +5692,7 @@ var render = function() {
                       "div",
                       {
                         staticClass:
-                          "\r\n                        checkout-footer\r\n                        fixed\r\n                        bottom-0\r\n                        rounded-b-lg\r\n                        text-primary\r\n                        w-full\r\n                        p-2\r\n                        font-semibold\r\n                        text-center\r\n                        border\r\n                        border-b-0\r\n                        border-l-0\r\n                        border-r-0\r\n                        border-solid\r\n                        d-theme-border-grey-light\r\n                        cursor-pointer"
+                          "\n                        checkout-footer\n                        fixed\n                        bottom-0\n                        rounded-b-lg\n                        text-primary\n                        w-full\n                        p-2\n                        font-semibold\n                        text-center\n                        border\n                        border-b-0\n                        border-l-0\n                        border-r-0\n                        border-solid\n                        d-theme-border-grey-light\n                        cursor-pointer"
                       },
                       [_c("span", [_vm._v("View All Notifications")])]
                     )

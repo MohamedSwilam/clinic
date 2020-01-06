@@ -108,32 +108,54 @@ import TheFooter           from '@/layouts/components/TheFooter.vue'
 import themeConfig         from '@/../themeConfig.js'
 import VNavMenu            from '@/layouts/components/vertical-nav-menu/VerticalNavMenu.vue'
 
+// import Echo from 'laravel-echo';
+// import VueEcho from 'vue-echo-laravel';
+
 export default {
-  components: {
-    BackToTop,
-    HNavMenu,
-    TheCustomizer,
-    TheFooter,
-    TheNavbarHorizontal,
-    TheNavbarVertical,
-    VNavMenu
-  },
-  data() {
-    return {
-      domain            : window.location.origin,
-      disableCustomizer : themeConfig.disableCustomizer,
-      disableThemeTour  : themeConfig.disableThemeTour,
-      footerType        : themeConfig.footerType  || 'static',
-      hideScrollToTop   : themeConfig.hideScrollToTop,
-      isNavbarDark      : false,
-      navbarColor       : themeConfig.navbarColor || '#fff',
-      navbarType        : themeConfig.navbarType  || 'floating',
-      navMenuItems      : navMenuItems,
-      navMenuLogo       : require('@assets/images/logo/logo.png'),
-      routerTransition  : themeConfig.routerTransition || 'none',
-      routeTitle        : this.$route.meta.pageTitle,
-    }
-  },
+    components: {
+        BackToTop,
+        HNavMenu,
+        TheCustomizer,
+        TheFooter,
+        TheNavbarHorizontal,
+        TheNavbarVertical,
+        VNavMenu
+    },
+
+    mounted() {
+        this.$store.dispatch('auth/createEchoInstance').then( () => {
+            console.log(this.$store.getters['auth/userData'].id);
+            this.$echo.private(`appointment.${this.$store.getters['auth/userData'].id}`)
+                .notification( notification => {
+                    console.log("Notification", notification);
+                    this.$vs.notify({
+                        time: 4000,
+                        title: 'New Appointment',
+                        text: 'New appointment has been assigned to you.',
+                        iconPack: 'feather',
+                        icon: 'icon-bell',
+                        color: 'primary'
+                    });
+                });
+        });
+    },
+
+    data() {
+        return {
+            domain            : window.location.origin,
+            disableCustomizer : themeConfig.disableCustomizer,
+            disableThemeTour  : themeConfig.disableThemeTour,
+            footerType        : themeConfig.footerType  || 'static',
+            hideScrollToTop   : themeConfig.hideScrollToTop,
+            isNavbarDark      : false,
+            navbarColor       : themeConfig.navbarColor || '#fff',
+            navbarType        : themeConfig.navbarType  || 'floating',
+            navMenuItems      : navMenuItems,
+            navMenuLogo       : require('@assets/images/logo/logo.png'),
+            routerTransition  : themeConfig.routerTransition || 'none',
+            routeTitle        : this.$route.meta.pageTitle,
+        }
+    },
   watch: {
     "$route"() {
       this.routeTitle = this.$route.meta.pageTitle
@@ -143,7 +165,7 @@ export default {
       this.updateNavbarColor(color)
     },
     "$store.state.mainLayoutType"(val) {
-      this.setNavMenuVisibility(val)
+      this.setNavMenuVisibility(val);
       this.disableThemeTour = true
     },
     windowWidth(val) {
@@ -229,11 +251,10 @@ export default {
     }
   },
   created() {
-    const color = this.navbarColor == "#fff" && this.isThemeDark ? "#10163a" : this.navbarColor
-    this.updateNavbarColor(color)
-    this.setNavMenuVisibility(this.$store.state.mainLayoutType)
+      const color = this.navbarColor == "#fff" && this.isThemeDark ? "#10163a" : this.navbarColor;
+      this.updateNavbarColor(color);
+      this.setNavMenuVisibility(this.$store.state.mainLayoutType);
   }
 }
 
 </script>
-

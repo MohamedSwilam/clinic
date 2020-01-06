@@ -164,13 +164,13 @@
           </vs-dropdown-menu>
         </vs-dropdown>
       </div>
-
     </vs-navbar>
   </div>
 </div>
 </template>
 
 <script>
+
 import VxAutoSuggest from '@/components/vx-auto-suggest/VxAutoSuggest.vue';
 import VuePerfectScrollbar from 'vue-perfect-scrollbar'
 import draggable from 'vuedraggable'
@@ -188,13 +188,7 @@ export default {
             navbarSearchAndPinList: this.$store.state.navbarSearchAndPinList,
             searchQuery: '',
             showFullSearch: false,
-            unreadNotifications: [
-                { index: 0, title: 'New Message', msg: 'Are your going to meet me tonight?', icon: 'MessageSquareIcon', time: this.randomDate({sec: 10}), category: 'primary' },
-                { index: 1, title: 'New Order Recieved', msg: 'You got new order of goods.', icon: 'PackageIcon', time: this.randomDate({sec: 40}), category: 'success' },
-                { index: 2, title: 'Server Limit Reached!', msg: 'Server have 99% CPU usage.', icon: 'AlertOctagonIcon', time: this.randomDate({min: 1}), category: 'danger' },
-                { index: 3, title: 'New Mail From Peter', msg: 'Cake sesame snaps cupcake', icon: 'MailIcon', time: this.randomDate({min: 6}), category: 'primary' },
-                { index: 4, title: 'Bruce\'s Party', msg: 'Chocolate cake oat cake tiramisu', icon: 'CalendarIcon', time: this.randomDate({hr: 2}), category: 'warning' },
-            ],
+            unreadNotifications: this.$store.getters['notification/unReadNotifications'],
             settings: { // perfectscrollbar settings
                 maxScrollbarLength: 60,
                 wheelSpeed: .60,
@@ -276,7 +270,7 @@ export default {
             return this.$store.getters['auth/userData'].email;
         },
         activeUserImg() {
-            return this.$store.getters['auth/userData'].image?this.$store.getters['auth/userData'].image:this.$store.getters.defaultPhoto;
+            return this.$store.getters['auth/userData'].image?`/storage/user/profile-picture/${this.$store.getters['auth/userData'].image}`:this.$store.getters.defaultPhoto;
         }
     },
     methods: {

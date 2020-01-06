@@ -1,11 +1,13 @@
 
 import jwt from "../../http/requests/auth/jwt/index.js"
 import router from '@/router';
+import Vue from 'vue'
+import Echo from 'laravel-echo';
+import VueEcho from 'vue-echo-laravel';
 
 export default {
     // JWT
-    loginJWT({ commit }, payload) {
-
+    loginJWT({ commit, dispatch }, payload) {
       return new Promise((resolve, reject) => {
         jwt.login(payload.userDetails.email, payload.userDetails.password)
           .then(response => {
@@ -35,6 +37,23 @@ export default {
     logoutJWT({ commit }) {
         commit("LOGOUT");
         router.push('/dashboard/login');
+    },
+
+    createEchoInstance({ commit, getters }) {
+        console.log("Instance Token", getters['token']);
+        const EchoInstance = new Echo({
+            broadcaster: 'pusher',
+            host: window.location.hostname + ':8000',
+            key: "6d5d9be65ddf8b631d3b",
+            cluster: "eu",
+            encrypted: true,
+            auth : {
+                headers: {
+                    authorization: 'Bearer ' + getters['token'],
+                }
+            }
+        });
+        Vue.use(VueEcho, EchoInstance);
     },
 
     registerUserJWT({ commit }, payload) {

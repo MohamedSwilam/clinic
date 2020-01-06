@@ -238,7 +238,7 @@ __webpack_require__.r(__webpack_exports__);
           form_data.append(key, JSON.stringify(this.form[key]));
         } else if (key === 'password') {
           if (this.form[key] !== '') {
-            form_data.append(key, JSON.stringify(this.form[key]));
+            form_data.append(key, this.form[key]);
           }
         } else {
           form_data.append(key, this.form[key]);
