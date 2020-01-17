@@ -8,6 +8,7 @@ use App\Patient;
 use App\Payment;
 use App\Policies\EmployeePolicy;
 use App\Policies\MedicalReportPolicy;
+use App\Policies\NotificationPolicy;
 use App\Policies\PatientPolicy;
 use App\Policies\PaymentPolicy;
 use App\Policies\PermissionPolicy;
@@ -19,6 +20,7 @@ use App\Prescription;
 use App\ReservationDuration;
 use App\ReservationType;
 use App\User;
+use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Laravel\Passport\Passport;
@@ -44,6 +46,7 @@ class AuthServiceProvider extends ServiceProvider
         Payment::class => PaymentPolicy::class,
         Prescription::class => PrescriptionPolicy::class,
         MedicalReport::class => MedicalReportPolicy::class,
+        Notification::class => NotificationPolicy::class,
     ];
 
     /**

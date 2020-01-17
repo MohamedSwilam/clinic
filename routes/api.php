@@ -87,4 +87,10 @@ Route::group(['prefix' => 'medical-report', 'middleware' => 'auth:api'], functio
     Route::resource('', 'MedicalReportController');
 });
 
-Route::get('test', 'TestController@index');
+Route::group(['prefix' => 'notification', 'middleware' => 'auth:api'], function () {
+    Route::get('{user_id}', 'NotificationController@index');
+    Route::get('read/{user_id}', 'NotificationController@readIndex');
+    Route::get('unread/{user_id}', 'NotificationController@unreadIndex');
+    Route::post('{user_id}', 'NotificationController@markAll');
+});
+
