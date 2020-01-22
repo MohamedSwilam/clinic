@@ -14,7 +14,10 @@ class StatusTableSeeder extends Seeder
     {
         $statuses = config('status');
         foreach ($statuses as $status){
-            Status::create($status);
+            $temp = Status::where('name', $status['name'])->first();
+            if (!$temp){
+                Status::create($status);
+            }
         }
     }
 }
