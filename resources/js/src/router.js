@@ -164,6 +164,106 @@ const router = new Router({
                     }
                 },
                 {
+                    path: '/dashboard/patient/:id/create-medical-report',
+                    name: 'create-medical-report',
+                    component: () => import('./views/medicalReport/create'),
+                    beforeEnter: guard,
+                    meta: {
+                        breadcrumb: [
+                            { title: 'Home', url: '/dashboard'},
+                            { title: 'Patient', i18n: 'Patient', url: '/dashboard/patient' },
+                            { title: 'Profile'},
+                            { title: 'Create Medical Report', active: true}
+                        ],
+                        pageTitle: "Create Medical Report",
+                        permission: 'create-medical-report'
+                    }
+                },
+                {
+                    path: '/dashboard/medical-report/:id',
+                    name: 'medical-report-view',
+                    component: () => import('./views/medicalReport/view'),
+                    beforeEnter: guard,
+                    meta: {
+                        breadcrumb: [
+                            { title: 'Home', url: '/dashboard'},
+                            { title: 'Patient', i18n: 'Patient', url: '/dashboard/patient' },
+                            { title: 'Profile'},
+                            { title: 'View Medical Report', active: true}
+                        ],
+                        pageTitle: "View Medical Report",
+                        permission: 'view-medical-report'
+                    }
+                },
+                {
+                    path: '/dashboard/medical-report/:id/edit',
+                    name: 'medical-report-edit',
+                    component: () => import('./views/medicalReport/edit'),
+                    beforeEnter: guard,
+                    meta: {
+                        breadcrumb: [
+                            { title: 'Home', url: '/dashboard'},
+                            { title: 'Patient', i18n: 'Patient', url: '/dashboard/patient' },
+                            { title: 'Profile'},
+                            { title: 'Edit Medical Report', active: true}
+                        ],
+                        pageTitle: "Edit Medical Report",
+                        permission: 'edit-medical-report'
+                    }
+                },
+
+
+                {
+                    path: '/dashboard/patient/:id/create-prescription',
+                    name: 'prescription-create',
+                    component: () => import('./views/prescription/create'),
+                    beforeEnter: guard,
+                    meta: {
+                        breadcrumb: [
+                            { title: 'Home', url: '/dashboard'},
+                            { title: 'Patient', i18n: 'Patient', url: '/dashboard/patient' },
+                            { title: 'Profile'},
+                            { title: 'Create Prescription', active: true}
+                        ],
+                        pageTitle: "Create Prescription",
+                        permission: 'create-prescription'
+                    }
+                },
+                {
+                    path: '/dashboard/prescription/:id',
+                    name: 'prescription-view',
+                    component: () => import('./views/prescription/view'),
+                    beforeEnter: guard,
+                    meta: {
+                        breadcrumb: [
+                            { title: 'Home', url: '/dashboard'},
+                            { title: 'Patient', i18n: 'Patient', url: '/dashboard/patient' },
+                            { title: 'Profile'},
+                            { title: 'View Prescription', active: true}
+                        ],
+                        pageTitle: "View Prescription",
+                        permission: 'view-prescription'
+                    }
+                },
+                {
+                    path: '/dashboard/prescription/:id/edit',
+                    name: 'prescription-edit',
+                    component: () => import('./views/prescription/edit'),
+                    beforeEnter: guard,
+                    meta: {
+                        breadcrumb: [
+                            { title: 'Home', url: '/dashboard'},
+                            { title: 'Patient', i18n: 'Patient', url: '/dashboard/patient' },
+                            { title: 'Profile'},
+                            { title: 'Edit Prescription', active: true}
+                        ],
+                        pageTitle: "Edit Prescription",
+                        permission: 'edit-prescription'
+                    }
+                },
+
+
+                {
                     path: '/dashboard/appointment',
                     name: 'appointment',
                     component: () => import('./views/appointment/Appointment.vue'),
@@ -333,6 +433,7 @@ const router = new Router({
                         pageTitle: "Profile"
                     }
                 },
+
             ],
         },
         // =============================================================================

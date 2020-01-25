@@ -179,7 +179,7 @@
             },
 
             create() {
-                if (!this.validateForm) return;
+                // if (!this.validateForm) return;
 
                 this.is_requesting=true;
                 this.$vs.loading({container: `#btn-create`, color: 'primary', scale: 0.45});

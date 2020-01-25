@@ -114,103 +114,10 @@
             </vx-card>
         </div>
 
+        <browse-medical-report></browse-medical-report>
 
-        <div class="vx-col w-full mb-base" v-if="can('browse-medical-report')">
-            <vx-card title='Medical Reports' collapseAction>
-                <b>Comming Soon</b>
-<!--                <vs-table :data="['','']">-->
-<!--                    <template slot="header">-->
-<!--                        <vs-button class="mb-5" size="small" icon-pack="feather" icon="icon-plus" type="filled">Add Medical Report</vs-button>-->
-<!--                    </template>-->
-<!--                    <template slot="thead">-->
-<!--                        <vs-th>#</vs-th>-->
-<!--                        <vs-th>Added By</vs-th>-->
-<!--                        <vs-th>Date</vs-th>-->
-<!--                        <vs-th>Time</vs-th>-->
-<!--                        <vs-th>Action</vs-th>-->
-<!--                    </template>-->
 
-<!--                    <template slot-scope="{data}">-->
-<!--                        <vs-tr>-->
-<!--                            <vs-td>1</vs-td>-->
-<!--                            <vs-td><a href="#" @click="$router.push({name: 'view-employee', params: {id: 5}})">Dr. Phil Gray</a></vs-td>-->
-<!--                            <vs-td>01 NOV, 2019</vs-td>-->
-<!--                            <vs-td>2:44 PM</vs-td>-->
-<!--                            <vs-td>-->
-<!--                                <div class="flex">-->
-<!--                                    <div class="w-1/3">-->
-<!--                                        <vs-button icon-pack="feather" icon="icon-eye" color="primary" radius type="border"></vs-button>-->
-<!--                                    </div>-->
-<!--                                    <div class="w-1/3">-->
-<!--                                        <vs-button icon-pack="feather" icon="icon-edit" color="warning" radius type="border"></vs-button>-->
-<!--                                    </div>-->
-<!--                                    <div class="w-1/3">-->
-<!--                                        <vs-button icon-pack="feather" icon="icon-trash" color="danger" radius type="border"></vs-button>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </vs-td>-->
-<!--                        </vs-tr>-->
-<!--                        <vs-tr>-->
-<!--                            <vs-td>2</vs-td>-->
-<!--                            <vs-td><a href="#" @click="$router.push({name: 'view-employee', params: {id: 5}})">Dr. Phil Gray</a></vs-td>-->
-<!--                            <vs-td>17 OCT, 2019</vs-td>-->
-<!--                            <vs-td>11:16 AM</vs-td>-->
-<!--                            <vs-td>-->
-<!--                                <div class="flex">-->
-<!--                                    <div class="w-1/3">-->
-<!--                                        <vs-button icon-pack="feather" icon="icon-eye" color="primary" radius type="border"></vs-button>-->
-<!--                                    </div>-->
-<!--                                    <div class="w-1/3">-->
-<!--                                        <vs-button icon-pack="feather" icon="icon-edit" color="warning" radius type="border"></vs-button>-->
-<!--                                    </div>-->
-<!--                                    <div class="w-1/3">-->
-<!--                                        <vs-button icon-pack="feather" icon="icon-trash" color="danger" radius type="border"></vs-button>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </vs-td>-->
-<!--                        </vs-tr>-->
-<!--                        <vs-tr>-->
-<!--                            <vs-td>3</vs-td>-->
-<!--                            <vs-td><a href="#" @click="$router.push({name: 'view-employee', params: {id: 5}})">Dr. Phil Gray</a></vs-td>-->
-<!--                            <vs-td>17 OCT, 2019</vs-td>-->
-<!--                            <vs-td>12:45 PM</vs-td>-->
-<!--                            <vs-td>-->
-<!--                                <div class="flex">-->
-<!--                                    <div class="w-1/3">-->
-<!--                                        <vs-button icon-pack="feather" icon="icon-eye" color="primary" radius type="border"></vs-button>-->
-<!--                                    </div>-->
-<!--                                    <div class="w-1/3">-->
-<!--                                        <vs-button icon-pack="feather" icon="icon-edit" color="warning" radius type="border"></vs-button>-->
-<!--                                    </div>-->
-<!--                                    <div class="w-1/3">-->
-<!--                                        <vs-button icon-pack="feather" icon="icon-trash" color="danger" radius type="border"></vs-button>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </vs-td>-->
-<!--                        </vs-tr>-->
-<!--                        <vs-tr>-->
-<!--                            <vs-td>4</vs-td>-->
-<!--                            <vs-td><a href="#" @click="$router.push({name: 'view-employee', params: {id: 5}})">Dr. Phil Gray</a></vs-td>-->
-<!--                            <vs-td>15 OCT, 2019</vs-td>-->
-<!--                            <vs-td>12:45 PM</vs-td>-->
-<!--                            <vs-td>-->
-<!--                                <div class="flex">-->
-<!--                                    <div class="w-1/3">-->
-<!--                                        <vs-button icon-pack="feather" icon="icon-eye" color="primary" radius type="border"></vs-button>-->
-<!--                                    </div>-->
-<!--                                    <div class="w-1/3">-->
-<!--                                        <vs-button icon-pack="feather" icon="icon-edit" color="warning" radius type="border"></vs-button>-->
-<!--                                    </div>-->
-<!--                                    <div class="w-1/3">-->
-<!--                                        <vs-button icon-pack="feather" icon="icon-trash" color="danger" radius type="border"></vs-button>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </vs-td>-->
-<!--                        </vs-tr>-->
-<!--                    </template>-->
-<!--                </vs-table>-->
-            </vx-card>
-        </div>
+        <prescription></prescription>
         <!--<div class="vx-col w-full mb-base" v-for="i in 12" :key="i">-->
             <!--<vx-card :title='`Medical Report ${i}`' :subtitle="`10th, Oct 2019 2:16 PM`" collapseAction>-->
                 <!--<vs-row>-->
@@ -233,11 +140,17 @@
 </template>
 
 <script>
+    import browseMedicalReport from '../medicalReport/browse';
+    import prescription from '../prescription/browse';
     export default {
         name: "profile",
         mounted() {
             this.form.patient_id = this.$route.params.id;
-          this.getPatientData();
+            this.getPatientData();
+        },
+        components: {
+            browseMedicalReport: browseMedicalReport,
+            prescription: prescription
         },
         data: () => {
             return {

@@ -124,7 +124,6 @@ export default {
 
     mounted() {
         this.$store.dispatch('auth/createEchoInstance').then( () => {
-            console.log(this.$store.getters['auth/userData'].id);
             this.$echo.private(`appointment.${this.$store.getters['auth/userData'].id}`)
                 .notification( notification => {
                     console.log("Notification", notification);

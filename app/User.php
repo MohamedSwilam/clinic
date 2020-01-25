@@ -51,7 +51,7 @@ class User extends Authenticatable
     public function scopeEmployees($query)
     {
         return $query->whereHas('roles', function ($query) {
-            $query->whereIn('name', ['doctor', 'receptionist', 'assistant_doctor', 'accountant', 'admin']);
+            $query->whereNotIn('name', ['super_admin']);
         });
     }
 
@@ -86,5 +86,4 @@ class User extends Authenticatable
     {
         return $this->hasMany(MedicalReport::class);
     }
-
 }
