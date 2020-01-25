@@ -123,20 +123,7 @@ export default {
     },
 
     mounted() {
-        this.$store.dispatch('auth/createEchoInstance').then( () => {
-            this.$echo.private(`appointment.${this.$store.getters['auth/userData'].id}`)
-                .notification( notification => {
-                    console.log("Notification", notification);
-                    this.$vs.notify({
-                        time: 4000,
-                        title: 'New Appointment',
-                        text: 'New appointment has been assigned to you.',
-                        iconPack: 'feather',
-                        icon: 'icon-bell',
-                        color: 'primary'
-                    });
-                });
-        });
+
     },
 
     data() {

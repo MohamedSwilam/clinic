@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class ReservationDuration extends Model
 {
     protected $with = ['reservationType'];
-    protected $fillable = ['date', 'start_time', 'end_time', 'counter', 'reservation_type_id'];
+    protected $fillable = ['date', 'start_time', 'end_time', 'counter', 'room', 'reservation_type_id'];
 
     public function reservationType()
     {

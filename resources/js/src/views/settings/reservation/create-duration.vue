@@ -43,7 +43,12 @@
                         <span></span>
                     </div>
                 </vs-col>
-                <vs-col vs-justify="center" vs-align="center" vs-lg="12" vs-sm="12" vs-xs="12" class="mb-5 pl-5">
+
+                <vs-col vs-lg="6" vs-sm="12" vs-xs="12" class="mb-5 pl-5">
+                    <vs-input icon-pack="feather" icon="icon-airplay" label-placeholder="Room" v-model="form.room" class="w-full" name="room"/>
+                </vs-col>
+
+                <vs-col vs-justify="center" vs-align="center" vs-lg="6" vs-sm="12" vs-xs="12" class="mb-5 pl-5">
                     <vs-input-number min="0" v-model="form.counter" label="Counter:" :step="5"/>
                 </vs-col>
             </vs-row>
@@ -70,7 +75,8 @@
                     date: null,
                     start_time: null,
                     end_time: null,
-                    counter: 1
+                    room: '',
+                    counter: 1,
                 },
                 is_requesting: false,
                 reservation_types: []
