@@ -160,18 +160,6 @@
                     });
                     this.Telephone = "";
                 }
-            },
-
-            //Vuesax alert
-            vs_alert (title, text, color, icon)
-            {
-                this.$vs.notify({
-                    title: title,
-                    text: text,
-                    color: color,
-                    iconPack: 'feather',
-                    icon: icon
-                });
             }
         }
     }

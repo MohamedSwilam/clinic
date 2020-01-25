@@ -12,51 +12,11 @@ Vue.use(require('vue-moment'));
 window.Pusher = require('pusher-js');
 Pusher.logToConsole = false;
 
-// import Echo from "laravel-echo";
-// window.Echo = new Echo({
-//     broadcaster: 'pusher',
-//     key: "6d5d9be65ddf8b631d3b",
-//     cluster: "eu",
-//     encrypted: true,
-//     // auth : {
-//     //     headers: {
-//     //         // authorization: 'Bearer ' + this.$store.getters['auth/token'],
-//     //     }
-//     // }
-// });
-
 // Vuex Store
-import store from './store/store'
-
-// import Echo from 'laravel-echo';
-// import VueEcho from 'vue-echo-laravel';
-//
-// const EchoInstance = new Echo({
-//     broadcaster: 'pusher',
-//     key: "6d5d9be65ddf8b631d3b",
-//     cluster: "eu",
-//     encrypted: true,
-//     auth : {
-//         headers: {
-//             authorization: 'Bearer ' + store.getters['auth/token'],
-//         }
-//     }
-// });
-// Vue.use(VueEcho, EchoInstance);
-
-
-
-
-// window.Echo.channel('private-appointment.1') //Should be Channel Name
-//     .listen('Illuminate\\Notifications\\Events\\BroadcastNotificationCreated', (e) => {
-//         console.log(e);
-//         alert(e);
-//     });
-
-
+import store from './store/store';
 
 // axios
-import axios from 'axios'
+import axios from 'axios';
 Vue.prototype.$http = axios;
 
 // Theme Configurations
@@ -78,7 +38,7 @@ import '../../assets/css/main.css';
 // Vue Router
 import router from './router'
 
-// Vue wrapper for hammerjs
+// Vue wrapper for hammer js
 import { VueHammer } from 'vue2-hammer';
 Vue.use(VueHammer);
 

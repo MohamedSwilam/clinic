@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class MedicalReport extends Model
 {
+    protected $with = ['patient', 'doctor'];
     protected $fillable = ['chief_complain','onset_date','onset_manner','duration','severity','factors','associated_symptoms',
         'examination','oral_examination','extra_oral_examination','special_test','diagnosis','treatment_plan','patient_id',
         'doctor_id'];

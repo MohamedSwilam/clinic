@@ -40,7 +40,6 @@ export default {
     },
 
     createEchoInstance({ commit, getters }) {
-        console.log("Instance Token", getters['token']);
         const EchoInstance = new Echo({
             broadcaster: 'pusher',
             host: window.location.hostname + ':8000',

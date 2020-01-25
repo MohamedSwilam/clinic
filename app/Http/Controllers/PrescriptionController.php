@@ -70,7 +70,7 @@ class PrescriptionController extends Controller
         return $this->respond('fetched successfully', fractal(
                 Prescription::where('id', $id)
                     ->first(),
-                new Prescription()
+                new PrescriptionTransformer()
             )
         );
     }

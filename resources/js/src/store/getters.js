@@ -13,7 +13,6 @@ const getters = {
         else return "xs"
     },
 
-
     defaultPhoto: state => {
         return state.defaultPhoto;
     }

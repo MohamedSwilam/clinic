@@ -14,12 +14,11 @@ let colors = {
     danger  : '#EA5455',
     warning : '#FF9F43',
     dark    : '#1E1E1E',
-}
+};
 
 import Vue from 'vue'
 import Vuesax from 'vuesax'
-Vue.use(Vuesax, { theme:{ colors } })
-
+Vue.use(Vuesax, { theme:{ colors } });
 
 // CONFIGS
 const themeConfig = {
@@ -38,6 +37,6 @@ const themeConfig = {
     userInfoLocalStorageKey: "userInfo",
 
     // NOTE: themeTour will be disabled in screens < 1200. Please refer docs for more info.
-}
+};
 
 export default themeConfig

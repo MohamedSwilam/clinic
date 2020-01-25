@@ -1,6 +1,5 @@
 
 import reservation_type from "../../http/requests/reservation_type/index"
-import role from "../../http/requests/role";
 
 export default {
     getData({ commit, dispatch }) {
@@ -40,8 +39,6 @@ export default {
     },
 
     update({ commit, dispatch }, payload) {
-        console.log(payload.id);
-        console.log(payload.data);
         return new Promise((resolve, reject) => {
             reservation_type.update(payload.id, payload.data)
                 .then(response => {
