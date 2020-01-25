@@ -67,6 +67,7 @@
                     <vs-th sort-key="start_time">Start Time</vs-th>
                     <vs-th sort-key="end_time">End Time</vs-th>
                     <vs-th sort-key="counter">Counter</vs-th>
+                    <vs-th sort-key="room">Room</vs-th>
                     <vs-th>Action</vs-th>
                 </template>
                 <template slot-scope="{data}">
@@ -93,6 +94,10 @@
 
                         <vs-td :data="duration.counter">
                             {{ duration.counter}}
+                        </vs-td>
+
+                        <vs-td :data="duration.room">
+                            {{ duration.room}}
                         </vs-td>
 
                         <vs-td>

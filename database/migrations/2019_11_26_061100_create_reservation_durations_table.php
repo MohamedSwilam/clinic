@@ -18,6 +18,7 @@ class CreateReservationDurationsTable extends Migration
             $table->date('date')->nullable();
             $table->time('start_time')->nullable();
             $table->time('end_time')->nullable();
+            $table->string('room')->nullable();
             $table->integer('counter')->nullable();
             $table->unsignedBigInteger('reservation_type_id')->nullable();
             $table->foreign('reservation_type_id')->references('id')->on('reservation_types')->onDelete('cascade');

@@ -89,9 +89,9 @@
             <p class="opacity-75">App Notifications</p>
           </div>
 
-          <VuePerfectScrollbar ref="mainSidebarPs" class="scroll-area--nofications-dropdown p-0 mb-10" :settings="settings">
+          <VuePerfectScrollbar v-if="unreadNotifications.length>0" ref="mainSidebarPs" class="scroll-area--nofications-dropdown p-0" :settings="settings">
           <ul class="bordered-items">
-            <li v-for="ntf in unreadNotifications" :key="ntf.index" class="flex justify-between px-4 py-4 notification cursor-pointer">
+            <li @click="markAllAsReaded" v-for="ntf in unreadNotifications" :key="ntf.index" class="flex justify-between px-4 py-4 notification cursor-pointer">
               <div class="flex items-start">
                 <feather-icon :icon="ntf.icon" :svgClasses="[`text-${ntf.category}`, 'stroke-current mr-1 h-6 w-6']"></feather-icon>
                 <div class="mx-2">
@@ -103,25 +103,25 @@
             </li>
           </ul>
           </VuePerfectScrollbar>
-                    <div class="
-                        checkout-footer
-                        fixed
-                        bottom-0
-                        rounded-b-lg
-                        text-primary
-                        w-full
-                        p-2
-                        font-semibold
-                        text-center
-                        border
-                        border-b-0
-                        border-l-0
-                        border-r-0
-                        border-solid
-                        d-theme-border-grey-light
-                        cursor-pointer">
-                        <span>View All Notifications</span>
-                    </div>
+<!--                    <div class="-->
+<!--                        checkout-footer-->
+<!--                        fixed-->
+<!--                        bottom-0-->
+<!--                        rounded-b-lg-->
+<!--                        text-primary-->
+<!--                        w-full-->
+<!--                        p-2-->
+<!--                        font-semibold-->
+<!--                        text-center-->
+<!--                        border-->
+<!--                        border-b-0-->
+<!--                        border-l-0-->
+<!--                        border-r-0-->
+<!--                        border-solid-->
+<!--                        d-theme-border-grey-light-->
+<!--                        cursor-pointer">-->
+<!--                        <span>View All Notifications</span>-->
+<!--                    </div>-->
         </vs-dropdown-menu>
       </vs-dropdown>
 
@@ -177,6 +177,60 @@ import draggable from 'vuedraggable'
 
 export default {
     name: "the-navbar",
+    mounted() {
+        this.$store.dispatch('auth/createEchoInstance').then( () => {
+            this.$echo.private(`appointment.${this.$store.getters['auth/userData'].id}`)
+                .notification( notification => {
+                    console.log("Notification", notification);
+                    this.unreadNotifications.push({
+                        index: i,
+                        title: `New ${notification.appointment.reservation_type.name}`,
+                        msg: `New reservation of type ${notification.appointment.reservation_type.name} has been assigned to you.`,
+                        icon: 'CalendarIcon',
+                        time: notification.appointment.created_at,
+                        category: 'primary'
+                    });
+                    this.$vs.notify({
+                        time: 4000,
+                        title: 'New Appointment',
+                        text: 'New appointment has been assigned to you.',
+                        iconPack: 'feather',
+                        icon: 'icon-bell',
+                        color: 'primary'
+                    });
+                });
+        });
+
+
+
+
+        // getUnReadedNotifications
+        this.$store.dispatch('notification/getUnReadedNotifications')
+            .then(response => {
+                console.log(response.data.data);
+                this.unreadNotifications = [];
+                for(let i=0; i<response.data.data.length; i++) {
+                    this.unreadNotifications.push({
+                        index: i,
+                        title: `New ${response.data.data[i].data.appointment.reservation_type.name}`,
+                        msg: `New reservation of type ${response.data.data[i].data.appointment.reservation_type.name} has been assigned to you.`,
+                        icon: 'CalendarIcon',
+                        time: response.data.data[i].data.appointment.created_at,
+                        category: 'primary'
+                    });
+                }
+            })
+            .catch(error => {
+                console.log(error);
+                this.$vs.notify({
+                    title: 'Error',
+                    text: error.response.data.error,
+                    iconPack: 'feather',
+                    icon: 'icon-alert-circle',
+                    color: 'danger'
+                });
+            });
+    },
     props: {
         navbarColor: {
             type: String,
@@ -274,6 +328,24 @@ export default {
         }
     },
     methods: {
+        markAllAsReaded()
+        {
+            this.$store.dispatch('notification/markAllAsReaded')
+                .then(response => {
+                    this.unreadNotifications = [];
+                    this.$router.push('/dashboard/profile');
+                })
+                .catch(error => {
+                    console.log(error);
+                    this.$vs.notify({
+                        title: 'Error',
+                        text: error.response.data.error,
+                        iconPack: 'feather',
+                        icon: 'icon-alert-circle',
+                        color: 'danger'
+                    });
+                });
+        },
         updateLocale(locale) {
             this.$i18n.locale = locale;
         },

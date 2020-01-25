@@ -188,7 +188,7 @@
                                     :danger-text="errors.first('step-2.reservation_duration')"
                                     v-validate="'required'"
                                 >
-                                    <vs-select-item :key="index" :value="duration.id" :text="`From ${duration.start_time} To ${duration.end_time} (${duration.counter})`" v-for="(duration, index) in durations" />
+                                    <vs-select-item :key="index" :value="duration.id" :text="`From ${duration.start_time} To ${duration.end_time} (${duration.counter}) - ${duration.room}`" v-for="(duration, index) in durations" />
                                 </vs-select>
                             </vs-col>
 

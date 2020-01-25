@@ -29,6 +29,7 @@ class ReservationDurationRequest extends FormRequest
                 'date' => 'required|date',
                 'start_time' => 'required',
                 'end_time' => 'required',
+                'room' => 'required',
                 'counter' => 'required|integer',
                 'reservation_type_id' => 'required|exists:reservation_types,id'
             ];
@@ -38,6 +39,7 @@ class ReservationDurationRequest extends FormRequest
                 'date' => 'date',
                 'start_time' => '',
                 'end_time' => '',
+                'room' => '',
                 'counter' => 'integer',
                 'reservation_type_id' => 'exists:reservation_types,id'
             ];
