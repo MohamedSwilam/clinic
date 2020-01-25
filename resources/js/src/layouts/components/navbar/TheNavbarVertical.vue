@@ -181,7 +181,6 @@ export default {
         this.$store.dispatch('auth/createEchoInstance').then( () => {
             this.$echo.private(`appointment.${this.$store.getters['auth/userData'].id}`)
                 .notification( notification => {
-                    console.log("Notification", notification);
                     this.unreadNotifications.push({
                         index: i,
                         title: `New ${notification.appointment.reservation_type.name}`,
@@ -207,7 +206,6 @@ export default {
         // getUnReadedNotifications
         this.$store.dispatch('notification/getUnReadedNotifications')
             .then(response => {
-                console.log(response.data.data);
                 this.unreadNotifications = [];
                 for(let i=0; i<response.data.data.length; i++) {
                     this.unreadNotifications.push({

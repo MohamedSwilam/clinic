@@ -71,7 +71,7 @@
                             <vs-td>{{payment.paid}}</vs-td>
                             <vs-td>
                                 <div class="flex">
-                                    <vs-button icon-pack="feather" radius icon="icon-file-text" type="border"></vs-button>
+<!--                                    <vs-button icon-pack="feather" radius icon="icon-file-text" type="border"></vs-button>-->
                                     <vs-button v-if="can('delete-payment')" :id="`delete-payment-btn-${payment.id}`" @click="confirmToDeletePayment(payment)" class="ml-3" icon-pack="feather" radius color="danger" icon="icon-trash" type="border"></vs-button>
                                 </div>
                             </vs-td>
