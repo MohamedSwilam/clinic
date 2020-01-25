@@ -1833,8 +1833,6 @@ __webpack_require__.r(__webpack_exports__);
 
     this.$store.dispatch('auth/createEchoInstance').then(function () {
       _this.$echo["private"]("appointment.".concat(_this.$store.getters['auth/userData'].id)).notification(function (notification) {
-        console.log("Notification", notification);
-
         _this.unreadNotifications.push({
           index: i,
           title: "New ".concat(notification.appointment.reservation_type.name),
@@ -1856,7 +1854,6 @@ __webpack_require__.r(__webpack_exports__);
     }); // getUnReadedNotifications
 
     this.$store.dispatch('notification/getUnReadedNotifications').then(function (response) {
-      console.log(response.data.data);
       _this.unreadNotifications = [];
 
       for (var _i = 0; _i < response.data.data.length; _i++) {
@@ -6677,7 +6674,7 @@ module.exports = "/images/fr.png?134bee9f9d794dc5c0922d1b9bdbb710";
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/images/logo.png?99d640457e8887c8ef3ac531a8aef26e";
+module.exports = "/images/logo.png?311761e847953ec863d0da68956345ae";
 
 /***/ }),
 

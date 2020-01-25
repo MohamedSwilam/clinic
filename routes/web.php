@@ -14,7 +14,7 @@
 Route::view('test','test');
 
 Route::view('/', 'en-website')->name('welcome');
-Route::view('/en', 'en-website')->name('welcome');
-Route::view('/ar', 'ar-website')->name('welcome');
+Route::view('/en', 'en-website')->name('welcome-en');
+Route::view('/ar', 'ar-website')->name('welcome-ar');
 Route::get('/dashboard', 'ApplicationController')->where('any', '.*');
 Route::get('/dashboard/{any}', 'ApplicationController')->where('any', '.*');

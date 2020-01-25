@@ -46,7 +46,7 @@
     <div class="container">
         <div class="row">
             <div class="col-12 col-lg-2 col-md-3">
-                <a class="navbar-brand" href="index-2.html"><img src="/images/website/logo.png" alt="logo"></a>
+                <a class="navbar-brand" href="{{route('welcome-ar')}}"><img style="height: 55px;width: 80px;padding: 0;" src="/images/website/logo.png" alt="logo"></a>
             </div>
 
             <div class="col-12 col-lg-8 col-md-6">
@@ -58,20 +58,19 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mx-auto">
-                        <li class="nav-item"><a class="nav-link" href="#home">الصفحة الرئيسية</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#about">على وشك أن</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#department">قسم التخزين</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#service">الخدمات</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#gallery">صالة عرض</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#price">سأل عن السعر</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#blog">مدونة</a></li>
                         <li class="nav-item"><a class="nav-link" href="#contact">اتصل بنا</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#blog">أخبار</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#gallery">صور</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#service">الخدمات</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#department">الأقسام</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#about">من نحن؟</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#home">الصفحة الرئيسية</a></li>
                     </ul>
                 </div>
             </div>
 
             <div class="col-12 col-lg-2 col-md-3 text-left">
-                <a href="#appointment" class="appointment-btn white-btn">رسالة موعد</a>
+                <a href="{{route('welcome-en')}}" class="appointment-btn white-btn">English</a>
             </div>
         </div>
     </div>
@@ -877,107 +876,6 @@
 </section>
 <!-- End Gallery Area -->
 
-<!-- Start Pricing Area -->
-<section id="price" class="pricing-area ptb-100 bg-f9faff">
-    <div class="container">
-        <div class="section-title">
-            <h3>التسعير لدينا</h3>
-            <span>عرض أفضل الأسعار لدينا</span>
-            <p>أبجد هوز دولور الجلوس امات، إيليت بحيث تعبا وحزنا، وبعض الحوار الاقتصادي الاستراتيجي والحيوية، بحيث تعبا وحزنا، الهامة التي يجب القيام بحيث تعبا وحزنا، وبعض .</p>
-        </div>
-
-        <div class="row">
-            <div class="col-lg-4 col-md-6">
-                <div class="pricing-table">
-                    <div class="pricing-header">
-                        <h3>فحص الدم</h3>
-                    </div>
-
-                    <div class="price">
-                        <span><sup>$</sup>145</span>
-                    </div>
-
-                    <div class="pricing-features">
-                        <ul>
-                            <li>اختبارات الكوليسترول والدهون</li>
-                            <li>اختبار استروجين الدم</li>
-                            <li>اختبارات وظائف الكلى</li>
-                            <li>اختبارات وظائف الكلى</li>
-                            <li>اختبارات وظائف الكلى</li>
-                            <li>اختبارات الكوليسترول والدهون</li>
-                            <li>اختبار استروجين الدم</li>
-                            <li>اختبارات الكوليسترول والدهون</li>
-                        </ul>
-                    </div>
-
-                    <div class="pricing-footer">
-                        <a href="#" class="btn">موعد الآن</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6">
-                <div class="pricing-table">
-                    <div class="pricing-header">
-                        <h3>الدمفحص الدم</h3>
-                    </div>
-
-                    <div class="price">
-                        <span><sup>$</sup>145</span>
-                    </div>
-
-                    <div class="pricing-features">
-                        <ul>
-                            <li>اختبارات الكوليسترول والدهون</li>
-                            <li>اختبار استروجين الدم</li>
-                            <li>اختبارات وظائف الكلى</li>
-                            <li>اختبارات وظائف الكلى</li>
-                            <li>اختبارات وظائف الكلى</li>
-                            <li>اختبارات الكوليسترول والدهون</li>
-                            <li>اختبار استروجين الدم</li>
-                            <li>اختبارات الكوليسترول والدهون</li>
-                        </ul>
-                    </div>
-
-                    <div class="pricing-footer">
-                        <a href="#" class="btn">موعد الآن</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 offset-lg-0 offset-md-3">
-                <div class="pricing-table">
-                    <div class="pricing-header">
-                        <h3>فحص الدمالدم</h3>
-                    </div>
-
-                    <div class="price">
-                        <span><sup>$</sup>145</span>
-                    </div>
-
-                    <div class="pricing-features">
-                        <ul>
-                            <li>اختبارات الكوليسترول والدهون</li>
-                            <li>اختبار استروجين الدم</li>
-                            <li>اختبارات وظائف الكلى</li>
-                            <li>اختبارات وظائف الكلى</li>
-                            <li>اختبارات وظائف الكلى</li>
-                            <li>اختبارات الكوليسترول والدهون</li>
-                            <li>اختبار استروجين الدم</li>
-                            <li>اختبارات الكوليسترول والدهون</li>
-                        </ul>
-                    </div>
-
-                    <div class="pricing-footer">
-                        <a href="#" class="btn">موعد الآن</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- End Pricing Area -->
-
 <!-- Start Testimonials Area -->
 <section class="testimonials-area ptb-100">
     <div class="container">
@@ -1145,23 +1043,21 @@
             <div class="col-lg-3 col-md-6">
                 <div class="contact-box">
                     <h3><i class="icofont-google-map"></i> عنوان</h3>
-                    <p><a href="https://www.google.com/maps/place/Exercisplan+4,+111+49+Stockholm,+Sweden/data=!4m2!3m1!1s0x465f9d5641a77669:0xe02744b36aab9f53?ved=2ahUKEwi38ZaU0rXfAhVWeH0KHY5CBWYQ8gEwAHoECAAQAQ" target="_blank">التمرين 4 ، 111 ستوكهولم49 ستوكهولم ، السويد</a></p>
+                    <p><a href="https://wego.here.com/directions/mix//British-Dental-Clinic-Dr.Kareem-Ibrahem,-14-El-Nasr-Street,-El-Nozha,-Cairo:e-eyJuYW1lIjoiQnJpdGlzaCBEZW50YWwgQ2xpbmljIC0gRHIuS2FyZWVtIElicmFoZW0iLCJhZGRyZXNzIjoiMTQgXHUwNjM0XHUwNjI3XHUwNjMxXHUwNjM5IFx1MDYyN1x1MDY0NFx1MDY0Nlx1MDYzNVx1MDYzMSBcdTA2MjdcdTA2NDRcdTA2NDVcdTA2MzlcdTA2MjdcdTA2MmZcdTA2NGEgLVx1MDY0MVx1MDY0OFx1MDY0MiBcdTA2NDNcdTA2MzRcdTA2MzFcdTA2NGEgXHUwNjI3XHUwNjQ0XHUwNjJhXHUwNjJkXHUwNjMxXHUwNjRhXHUwNjMxLCBDYWlybywgRWd5cHQiLCJsYXRpdHVkZSI6MzAuMTA2MzUsImxvbmdpdHVkZSI6MzEuMzc0NDcsInByb3ZpZGVyTmFtZSI6ImZhY2Vib29rIiwicHJvdmlkZXJJZCI6Nzg2MTQ1NDAxNDAxMzc4fQ==?map=30.10635,31.37447,15,normal&fb_locale=en_US" target="_blank">14 El-Nasr Street - El-Maadi Cairo, Egypt</a></p>
                 </div>
             </div>
 
             <div class="col-lg-3 col-md-6">
                 <div class="contact-box">
                     <h3><i class="icofont-envelope"></i> البريد الإلكتروني</h3>
-                    <p><a href="#">معلومات @ الطبيب. كوم</a></p>
-                    <p><a href="#">دعم @ الطبيب. كوم</a></p>
+                    <p><a href="#">info@doctor.com</a></p>
                 </div>
             </div>
 
             <div class="col-lg-3 col-md-6">
                 <div class="contact-box">
-                    <h3><i class="icofont-phone"></i> صوت كلامي</h3>
-                    <p><a href="#">+44 4587 458</a></p>
-                    <p><a href="#">+44 4587 459</a></p>
+                    <h3><i class="icofont-phone"></i> تليفون</h3>
+                    <p><a href="#">+201021385707</a></p>
                 </div>
             </div>
 
@@ -1169,8 +1065,8 @@
                 <div class="contact-box">
                     <h3><i class="icofont-clock-time"></i> ساعات العمل</h3>
                     <ul>
-                        <li>الإثنين، الجمعة <span>6 صباحًا إلى 9 مساءً</span></li>
-                        <li>الأحد <span>من 6 صباحًا إلى 5 مساءً</span></li>
+                        <li>السبت-الخميس <span>12 صباحًا إلى 12 مساءً</span></li>
+                        <li>الجمعة <span>مغلق</span></li>
                     </ul>
                 </div>
             </div>
@@ -1180,10 +1076,10 @@
                     <h3>ابقى على تواصل</h3>
                     <p>أبجد هوز دولور الجلوس امات، إيليت بحيث تعبا وحزنا، وبعض الحوار الاقتصادي الاستراتيجي والحيوية، بحيث تعبا وحزنا، الهامة التي يجب القيام بحيث تعبا وحزنا، وبعض .إيليت بحيث تعبا وحزنا، وبعض الحوار.</p>
                     <ul>
-                        <li><a href="#"><i class="icofont-facebook"></i></a></li>
-                        <li><a href="#"><i class="icofont-twitter"></i></a></li>
-                        <li><a href="#"><i class="icofont-linkedin"></i></a></li>
-                        <li><a href="#"><i class="icofont-instagram"></i></a></li>
+                        <li><a href="https://www.facebook.com/DrKareemDental/" target="_blank"><i class="icofont-facebook"></i></a></li>
+{{--                        <li><a href="#"><i class="icofont-twitter"></i></a></li>--}}
+{{--                        <li><a href="#"><i class="icofont-linkedin"></i></a></li>--}}
+{{--                        <li><a href="#"><i class="icofont-instagram"></i></a></li>--}}
                     </ul>
                 </div>
             </div>
@@ -1230,15 +1126,15 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-6 col-md-6">
-                <p>حقوق الطبع والنشر @ 2018 الميدالية الذهبية. كل الحقوق محفوظة</p>
+                <p>Copyright &copy; {{Carbon\Carbon::now()->year}} British Dental Clinic. All Rights Reserved</p>
             </div>
 
-            <div class="col-lg-6 col-md-6">
-                <ul>
-                    <li><a href="#">البنود و الظروف</a></li>
-                    <li><a href="#">سياسة خاصة</a></li>
-                </ul>
-            </div>
+{{--            <div class="col-lg-6 col-md-6">--}}
+{{--                <ul>--}}
+{{--                    <li><a href="#">البنود و الظروف</a></li>--}}
+{{--                    <li><a href="#">سياسة خاصة</a></li>--}}
+{{--                </ul>--}}
+{{--            </div>--}}
         </div>
     </div>
 </footer>
