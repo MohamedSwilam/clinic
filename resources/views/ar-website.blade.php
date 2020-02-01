@@ -61,8 +61,6 @@
                         <li class="nav-item"><a class="nav-link" href="#contact">اتصل بنا</a></li>
                         <li class="nav-item"><a class="nav-link" href="#blog">أخبار</a></li>
                         <li class="nav-item"><a class="nav-link" href="#gallery">صور</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#service">الخدمات</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#department">الأقسام</a></li>
                         <li class="nav-item"><a class="nav-link" href="#about">من نحن؟</a></li>
                         <li class="nav-item"><a class="nav-link" href="#home">الصفحة الرئيسية</a></li>
                     </ul>
@@ -248,208 +246,6 @@
 </section>
 <!-- End Testimonials Area -->
 
-<!-- Start Departments Area -->
-<section id="department" class="departments-area ptb-100 bg-f9faff">
-    <div class="container">
-        <div class="section-title">
-            <h3>لديناالإدارات لدينا</h3>
-            <span>الخدمات التي نقدمها</span>
-            <p>أبجد هوز دولور الجلوس امات، إيليت والحيوية، بحيث تعبا وحزنا الحوار الاقتصادي الاستراتيجي والحيوية، بحيث تعبا وحزنا، وبعض الأشياء الهامة التي يجب القيام والحيوي</p>
-        </div>
-
-        <div class="row">
-            <div class="col-lg-12 col-md-12">
-                <div class="tab">
-                    <ul class="tabs">
-                        <li><a href="#">
-                                <i class="icofont-heart-beat"></i>
-                                <br>
-                                طب القلب
-                            </a></li>
-
-                        <li><a href="#">
-                                <i class="icofont-brain"></i>
-                                <br>
-                                علم الأعصاب
-                            </a></li>
-
-                        <li><a href="#">
-                                <i class="icofont-crutch"></i>
-                                <br>
-                                طب العظام
-                            </a></li>
-
-                        <li><a href="#">
-                                <i class="icofont-xray"></i>
-                                <br>
-                                طب إشعاعي
-                            </a></li>
-
-                        <li><a href="#">
-                                <i class="icofont-surgeon"></i>
-                                <br>
-                                العملية الجراحية
-                            </a></li>
-
-                        <li><a href="#">
-                                <i class="icofont-laboratory"></i>
-                                <br>
-                                المسالك البولية
-                            </a></li>
-                    </ul>
-
-                    <div class="tab_content">
-                        <div class="tabs_item">
-                            <div class="row">
-                                <div class="col-lg-6 col-md-12">
-                                    <div class="tabs_item_img">
-                                        <img src="/images/website/department-img1.jpg" alt="department">
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-6 col-md-12">
-                                    <div class="tabs_item_content">
-                                        <h3>مرحبا بكم في قسم أمراض القلب</h3>
-                                        <p>يوفر هذا القسم الرعاية الطبية للمرضى الذين يعانون من مشاكل في القلب أو الدورة الدموية. يعامل الناس على أساس المرضى الداخليين والخارجيين.الدموية. يعامل الناس علىالدموية. يعامل الناس على</p>
-                                        <ul>
-                                            <li>رسم القلب الكهربائي (تخطيط القلب)</li>
-                                            <li>تخطيط صدى القلب (فحص بالموجات فوق الصوتية للقلب)</li>
-                                            <li>اختبارات ضغط الدم على مدار 24 ساعة</li>
-                                            <li>رسم القلب الكهربائي (تخطيط القلب)</li>
-                                        </ul>
-                                        <a href="#" class="btn">موعد الآن</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="tabs_item">
-                            <div class="row">
-                                <div class="col-lg-6 col-md-12">
-                                    <div class="tabs_item_img">
-                                        <img src="/images/website/department-img1.jpg" alt="department">
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-6 col-md-12">
-                                    <div class="tabs_item_content">
-                                        <h3>مرحبا بكم في قسم أمراض القلب</h3>
-                                        <p>يوفر هذا القسم الرعاية الطبية للمرضى الذين يعانون من مشاكل في القلب أو الدورة الدموية. يعامل الناس على أساس المرضى الداخليين والخارجيين.الدموية. يعامل الناس علىالدموية. يعامل الناس على</p>
-                                        <ul>
-                                            <li>رسم القلب الكهربائي (تخطيط القلب)</li>
-                                            <li>تخطيط صدى القلب (فحص بالموجات فوق الصوتية للقلب)</li>
-                                            <li>اختبارات ضغط الدم على مدار 24 ساعة</li>
-                                            <li>رسم القلب الكهربائي (تخطيط القلب)</li>
-                                        </ul>
-                                        <a href="#" class="btn">موعد الآن</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="tabs_item">
-                            <div class="row">
-                                <div class="col-lg-6 col-md-12">
-                                    <div class="tabs_item_img">
-                                        <img src="/images/website/department-img1.jpg" alt="department">
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-6 col-md-12">
-                                    <div class="tabs_item_content">
-                                        <h3>مرحبا بكم في قسم أمراض القلب</h3>
-                                        <p>يوفر هذا القسم الرعاية الطبية للمرضى الذين يعانون من مشاكل في القلب أو الدورة الدموية. يعامل الناس على أساس المرضى الداخليين والخارجيين.الدموية. يعامل الناس علىالدموية. يعامل الناس على</p>
-                                        <ul>
-                                            <li>رسم القلب الكهربائي (تخطيط القلب)</li>
-                                            <li>تخطيط صدى القلب (فحص بالموجات فوق الصوتية للقلب)</li>
-                                            <li>اختبارات ضغط الدم على مدار 24 ساعة</li>
-                                            <li>رسم القلب الكهربائي (تخطيط القلب)</li>
-                                        </ul>
-                                        <a href="#" class="btn">موعد الآن</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="tabs_item">
-                            <div class="row">
-                                <div class="col-lg-6 col-md-12">
-                                    <div class="tabs_item_img">
-                                        <img src="/images/website/department-img1.jpg" alt="department">
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-6 col-md-12">
-                                    <div class="tabs_item_content">
-                                        <h3>مرحبا بكم في قسم أمراض القلب</h3>
-                                        <p>يوفر هذا القسم الرعاية الطبية للمرضى الذين يعانون من مشاكل في القلب أو الدورة الدموية. يعامل الناس على أساس المرضى الداخليين والخارجيين.الدموية. يعامل الناس علىالدموية. يعامل الناس على</p>
-                                        <ul>
-                                            <li>رسم القلب الكهربائي (تخطيط القلب)</li>
-                                            <li>تخطيط صدى القلب (فحص بالموجات فوق الصوتية للقلب)</li>
-                                            <li>اختبارات ضغط الدم على مدار 24 ساعة</li>
-                                            <li>رسم القلب الكهربائي (تخطيط القلب)</li>
-                                        </ul>
-                                        <a href="#" class="btn">موعد الآن</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="tabs_item">
-                            <div class="row">
-                                <div class="col-lg-6 col-md-12">
-                                    <div class="tabs_item_img">
-                                        <img src="/images/website/department-img1.jpg" alt="department">
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-6 col-md-12">
-                                    <div class="tabs_item_content">
-                                        <h3>مرحبا بكم في قسم أمراض القلب</h3>
-                                        <p>يوفر هذا القسم الرعاية الطبية للمرضى الذين يعانون من مشاكل في القلب أو الدورة الدموية. يعامل الناس على أساس المرضى الداخليين والخارجيين.الدموية. يعامل الناس علىالدموية. يعامل الناس على</p>
-                                        <ul>
-                                            <li>رسم القلب الكهربائي (تخطيط القلب)</li>
-                                            <li>تخطيط صدى القلب (فحص بالموجات فوق الصوتية للقلب)</li>
-                                            <li>اختبارات ضغط الدم على مدار 24 ساعة</li>
-                                            <li>رسم القلب الكهربائي (تخطيط القلب)</li>
-                                        </ul>
-                                        <a href="#" class="btn">موعد الآن</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="tabs_item">
-                            <div class="row">
-                                <div class="col-lg-6 col-md-12">
-                                    <div class="tabs_item_img">
-                                        <img src="/images/website/department-img1.jpg" alt="department">
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-6 col-md-12">
-                                    <div class="tabs_item_content">
-                                        <h3>مرحبا بكم في قسم أمراض القلب</h3>
-                                        <p>يوفر هذا القسم الرعاية الطبية للمرضى الذين يعانون من مشاكل في القلب أو الدورة الدموية. يعامل الناس على أساس المرضى الداخليين والخارجيين.الدموية. يعامل الناس علىالدموية. يعامل الناس على</p>
-                                        <ul>
-                                            <li>رسم القلب الكهربائي (تخطيط القلب)</li>
-                                            <li>تخطيط صدى القلب (فحص بالموجات فوق الصوتية للقلب)</li>
-                                            <li>اختبارات ضغط الدم على مدار 24 ساعة</li>
-                                            <li>رسم القلب الكهربائي (تخطيط القلب)</li>
-                                        </ul>
-                                        <a href="#" class="btn">موعد الآن</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- End Departments Area -->
-
 <!-- Start Make an Appointment Area -->
 <section id="appointment" class="appointment-area ptb-100">
     <div class="container">
@@ -553,96 +349,6 @@
 </section>
 <!-- End Make an Appointment Area -->
 
-<!-- Start Services Area -->
-<section id="service" class="services-area ptb-100 bg-f9faff">
-    <div class="container">
-        <div class="section-title">
-            <h3>خاصتنا خدمات</h3>
-            <span>الخدمات التي نقدمها</span>
-            <p>أبجد هوز دولور الجلوس امات، إيليت بحيث تعبا وحزنا، وبعض  الحوار الاقتصادي الاستراتيجي والحيوية، بحيث تعبا وحزنا، الهامة التي يجب القيام بحيث تعبا وحزنا، وبعض .</p>
-        </div>
-
-        <div class="row">
-            <div class="col-lg-3 col-md-6">
-                <div class="single-services">
-                    <i class="icofont-surgeon"></i>
-                    <h3>الجراحة التجميلية</h3>
-                    <p>لدينا موهوب، المجلس معتمدة والزمالة المدربين جراحي التجميل لديها أكثر من 42 عاما من الخبرة مساعدة المرضى على الشكل والمظهر أفضل ما لديهم.</p>
-                    <a href="#" class="icofont-paper-plane"></a>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6">
-                <div class="single-services">
-                    <i class="icofont-nurse"></i>
-                    <h3>فحص الثدي</h3>
-                    <p>لدينا موهوب، المجلس معتمدة والزمالة المدربين جراحي التجميل لديها أكثر من 42 عاما من الخبرة مساعدة المرضى على الشكل والمظهر أفضل ما لديهم.</p>
-                    <a href="#" class="icofont-paper-plane"></a>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6">
-                <div class="single-services">
-                    <i class="icofont-herbal"></i>
-                    <h3>التغذية وعلم التغذية</h3>
-                    <p>لدينا موهوب، المجلس معتمدة والزمالة المدربين جراحي التجميل لديها أكثر من 42 عاما من الخبرة مساعدة المرضى على الشكل والمظهر أفضل ما لديهم.</p>
-                    <a href="#" class="icofont-paper-plane"></a>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6">
-                <div class="single-services">
-                    <i class="icofont-icu"></i>
-                    <h3>علاج وظيفي</h3>
-                    <p>لدينا موهوب، المجلس معتمدة والزمالة المدربين جراحي التجميل لديها أكثر من 42 عاما من الخبرة مساعدة المرضى على الشكل والمظهر أفضل ما لديهم..</p>
-                    <a href="#" class="icofont-paper-plane"></a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- End Services Area -->
-
-<!-- Start Fun Facts Area -->
-<section class="fun-facts-area ptb-100">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-3 col-md-6">
-                <div class="fun-fact">
-                    <i class="icofont-wink-smile"></i>
-                    <h3 class="count">25000</h3>
-                    <span>سعيد المرضى</span>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6">
-                <div class="fun-fact">
-                    <i class="icofont-doctor-alt"></i>
-                    <h3 class="count">180</h3>
-                    <span>الأطباء ذوي الخبرة</span>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6">
-                <div class="fun-fact">
-                    <i class="icofont-patient-bed"></i>
-                    <h3 class="count">1200</h3>
-                    <span>عمليات ناجحة</span>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6">
-                <div class="fun-fact">
-                    <i class="icofont-bed"></i>
-                    <h3 class="count">2800</h3>
-                    <span>عدد الأسرة</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- End Fun Facts Area -->
-
 <!-- Start Gallery Area -->
 <section id="gallery" class="gallery-area ptb-100">
     <div class="container">
@@ -743,6 +449,46 @@
     </div>
 </section>
 <!-- End Gallery Area -->
+
+<!-- Start Fun Facts Area -->
+<section class="fun-facts-area ptb-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-6">
+                <div class="fun-fact">
+                    <i class="icofont-wink-smile"></i>
+                    <h3 class="count">25000</h3>
+                    <span>سعيد المرضى</span>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <div class="fun-fact">
+                    <i class="icofont-doctor-alt"></i>
+                    <h3 class="count">180</h3>
+                    <span>الأطباء ذوي الخبرة</span>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <div class="fun-fact">
+                    <i class="icofont-patient-bed"></i>
+                    <h3 class="count">1200</h3>
+                    <span>عمليات ناجحة</span>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <div class="fun-fact">
+                    <i class="icofont-bed"></i>
+                    <h3 class="count">2800</h3>
+                    <span>عدد الأسرة</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Fun Facts Area -->
 
 <!-- Start Testimonials Area -->
 <section class="testimonials-area ptb-100">
