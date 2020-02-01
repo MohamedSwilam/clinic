@@ -1,9 +1,9 @@
 <template>
     <div class="vx-col w-full mb-base" v-if="can('browse-prescription')">
-        <vx-card ref="prescription" title='Prescriptions' collapseAction refreshContentAction @refresh="getPrescription">
+        <vx-card ref="prescription" title='Reports' collapseAction refreshContentAction @refresh="getPrescription">
             <vs-table :sst="true" :data="prescriptions">
                 <template slot="header">
-                    <vs-button :to="`/dashboard/patient/${$route.params.id}/create-prescription`" class="mb-5" size="small" icon-pack="feather" icon="icon-plus" type="filled">Add Prescription</vs-button>
+                    <vs-button :to="`/dashboard/patient/${$route.params.id}/create-report`" class="mb-5" size="small" icon-pack="feather" icon="icon-plus" type="filled">Add Report</vs-button>
                 </template>
                 <template slot="thead">
                     <vs-th>#</vs-th>
@@ -21,8 +21,8 @@
                         <vs-td>{{ report.created_at | time }}</vs-td>
                         <vs-td>
                             <div class="flex">
-                                    <vs-button :to="`/dashboard/prescription/${report.id}`" icon-pack="feather" icon="icon-eye" color="primary" radius type="border"></vs-button>
-                                    <vs-button class="ml-3" icon-pack="feather" icon="icon-edit" color="warning" radius type="border"></vs-button>
+                                    <vs-button :to="`/dashboard/report/${report.id}`" icon-pack="feather" icon="icon-eye" color="primary" radius type="border"></vs-button>
+                                    <vs-button :to="`/dashboard/report/${report.id}`/edit" class="ml-3" icon-pack="feather" icon="icon-edit" color="warning" radius type="border"></vs-button>
                                     <vs-button
                                         class="ml-3"
                                         v-if="can('delete-prescription')"

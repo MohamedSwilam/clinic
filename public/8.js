@@ -131,6 +131,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "add-employee",
   mounted: function mounted() {
@@ -148,6 +160,8 @@ __webpack_require__.r(__webpack_exports__);
         email: '',
         password: '',
         confirm_password: '',
+        view_in_website: false,
+        title: '',
         first_name: '',
         last_name: '',
         birth_date: '',
@@ -398,7 +412,7 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "vx-row" }, [
-                  _c("div", { staticClass: "vx-col sm:w-1/2 w-full mb-6" }, [
+                  _c("div", { staticClass: "vx-col sm:w-1/3 w-full mb-6" }, [
                     _c(
                       "div",
                       {
@@ -456,7 +470,7 @@ var render = function() {
                     )
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "vx-col sm:w-1/2 w-full mb-6" }, [
+                  _c("div", { staticClass: "vx-col sm:w-1/3 w-full mb-6" }, [
                     _c(
                       "div",
                       {
@@ -519,7 +533,42 @@ var render = function() {
                         _c("span")
                       ]
                     )
-                  ])
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "vx-col sm:w-1/3 w-full mb-6 pt-5" },
+                    [
+                      _c(
+                        "vs-switch",
+                        {
+                          attrs: {
+                            "icon-pack": "feather",
+                            "vs-icon-on": "icon-check-circle",
+                            "vs-icon-off": "icon-slash",
+                            color: "success"
+                          },
+                          model: {
+                            value: _vm.form.view_in_website,
+                            callback: function($$v) {
+                              _vm.$set(_vm.form, "view_in_website", $$v)
+                            },
+                            expression: "form.view_in_website"
+                          }
+                        },
+                        [
+                          _c("span", { attrs: { slot: "on" }, slot: "on" }, [
+                            _vm._v("View On Website")
+                          ]),
+                          _vm._v(" "),
+                          _c("span", { attrs: { slot: "off" }, slot: "off" }, [
+                            _vm._v("Do Not View On Website")
+                          ])
+                        ]
+                      )
+                    ],
+                    1
+                  )
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "vx-row" }, [
@@ -587,6 +636,43 @@ var render = function() {
                             _vm.$set(_vm.form, "last_name", $$v)
                           },
                           expression: "form.last_name"
+                        }
+                      })
+                    ],
+                    1
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "vx-row" }, [
+                  _c(
+                    "div",
+                    { staticClass: "vx-col w-full mb-6" },
+                    [
+                      _c("vs-input", {
+                        directives: [
+                          {
+                            name: "validate",
+                            rawName: "v-validate",
+                            value: "required|alpha_dash|min:3",
+                            expression: "'required|alpha_dash|min:3'"
+                          }
+                        ],
+                        staticClass: "w-full",
+                        attrs: {
+                          name: "title",
+                          danger: _vm.errors.has("title"),
+                          "val-icon-danger": "clear",
+                          "danger-text": _vm.errors.first("title"),
+                          "icon-pack": "feather",
+                          icon: "icon-underline",
+                          "label-placeholder": "Title"
+                        },
+                        model: {
+                          value: _vm.form.title,
+                          callback: function($$v) {
+                            _vm.$set(_vm.form, "title", $$v)
+                          },
+                          expression: "form.title"
                         }
                       })
                     ],

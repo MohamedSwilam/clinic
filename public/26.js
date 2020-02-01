@@ -407,322 +407,348 @@ var render = function() {
                                 index
                               ) {
                                 return [
-                                  _c(
-                                    "vs-tr",
-                                    { key: index },
-                                    [
-                                      _c(
-                                        "vs-td",
-                                        { attrs: { data: index + 1 } },
-                                        [
-                                          _vm._v(
-                                            "\n                                " +
-                                              _vm._s(index + 1) +
-                                              "\n                            "
-                                          )
-                                        ]
-                                      ),
-                                      _vm._v(" "),
-                                      _c("vs-td", [
-                                        _vm._v(
-                                          "\n                                " +
-                                            _vm._s(appointment.patient.id) +
-                                            "\n                            "
-                                        )
-                                      ]),
-                                      _vm._v(" "),
-                                      _c("vs-td", [
-                                        _vm._v(
-                                          "\n                                " +
-                                            _vm._s(
-                                              appointment.patient.first_name
-                                            ) +
-                                            " " +
-                                            _vm._s(
-                                              appointment.patient.last_name
-                                            ) +
-                                            "\n                            "
-                                        )
-                                      ]),
-                                      _vm._v(" "),
-                                      _c("vs-td", [
-                                        _vm._v(
-                                          "\n                                " +
-                                            _vm._s(
-                                              appointment.reservation_duration
-                                                .date
-                                            ) +
-                                            "\n                            "
-                                        )
-                                      ]),
-                                      _vm._v(" "),
-                                      _c("vs-td", [
-                                        _vm._v(
-                                          "\n                                " +
-                                            _vm._s(
-                                              new Date(
-                                                appointment.reservation_duration
-                                                  .date +
-                                                  " " +
-                                                  appointment
-                                                    .reservation_duration
-                                                    .start_time
-                                              ).toLocaleTimeString()
-                                            ) +
-                                            "\n                            "
-                                        )
-                                      ]),
-                                      _vm._v(" "),
-                                      _c("vs-td", [
-                                        _vm._v(
-                                          "\n                                " +
-                                            _vm._s(
-                                              new Date(
-                                                appointment.reservation_duration
-                                                  .date +
-                                                  " " +
-                                                  appointment
-                                                    .reservation_duration
-                                                    .end_time
-                                              ).toLocaleTimeString()
-                                            ) +
-                                            "\n                            "
-                                        )
-                                      ]),
-                                      _vm._v(" "),
-                                      _c(
-                                        "vs-td",
+                                  appointment.patient &&
+                                  appointment.reservation_duration &&
+                                  appointment.doctor &&
+                                  appointment.reservation_type
+                                    ? _c(
+                                        "vs-tr",
+                                        { key: index },
                                         [
                                           _c(
-                                            "vs-chip",
-                                            {
-                                              attrs: {
-                                                color: appointment.status.color
-                                              }
-                                            },
+                                            "vs-td",
+                                            { attrs: { data: index + 1 } },
                                             [
                                               _vm._v(
-                                                _vm._s(appointment.status.name)
+                                                "\n                                " +
+                                                  _vm._s(index + 1) +
+                                                  "\n                            "
                                               )
                                             ]
-                                          )
-                                        ],
-                                        1
-                                      ),
-                                      _vm._v(" "),
-                                      _c("vs-td", [
-                                        _c(
-                                          "div",
-                                          { staticClass: "flex mb-4" },
-                                          [
-                                            _vm.can("view-patient")
-                                              ? _c("vs-button", {
-                                                  attrs: {
-                                                    to:
-                                                      "/dashboard/patient/" +
-                                                      appointment.patient.id,
-                                                    radius: "",
-                                                    color: "primary",
-                                                    type: "border",
-                                                    "icon-pack": "feather",
-                                                    icon: "icon-eye"
-                                                  }
-                                                })
-                                              : _vm._e(),
-                                            _vm._v(" "),
-                                            _vm.can("delete-appointment")
-                                              ? _c("vs-button", {
-                                                  staticClass: "ml-3",
-                                                  attrs: {
-                                                    id:
-                                                      "btn-delete-" +
-                                                      appointment.id,
-                                                    radius: "",
-                                                    color: "danger",
-                                                    type: "border",
-                                                    "icon-pack": "feather",
-                                                    icon: "icon-trash"
-                                                  },
-                                                  on: {
-                                                    click: function($event) {
-                                                      return _vm.confirmDeleteAppointement(
-                                                        appointment
-                                                      )
-                                                    }
-                                                  }
-                                                })
-                                              : _vm._e()
-                                          ],
-                                          1
-                                        )
-                                      ]),
-                                      _vm._v(" "),
-                                      _c(
-                                        "template",
-                                        {
-                                          staticClass: "expand-user",
-                                          slot: "expand"
-                                        },
-                                        [
+                                          ),
+                                          _vm._v(" "),
+                                          _c("vs-td", [
+                                            _vm._v(
+                                              "\n                                " +
+                                                _vm._s(appointment.patient.id) +
+                                                "\n                            "
+                                            )
+                                          ]),
+                                          _vm._v(" "),
+                                          _c("vs-td", [
+                                            _vm._v(
+                                              "\n                                " +
+                                                _vm._s(
+                                                  appointment.patient.first_name
+                                                ) +
+                                                " " +
+                                                _vm._s(
+                                                  appointment.patient.last_name
+                                                ) +
+                                                "\n                            "
+                                            )
+                                          ]),
+                                          _vm._v(" "),
+                                          _c("vs-td", [
+                                            _vm._v(
+                                              "\n                                " +
+                                                _vm._s(
+                                                  appointment
+                                                    .reservation_duration.date
+                                                ) +
+                                                "\n                            "
+                                            )
+                                          ]),
+                                          _vm._v(" "),
+                                          _c("vs-td", [
+                                            _vm._v(
+                                              "\n                                " +
+                                                _vm._s(
+                                                  new Date(
+                                                    appointment
+                                                      .reservation_duration
+                                                      .date +
+                                                      " " +
+                                                      appointment
+                                                        .reservation_duration
+                                                        .start_time
+                                                  ).toLocaleTimeString()
+                                                ) +
+                                                "\n                            "
+                                            )
+                                          ]),
+                                          _vm._v(" "),
+                                          _c("vs-td", [
+                                            _vm._v(
+                                              "\n                                " +
+                                                _vm._s(
+                                                  new Date(
+                                                    appointment
+                                                      .reservation_duration
+                                                      .date +
+                                                      " " +
+                                                      appointment
+                                                        .reservation_duration
+                                                        .end_time
+                                                  ).toLocaleTimeString()
+                                                ) +
+                                                "\n                            "
+                                            )
+                                          ]),
+                                          _vm._v(" "),
                                           _c(
-                                            "div",
+                                            "vs-td",
+                                            [
+                                              _c(
+                                                "vs-chip",
+                                                {
+                                                  attrs: {
+                                                    color:
+                                                      appointment.status.color
+                                                  }
+                                                },
+                                                [
+                                                  _vm._v(
+                                                    _vm._s(
+                                                      appointment.status.name
+                                                    )
+                                                  )
+                                                ]
+                                              )
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c("vs-td", [
+                                            _c(
+                                              "div",
+                                              { staticClass: "flex mb-4" },
+                                              [
+                                                _vm.can("view-patient")
+                                                  ? _c("vs-button", {
+                                                      attrs: {
+                                                        to:
+                                                          "/dashboard/patient/" +
+                                                          appointment.patient
+                                                            .id,
+                                                        radius: "",
+                                                        color: "primary",
+                                                        type: "border",
+                                                        "icon-pack": "feather",
+                                                        icon: "icon-eye"
+                                                      }
+                                                    })
+                                                  : _vm._e(),
+                                                _vm._v(" "),
+                                                _vm.can("delete-appointment")
+                                                  ? _c("vs-button", {
+                                                      staticClass: "ml-3",
+                                                      attrs: {
+                                                        id:
+                                                          "btn-delete-" +
+                                                          appointment.id,
+                                                        radius: "",
+                                                        color: "danger",
+                                                        type: "border",
+                                                        "icon-pack": "feather",
+                                                        icon: "icon-trash"
+                                                      },
+                                                      on: {
+                                                        click: function(
+                                                          $event
+                                                        ) {
+                                                          return _vm.confirmDeleteAppointement(
+                                                            appointment
+                                                          )
+                                                        }
+                                                      }
+                                                    })
+                                                  : _vm._e()
+                                              ],
+                                              1
+                                            )
+                                          ]),
+                                          _vm._v(" "),
+                                          _c(
+                                            "template",
                                             {
-                                              staticClass:
-                                                "con-expand-users w-full"
+                                              staticClass: "expand-user",
+                                              slot: "expand"
                                             },
                                             [
                                               _c(
-                                                "vs-list",
+                                                "div",
+                                                {
+                                                  staticClass:
+                                                    "con-expand-users w-full"
+                                                },
                                                 [
                                                   _c(
-                                                    "vs-list-item",
-                                                    {
-                                                      attrs: {
-                                                        "icon-pack": "feather",
-                                                        icon:
-                                                          "icon-arrow-right",
-                                                        title: "Payments"
-                                                      }
-                                                    },
+                                                    "vs-list",
                                                     [
-                                                      _vm._v(
-                                                        "\n                                            Paid "
-                                                      ),
-                                                      _c("b", [
-                                                        _vm._v(
-                                                          _vm._s(
-                                                            appointment
-                                                              .payment[0].paid
-                                                          ) + " EGP"
-                                                        )
-                                                      ]),
-                                                      _vm._v(" Out of "),
-                                                      _c("b", [
-                                                        _vm._v(
-                                                          _vm._s(
-                                                            appointment
-                                                              .payment[0]
-                                                              .to_be_paid
-                                                          ) + " EGP"
-                                                        )
-                                                      ])
-                                                    ]
-                                                  ),
-                                                  _vm._v(" "),
-                                                  _c("vs-list-item", {
-                                                    attrs: {
-                                                      "icon-pack": "feather",
-                                                      icon: "icon-arrow-right",
-                                                      title:
-                                                        "Type: " +
-                                                        appointment
-                                                          .reservation_type.name
-                                                    }
-                                                  }),
-                                                  _vm._v(" "),
-                                                  _c("vs-list-item", {
-                                                    attrs: {
-                                                      "icon-pack": "feather",
-                                                      icon: "icon-arrow-right",
-                                                      title:
-                                                        "Doctor: " +
-                                                        appointment.doctor
-                                                          .first_name +
-                                                        " " +
-                                                        appointment.doctor
-                                                          .last_name
-                                                    }
-                                                  }),
-                                                  _vm._v(" "),
-                                                  _c("vs-list-item", {
-                                                    attrs: {
-                                                      "icon-pack": "feather",
-                                                      icon: "icon-arrow-right",
-                                                      title:
-                                                        "Illness Description: " +
-                                                        appointment.illness_description
-                                                    }
-                                                  }),
-                                                  _vm._v(" "),
-                                                  _c(
-                                                    "vs-list-item",
-                                                    {
-                                                      attrs: {
-                                                        "icon-pack": "feather",
-                                                        icon:
-                                                          "icon-arrow-right",
-                                                        title: "Update Status"
-                                                      }
-                                                    },
-                                                    _vm._l(
-                                                      _vm.statuses,
-                                                      function(
-                                                        status,
-                                                        status_index
-                                                      ) {
-                                                        return _c(
-                                                          "vs-button",
-                                                          {
-                                                            key: status_index,
-                                                            staticClass: "m-3",
-                                                            attrs: {
-                                                              id:
-                                                                "update-status-btn-" +
-                                                                appointment.id +
-                                                                "-" +
-                                                                status.id,
-                                                              size: "small",
-                                                              color:
-                                                                status.color,
-                                                              type:
-                                                                appointment
-                                                                  .status.id ===
-                                                                status.id
-                                                                  ? "filled"
-                                                                  : "border",
-                                                              "icon-pack":
-                                                                "feather"
-                                                            },
-                                                            on: {
-                                                              click: function(
-                                                                $event
-                                                              ) {
-                                                                _vm.is_requesting
-                                                                  ? _vm.$store.dispatch(
-                                                                      "viewWaitMessage",
-                                                                      _vm.$vs
-                                                                    )
-                                                                  : _vm.updateStatus(
-                                                                      index,
-                                                                      appointment.id,
-                                                                      status.id
-                                                                    )
-                                                              }
-                                                            }
-                                                          },
-                                                          [
+                                                      _c(
+                                                        "vs-list-item",
+                                                        {
+                                                          attrs: {
+                                                            "icon-pack":
+                                                              "feather",
+                                                            icon:
+                                                              "icon-arrow-right",
+                                                            title: "Payments"
+                                                          }
+                                                        },
+                                                        [
+                                                          _vm._v(
+                                                            "\n                                            Paid "
+                                                          ),
+                                                          _c("b", [
                                                             _vm._v(
                                                               _vm._s(
-                                                                status.name
-                                                              )
+                                                                appointment
+                                                                  .payment[0]
+                                                                  .paid
+                                                              ) + " EGP"
                                                             )
-                                                          ]
-                                                        )
-                                                      }
-                                                    ),
+                                                          ]),
+                                                          _vm._v(" Out of "),
+                                                          _c("b", [
+                                                            _vm._v(
+                                                              _vm._s(
+                                                                appointment
+                                                                  .payment[0]
+                                                                  .to_be_paid
+                                                              ) + " EGP"
+                                                            )
+                                                          ])
+                                                        ]
+                                                      ),
+                                                      _vm._v(" "),
+                                                      _c("vs-list-item", {
+                                                        attrs: {
+                                                          "icon-pack":
+                                                            "feather",
+                                                          icon:
+                                                            "icon-arrow-right",
+                                                          title:
+                                                            "Type: " +
+                                                            appointment
+                                                              .reservation_type
+                                                              .name
+                                                        }
+                                                      }),
+                                                      _vm._v(" "),
+                                                      _c("vs-list-item", {
+                                                        attrs: {
+                                                          "icon-pack":
+                                                            "feather",
+                                                          icon:
+                                                            "icon-arrow-right",
+                                                          title:
+                                                            "Doctor: " +
+                                                            appointment.doctor
+                                                              .first_name +
+                                                            " " +
+                                                            appointment.doctor
+                                                              .last_name
+                                                        }
+                                                      }),
+                                                      _vm._v(" "),
+                                                      _c("vs-list-item", {
+                                                        attrs: {
+                                                          "icon-pack":
+                                                            "feather",
+                                                          icon:
+                                                            "icon-arrow-right",
+                                                          title:
+                                                            "Illness Description: " +
+                                                            appointment.illness_description
+                                                        }
+                                                      }),
+                                                      _vm._v(" "),
+                                                      _c(
+                                                        "vs-list-item",
+                                                        {
+                                                          attrs: {
+                                                            "icon-pack":
+                                                              "feather",
+                                                            icon:
+                                                              "icon-arrow-right",
+                                                            title:
+                                                              "Update Status"
+                                                          }
+                                                        },
+                                                        _vm._l(
+                                                          _vm.statuses,
+                                                          function(
+                                                            status,
+                                                            status_index
+                                                          ) {
+                                                            return _c(
+                                                              "vs-button",
+                                                              {
+                                                                key: status_index,
+                                                                staticClass:
+                                                                  "m-3",
+                                                                attrs: {
+                                                                  id:
+                                                                    "update-status-btn-" +
+                                                                    appointment.id +
+                                                                    "-" +
+                                                                    status.id,
+                                                                  size: "small",
+                                                                  color:
+                                                                    status.color,
+                                                                  type:
+                                                                    appointment
+                                                                      .status
+                                                                      .id ===
+                                                                    status.id
+                                                                      ? "filled"
+                                                                      : "border",
+                                                                  "icon-pack":
+                                                                    "feather"
+                                                                },
+                                                                on: {
+                                                                  click: function(
+                                                                    $event
+                                                                  ) {
+                                                                    _vm.is_requesting
+                                                                      ? _vm.$store.dispatch(
+                                                                          "viewWaitMessage",
+                                                                          _vm.$vs
+                                                                        )
+                                                                      : _vm.updateStatus(
+                                                                          index,
+                                                                          appointment.id,
+                                                                          status.id
+                                                                        )
+                                                                  }
+                                                                }
+                                                              },
+                                                              [
+                                                                _vm._v(
+                                                                  _vm._s(
+                                                                    status.name
+                                                                  )
+                                                                )
+                                                              ]
+                                                            )
+                                                          }
+                                                        ),
+                                                        1
+                                                      )
+                                                    ],
                                                     1
                                                   )
                                                 ],
                                                 1
                                               )
-                                            ],
-                                            1
+                                            ]
                                           )
-                                        ]
+                                        ],
+                                        2
                                       )
-                                    ],
-                                    2
-                                  )
+                                    : _vm._e()
                                 ]
                               })
                             ]
@@ -731,7 +757,7 @@ var render = function() {
                       ],
                       null,
                       false,
-                      4244584706
+                      1843400425
                     )
                   },
                   [

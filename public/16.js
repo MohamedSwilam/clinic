@@ -34,6 +34,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 // require styles
 
 
@@ -52,6 +70,9 @@ __webpack_require__.r(__webpack_exports__);
     return {
       form: {
         description: "",
+        descriptionE: "",
+        descriptionA: "",
+        language: 'English',
         patient_id: null,
         creator_id: null
       },
@@ -74,12 +95,13 @@ __webpack_require__.r(__webpack_exports__);
         color: 'primary',
         scale: 0.45
       });
+      this.form.language === 'English' ? this.form.description = this.form.descriptionE : this.form.description = this.form.descriptionA;
       this.$store.dispatch('prescription/create', this.form).then(function (response) {
         _this.is_requesting = false;
 
         _this.$vs.loading.close("#btn-create > .con-vs-loading");
 
-        _this.$router.push("/dashboard/patient/".concat(_this.$route.params.id));
+        _this.$router.push("/dashboard/report/".concat(response.data.data.data[0].id));
 
         _this.$vs.notify({
           title: 'Success',
@@ -180,7 +202,7 @@ var render = function() {
             "vx-card",
             {
               ref: "create",
-              attrs: { title: "Create Prescription", "collapse-action": "" }
+              attrs: { title: "Create Report", "collapse-action": "" }
             },
             [
               _c(
@@ -194,24 +216,128 @@ var render = function() {
                     },
                     [
                       _c("label", { staticClass: "mb-3" }, [
-                        _c("b", [_vm._v("Prescription: ")])
+                        _c("b", [_vm._v("Language: ")])
                       ]),
                       _vm._v(" "),
-                      _c("quill-editor", {
-                        model: {
-                          value: _vm.form.description,
-                          callback: function($$v) {
-                            _vm.$set(_vm.form, "description", $$v)
-                          },
-                          expression: "form.description"
-                        }
-                      })
-                    ],
-                    1
+                      _c(
+                        "ul",
+                        {
+                          staticClass: "centerx mt-3",
+                          staticStyle: { display: "flex" }
+                        },
+                        [
+                          _c(
+                            "li",
+                            { staticStyle: { display: "inline-flex" } },
+                            [
+                              _c(
+                                "vs-radio",
+                                {
+                                  attrs: { "vs-value": "Arabic" },
+                                  model: {
+                                    value: _vm.form.language,
+                                    callback: function($$v) {
+                                      _vm.$set(_vm.form, "language", $$v)
+                                    },
+                                    expression: "form.language"
+                                  }
+                                },
+                                [_vm._v("Arabic")]
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "li",
+                            {
+                              staticClass: "ml-5",
+                              staticStyle: { display: "inline-flex" }
+                            },
+                            [
+                              _c(
+                                "vs-radio",
+                                {
+                                  attrs: { "vs-value": "English" },
+                                  model: {
+                                    value: _vm.form.language,
+                                    callback: function($$v) {
+                                      _vm.$set(_vm.form, "language", $$v)
+                                    },
+                                    expression: "form.language"
+                                  }
+                                },
+                                [_vm._v("English")]
+                              )
+                            ],
+                            1
+                          )
+                        ]
+                      )
+                    ]
                   )
                 ],
                 1
               ),
+              _vm._v(" "),
+              _vm.form.language === "English"
+                ? _c(
+                    "vs-row",
+                    [
+                      _c(
+                        "vs-col",
+                        {
+                          staticClass: "mb-5 pl-5",
+                          attrs: { "vs-lg": "12", "vs-sm": "12", "vs-xs": "12" }
+                        },
+                        [
+                          _c("label", { staticClass: "mb-3" }, [
+                            _c("b", [_vm._v("Prescription: ")])
+                          ]),
+                          _vm._v(" "),
+                          _c("quill-editor", {
+                            model: {
+                              value: _vm.form.descriptionE,
+                              callback: function($$v) {
+                                _vm.$set(_vm.form, "descriptionE", $$v)
+                              },
+                              expression: "form.descriptionE"
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                : _vm.form.language === "Arabic"
+                ? _c(
+                    "vs-row",
+                    [
+                      _c(
+                        "vs-col",
+                        {
+                          staticClass: "mb-5 pl-5",
+                          attrs: { "vs-lg": "12", "vs-sm": "12", "vs-xs": "12" }
+                        },
+                        [
+                          _c("vs-textarea", {
+                            attrs: { dir: "rtl", label: "Description" },
+                            model: {
+                              value: _vm.form.descriptionA,
+                              callback: function($$v) {
+                                _vm.$set(_vm.form, "descriptionA", $$v)
+                              },
+                              expression: "form.descriptionA"
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                : _vm._e(),
               _vm._v(" "),
               _c("vs-divider"),
               _vm._v(" "),
@@ -236,7 +362,7 @@ var render = function() {
                         }
                       }
                     },
-                    [_vm._v("Create Prescription")]
+                    [_vm._v("Create Report")]
                   )
                 ],
                 1

@@ -216,170 +216,37 @@
 </section>
 <!-- End Why Choose Us Area -->
 
-<!-- Start Who We Are Area -->
-<section class="who-we-are ptb-100">
+
+<!-- Start Testimonials Area -->
+<section class="testimonials-area ptb-100">
     <div class="container">
+        <div class="section-title">
+            <h3>Who We Are</h3>
+            <span>Meet the Entire Doctor</span>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        </div>
+
         <div class="row">
-            <div class="col-lg-4 col-md-12">
-                <div class="section-title">
-                    <h3>Who We Are</h3>
-                    <span>Meet the Entire Doctor</span>
+
+            @foreach($employees as $employee)
+                <div class="col-lg-4 col-md-6">
+                    <div class="single-feedback">
+                        <div class="client-info">
+                            <div class="img">
+                                <img src="/storage/user/profile-picture/{{$employee->image}}" alt="doctor">
+                            </div>
+                            <h4>{{$employee->first_name}} {{$employee->last_name}}</h4>
+                            <span>{{$employee->title}}</span>
+                        </div>
+                    </div>
                 </div>
+            @endforeach
 
-                <div class="who-we-are-text">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan facilisis.</p>
-                    <a href="#" class="btn">Appointment Now</a>
-                </div>
-            </div>
 
-            <div class="col-lg-8 col-md-12">
-                <ul class="team-members">
-                    <li class="clearfix">
-                        <div class="member-details">
-                            <div>
-                                <img src="/images/website/doctor-img1.png" alt="doctor">
-                                <div class="member-info">
-                                    <h3>DR. John Doe</h3>
-                                    <p>Dental Specialist</p>
-                                    <ul>
-                                        <li><a href="#" class="icofont-facebook"></a></li>
-                                        <li><a href="#" class="icofont-twitter"></a></li>
-                                        <li><a href="#" class="icofont-linkedin"></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="member-details">
-                            <div>
-                                <img src="/images/website/doctor-img2.png" alt="doctor">
-                                <div class="member-info">
-                                    <h3>DR. John Doe</h3>
-                                    <p>Dental Specialist</p>
-                                    <ul>
-                                        <li><a href="#" class="icofont-facebook"></a></li>
-                                        <li><a href="#" class="icofont-twitter"></a></li>
-                                        <li><a href="#" class="icofont-linkedin"></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="member-details">
-                            <div>
-                                <img src="/images/website/doctor-img3.png" alt="doctor">
-                                <div class="member-info">
-                                    <h3>DR. John Doe</h3>
-                                    <p>Dental Specialist</p>
-                                    <ul>
-                                        <li><a href="#" class="icofont-facebook"></a></li>
-                                        <li><a href="#" class="icofont-twitter"></a></li>
-                                        <li><a href="#" class="icofont-linkedin"></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-
-                    <li class="clearfix">
-                        <div class="member-details">
-                            <div>
-                                <img src="/images/website/doctor-img4.png" alt="doctor">
-                                <div class="member-info">
-                                    <h3>DR. John Doe</h3>
-                                    <p>Dental Specialist</p>
-                                    <ul>
-                                        <li><a href="#" class="icofont-facebook"></a></li>
-                                        <li><a href="#" class="icofont-twitter"></a></li>
-                                        <li><a href="#" class="icofont-linkedin"></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="member-details">
-                            <div>
-                                <img src="/images/website/doctor-img2.png" alt="doctor">
-                                <div class="member-info">
-                                    <h3>DR. John Doe</h3>
-                                    <p>Dental Specialist</p>
-                                    <ul>
-                                        <li><a href="#" class="icofont-facebook"></a></li>
-                                        <li><a href="#" class="icofont-twitter"></a></li>
-                                        <li><a href="#" class="icofont-linkedin"></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="member-details">
-                            <div>
-                                <img src="/images/website/doctor-img1.png" alt="doctor">
-                                <div class="member-info">
-                                    <h3>DR. John Doe</h3>
-                                    <p>Dental Specialist</p>
-                                    <ul>
-                                        <li><a href="#" class="icofont-facebook"></a></li>
-                                        <li><a href="#" class="icofont-twitter"></a></li>
-                                        <li><a href="#" class="icofont-linkedin"></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-
-                    <li class="clearfix">
-                        <div class="member-details">
-                            <div>
-                                <img src="/images/website/doctor-img1.png" alt="doctor">
-                                <div class="member-info">
-                                    <h3>DR. John Doe</h3>
-                                    <p>Dental Specialist</p>
-                                    <ul>
-                                        <li><a href="#" class="icofont-facebook"></a></li>
-                                        <li><a href="#" class="icofont-twitter"></a></li>
-                                        <li><a href="#" class="icofont-linkedin"></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="member-details">
-                            <div>
-                                <img src="/images/website/doctor-img4.png" alt="doctor">
-                                <div class="member-info">
-                                    <h3>DR. John Doe</h3>
-                                    <p>Dental Specialist</p>
-                                    <ul>
-                                        <li><a href="#" class="icofont-facebook"></a></li>
-                                        <li><a href="#" class="icofont-twitter"></a></li>
-                                        <li><a href="#" class="icofont-linkedin"></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="member-details">
-                            <div>
-                                <img src="/images/website/doctor-img2.png" alt="doctor">
-                                <div class="member-info">
-                                    <h3>DR. John Doe</h3>
-                                    <p>Dental Specialist</p>
-                                    <ul>
-                                        <li><a href="#" class="icofont-facebook"></a></li>
-                                        <li><a href="#" class="icofont-twitter"></a></li>
-                                        <li><a href="#" class="icofont-linkedin"></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
         </div>
     </div>
 </section>
-<!-- End Who We Are Area -->
+<!-- End Testimonials Area -->
 
 <!-- Start Departments Area -->
 <section id="department" class="departments-area ptb-100 bg-f9faff">

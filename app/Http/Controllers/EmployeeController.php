@@ -44,7 +44,9 @@ class EmployeeController extends Controller
     {
         $this->authorize('store', User::class);
 
+
         $data = $request->except('role');
+        $data['view_in_website']=='true'?$data['view_in_website']=true:$data['view_in_website']=false;
         $data['image'] = download_image('image', config('paths.user-image.create'));
         $data['email_verified_at'] = now();
         $data['password'] = bcrypt($request->password);
@@ -103,6 +105,7 @@ class EmployeeController extends Controller
 
         $user = User::find($id);
         $data = $request->except('role');
+        $data['view_in_website']=='true'?$data['view_in_website']=true:$data['view_in_website']=false;
         $data['image'] = download_image('image', config('paths.user-image.create'))? :$user->image;
         if ($request->password){
             $data['password'] = bcrypt($data['password']);

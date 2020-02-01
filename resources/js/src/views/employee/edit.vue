@@ -12,7 +12,7 @@
                 </div>
 
                 <div class="vx-row">
-                    <div class="vx-col sm:w-1/2 w-full mb-6">
+                    <div class="vx-col sm:w-1/3 w-full mb-6">
                         <div class="image-preview" style="display: inline-flex;">
                             <img v-if="uploadedImage" alt="employee photo" class="preview" :src="uploadedImage">
                         </div>
@@ -22,7 +22,7 @@
                         </div>
                     </div>
 
-                    <div class="vx-col sm:w-1/2 w-full mb-6">
+                    <div class="vx-col sm:w-1/3 w-full mb-6">
                         <div class="vs-component vs-con-input-label vs-input w-full vs-input-primary is-label-placeholder">
                             <div class="gender-container">
                                 <vs-radio v-model="form.gender" vs-value="Male">Male</vs-radio>
@@ -35,6 +35,13 @@
                             <span></span>
                         </div>
                     </div>
+
+                    <div class="vx-col sm:w-1/3 w-full mb-6 pt-5">
+                        <vs-switch icon-pack="feather" vs-icon-on="icon-check-circle" vs-icon-off="icon-slash" color="success" v-model="form.view_in_website">
+                            <span slot="on">View On Website</span>
+                            <span slot="off">Do Not View On Website</span>
+                        </vs-switch>
+                    </div>
                 </div>
 
                 <div class="vx-row">
@@ -43,6 +50,11 @@
                     </div>
                     <div class="vx-col sm:w-1/2 w-full mb-6">
                         <vs-input name="last_name" v-validate="'required|alpha_dash|min:3'" :danger="errors.has('last_name')" val-icon-danger="clear" :danger-text="errors.first('last_name')" class="w-full" icon-pack="feather" icon="icon-user" label-placeholder="Last Name" v-model="form.last_name" />
+                    </div>
+                </div>
+                <div class="vx-row">
+                    <div class="vx-col w-full mb-6">
+                        <vs-input name="title" v-validate="'required|alpha_dash|min:3'" :danger="errors.has('title')" val-icon-danger="clear" :danger-text="errors.first('title')" class="w-full" icon-pack="feather" icon="icon-underline" label-placeholder="Title" v-model="form.title" />
                     </div>
                 </div>
                 <div class="vx-row">
@@ -138,6 +150,8 @@
                     email: '',
                     password: '',
                     confirm_password: '',
+                    view_in_website: false,
+                    title: '',
                     first_name: '',
                     last_name: '',
                     birth_date: '',

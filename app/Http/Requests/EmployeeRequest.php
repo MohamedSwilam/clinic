@@ -28,6 +28,8 @@ class EmployeeRequest extends FormRequest
             return [
                 'email' => 'required|email|unique:users,email',
                 'password' => 'required|min:8',
+                'title' => 'required',
+                'view_in_website' => 'required',
                 'first_name' => 'required',
                 'last_name' => 'required',
                 'birth_date' => 'required|date',
@@ -45,6 +47,8 @@ class EmployeeRequest extends FormRequest
             return [
                 'email' => 'email|unique:users,email,'.$segments[2],
                 'password' => 'min:8',
+                'title' => 'required',
+                'view_in_website' => 'required',
                 'first_name' => '',
                 'last_name' => '',
                 'birth_date' => 'date',
