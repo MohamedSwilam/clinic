@@ -60,8 +60,6 @@
                     <ul class="navbar-nav mx-auto">
                         <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
                         <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#department">Department</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#service">Service</a></li>
                         <li class="nav-item"><a class="nav-link" href="#gallery">Gallery</a></li>
                         <li class="nav-item"><a class="nav-link" href="#blog">Blog</a></li>
                         <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
@@ -248,208 +246,6 @@
 </section>
 <!-- End Testimonials Area -->
 
-<!-- Start Departments Area -->
-<section id="department" class="departments-area ptb-100 bg-f9faff">
-    <div class="container">
-        <div class="section-title">
-            <h3>Our Departments</h3>
-            <span>Which Services We Provide</span>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-        </div>
-
-        <div class="row">
-            <div class="col-lg-12 col-md-12">
-                <div class="tab">
-                    <ul class="tabs">
-                        <li><a href="#">
-                                <i class="icofont-heart-beat"></i>
-                                <br>
-                                Cardiology
-                            </a></li>
-
-                        <li><a href="#">
-                                <i class="icofont-brain"></i>
-                                <br>
-                                Neurology
-                            </a></li>
-
-                        <li><a href="#">
-                                <i class="icofont-crutch"></i>
-                                <br>
-                                Orthopedics
-                            </a></li>
-
-                        <li><a href="#">
-                                <i class="icofont-xray"></i>
-                                <br>
-                                Radiology
-                            </a></li>
-
-                        <li><a href="#">
-                                <i class="icofont-surgeon"></i>
-                                <br>
-                                Surgery
-                            </a></li>
-
-                        <li><a href="#">
-                                <i class="icofont-laboratory"></i>
-                                <br>
-                                Urology
-                            </a></li>
-                    </ul>
-
-                    <div class="tab_content">
-                        <div class="tabs_item">
-                            <div class="row">
-                                <div class="col-lg-6 col-md-12">
-                                    <div class="tabs_item_img">
-                                        <img src="/images/website/department-img1.jpg" alt="department">
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-6 col-md-12">
-                                    <div class="tabs_item_content">
-                                        <h3>Welcome to Cardiology Department</h3>
-                                        <p>This department provides medical care to patients who have problems with their heart or circulation. It treats people on an inpatient and outpatient basis.</p>
-                                        <ul>
-                                            <li>Electrocardiogram (ECG)</li>
-                                            <li>Echocardiograms (ultrasound scan of the heart)</li>
-                                            <li>24-hour blood pressure tests</li>
-                                            <li>Electrocardiogram (ECG)</li>
-                                        </ul>
-                                        <a href="#" class="btn">Appointment Now</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="tabs_item">
-                            <div class="row">
-                                <div class="col-lg-6 col-md-12">
-                                    <div class="tabs_item_img">
-                                        <img src="/images/website/department-img1.jpg" alt="department">
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-6 col-md-12">
-                                    <div class="tabs_item_content">
-                                        <h3>Welcome to Neurology Department</h3>
-                                        <p>This department provides medical care to patients who have problems with their heart or circulation. It treats people on an inpatient and outpatient basis.</p>
-                                        <ul>
-                                            <li>Electrocardiogram (ECG)</li>
-                                            <li>Echocardiograms (ultrasound scan of the heart)</li>
-                                            <li>24-hour blood pressure tests</li>
-                                            <li>Electrocardiogram (ECG)</li>
-                                        </ul>
-                                        <a href="#" class="btn">Appointment Now</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="tabs_item">
-                            <div class="row">
-                                <div class="col-lg-6 col-md-12">
-                                    <div class="tabs_item_img">
-                                        <img src="/images/website/department-img1.jpg" alt="department">
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-6 col-md-12">
-                                    <div class="tabs_item_content">
-                                        <h3>Welcome to Orthopedics Department</h3>
-                                        <p>This department provides medical care to patients who have problems with their heart or circulation. It treats people on an inpatient and outpatient basis.</p>
-                                        <ul>
-                                            <li>Electrocardiogram (ECG)</li>
-                                            <li>Echocardiograms (ultrasound scan of the heart)</li>
-                                            <li>24-hour blood pressure tests</li>
-                                            <li>Electrocardiogram (ECG)</li>
-                                        </ul>
-                                        <a href="#" class="btn">Appointment Now</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="tabs_item">
-                            <div class="row">
-                                <div class="col-lg-6 col-md-12">
-                                    <div class="tabs_item_img">
-                                        <img src="/images/website/department-img1.jpg" alt="department">
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-6 col-md-12">
-                                    <div class="tabs_item_content">
-                                        <h3>Welcome to Radiology Department</h3>
-                                        <p>This department provides medical care to patients who have problems with their heart or circulation. It treats people on an inpatient and outpatient basis.</p>
-                                        <ul>
-                                            <li>Electrocardiogram (ECG)</li>
-                                            <li>Echocardiograms (ultrasound scan of the heart)</li>
-                                            <li>24-hour blood pressure tests</li>
-                                            <li>Electrocardiogram (ECG)</li>
-                                        </ul>
-                                        <a href="#" class="btn">Appointment Now</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="tabs_item">
-                            <div class="row">
-                                <div class="col-lg-6 col-md-12">
-                                    <div class="tabs_item_img">
-                                        <img src="/images/website/department-img1.jpg" alt="department">
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-6 col-md-12">
-                                    <div class="tabs_item_content">
-                                        <h3>Welcome to Surgery Department</h3>
-                                        <p>This department provides medical care to patients who have problems with their heart or circulation. It treats people on an inpatient and outpatient basis.</p>
-                                        <ul>
-                                            <li>Electrocardiogram (ECG)</li>
-                                            <li>Echocardiograms (ultrasound scan of the heart)</li>
-                                            <li>24-hour blood pressure tests</li>
-                                            <li>Electrocardiogram (ECG)</li>
-                                        </ul>
-                                        <a href="#" class="btn">Appointment Now</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="tabs_item">
-                            <div class="row">
-                                <div class="col-lg-6 col-md-12">
-                                    <div class="tabs_item_img">
-                                        <img src="/images/website/department-img1.jpg" alt="department">
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-6 col-md-12">
-                                    <div class="tabs_item_content">
-                                        <h3>Welcome to Urology Department</h3>
-                                        <p>This department provides medical care to patients who have problems with their heart or circulation. It treats people on an inpatient and outpatient basis.</p>
-                                        <ul>
-                                            <li>Electrocardiogram (ECG)</li>
-                                            <li>Echocardiograms (ultrasound scan of the heart)</li>
-                                            <li>24-hour blood pressure tests</li>
-                                            <li>Electrocardiogram (ECG)</li>
-                                        </ul>
-                                        <a href="#" class="btn">Appointment Now</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- End Departments Area -->
-
 <!-- Start Make an Appointment Area -->
 <section id="appointment" class="appointment-area ptb-100">
     <div class="container">
@@ -553,96 +349,6 @@
 </section>
 <!-- End Make an Appointment Area -->
 
-<!-- Start Services Area -->
-<section id="service" class="services-area ptb-100 bg-f9faff">
-    <div class="container">
-        <div class="section-title">
-            <h3>Our Services</h3>
-            <span>Which Services We Provide</span>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-        </div>
-
-        <div class="row">
-            <div class="col-lg-3 col-md-6">
-                <div class="single-services">
-                    <i class="icofont-surgeon"></i>
-                    <h3>Plastic Surgery</h3>
-                    <p>Our talented, board-certified and fellowship-trained plastic surgeons have more than 42 years of combined experience helping patients look and feel their best.</p>
-                    <a href="#" class="icofont-paper-plane"></a>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6">
-                <div class="single-services">
-                    <i class="icofont-nurse"></i>
-                    <h3>Breast Screening</h3>
-                    <p>Our talented, board-certified and fellowship-trained plastic surgeons have more than 42 years of combined experience helping patients look and feel their best.</p>
-                    <a href="#" class="icofont-paper-plane"></a>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6">
-                <div class="single-services">
-                    <i class="icofont-herbal"></i>
-                    <h3>Nutrition and Dietetics</h3>
-                    <p>Our talented, board-certified and fellowship-trained plastic surgeons have more than 42 years of combined experience helping patients look and feel their best.</p>
-                    <a href="#" class="icofont-paper-plane"></a>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6">
-                <div class="single-services">
-                    <i class="icofont-icu"></i>
-                    <h3>Occupational Therapy</h3>
-                    <p>Our talented, board-certified and fellowship-trained plastic surgeons have more than 42 years of combined experience helping patients look and feel their best.</p>
-                    <a href="#" class="icofont-paper-plane"></a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- End Services Area -->
-
-<!-- Start Fun Facts Area -->
-<section class="fun-facts-area ptb-100">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-3 col-md-6">
-                <div class="funFact">
-                    <i class="icofont-wink-smile"></i>
-                    <h3 class="count">25000</h3>
-                    <span>Happy Patients</span>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6">
-                <div class="funFact">
-                    <i class="icofont-doctor-alt"></i>
-                    <h3 class="count">180</h3>
-                    <span>Experienced Doctors</span>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6">
-                <div class="funFact">
-                    <i class="icofont-patient-bed"></i>
-                    <h3 class="count">1200</h3>
-                    <span>Successful Operations</span>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6">
-                <div class="funFact">
-                    <i class="icofont-bed"></i>
-                    <h3 class="count">2800</h3>
-                    <span>Number of Beds</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- End Fun Facts Area -->
-
 <!-- Start Gallery Area -->
 <section id="gallery" class="gallery-area ptb-100">
     <div class="container">
@@ -743,6 +449,46 @@
     </div>
 </section>
 <!-- End Gallery Area -->
+
+<!-- Start Fun Facts Area -->
+<section class="fun-facts-area ptb-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-6">
+                <div class="funFact">
+                    <i class="icofont-wink-smile"></i>
+                    <h3 class="count">25000</h3>
+                    <span>Happy Patients</span>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <div class="funFact">
+                    <i class="icofont-doctor-alt"></i>
+                    <h3 class="count">180</h3>
+                    <span>Experienced Doctors</span>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <div class="funFact">
+                    <i class="icofont-patient-bed"></i>
+                    <h3 class="count">1200</h3>
+                    <span>Successful Operations</span>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <div class="funFact">
+                    <i class="icofont-bed"></i>
+                    <h3 class="count">2800</h3>
+                    <span>Number of Beds</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Fun Facts Area -->
 
 <!-- Start Testimonials Area -->
 <section class="testimonials-area ptb-100">
@@ -858,8 +604,8 @@
 <section id="blog" class="news-area ptb-100 bg-f9faff">
     <div class="container">
         <div class="section-title">
-            <h3>Latest News</h3>
-            <span>Our Latest News & Tips</span>
+            <h3>Our Treatments</h3>
+            <span>Lorem ipsum dolor sit amet</span>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
         </div>
 
