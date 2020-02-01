@@ -16,6 +16,12 @@
             </vs-row>
             <vs-row v-if="form.language==='English'">
                 <vs-col vs-lg="12" vs-sm="12" vs-xs="12" class="mb-5 pl-5">
+                    <label class="mb-3"><b>Title: </b></label>
+                    <vs-input v-model="form.title"></vs-input>
+                </vs-col>
+            </vs-row>
+            <vs-row v-if="form.language==='English'">
+                <vs-col vs-lg="12" vs-sm="12" vs-xs="12" class="mb-5 pl-5">
                     <label class="mb-3"><b>Prescription: </b></label>
                     <quill-editor v-model="form.descriptionE"></quill-editor>
                 </vs-col>
@@ -53,6 +59,7 @@
         data: () => {
             return {
                 form: {
+                    title: ``,
                     description: ``,
                     descriptionE: ``,
                     descriptionA: ``,

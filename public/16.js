@@ -52,6 +52,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 // require styles
 
 
@@ -69,6 +75,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       form: {
+        title: "",
         description: "",
         descriptionE: "",
         descriptionA: "",
@@ -279,6 +286,38 @@ var render = function() {
                 ],
                 1
               ),
+              _vm._v(" "),
+              _vm.form.language === "English"
+                ? _c(
+                    "vs-row",
+                    [
+                      _c(
+                        "vs-col",
+                        {
+                          staticClass: "mb-5 pl-5",
+                          attrs: { "vs-lg": "12", "vs-sm": "12", "vs-xs": "12" }
+                        },
+                        [
+                          _c("label", { staticClass: "mb-3" }, [
+                            _c("b", [_vm._v("Title: ")])
+                          ]),
+                          _vm._v(" "),
+                          _c("vs-input", {
+                            model: {
+                              value: _vm.form.title,
+                              callback: function($$v) {
+                                _vm.$set(_vm.form, "title", $$v)
+                              },
+                              expression: "form.title"
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                : _vm._e(),
               _vm._v(" "),
               _vm.form.language === "English"
                 ? _c(
