@@ -53,12 +53,14 @@ class EmployeeController extends Controller
 
         $user = User::create($data);
 
-        foreach (json_decode($request->phones) as $phone){
-            $phone= Phone::create([
-                'number' => $phone->number,
-                'country_code' => $phone->country_code,
-            ]);
-            $user->phones()->save($phone);
+        if ($request->phones){
+            foreach (json_decode($request->phones) as $phone){
+                $phone= Phone::create([
+                    'number' => $phone->number,
+                    'country_code' => $phone->country_code,
+                ]);
+                $user->phones()->save($phone);
+            }
         }
 
         $user->assignRole($request->role);

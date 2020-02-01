@@ -23,7 +23,7 @@ class NotificationController extends Controller
 
         return $this->respond(
             'Data Loaded Successfully',
-            User::where('id', $user_id)->first()->notifications
+            User::where('id', $user_id)->first()->unreadNotifications
         );
     }
     /**
@@ -70,7 +70,7 @@ class NotificationController extends Controller
     {
         $this->authorize('index', Notification::class);
 
-        User::where('id', $user_id)->first()->unreadNotifications->markAsRead();
+        User::where('id', $user_id)->first()->notifications->markAsRead();
 
         return $this->respond(
             'All Notifications Marked as Read Successfully'
