@@ -22,7 +22,7 @@
                         <vs-td>
                             <div class="flex">
                                     <vs-button :to="`/dashboard/report/${report.id}`" icon-pack="feather" icon="icon-eye" color="primary" radius type="border"></vs-button>
-                                    <vs-button :to="`/dashboard/report/${report.id}`/edit" class="ml-3" icon-pack="feather" icon="icon-edit" color="warning" radius type="border"></vs-button>
+                                    <vs-button :to="`/dashboard/report/${report.id}/edit`" class="ml-3" icon-pack="feather" icon="icon-edit" color="warning" radius type="border"></vs-button>
                                     <vs-button
                                         class="ml-3"
                                         v-if="can('delete-prescription')"

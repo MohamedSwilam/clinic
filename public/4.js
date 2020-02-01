@@ -1646,8 +1646,9 @@ var render = function() {
                                         staticClass: "ml-3",
                                         attrs: {
                                           to:
-                                            ("/dashboard/report/" + report.id) /
-                                            _vm.edit,
+                                            "/dashboard/report/" +
+                                            report.id +
+                                            "/edit",
                                           "icon-pack": "feather",
                                           icon: "icon-edit",
                                           color: "warning",
@@ -1691,7 +1692,7 @@ var render = function() {
                     ],
                     null,
                     false,
-                    877284083
+                    305573715
                   )
                 },
                 [
