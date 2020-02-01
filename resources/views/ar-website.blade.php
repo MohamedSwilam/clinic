@@ -215,170 +215,38 @@
 </section>
 <!-- End Why Choose Us Area -->
 
-<!-- Start Who We Are Area -->
-<section class="who-we-are ptb-100">
+
+
+<!-- Start Testimonials Area -->
+<section class="testimonials-area ptb-100">
     <div class="container">
+        <div class="section-title">
+            <h3>من نحن</h3>
+            <span>قابل الفريق الطبي بالكامل</span>
+            <p>هناك حقيقة مثبتة منذ زمن طويل وهي أن المحتوى المقروء لصفحة ما سيلهي القارئ عن التركيز على الشكل الخارجي للنص أو شكل توضع الفقرات في الصفحة التي يقرأها. ولذلك يتم استخدام طريقة لى حد ما- للأحرف عوضاً لى مدى السنين ظهرت نسخ جديدة ومختلفة من نص لوريم إيبسوم، أحياناً عن طريق الصدفة، وأحياناً عن عمد كإدخال بعض العبارات الفكاهية إليها.</p>
+        </div>
+
         <div class="row">
-            <div class="col-lg-4 col-md-12">
-                <div class="section-title">
-                    <h3>من نحن وماذا نفعل</h3>
-                    <span>قابل الطبيب بالكامل</span>
+
+            @foreach($employees as $employee)
+                <div class="col-lg-4 col-md-6">
+                    <div class="single-feedback">
+                        <div class="client-info">
+                            <div class="img">
+                                <img src="/storage/user/profile-picture/{{$employee->image}}" alt="doctor">
+                            </div>
+                            <h4>{{$employee->first_name}} {{$employee->last_name}}</h4>
+                            <span>{{$employee->title}}</span>
+                        </div>
+                    </div>
                 </div>
+            @endforeach
 
-                <div class="who-we-are-text">
-                    <p>هناك حقيقة مثبتة منذ زمن طويل وهي أن المحتوى المقروء لصفحة ما سيلهي القارئ عن التركيز على الشكل الخارجي للنص أو شكل توضع الفقرات في الصفحة التي يقرأها. ولذلك يتم استخدام طريقة لى حد ما- للأحرف عوضاً لى مدى السنين ظهرت نسخ جديدة ومختلفة من نص لوريم إيبسوم، أحياناً عن طريق الصدفة، وأحياناً عن عمد كإدخال بعض العبارات الفكاهية إليها.</p>
-                    <a href="#" class="btn">رسالة موعد</a>
-                </div>
-            </div>
 
-            <div class="col-lg-8 col-md-12">
-                <ul class="team-members">
-                    <li class="clearfix">
-                        <div class="member-details">
-                            <div>
-                                <img src="/images/website/doctor-img1.png" alt="doctor">
-                                <div class="member-info">
-                                    <h3>دكتور. فلان الفلاني</h3>
-                                    <p>طبيب أسنان متخصص</p>
-                                    <ul>
-                                        <li><a href="#" class="icofont-facebook"></a></li>
-                                        <li><a href="#" class="icofont-twitter"></a></li>
-                                        <li><a href="#" class="icofont-linkedin"></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="member-details">
-                            <div>
-                                <img src="/images/website/doctor-img2.png" alt="doctor">
-                                <div class="member-info">
-                                    <h3>دكتور. فلان الفلاني</h3>
-                                    <p>طبيب أسنان متخصص</p>
-                                    <ul>
-                                        <li><a href="#" class="icofont-facebook"></a></li>
-                                        <li><a href="#" class="icofont-twitter"></a></li>
-                                        <li><a href="#" class="icofont-linkedin"></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="member-details">
-                            <div>
-                                <img src="/images/website/doctor-img3.png" alt="doctor">
-                                <div class="member-info">
-                                    <h3>دكتور. فلان الفلاني</h3>
-                                    <p>طبيب أسنان متخصص</p>
-                                    <ul>
-                                        <li><a href="#" class="icofont-facebook"></a></li>
-                                        <li><a href="#" class="icofont-twitter"></a></li>
-                                        <li><a href="#" class="icofont-linkedin"></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-
-                    <li class="clearfix">
-                        <div class="member-details">
-                            <div>
-                                <img src="/images/website/doctor-img4.png" alt="doctor">
-                                <div class="member-info">
-                                    <h3>دكتور. فلان الفلاني</h3>
-                                    <p>طبيب أسنان متخصص</p>
-                                    <ul>
-                                        <li><a href="#" class="icofont-facebook"></a></li>
-                                        <li><a href="#" class="icofont-twitter"></a></li>
-                                        <li><a href="#" class="icofont-linkedin"></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="member-details">
-                            <div>
-                                <img src="/images/website/doctor-img2.png" alt="doctor">
-                                <div class="member-info">
-                                    <h3>دكتور. فلان الفلاني</h3>
-                                    <p>طبيب أسنان متخصص</p>
-                                    <ul>
-                                        <li><a href="#" class="icofont-facebook"></a></li>
-                                        <li><a href="#" class="icofont-twitter"></a></li>
-                                        <li><a href="#" class="icofont-linkedin"></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="member-details">
-                            <div>
-                                <img src="/images/website/doctor-img1.png" alt="doctor">
-                                <div class="member-info">
-                                    <h3>دكتور. فلان الفلاني</h3>
-                                    <p>طبيب أسنان متخصص</p>
-                                    <ul>
-                                        <li><a href="#" class="icofont-facebook"></a></li>
-                                        <li><a href="#" class="icofont-twitter"></a></li>
-                                        <li><a href="#" class="icofont-linkedin"></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-
-                    <li class="clearfix">
-                        <div class="member-details">
-                            <div>
-                                <img src="/images/website/doctor-img1.png" alt="doctor">
-                                <div class="member-info">
-                                    <h3>دكتور. فلان الفلاني</h3>
-                                    <p>طبيب أسنان متخصص</p>
-                                    <ul>
-                                        <li><a href="#" class="icofont-facebook"></a></li>
-                                        <li><a href="#" class="icofont-twitter"></a></li>
-                                        <li><a href="#" class="icofont-linkedin"></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="member-details">
-                            <div>
-                                <img src="/images/website/doctor-img4.png" alt="doctor">
-                                <div class="member-info">
-                                    <h3>دكتور. فلان الفلاني</h3>
-                                    <p>طبيب أسنان متخصص</p>
-                                    <ul>
-                                        <li><a href="#" class="icofont-facebook"></a></li>
-                                        <li><a href="#" class="icofont-twitter"></a></li>
-                                        <li><a href="#" class="icofont-linkedin"></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="member-details">
-                            <div>
-                                <img src="/images/website/doctor-img2.png" alt="doctor">
-                                <div class="member-info">
-                                    <h3>دكتور. فلان الفلاني</h3>
-                                    <p>طبيب أسنان متخصص</p>
-                                    <ul>
-                                        <li><a href="#" class="icofont-facebook"></a></li>
-                                        <li><a href="#" class="icofont-twitter"></a></li>
-                                        <li><a href="#" class="icofont-linkedin"></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
         </div>
     </div>
 </section>
-<!-- End Who We Are Area -->
+<!-- End Testimonials Area -->
 
 <!-- Start Departments Area -->
 <section id="department" class="departments-area ptb-100 bg-f9faff">

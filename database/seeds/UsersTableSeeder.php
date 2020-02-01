@@ -16,6 +16,8 @@ class UsersTableSeeder extends Seeder
             [
                 'first_name' => 'Abdulrahman',
                 'last_name' => 'Rashwan',
+                'title' => 'Super Admin',
+                'view_in_website' => false,
                 'email' => 'abdo.ra.1997@gmail.com',
                 'password' => bcrypt('password'),
                 'email_verified_at' => now(),
@@ -24,6 +26,8 @@ class UsersTableSeeder extends Seeder
             [
                 'first_name' => 'Mohamed',
                 'last_name' => 'Swailam',
+                'title' => 'Super Admin',
+                'view_in_website' => false,
                 'email' => 'm.swilam@equinesolutions.co',
                 'password' => bcrypt('password'),
                 'email_verified_at' => now(),

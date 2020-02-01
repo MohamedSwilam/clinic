@@ -44,7 +44,7 @@
                     </template>
                     <template slot-scope="{data}">
                         <template v-for="(appointment, index) in appointments">
-                            <vs-tr :key="index">
+                            <vs-tr :key="index" v-if="appointment.patient && appointment.reservation_duration && appointment.doctor && appointment.reservation_type">
                                 <vs-td :data="index + 1">
                                     {{ index + 1 }}
                                 </vs-td>

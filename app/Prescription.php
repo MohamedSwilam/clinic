@@ -8,7 +8,7 @@ class Prescription extends Model
 {
     protected $with = ['patient', 'creator'];
 
-    protected $fillable = ['description', 'creator_id', 'patient_id'];
+    protected $fillable = ['description', 'language', 'creator_id', 'patient_id'];
 
     public function creator()
     {

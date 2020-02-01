@@ -15,7 +15,8 @@ class CreatePrescriptionsTable extends Migration
     {
         Schema::create('prescriptions', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('description', 2000)->nullable();
+            $table->text('description')->nullable();
+            $table->string('language')->nullable();
             $table->unsignedBigInteger('patient_id')->nullable();
             $table->unsignedBigInteger('creator_id')->nullable();
             $table->foreign('patient_id')->references('id')->on('patients')->onDelete('set null');

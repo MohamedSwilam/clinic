@@ -27,6 +27,7 @@ class PrescriptionRequest extends FormRequest
         if (sizeof($segments) == 2){
             return [
                 'description' => 'required',
+                'language' => 'required',
                 'patient_id' => 'required|exists:patients,id',
                 'creator_id' => 'required|exists:users,id',
             ];
@@ -34,6 +35,7 @@ class PrescriptionRequest extends FormRequest
         else if (sizeof($segments) == 3){
             return [
                 'description' => '',
+                'language' => 'required',
             ];
         }
     }

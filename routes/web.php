@@ -13,8 +13,8 @@
 
 Route::view('test','test');
 
-Route::view('/', 'en-website')->name('welcome');
-Route::view('/en', 'en-website')->name('welcome-en');
-Route::view('/ar', 'ar-website')->name('welcome-ar');
+Route::get('/', 'Web\HomeController@indexEn')->name('welcome');
+Route::get('/en', 'Web\HomeController@indexEn')->name('welcome-en');
+Route::get('/ar', 'Web\HomeController@indexAr')->name('welcome-ar');
 Route::get('/dashboard', 'ApplicationController')->where('any', '.*');
 Route::get('/dashboard/{any}', 'ApplicationController')->where('any', '.*');

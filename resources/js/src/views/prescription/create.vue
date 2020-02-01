@@ -1,15 +1,33 @@
 <template>
     <div>
-        <vx-card v-if="can('create-prescription')" ref="create" title='Create Prescription' collapse-action>
+        <vx-card v-if="can('create-prescription')" ref="create" title='Create Report' collapse-action>
             <vs-row>
                 <vs-col vs-lg="12" vs-sm="12" vs-xs="12" class="mb-5 pl-5">
+                    <label class="mb-3"><b>Language: </b></label>
+                    <ul class="centerx mt-3" style="display: flex;">
+                        <li style="display: inline-flex;">
+                            <vs-radio v-model="form.language" vs-value="Arabic">Arabic</vs-radio>
+                        </li>
+                        <li class="ml-5" style="display: inline-flex;">
+                            <vs-radio v-model="form.language" vs-value="English">English</vs-radio>
+                        </li>
+                    </ul>
+                </vs-col>
+            </vs-row>
+            <vs-row v-if="form.language==='English'">
+                <vs-col vs-lg="12" vs-sm="12" vs-xs="12" class="mb-5 pl-5">
                     <label class="mb-3"><b>Prescription: </b></label>
-                    <quill-editor v-model="form.description"></quill-editor>
+                    <quill-editor v-model="form.descriptionE"></quill-editor>
+                </vs-col>
+            </vs-row>
+            <vs-row v-else-if="form.language==='Arabic'">
+                <vs-col vs-lg="12" vs-sm="12" vs-xs="12" class="mb-5 pl-5">
+                    <vs-textarea dir="rtl" label="Description" v-model="form.descriptionA" />
                 </vs-col>
             </vs-row>
             <vs-divider></vs-divider>
             <vs-row vs-justify="center" vs-align="center">
-                <vs-button id="btn-create" @click="is_requesting?$store.dispatch('viewWaitMessage', $vs):create()" :disabled="!validateForm" icon-pack="feather" icon="icon-save">Create Prescription</vs-button>
+                <vs-button id="btn-create" @click="is_requesting?$store.dispatch('viewWaitMessage', $vs):create()" :disabled="!validateForm" icon-pack="feather" icon="icon-save">Create Report</vs-button>
             </vs-row>
         </vx-card>
     </div>
@@ -36,6 +54,9 @@
             return {
                 form: {
                     description: ``,
+                    descriptionE: ``,
+                    descriptionA: ``,
+                    language: 'English',
                     patient_id: null,
                     creator_id: null,
                 },
@@ -53,11 +74,12 @@
 
                 this.is_requesting=true;
                 this.$vs.loading({container: `#btn-create`, color: 'primary', scale: 0.45});
+                this.form.language==='English'?this.form.description=this.form.descriptionE:this.form.description=this.form.descriptionA;
                 this.$store.dispatch('prescription/create', this.form)
                     .then(response => {
                         this.is_requesting=false;
                         this.$vs.loading.close(`#btn-create > .con-vs-loading`);
-                        this.$router.push(`/dashboard/patient/${this.$route.params.id}`);
+                        this.$router.push(`/dashboard/report/${response.data.data.data[0].id}`);
                         this.$vs.notify({
                             title: 'Success',
                             text: response.data.message,

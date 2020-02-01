@@ -27,7 +27,7 @@ class CreateMedicalReportsTable extends Migration
             $table->string('extra_oral_examination', 1000)->nullable();
             $table->string('special_test', 1000)->nullable();
             $table->string('diagnosis', 1000)->nullable();
-            $table->string('treatment_plan', 5000)->nullable();
+            $table->text('treatment_plan')->nullable();
             $table->unsignedBigInteger('patient_id')->nullable();
             $table->unsignedBigInteger('doctor_id')->nullable();
             $table->foreign('patient_id')->references('id')->on('patients')->onDelete('set null');

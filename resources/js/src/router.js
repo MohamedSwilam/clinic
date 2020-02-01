@@ -214,8 +214,8 @@ const router = new Router({
 
 
                 {
-                    path: '/dashboard/patient/:id/create-prescription',
-                    name: 'prescription-create',
+                    path: '/dashboard/patient/:id/create-report',
+                    name: 'report-create',
                     component: () => import('./views/prescription/create'),
                     beforeEnter: guard,
                     meta: {
@@ -223,15 +223,15 @@ const router = new Router({
                             { title: 'Home', url: '/dashboard'},
                             { title: 'Patient', i18n: 'Patient', url: '/dashboard/patient' },
                             { title: 'Profile'},
-                            { title: 'Create Prescription', active: true}
+                            { title: 'Create Report', active: true}
                         ],
-                        pageTitle: "Create Prescription",
+                        pageTitle: "Create Report",
                         permission: 'create-prescription'
                     }
                 },
                 {
-                    path: '/dashboard/prescription/:id',
-                    name: 'prescription-view',
+                    path: '/dashboard/report/:id',
+                    name: 'report-view',
                     component: () => import('./views/prescription/view'),
                     beforeEnter: guard,
                     meta: {
@@ -239,15 +239,15 @@ const router = new Router({
                             { title: 'Home', url: '/dashboard'},
                             { title: 'Patient', i18n: 'Patient', url: '/dashboard/patient' },
                             { title: 'Profile'},
-                            { title: 'View Prescription', active: true}
+                            { title: 'View Report', active: true}
                         ],
-                        pageTitle: "View Prescription",
+                        pageTitle: "View Report",
                         permission: 'view-prescription'
                     }
                 },
                 {
-                    path: '/dashboard/prescription/:id/edit',
-                    name: 'prescription-edit',
+                    path: '/dashboard/report/:id/edit',
+                    name: 'report-edit',
                     component: () => import('./views/prescription/edit'),
                     beforeEnter: guard,
                     meta: {
@@ -255,9 +255,9 @@ const router = new Router({
                             { title: 'Home', url: '/dashboard'},
                             { title: 'Patient', i18n: 'Patient', url: '/dashboard/patient' },
                             { title: 'Profile'},
-                            { title: 'Edit Prescription', active: true}
+                            { title: 'Edit Report', active: true}
                         ],
-                        pageTitle: "Edit Prescription",
+                        pageTitle: "Edit Report",
                         permission: 'edit-prescription'
                     }
                 },
