@@ -54,6 +54,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 
@@ -502,6 +505,29 @@ var render = function() {
                   ? _c(
                       "vs-row",
                       [
+                        _c(
+                          "vs-col",
+                          {
+                            staticClass: "mb-5",
+                            attrs: {
+                              "vs-lg": "12",
+                              "vs-sm": "12",
+                              "vs-xs": "12"
+                            }
+                          },
+                          [
+                            _c("div", [
+                              _c("label", [_vm._v("Title: ")]),
+                              _vm._v(" "),
+                              _c("span", {
+                                domProps: {
+                                  innerHTML: _vm._s(_vm.report.title)
+                                }
+                              })
+                            ])
+                          ]
+                        ),
+                        _vm._v(" "),
                         _c(
                           "vs-col",
                           {

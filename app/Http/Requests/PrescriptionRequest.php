@@ -26,6 +26,7 @@ class PrescriptionRequest extends FormRequest
         $segments = request()->segments();
         if (sizeof($segments) == 2){
             return [
+                'title' => 'required',
                 'description' => 'required',
                 'language' => 'required',
                 'patient_id' => 'required|exists:patients,id',
@@ -34,6 +35,7 @@ class PrescriptionRequest extends FormRequest
         }
         else if (sizeof($segments) == 3){
             return [
+                'title' => '',
                 'description' => '',
                 'language' => 'required',
             ];

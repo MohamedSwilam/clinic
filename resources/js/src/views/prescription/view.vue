@@ -29,6 +29,9 @@
             <vx-card ref="view" title='Report' collapseAction refreshContentAction @refresh="getPrescription">
                 <vs-row v-if="report">
                     <vs-col vs-lg="12" vs-sm="12" vs-xs="12" class="mb-5">
+                        <div><label>Title: </label> <span v-html="report.title"></span></div>
+                    </vs-col>
+                    <vs-col vs-lg="12" vs-sm="12" vs-xs="12" class="mb-5">
                         <div :dir="report.language==='Arabic'?'rtl':'ltr'" ref="pdfcontent" :class="`quill-editor rich-text-container ${width_675}`" v-html="report.description"></div>
                     </vs-col>
                 </vs-row>
