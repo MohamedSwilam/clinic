@@ -19,7 +19,6 @@
                 <vs-row v-if="report">
                     <vs-col vs-type="flex" vs-align="center" vs-justify="center">
                         <vs-button :to="`/dashboard/report/${$route.params.id}/edit`" size="small" color="warning" icon-pack="feather" icon="icon-edit">Edit Report</vs-button>
-                        <vs-button class="ml-5" @click="report.language==='Arabic'?exportPdfAr():exportPdfEn()"  size="small" color="primary" icon-pack="feather" icon="icon-file">Export PDF</vs-button>
                     </vs-col>
                 </vs-row>
             </vx-card>
@@ -29,10 +28,7 @@
             <vx-card ref="view" title='Report' collapseAction refreshContentAction @refresh="getPrescription">
                 <vs-row v-if="report">
                     <vs-col vs-lg="12" vs-sm="12" vs-xs="12" class="mb-5">
-                        <div><label>Title: </label> <span v-html="report.title"></span></div>
-                    </vs-col>
-                    <vs-col vs-lg="12" vs-sm="12" vs-xs="12" class="mb-5">
-                        <div :dir="report.language==='Arabic'?'rtl':'ltr'" ref="pdfcontent" :class="`quill-editor rich-text-container ${width_675}`" v-html="report.description"></div>
+                        <div ref="pdfcontent" :class="`quill-editor rich-text-container ${width_675}`" v-html="report.description"></div>
                     </vs-col>
                 </vs-row>
             </vx-card>

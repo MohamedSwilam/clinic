@@ -37,9 +37,6 @@
                     <vs-col vs-lg="6" vs-sm="12" vs-xs="12" class="mb-5">
                         <b>Occupation: </b> {{patient.occupation?patient.occupation:'Not Specified!'}}
                     </vs-col>
-                    <vs-col vs-lg="6" vs-sm="12" vs-xs="12" class="mb-5">
-                        <b>Referred From: </b> {{patient.reference?patient.reference:'No Body'}}
-                    </vs-col>
                 </vs-row>
                 <vs-row vs-justify="center">
                     <vs-button v-if="can('edit-patient')" :to="`/dashboard/patient/${$route.params.id}/edit`" size="small" icon-pack="feather" icon="icon-edit" type="filled">Edit Information</vs-button>
