@@ -53,10 +53,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 
 
 
@@ -447,27 +443,6 @@ var render = function() {
                                 }
                               },
                               [_vm._v("Edit Report")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "vs-button",
-                              {
-                                staticClass: "ml-5",
-                                attrs: {
-                                  size: "small",
-                                  color: "primary",
-                                  "icon-pack": "feather",
-                                  icon: "icon-file"
-                                },
-                                on: {
-                                  click: function($event) {
-                                    _vm.report.language === "Arabic"
-                                      ? _vm.exportPdfAr()
-                                      : _vm.exportPdfEn()
-                                  }
-                                }
-                              },
-                              [_vm._v("Export PDF")]
                             )
                           ],
                           1
@@ -516,40 +491,11 @@ var render = function() {
                             }
                           },
                           [
-                            _c("div", [
-                              _c("label", [_vm._v("Title: ")]),
-                              _vm._v(" "),
-                              _c("span", {
-                                domProps: {
-                                  innerHTML: _vm._s(_vm.report.title)
-                                }
-                              })
-                            ])
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "vs-col",
-                          {
-                            staticClass: "mb-5",
-                            attrs: {
-                              "vs-lg": "12",
-                              "vs-sm": "12",
-                              "vs-xs": "12"
-                            }
-                          },
-                          [
                             _c("div", {
                               ref: "pdfcontent",
                               class:
                                 "quill-editor rich-text-container " +
                                 _vm.width_675,
-                              attrs: {
-                                dir:
-                                  _vm.report.language === "Arabic"
-                                    ? "rtl"
-                                    : "ltr"
-                              },
                               domProps: {
                                 innerHTML: _vm._s(_vm.report.description)
                               }

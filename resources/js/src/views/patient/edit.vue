@@ -70,10 +70,6 @@
                 <vs-col vs-lg="6" vs-sm="12" vs-xs="12" class="mb-5 pl-5">
                     <vs-input :danger="errors.has('occupation')" :danger-text="errors.first('occupation')" val-icon-danger="clear" icon-pack="feather" icon="icon-briefcase" label-placeholder="Occupation" v-model="form.occupation" class="w-full" name="occupation" />
                 </vs-col>
-                <vs-col vs-lg="6" vs-sm="12" vs-xs="12" class="mb-5 pl-5">
-                    <vs-input :danger="errors.has('reference')" :danger-text="errors.first('reference')" val-icon-danger="clear" icon-pack="feather" icon="icon-git-branch" label-placeholder="Referred From" v-model="form.reference" class="w-full" name="reference" />
-                    <span class="text-danger">{{ errors.first('reference') }}</span>
-                </vs-col>
             </vs-row>
             <vs-divider></vs-divider>
             <vs-row vs-justify="center" vs-align="center">

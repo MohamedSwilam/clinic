@@ -4,26 +4,24 @@
             <template v-if="form">
                 <vs-row>
                     <vs-col vs-lg="12" vs-sm="12" vs-xs="12" class="mb-5 pl-5">
-                        <label class="mb-3"><b>Language: </b></label>
-                        <ul class="centerx mt-3" style="display: flex;">
-                            <li style="display: inline-flex;">
-                                <vs-radio v-model="form.language" vs-value="Arabic">Arabic</vs-radio>
-                            </li>
-                            <li class="ml-5" style="display: inline-flex;">
-                                <vs-radio v-model="form.language" vs-value="English">English</vs-radio>
-                            </li>
-                        </ul>
-                    </vs-col>
-                </vs-row>
-                <vs-row v-if="form.language==='English'">
-                    <vs-col vs-lg="12" vs-sm="12" vs-xs="12" class="mb-5 pl-5">
                         <label class="mb-3"><b>Prescription: </b></label>
-                        <quill-editor v-model="form.descriptionE"></quill-editor>
-                    </vs-col>
-                </vs-row>
-                <vs-row v-else-if="form.language==='Arabic'">
-                    <vs-col vs-lg="12" vs-sm="12" vs-xs="12" class="mb-5 pl-5">
-                        <vs-textarea dir="rtl" label="Description" v-model="form.descriptionA" />
+                        <editor
+                            v-model="form.description"
+                            api-key="dbsm75kn7l835v4zmlswhv7qwx2aj6wo2440q4uth36pcqdk"
+                            initialValue=""
+                            :init="{
+                         height: 500,
+                         menubar: false,
+                         plugins: [
+                           'advlist autolink lists link image charmap print preview anchor',
+                           'searchreplace visualblocks code fullscreen',
+                           'insertdatetime media table paste code help wordcount'
+                         ],
+                         toolbar:
+                           'undo redo | formatselect | bold italic backcolor | \
+                           alignleft aligncenter alignright alignjustify | \
+                           bullist numlist outdent indent | removeformat | help'
+                       }"></editor>
                     </vs-col>
                 </vs-row>
             </template>
@@ -37,17 +35,12 @@
 </template>
 
 <script>
-    // require styles
-    import 'quill/dist/quill.core.css'
-    import 'quill/dist/quill.snow.css'
-    import 'quill/dist/quill.bubble.css'
-
-    import { quillEditor } from 'vue-quill-editor'
+    import Editor from '@tinymce/tinymce-vue'
 
     export default {
         name: "edit",
         components: {
-            quillEditor,
+            'editor': Editor
         },
         mounted() {
             this.getPrescription();
@@ -71,7 +64,6 @@
                     .then(response => {
                         this.$vs.loading.close(this.$refs.edit.$refs.content);
                         this.form = response.data.data.data;
-                        this.form.language==='English'?this.form.descriptionE=this.form.description:this.form.descriptionA=this.form.description;
                     })
                     .catch(error => {
                         console.log(error);
@@ -91,7 +83,6 @@
 
                 this.is_requesting=true;
                 this.$vs.loading({container: `#btn-edit`, color: 'primary', scale: 0.45});
-                this.form.language==='English'?this.form.description=this.form.descriptionE:this.form.description=this.form.descriptionA;
                 this.$store.dispatch('prescription/update', {id: this.$route.params.id, data: this.form})
                     .then(response => {
                         this.is_requesting=false;

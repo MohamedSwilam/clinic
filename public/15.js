@@ -90,10 +90,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "create",
   mounted: function mounted() {
@@ -777,40 +773,6 @@ var render = function() {
                           expression: "form.occupation"
                         }
                       })
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "vs-col",
-                    {
-                      staticClass: "mb-5 pl-5",
-                      attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
-                    },
-                    [
-                      _c("vs-input", {
-                        staticClass: "w-full",
-                        attrs: {
-                          danger: _vm.errors.has("reference"),
-                          "danger-text": _vm.errors.first("reference"),
-                          "val-icon-danger": "clear",
-                          "icon-pack": "feather",
-                          icon: "icon-git-branch",
-                          "label-placeholder": "Referred From",
-                          name: "reference"
-                        },
-                        model: {
-                          value: _vm.form.reference,
-                          callback: function($$v) {
-                            _vm.$set(_vm.form, "reference", $$v)
-                          },
-                          expression: "form.reference"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("span", { staticClass: "text-danger" }, [
-                        _vm._v(_vm._s(_vm.errors.first("reference")))
-                      ])
                     ],
                     1
                   )

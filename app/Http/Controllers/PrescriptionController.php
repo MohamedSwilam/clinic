@@ -49,7 +49,7 @@ class PrescriptionController extends Controller
         $prescription = Prescription::create($data);
 
         return $this->respond(
-            'Prescription Created Successfully',
+            'Report Created Successfully',
             fractal(
                 Prescription::where('id', $prescription->id)->get(),
                 new PrescriptionTransformer()
@@ -92,7 +92,7 @@ class PrescriptionController extends Controller
         $prescription->update($request->validated());
 
         return $this->respond(
-            'Prescription Updated Successfully',
+            'Report Updated Successfully',
             fractal(Prescription::where('id', $id)->get(), new PrescriptionTransformer())
         );
     }
@@ -110,6 +110,6 @@ class PrescriptionController extends Controller
 
         Prescription::find($id)->delete();
 
-        return $this->respond('Prescription Deleted Successfully');
+        return $this->respond('Report Deleted Successfully');
     }
 }

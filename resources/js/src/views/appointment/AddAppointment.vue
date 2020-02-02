@@ -74,9 +74,6 @@
                             <vs-col vs-lg="6" vs-sm="12" vs-xs="12" class="mb-5 pl-5">
                                 <vs-input :danger="errors.has('step-1.occupation')" :danger-text="errors.first('step-1.occupation')" val-icon-danger="clear" icon-pack="feather" icon="icon-briefcase" label-placeholder="Occupation" v-model="form.patient.occupation" class="w-full" name="occupation" />
                             </vs-col>
-                            <vs-col vs-lg="6" vs-sm="12" vs-xs="12" class="mb-5 pl-5">
-                                <vs-input :danger="errors.has('step-1.reference')" :danger-text="errors.first('step-1.reference')" val-icon-danger="clear" icon-pack="feather" icon="icon-git-branch" label-placeholder="Referred From" v-model="form.patient.reference" class="w-full" name="reference" />
-                            </vs-col>
                         </vs-row>
                     </div>
 
@@ -115,9 +112,6 @@
                             </vs-col>
                             <vs-col vs-lg="6" vs-sm="12" vs-xs="12" class="mb-5">
                                 <b>Occupation: </b> {{form.patient.occupation?form.patient.occupation:'Not Specified!'}}
-                            </vs-col>
-                            <vs-col vs-lg="6" vs-sm="12" vs-xs="12" class="mb-5">
-                                <b>form.Referred From: </b> {{form.patient.reference?form.patient.reference:'No Body'}}
                             </vs-col>
                         </vs-row>
                     </div>

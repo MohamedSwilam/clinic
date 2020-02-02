@@ -258,12 +258,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
  // For custom error message
 
@@ -1310,48 +1304,6 @@ var render = function() {
                                     })
                                   ],
                                   1
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "vs-col",
-                                  {
-                                    staticClass: "mb-5 pl-5",
-                                    attrs: {
-                                      "vs-lg": "6",
-                                      "vs-sm": "12",
-                                      "vs-xs": "12"
-                                    }
-                                  },
-                                  [
-                                    _c("vs-input", {
-                                      staticClass: "w-full",
-                                      attrs: {
-                                        danger: _vm.errors.has(
-                                          "step-1.reference"
-                                        ),
-                                        "danger-text": _vm.errors.first(
-                                          "step-1.reference"
-                                        ),
-                                        "val-icon-danger": "clear",
-                                        "icon-pack": "feather",
-                                        icon: "icon-git-branch",
-                                        "label-placeholder": "Referred From",
-                                        name: "reference"
-                                      },
-                                      model: {
-                                        value: _vm.form.patient.reference,
-                                        callback: function($$v) {
-                                          _vm.$set(
-                                            _vm.form.patient,
-                                            "reference",
-                                            $$v
-                                          )
-                                        },
-                                        expression: "form.patient.reference"
-                                      }
-                                    })
-                                  ],
-                                  1
                                 )
                               ],
                               1
@@ -1590,32 +1542,6 @@ var render = function() {
                                               _vm.form.patient.occupation
                                                 ? _vm.form.patient.occupation
                                                 : "Not Specified!"
-                                            ) +
-                                            "\n                        "
-                                        )
-                                      ]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "vs-col",
-                                      {
-                                        staticClass: "mb-5",
-                                        attrs: {
-                                          "vs-lg": "6",
-                                          "vs-sm": "12",
-                                          "vs-xs": "12"
-                                        }
-                                      },
-                                      [
-                                        _c("b", [
-                                          _vm._v("form.Referred From: ")
-                                        ]),
-                                        _vm._v(
-                                          " " +
-                                            _vm._s(
-                                              _vm.form.patient.reference
-                                                ? _vm.form.patient.reference
-                                                : "No Body"
                                             ) +
                                             "\n                        "
                                         )

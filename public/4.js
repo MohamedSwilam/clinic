@@ -301,9 +301,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -1161,30 +1158,6 @@ var render = function() {
                                     _vm.patient.occupation
                                       ? _vm.patient.occupation
                                       : "Not Specified!"
-                                  ) +
-                                  "\n                    "
-                              )
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "vs-col",
-                            {
-                              staticClass: "mb-5",
-                              attrs: {
-                                "vs-lg": "6",
-                                "vs-sm": "12",
-                                "vs-xs": "12"
-                              }
-                            },
-                            [
-                              _c("b", [_vm._v("Referred From: ")]),
-                              _vm._v(
-                                " " +
-                                  _vm._s(
-                                    _vm.patient.reference
-                                      ? _vm.patient.reference
-                                      : "No Body"
                                   ) +
                                   "\n                    "
                               )
