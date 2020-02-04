@@ -27,6 +27,147 @@
 
     <title>Dental Clinic</title>
 </head>
+@php
+    $videos = [
+        [
+            'frame' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/4ryYYhhmk8g" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
+            'category' => 'videos'
+        ],
+        [
+            'frame' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/7HMgptSuJHk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
+            'category' => 'videos'
+        ],
+        [
+            'frame' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/wVD5GiTuoiw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
+            'category' => 'videos'
+        ],
+        [
+            'frame' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/dVi4x-Lt0rc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
+            'category' => 'videos'
+        ],
+    ];
+
+    $images = [
+        [
+            'category' => 'crown',
+            'url' => '/images/crown/h.jpg'
+        ],
+        [
+            'category' => 'crown',
+            'url' => '/images/crown/n.jpg'
+        ],
+        [
+            'category' => 'crown',
+            'url' => '/images/crown/q.jpg'
+        ],
+        [
+            'category' => 'crown',
+            'url' => '/images/crown/r.jpg'
+        ],
+        [
+            'category' => 'crown',
+            'url' => '/images/crown/v.jpg'
+        ],
+        [
+            'category' => 'crown',
+            'url' => '/images/crown/w.jpg'
+        ],
+        [
+            'category' => 'crown',
+            'url' => '/images/crown/5.jpg'
+        ],
+        [
+            'category' => 'crown',
+            'url' => '/images/crown/6.jpg'
+        ],
+        [
+            'category' => 'hollywood-smile',
+            'url' => '/images/hollywood-smile/1.jpg'
+        ],
+        [
+            'category' => 'hollywood-smile',
+            'url' => '/images/hollywood-smile/2.1.jpg'
+        ],
+        [
+            'category' => 'hollywood-smile',
+            'url' => '/images/hollywood-smile/2.jpg'
+        ],
+        [
+            'category' => 'hollywood-smile',
+            'url' => '/images/hollywood-smile/3.1.jpg'
+        ],
+        [
+            'category' => 'hollywood-smile',
+            'url' => '/images/hollywood-smile/3.jpg'
+        ],
+        [
+            'category' => 'hollywood-smile',
+            'url' => '/images/hollywood-smile/4.jpg'
+        ],
+        [
+            'category' => 'hollywood-smile',
+            'url' => '/images/hollywood-smile/renta155.jpg'
+        ],
+        [
+            'category' => 'composite-veners',
+            'url' => '/images/composite-veners/IMG_5105.jpg'
+        ],
+        [
+            'category' => 'composite-veners',
+            'url' => '/images/composite-veners/IMG_6082.jpg'
+        ],
+        [
+            'category' => 'endodontic-treatment',
+            'url' => '/images/endodontic-treatment/1.jpeg'
+        ],
+        [
+            'category' => 'endodontic-treatment',
+            'url' => '/images/endodontic-treatment/2.jpeg'
+        ],
+        [
+            'category' => 'endodontic-treatment',
+            'url' => '/images/endodontic-treatment/3.jpeg'
+        ],
+    ];
+
+    $treatments = [
+        [
+            'url' => '/images/treatments/1.jpg',
+            'title' => 'DENTAL CARE',
+            'description' => 'Our dental professionals are concerned about keeping your smile healthy. We offer a full range of dental procedures & teeth repair.'
+        ],
+        [
+            'url' => '/images/treatments/2.jpg',
+            'title' => 'TOOTH-COLOURED',
+            'description' => 'Advances in biomaterial technology have made tooth colored fillings enter an era of absolute confidence as an alternative to amalgam fillings.'
+        ],
+        [
+            'url' => '/images/treatments/3.jpg',
+            'title' => 'DENTURES',
+            'description' => 'Cosmetic dentures are high quality dentures made so as to achieve an aesthetic result and providing appropriate lip support.'
+        ],
+        [
+            'url' => '/images/treatments/4.jpg',
+            'title' => 'TREATMENTS',
+            'description' => 'It is the field of dentistry dedicated to the art and science of aesthetics aimed at enhancing a person’s smile and overall appearance.'
+        ],
+        [
+            'url' => '/images/treatments/5.jpg',
+            'title' => 'VENEERS',
+            'description' => 'Dental veneers are a popular cosmetic treatment option to improve the aesthetic appearance of your teeth.'
+        ],
+        [
+            'url' => '/images/treatments/6.jpg',
+            'title' => 'TEETH WHITENING',
+            'description' => 'Dental tooth whitening is simple, effective, with few side effects when applied by a qualified dental professional and produces a brighter smile.'
+        ],
+        [
+            'url' => '/images/treatments/7.jpg',
+            'title' => 'GUMMY SMILE',
+            'description' => 'The gums are lifted to improve not only their appearance, but also the size, shape and emerging appearance of the teeth.'
+        ],
+    ];
+@endphp
 
 <body data-spy="scroll" data-offset="70">
 <!-- Start Preloader Area -->
@@ -60,16 +201,19 @@
                     <ul class="navbar-nav mx-auto">
                         <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
                         <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#doctors">Doctors</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#appointment">Appointments</a></li>
                         <li class="nav-item"><a class="nav-link" href="#gallery">Gallery</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#blog">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#feedback">Feedback</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#treatment">Treatments</a></li>
                         <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
                     </ul>
                 </div>
             </div>
 
-            <div class="col-12 col-lg-2 col-md-3 text-right">
-                <a href="{{route('welcome-ar')}}" class="appointment-btn white-btn">العربية</a>
-            </div>
+{{--            <div class="col-12 col-lg-2 col-md-3 text-right">--}}
+{{--                <a href="{{route('welcome-ar')}}" class="appointment-btn white-btn">العربية</a>--}}
+{{--            </div>--}}
         </div>
     </div>
 </nav>
@@ -84,28 +228,36 @@
                     <div class="col-lg-7 col-md-12">
                         <div class="hero-slides">
                             <div class="hero-content">
-                                <h1>Providing Quality Health Care. Your Health is Our Top Priority with <span>Comprehensive</span></h1>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.</p>
-                                <a href="#" class="btn">Appointment Now</a>
+                                <h1>Our mission is to deliver the highest quality care, unprecedented comfort, and service. We are committed to delivering the very best results for you, whether its</h1>
+                                <ul>
+                                    <li>
+                                        Creating the perfect smile
+                                    </li>
+                                    <li>
+                                        Reconstructing your entire mouth
+                                    </li>
+                                    <li>
+                                        Helping you achieve total wellness
+                                    </li>
+                                    <li>
+                                        change your life
+                                    </li>
+                                </ul>
                             </div>
 
                             <div class="hero-content">
-                                <h1>Providing Quality Health Care. Your Health is Our Top Priority with <span>Comprehensive</span></h1>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.</p>
-                                <a href="#" class="btn">Appointment Now</a>
+                                <h1>At British Dental Clinic we have been proud to combine modern techniques and high-tech equipment</h1>
                             </div>
 
                             <div class="hero-content">
-                                <h1>Providing Quality Health Care. Your Health is Our Top Priority with <span>Comprehensive</span></h1>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.</p>
-                                <a href="#" class="btn">Appointment Now</a>
+                                <h1>Doctor Kareem Ibraheem and his team deliver a personalized and comfortable dental care experience</h1>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-lg-5 col-md-12">
                         <div class="hero-video">
-                            <a href="https://www.youtube.com/watch?v=bk7McNUjWgw" class="video-play-btn popup-video"><i class="icofont-play-alt-3"></i></a>
+                            <a href="https://www.youtube.com/watch?v=AE8UWj9PxRI" class="video-play-btn popup-video"><i class="icofont-play-alt-3"></i></a>
                         </div>
                     </div>
                 </div>
@@ -122,32 +274,42 @@
             <div class="col-lg-3 col-md-6">
                 <div class="single-box">
                     <i class="icofont-doctor"></i>
-                    <h3>Qualified Doctors</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <h3>At British Dental Clinic</h3>
+                    <p>We strive to always be on the cutting edge and among the first to introduce new technologies that will enhance our abilities.</p>
+                    <br>
+                    <br>
+                    <br>
                 </div>
             </div>
 
             <div class="col-lg-3 col-md-6">
                 <div class="single-box">
                     <i class="icofont-ambulance-cross"></i>
-                    <h3>Emergency Care</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <h3>Dental Care</h3>
+                    <p>A visit to British Dental Clinic will offer you best everlasting experience of dental care, aligned with our comfortable ambiance and our friendly staff, that will ensure that you are in good hands.</p>
                 </div>
             </div>
 
             <div class="col-lg-3 col-md-6">
                 <div class="single-box">
                     <i class="icofont-operation-theater"></i>
-                    <h3>Operation Theater</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <h3>Individual Treatment</h3>
+                    <p>From diagnosis to planning and treatment, every patient is given special individual attention.
+                    </p>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
                 </div>
             </div>
 
             <div class="col-lg-3 col-md-6">
                 <div class="single-box">
                     <i class="icofont-stretcher"></i>
-                    <h3>24 Hours Service</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <h3>Our Clinic</h3>
+                    <p>Our clinic is open 7 days per week from 8 am to 8 pm. Our Friday timing are 10 am to 8 pm. All patients with emergency needs will be seen on the same day.</p>
+                    <br>
+                    <br>
                 </div>
             </div>
         </div>
@@ -190,23 +352,26 @@
             <div class="col-lg-6 col-md-12">
                 <div class="section-title">
                     <h3>Why Choose Us</h3>
-                    <span>Read About Us</span>
+                    <span>British Dental Clinic</span>
                 </div>
 
                 <div class="why-choose-us-text">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum ultrices gravida. Risus commodo viverra maecenas accumsan facilisis.</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <p>Every thing you need under one roof
+                        Our comprehensive services allow you to receive all needed dental care right here in our state of art office from dental cleanings and fillings to dental implants and extractions.
+                    </p>
+                    <p>Our patient focused Approach
+                        your treatments plan will perfectly matvh your needs, lifestyle, and goals. Even if its been years since last visited the dentist, we can help.
+                        Our comfortable office, compassionate team, and minimally-invasive treatments will help you feel completely at ease
+                    </p>
 
                     <ul>
-                        <li>We provide high-quality services for the whole family.</li>
-                        <li>Risus commodo viverra maecenas</li>
-                        <li>Your health is our top priority</li>
-                        <li>Affordable medical, dental and women's health care.</li>
-                        <li>Quis ipsum suspendisse ultrices gravida.</li>
-                        <li>We provide high-quality services for the whole family.</li>
+                        <li>Tight Schedule? no worries!
+                            we offer comrehensive dentistry five daus a week, making it easy to find appointments that fit your schedule!</li>
+                        <li>Committed to Quality Materials
+                            we use only the best master ceramists for our beautiful cosmetic work, you can count on restorations with life-like qualities.</li>
+                        <li>Healthy smiles Radiate Confidence
+                            you will love your smile and your visit, too! We will make sure you leave our office feeling comfortable, relaxed, and confident.</li>
                     </ul>
-
-                    <a href="#" class="btn">Our Work</a>
                 </div>
             </div>
         </div>
@@ -216,16 +381,14 @@
 
 
 <!-- Start Testimonials Area -->
-<section class="testimonials-area ptb-100">
+<section class="testimonials-area ptb-100" id="doctors">
     <div class="container">
         <div class="section-title">
             <h3>Who We Are</h3>
-            <span>Meet the Entire Doctor</span>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-        </div>
+            <span>Meet Our Doctors</span>
+            </div>
 
         <div class="row">
-
             @foreach($employees as $employee)
                 <div class="col-lg-4 col-md-6">
                     <div class="single-feedback">
@@ -239,8 +402,6 @@
                     </div>
                 </div>
             @endforeach
-
-
         </div>
     </div>
 </section>
@@ -253,26 +414,7 @@
             <div class="col-lg-6 col-md-6">
                 <div class="section-title">
                     <h3>Make an Appointment</h3>
-                    <span>Visit Your Primary Care Physician</span>
-                </div>
-
-                <div class="faq">
-                    <ul class="accordion">
-                        <li class="accordion-item">
-                            <a class="accordion-title active" href="javascript:void(0)">What is dental care? <i class="icofont-plus"></i></a>
-                            <p class="accordion-content show">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse.</p>
-                        </li>
-
-                        <li class="accordion-item">
-                            <a class="accordion-title" href="javascript:void(0)">What is dental care? <i class="icofont-plus"></i></a>
-                            <p class="accordion-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse.</p>
-                        </li>
-
-                        <li class="accordion-item">
-                            <a class="accordion-title" href="javascript:void(0)">What is dental care? <i class="icofont-plus"></i></a>
-                            <p class="accordion-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse.</p>
-                        </li>
-                    </ul>
+                    <span>Visit British Dental Care</span>
                 </div>
             </div>
 
@@ -355,95 +497,42 @@
         <div class="section-title">
             <h3>Photo Gallery</h3>
             <span>Which Services We Provide</span>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
         </div>
 
         <div class="row">
             <div class="col-lg-12 col-md-12">
                 <div class="shorting-menu">
-                    <button class="filter" data-filter="all">All</button>
-                    <button class="filter" data-filter=".cardiology">Cardiology</button>
-                    <button class="filter" data-filter=".neurology">Neurology</button>
-                    <button class="filter" data-filter=".sergury">Sergury</button>
-                    <button class="filter" data-filter=".orthopaedics">Orthopaedics</button>
-                    <button class="filter" data-filter=".urology">Urology</button>
+{{--                    <button class="filter" data-filter="all">All</button>--}}
+                    <button class="filter active" data-filter=".crown" id="first-bitch">Crown</button>
+                    <button class="filter" data-filter=".hollywood-smile">Hollywood Smile</button>
+                    <button class="filter" data-filter=".composite-veners">Composite Veneers</button>
+                    <button class="filter" data-filter=".endodontic-treatment">Endodontic Treatment</button>
+                    <button class="filter" data-filter=".videos">Videos</button>
                 </div>
             </div>
         </div>
 
         <div class="shorting">
             <div class="row">
-                <div class="col-lg-4 col-md-6 mix cardiology">
+                @foreach($images as $image)
+                <div class="col-lg-4 col-md-6 mix {{$image['category']}}">
                     <div class="single-photo">
-                        <img src="/images/website/gallery-img1.jpg" alt="gallery">
+                        <img src="{{$image['url']}}" alt="gallery">
                         <div class="gallery-content">
-                            <h3>Blood Pressure</h3>
-                            <span>Cardiology</span>
-                            <a href="#" class="link-btn"><i class="icofont-link"></i></a>
-                            <a href="/images/website/gallery-img1.jpg" class="popup-btn"><i class="icofont-expand"></i></a>
+                            <a href="{{$image['url']}}" class="popup-btn"><i class="icofont-expand"></i></a>
                         </div>
                     </div>
                 </div>
+                @endforeach
 
-                <div class="col-lg-4 col-md-6 mix neurology">
-                    <div class="single-photo">
-                        <img src="/images/website/gallery-img2.jpg" alt="gallery">
-                        <div class="gallery-content">
-                            <h3>Blood Pressure</h3>
-                            <span>Cardiology</span>
-                            <a href="#" class="link-btn"><i class="icofont-link"></i></a>
-                            <a href="/images/website/gallery-img2.jpg" class="popup-btn"><i class="icofont-expand"></i></a>
-                        </div>
+                @foreach($videos as $video)
+                <div class="col-lg-6 col-md-6 mix {{$video['category']}}">
+                    <div class="gallery-content" style="margin: 25px">
+                        {!! $video['frame'] !!}
                     </div>
                 </div>
+                @endforeach
 
-                <div class="col-lg-4 col-md-6 mix sergury">
-                    <div class="single-photo">
-                        <img src="/images/website/gallery-img3.jpg" alt="gallery">
-                        <div class="gallery-content">
-                            <h3>Blood Pressure</h3>
-                            <span>Cardiology</span>
-                            <a href="#" class="link-btn"><i class="icofont-link"></i></a>
-                            <a href="/images/website/gallery-img3.jpg" class="popup-btn"><i class="icofont-expand"></i></a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 mix orthopaedics">
-                    <div class="single-photo">
-                        <img src="/images/website/gallery-img4.jpg" alt="gallery">
-                        <div class="gallery-content">
-                            <h3>Blood Pressure</h3>
-                            <span>Cardiology</span>
-                            <a href="#" class="link-btn"><i class="icofont-link"></i></a>
-                            <a href="/images/website/gallery-img4.jpg" class="popup-btn"><i class="icofont-expand"></i></a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 mix urology">
-                    <div class="single-photo">
-                        <img src="/images/website/gallery-img5.jpg" alt="gallery">
-                        <div class="gallery-content">
-                            <h3>Blood Pressure</h3>
-                            <span>Cardiology</span>
-                            <a href="#" class="link-btn"><i class="icofont-link"></i></a>
-                            <a href="/images/website/gallery-img5.jpg" class="popup-btn"><i class="icofont-expand"></i></a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 mix orthopaedics cardiology">
-                    <div class="single-photo">
-                        <img src="/images/website/gallery-img6.jpg" alt="gallery">
-                        <div class="gallery-content">
-                            <h3>Blood Pressure</h3>
-                            <span>Cardiology</span>
-                            <a href="#" class="link-btn"><i class="icofont-link"></i></a>
-                            <a href="/images/website/gallery-img6.jpg" class="popup-btn"><i class="icofont-expand"></i></a>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -457,7 +546,7 @@
             <div class="col-lg-3 col-md-6">
                 <div class="funFact">
                     <i class="icofont-wink-smile"></i>
-                    <h3 class="count">25000</h3>
+                    <h3 class="count">2500</h3>
                     <span>Happy Patients</span>
                 </div>
             </div>
@@ -465,7 +554,7 @@
             <div class="col-lg-3 col-md-6">
                 <div class="funFact">
                     <i class="icofont-doctor-alt"></i>
-                    <h3 class="count">180</h3>
+                    <h3 class="count">18</h3>
                     <span>Experienced Doctors</span>
                 </div>
             </div>
@@ -481,7 +570,7 @@
             <div class="col-lg-3 col-md-6">
                 <div class="funFact">
                     <i class="icofont-bed"></i>
-                    <h3 class="count">2800</h3>
+                    <h3 class="count">7</h3>
                     <span>Number of Beds</span>
                 </div>
             </div>
@@ -491,7 +580,7 @@
 <!-- End Fun Facts Area -->
 
 <!-- Start Testimonials Area -->
-<section class="testimonials-area ptb-100">
+<section class="testimonials-area ptb-100" id="feedback">
     <div class="container">
         <div class="section-title">
             <h3>Testimonials</h3>
@@ -601,50 +690,24 @@
 <!-- End Testimonials Area -->
 
 <!-- Start News Area -->
-<section id="blog" class="news-area ptb-100 bg-f9faff">
+<section id="treatment" class="news-area ptb-100 bg-f9faff">
     <div class="container">
         <div class="section-title">
             <h3>Our Treatments</h3>
-            <span>Lorem ipsum dolor sit amet</span>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
         </div>
 
         <div class="row">
-            <div class="col-lg-4 col-md-6">
-                <div class="single-blog-post">
-                    <a href="single-blog.html" class="blog-img"><img src="/images/website/blog-img1.jpg" alt="blog"></a>
-
-                    <div class="post-content">
-                        <h4><a href="single-blog.html">Risus commodo viverra maecenas accumsan lacus vel facilisis.</a></h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                        <a href="single-blog.html" class="btn">Read More</a>
+            @foreach($treatments as $treatment)
+                <div class="col-lg-4 col-md-6">
+                    <div class="single-blog-post">
+                        <img src="{{$treatment['url']}}" alt="blog">
+                        <div class="post-content">
+                            <h4>{{$treatment['title']}}</h4>
+                            <p>{{$treatment['description']}}</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6">
-                <div class="single-blog-post">
-                    <a href="single-blog.html" class="blog-img"><img src="/images/website/blog-img2.jpg" alt="blog"></a>
-
-                    <div class="post-content">
-                        <h4><a href="single-blog.html">Risus commodo viverra maecenas accumsan lacus vel facilisis.</a></h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                        <a href="single-blog.html" class="btn">Read More</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 offset-lg-0 offset-md-3">
-                <div class="single-blog-post">
-                    <a href="single-blog.html" class="blog-img"><img src="/images/website/blog-img3.jpg" alt="blog"></a>
-
-                    <div class="post-content">
-                        <h4><a href="single-blog.html">Risus commodo viverra maecenas accumsan lacus vel facilisis.</a></h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                        <a href="single-blog.html" class="btn">Read More</a>
-                    </div>
-                </div>
-            </div>
+            @endforeach
         </div>
     </div>
 </section>
@@ -678,6 +741,8 @@
                 <div class="contact-box">
                     <h3><i class="icofont-phone"></i> Phone</h3>
                     <p><a>+201021385707</a></p>
+                    <p><a>+201062070700</a></p>
+                    <p><a>+201099664548</a></p>
                 </div>
             </div>
 
@@ -786,5 +851,6 @@
 <script src="{{ asset(mix('js/website/contact-form-script.js')) }}"></script>
 <!-- Main JS -->
 <script src="{{ asset(mix('js/website/main.js')) }}"></script>
+
 </body>
 </html>

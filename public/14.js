@@ -1,14 +1,22 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[14],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/patient/create.vue?vue&type=script&lang=js&":
-/*!************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/patient/create.vue?vue&type=script&lang=js& ***!
-  \************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/medicalReport/edit.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/medicalReport/edit.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var quill_dist_quill_core_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! quill/dist/quill.core.css */ "./node_modules/quill/dist/quill.core.css");
+/* harmony import */ var quill_dist_quill_core_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(quill_dist_quill_core_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var quill_dist_quill_snow_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! quill/dist/quill.snow.css */ "./node_modules/quill/dist/quill.snow.css");
+/* harmony import */ var quill_dist_quill_snow_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(quill_dist_quill_snow_css__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var quill_dist_quill_bubble_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! quill/dist/quill.bubble.css */ "./node_modules/quill/dist/quill.bubble.css");
+/* harmony import */ var quill_dist_quill_bubble_css__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(quill_dist_quill_bubble_css__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var vue_quill_editor__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-quill-editor */ "./node_modules/vue-quill-editor/dist/vue-quill-editor.js");
+/* harmony import */ var vue_quill_editor__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vue_quill_editor__WEBPACK_IMPORTED_MODULE_3__);
 //
 //
 //
@@ -90,58 +98,100 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+// require styles
+
+
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "create",
+  name: "edit",
+  components: {
+    quillEditor: vue_quill_editor__WEBPACK_IMPORTED_MODULE_3__["quillEditor"]
+  },
+  mounted: function mounted() {
+    this.getMedicalReport();
+  },
   data: function data() {
     return {
-      form: {
-        email: '',
-        first_name: '',
-        last_name: '',
-        birth_date: '',
-        address: '',
-        city: '',
-        country: '',
-        phones: [],
-        occupation: '',
-        reference: '',
-        gender: 'Male'
-      },
+      form: null,
       is_requesting: false,
-      Telephone: ''
+      counterDanger1: false,
+      counterDanger2: false,
+      counterDanger3: false,
+      counterDanger4: false,
+      counterDanger5: false
     };
   },
   computed: {
     validateForm: function validateForm() {
-      return !this.errors.any() && this.form.first_name !== "" && this.form.last_name !== "" && this.form.gender !== "" && this.form.phones.length > 0;
+      return !this.errors.any() && this.form.patient_id !== null && this.form.doctor_id !== null;
     }
   },
   methods: {
-    create: function create() {
+    getMedicalReport: function getMedicalReport() {
       var _this = this;
+
+      this.$vs.loading({
+        container: this.$refs.edit.$refs.content,
+        scale: 0.5
+      });
+      this.$store.dispatch('medicalReport/view', this.$route.params.id).then(function (response) {
+        _this.$vs.loading.close(_this.$refs.edit.$refs.content);
+
+        _this.form = response.data.data.data;
+      })["catch"](function (error) {
+        console.log(error);
+
+        _this.$vs.loading.close(_this.$refs.edit.$refs.content);
+
+        _this.$vs.notify({
+          title: 'Error',
+          text: error.response.data.error,
+          iconPack: 'feather',
+          icon: 'icon-alert-circle',
+          color: 'danger'
+        });
+      });
+    },
+    edit: function edit() {
+      var _this2 = this;
 
       if (!this.validateForm) return;
       this.is_requesting = true;
       this.$vs.loading({
-        container: "#btn-create",
+        container: "#btn-edit",
         color: 'primary',
         scale: 0.45
       });
+      console.log(this.form);
+      this.$store.dispatch('medicalReport/update', {
+        id: this.$route.params.id,
+        data: this.form
+      }).then(function (response) {
+        _this2.is_requesting = false;
 
-      for (var key in this.form) {
-        if (this.form[key] === '') {
-          delete this.form[key];
-        }
-      }
+        _this2.$vs.loading.close("#btn-edit > .con-vs-loading");
 
-      this.$store.dispatch('patient/create', this.form).then(function (response) {
-        _this.is_requesting = false;
+        _this2.$router.push("/dashboard/medical-report/".concat(response.data.data.data.id));
 
-        _this.$vs.loading.close("#btn-create > .con-vs-loading");
-
-        _this.$router.push("/dashboard/patient/".concat(response.data.data.data.id));
-
-        _this.$vs.notify({
+        _this2.$vs.notify({
           title: 'Success',
           text: response.data.message,
           iconPack: 'feather',
@@ -150,11 +200,11 @@ __webpack_require__.r(__webpack_exports__);
         });
       })["catch"](function (error) {
         console.log(error);
-        _this.is_requesting = false;
+        _this2.is_requesting = false;
 
-        _this.$vs.loading.close("#btn-create > .con-vs-loading");
+        _this2.$vs.loading.close("#btn-edit > .con-vs-loading");
 
-        _this.$vs.notify({
+        _this2.$vs.notify({
           title: 'Error',
           text: error.response.data.errors[Object.keys(error.response.data.errors)[0]][0],
           iconPack: 'feather',
@@ -162,28 +212,16 @@ __webpack_require__.r(__webpack_exports__);
           color: 'danger'
         });
       });
-    },
-    removeTelephone: function removeTelephone(item) {
-      this.form.phones.splice(this.form.phones.indexOf(item), 1);
-    },
-    addTelephone: function addTelephone() {
-      if (this.Telephone !== '') {
-        this.form.phones.push({
-          'country_code': '+20',
-          'number': this.Telephone
-        });
-        this.Telephone = "";
-      }
     }
   }
 });
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/patient/create.vue?vue&type=style&index=0&lang=css&":
-/*!*******************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader??ref--7-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/patient/create.vue?vue&type=style&index=0&lang=css& ***!
-  \*******************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/medicalReport/edit.vue?vue&type=style&index=0&lang=css&":
+/*!***********************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--7-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/medicalReport/edit.vue?vue&type=style&index=0&lang=css& ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -199,15 +237,15 @@ exports.push([module.i, ".dob-input{\n  padding-bottom: 7px !important;\n  paddi
 
 /***/ }),
 
-/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/patient/create.vue?vue&type=style&index=0&lang=css&":
-/*!***********************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--7-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/patient/create.vue?vue&type=style&index=0&lang=css& ***!
-  \***********************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/medicalReport/edit.vue?vue&type=style&index=0&lang=css&":
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--7-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/medicalReport/edit.vue?vue&type=style&index=0&lang=css& ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(/*! !../../../../../node_modules/css-loader??ref--7-1!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--7-2!../../../../../node_modules/vue-loader/lib??vue-loader-options!./create.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/patient/create.vue?vue&type=style&index=0&lang=css&");
+var content = __webpack_require__(/*! !../../../../../node_modules/css-loader??ref--7-1!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--7-2!../../../../../node_modules/vue-loader/lib??vue-loader-options!./edit.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/medicalReport/edit.vue?vue&type=style&index=0&lang=css&");
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -229,10 +267,10 @@ if(false) {}
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/patient/create.vue?vue&type=template&id=85c61460&":
-/*!****************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/patient/create.vue?vue&type=template&id=85c61460& ***!
-  \****************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/medicalReport/edit.vue?vue&type=template&id=6c76313e&":
+/*!********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/medicalReport/edit.vue?vue&type=template&id=6c76313e& ***!
+  \********************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -247,526 +285,595 @@ var render = function() {
   return _c(
     "div",
     [
-      _vm.can("create-patient")
+      _vm.can("edit-medical-report")
         ? _c(
             "vx-card",
             {
-              ref: "create",
-              attrs: { title: "Create Patient", "collapse-action": "" }
+              ref: "edit",
+              attrs: { title: "Edit Medical Report", "collapse-action": "" }
             },
             [
-              _c(
-                "vs-row",
-                [
-                  _c(
-                    "vs-col",
-                    {
-                      staticClass: "mb-5 pl-5",
-                      attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
-                    },
-                    [
-                      _c("vs-input", {
-                        directives: [
-                          {
-                            name: "validate",
-                            rawName: "v-validate",
-                            value: "required|alpha_dash|min:3",
-                            expression: "'required|alpha_dash|min:3'"
-                          }
-                        ],
-                        staticClass: "w-full",
-                        attrs: {
-                          danger: _vm.errors.has("first_name"),
-                          "danger-text": _vm.errors.first("first_name"),
-                          "val-icon-danger": "clear",
-                          "icon-pack": "feather",
-                          icon: "icon-user",
-                          "label-placeholder": "First Name",
-                          name: "first_name"
-                        },
-                        model: {
-                          value: _vm.form.first_name,
-                          callback: function($$v) {
-                            _vm.$set(_vm.form, "first_name", $$v)
-                          },
-                          expression: "form.first_name"
-                        }
-                      })
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "vs-col",
-                    {
-                      staticClass: "mb-5 pl-5",
-                      attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
-                    },
-                    [
-                      _c("vs-input", {
-                        directives: [
-                          {
-                            name: "validate",
-                            rawName: "v-validate",
-                            value: "required|alpha_dash|min:3",
-                            expression: "'required|alpha_dash|min:3'"
-                          }
-                        ],
-                        staticClass: "w-full",
-                        attrs: {
-                          danger: _vm.errors.has("last_name"),
-                          "danger-text": _vm.errors.first("last_name"),
-                          "val-icon-danger": "clear",
-                          "icon-pack": "feather",
-                          icon: "icon-user",
-                          "label-placeholder": "Last Name",
-                          name: "last_name"
-                        },
-                        model: {
-                          value: _vm.form.last_name,
-                          callback: function($$v) {
-                            _vm.$set(_vm.form, "last_name", $$v)
-                          },
-                          expression: "form.last_name"
-                        }
-                      })
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "vs-col",
-                    {
-                      staticClass: "mb-5 pl-5",
-                      attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
-                    },
+              _vm.form
+                ? _c(
+                    "vs-row",
                     [
                       _c(
-                        "div",
+                        "vs-col",
                         {
-                          staticClass:
-                            "vs-component vs-con-input-label vs-input w-full vs-input-primary is-label-placeholder"
-                        },
-                        [
-                          _c("div", { staticClass: "vs-con-input" }, [
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.form.birth_date,
-                                  expression: "form.birth_date"
-                                }
-                              ],
-                              staticClass:
-                                "vs-inputx vs-input--input normal hasIcon hasValue dob-input",
-                              staticStyle: {
-                                border: "1px solid rgba(0, 0, 0, 0.2)"
-                              },
-                              attrs: { required: "", type: "date" },
-                              domProps: { value: _vm.form.birth_date },
-                              on: {
-                                input: function($event) {
-                                  if ($event.target.composing) {
-                                    return
-                                  }
-                                  _vm.$set(
-                                    _vm.form,
-                                    "birth_date",
-                                    $event.target.value
-                                  )
-                                }
-                              }
-                            }),
-                            _vm._v(" "),
-                            _c(
-                              "span",
-                              {
-                                staticClass:
-                                  "input-span-placeholder vs-input--placeholder normal normal vs-placeholder-label"
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                Date of birth\n                                "
-                                )
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c("i", {
-                              staticClass:
-                                "vs-icon notranslate icon-scale icon-inputx notranslate vs-input--icon feather icon-calendar null"
-                            })
-                          ]),
-                          _vm._v(" "),
-                          _c("span")
-                        ]
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "vs-col",
-                    {
-                      staticClass: "mb-5 pl-5",
-                      attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
-                    },
-                    [
-                      _c("vs-input", {
-                        staticClass: "w-full",
-                        attrs: {
-                          name: "address",
-                          danger: _vm.errors.has("address"),
-                          "val-icon-danger": "clear",
-                          "danger-text": _vm.errors.first("address"),
-                          "icon-pack": "feather",
-                          icon: "icon-map-pin",
-                          "label-placeholder": "Address"
-                        },
-                        model: {
-                          value: _vm.form.address,
-                          callback: function($$v) {
-                            _vm.$set(_vm.form, "address", $$v)
-                          },
-                          expression: "form.address"
-                        }
-                      })
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "vs-col",
-                    {
-                      staticClass: "mb-5 pl-5",
-                      attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
-                    },
-                    [
-                      _c("vs-input", {
-                        staticClass: "w-full",
-                        attrs: {
-                          name: "city",
-                          danger: _vm.errors.has("city"),
-                          "val-icon-danger": "clear",
-                          "danger-text": _vm.errors.first("city"),
-                          "icon-pack": "feather",
-                          icon: "icon-map-pin",
-                          "label-placeholder": "City"
-                        },
-                        model: {
-                          value: _vm.form.city,
-                          callback: function($$v) {
-                            _vm.$set(_vm.form, "city", $$v)
-                          },
-                          expression: "form.city"
-                        }
-                      })
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "vs-col",
-                    {
-                      staticClass: "mb-5 pl-5",
-                      attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
-                    },
-                    [
-                      _c("vs-input", {
-                        staticClass: "w-full",
-                        attrs: {
-                          name: "country",
-                          danger: _vm.errors.has("country"),
-                          "val-icon-danger": "clear",
-                          "danger-text": _vm.errors.first("country"),
-                          "icon-pack": "feather",
-                          icon: "icon-map-pin",
-                          "label-placeholder": "Country"
-                        },
-                        model: {
-                          value: _vm.form.country,
-                          callback: function($$v) {
-                            _vm.$set(_vm.form, "country", $$v)
-                          },
-                          expression: "form.country"
-                        }
-                      })
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "vs-col",
-                    {
-                      staticClass: "mb-5 pl-5",
-                      attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
-                    },
-                    [
-                      _c(
-                        "vs-row",
-                        [
-                          _c(
-                            "vs-col",
-                            { attrs: { "vs-w": "9" } },
-                            [
-                              _c("vs-input", {
-                                staticClass: "w-full",
-                                attrs: {
-                                  "icon-pack": "feather",
-                                  icon: "icon-phone",
-                                  "label-placeholder": "Telephone(s)"
-                                },
-                                on: {
-                                  keydown: function($event) {
-                                    $event.keyCode === 13
-                                      ? _vm.addTelephone
-                                      : false
-                                  }
-                                },
-                                model: {
-                                  value: _vm.Telephone,
-                                  callback: function($$v) {
-                                    _vm.Telephone = $$v
-                                  },
-                                  expression: "Telephone"
-                                }
-                              })
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "vs-col",
-                            { attrs: { "vs-w": "3" } },
-                            [
-                              _c(
-                                "vs-button",
-                                {
-                                  staticClass: "w-full input-btn",
-                                  attrs: {
-                                    "icon-pack": "feather",
-                                    icon: "icon-plus",
-                                    type: "gradient"
-                                  },
-                                  on: { click: _vm.addTelephone }
-                                },
-                                [_vm._v("Add")]
-                              )
-                            ],
-                            1
-                          )
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c("br"),
-                      _vm._v(" "),
-                      _c(
-                        "vs-row",
-                        [
-                          _c(
-                            "vs-col",
-                            { attrs: { "vs-w": "12" } },
-                            _vm._l(_vm.form.phones, function(telephone, index) {
-                              return _c(
-                                "vs-chip",
-                                {
-                                  key: index,
-                                  attrs: { closable: "" },
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.removeTelephone(telephone)
-                                    }
-                                  }
-                                },
-                                [
-                                  _vm._v(
-                                    "\n                            " +
-                                      _vm._s(telephone.number) +
-                                      "\n                        "
-                                  )
-                                ]
-                              )
-                            }),
-                            1
-                          )
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "vs-col",
-                    {
-                      staticClass: "mb-5 pl-5",
-                      attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
-                    },
-                    [
-                      _c(
-                        "div",
-                        {
-                          staticClass:
-                            "vs-component vs-con-input-label vs-input w-full vs-input-primary is-label-placeholder"
+                          staticClass: "mb-5 pl-5",
+                          attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
                         },
                         [
                           _c(
                             "div",
-                            { staticClass: "gender-container" },
+                            {
+                              staticClass:
+                                "vs-component vs-con-input-label vs-input w-full vs-input-primary is-label-placeholder"
+                            },
+                            [
+                              _c("div", { staticClass: "vs-con-input" }, [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.form.onset_date,
+                                      expression: "form.onset_date"
+                                    }
+                                  ],
+                                  staticClass:
+                                    "vs-inputx vs-input--input normal hasIcon hasValue dob-input",
+                                  staticStyle: {
+                                    border: "1px solid rgba(0, 0, 0, 0.2)"
+                                  },
+                                  attrs: { required: "", type: "date" },
+                                  domProps: { value: _vm.form.onset_date },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.form,
+                                        "onset_date",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c(
+                                  "span",
+                                  {
+                                    staticClass:
+                                      "input-span-placeholder vs-input--placeholder normal normal vs-placeholder-label"
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                            Onset Date\n                        "
+                                    )
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c("i", {
+                                  staticClass:
+                                    "vs-icon notranslate icon-scale icon-inputx notranslate vs-input--icon feather icon-calendar null"
+                                })
+                              ]),
+                              _vm._v(" "),
+                              _c("span")
+                            ]
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "vs-col",
+                        {
+                          staticClass: "mb-5 pl-5",
+                          attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
+                        },
+                        [
+                          _c(
+                            "div",
+                            {
+                              staticClass:
+                                "vs-component vs-con-input-label vs-input w-full vs-input-primary is-label-placeholder"
+                            },
                             [
                               _c(
-                                "vs-radio",
-                                {
-                                  attrs: { "vs-value": "Male" },
-                                  model: {
-                                    value: _vm.form.gender,
-                                    callback: function($$v) {
-                                      _vm.$set(_vm.form, "gender", $$v)
+                                "div",
+                                [
+                                  _c(
+                                    "vs-radio",
+                                    {
+                                      attrs: { "vs-value": "Sudden" },
+                                      model: {
+                                        value: _vm.form.onset_manner,
+                                        callback: function($$v) {
+                                          _vm.$set(
+                                            _vm.form,
+                                            "onset_manner",
+                                            $$v
+                                          )
+                                        },
+                                        expression: "form.onset_manner"
+                                      }
                                     },
-                                    expression: "form.gender"
-                                  }
-                                },
-                                [_vm._v("Male")]
-                              ),
-                              _vm._v(
-                                "\n                          \n                        "
-                              ),
-                              _c(
-                                "vs-radio",
-                                {
-                                  attrs: { "vs-value": "Female" },
-                                  model: {
-                                    value: _vm.form.gender,
-                                    callback: function($$v) {
-                                      _vm.$set(_vm.form, "gender", $$v)
+                                    [_vm._v("Sudden")]
+                                  ),
+                                  _vm._v(
+                                    "\n                          \n                        "
+                                  ),
+                                  _c(
+                                    "vs-radio",
+                                    {
+                                      attrs: { "vs-value": "Gradual" },
+                                      model: {
+                                        value: _vm.form.onset_manner,
+                                        callback: function($$v) {
+                                          _vm.$set(
+                                            _vm.form,
+                                            "onset_manner",
+                                            $$v
+                                          )
+                                        },
+                                        expression: "form.onset_manner"
+                                      }
                                     },
-                                    expression: "form.gender"
-                                  }
-                                },
-                                [_vm._v("Female")]
+                                    [_vm._v("Gradual")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "span",
+                                    {
+                                      staticClass:
+                                        "pb-5 input-span-placeholder vs-input--placeholder normal normal vs-placeholder-label gender-placeholder"
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                                Manner of onset\n                        "
+                                      )
+                                    ]
+                                  )
+                                ],
+                                1
                               ),
                               _vm._v(" "),
-                              _c(
-                                "span",
-                                {
-                                  staticClass:
-                                    "input-span-placeholder vs-input--placeholder normal normal vs-placeholder-label gender-placeholder"
-                                },
-                                [
-                                  _vm._v(
-                                    "\n                                Gender\n                                "
-                                  )
-                                ]
-                              )
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c("span")
+                              _c("span")
+                            ]
+                          )
                         ]
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "vs-col",
-                    {
-                      staticClass: "mb-5 pl-5",
-                      attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
-                    },
-                    [
-                      _c("vs-input", {
-                        directives: [
-                          {
-                            name: "validate",
-                            rawName: "v-validate",
-                            value: "email",
-                            expression: "'email'"
-                          }
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "vs-col",
+                        {
+                          staticClass: "mb-5 pl-5",
+                          attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
+                        },
+                        [
+                          _c(
+                            "div",
+                            {
+                              staticClass:
+                                "vs-component vs-con-input-label vs-input w-full vs-input-primary is-label-placeholder"
+                            },
+                            [
+                              _c(
+                                "div",
+                                [
+                                  _c(
+                                    "vs-radio",
+                                    {
+                                      attrs: { "vs-value": "Continuous" },
+                                      model: {
+                                        value: _vm.form.duration,
+                                        callback: function($$v) {
+                                          _vm.$set(_vm.form, "duration", $$v)
+                                        },
+                                        expression: "form.duration"
+                                      }
+                                    },
+                                    [_vm._v("Continuous")]
+                                  ),
+                                  _vm._v(
+                                    "\n                          \n                        "
+                                  ),
+                                  _c(
+                                    "vs-radio",
+                                    {
+                                      attrs: { "vs-value": "Attacks" },
+                                      model: {
+                                        value: _vm.form.duration,
+                                        callback: function($$v) {
+                                          _vm.$set(_vm.form, "duration", $$v)
+                                        },
+                                        expression: "form.duration"
+                                      }
+                                    },
+                                    [_vm._v("Attacks")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "span",
+                                    {
+                                      staticClass:
+                                        "pb-5 input-span-placeholder vs-input--placeholder normal normal vs-placeholder-label gender-placeholder"
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                                Duration\n                        "
+                                      )
+                                    ]
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c("span")
+                            ]
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "vs-col",
+                        {
+                          staticClass: "mb-5 pl-5",
+                          attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
+                        },
+                        [
+                          _c(
+                            "div",
+                            {
+                              staticClass:
+                                "vs-component vs-con-input-label vs-input w-full vs-input-primary is-label-placeholder"
+                            },
+                            [
+                              _c(
+                                "div",
+                                [
+                                  _c(
+                                    "vs-radio",
+                                    {
+                                      attrs: { "vs-value": "Mild" },
+                                      model: {
+                                        value: _vm.form.severity,
+                                        callback: function($$v) {
+                                          _vm.$set(_vm.form, "severity", $$v)
+                                        },
+                                        expression: "form.severity"
+                                      }
+                                    },
+                                    [_vm._v("Mild")]
+                                  ),
+                                  _vm._v(
+                                    "\n                          \n                        "
+                                  ),
+                                  _c(
+                                    "vs-radio",
+                                    {
+                                      attrs: { "vs-value": "Moderate" },
+                                      model: {
+                                        value: _vm.form.severity,
+                                        callback: function($$v) {
+                                          _vm.$set(_vm.form, "severity", $$v)
+                                        },
+                                        expression: "form.severity"
+                                      }
+                                    },
+                                    [_vm._v("Moderate")]
+                                  ),
+                                  _vm._v(
+                                    "\n                          \n                        "
+                                  ),
+                                  _c(
+                                    "vs-radio",
+                                    {
+                                      attrs: { "vs-value": "Severe" },
+                                      model: {
+                                        value: _vm.form.severity,
+                                        callback: function($$v) {
+                                          _vm.$set(_vm.form, "severity", $$v)
+                                        },
+                                        expression: "form.severity"
+                                      }
+                                    },
+                                    [_vm._v("Severe")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "span",
+                                    {
+                                      staticClass:
+                                        "pb-5 input-span-placeholder vs-input--placeholder normal normal vs-placeholder-label gender-placeholder"
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                                Severity\n                        "
+                                      )
+                                    ]
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c("span")
+                            ]
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "vs-col",
+                        {
+                          staticClass: "mb-5 pl-5",
+                          attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
+                        },
+                        [
+                          _c("vs-input", {
+                            directives: [
+                              {
+                                name: "validate",
+                                rawName: "v-validate",
+                                value: "min:2",
+                                expression: "'min:2'"
+                              }
+                            ],
+                            staticClass: "w-full",
+                            attrs: {
+                              danger: _vm.errors.has("factors"),
+                              "danger-text": _vm.errors.first("factors"),
+                              "val-icon-danger": "clear",
+                              "icon-pack": "feather",
+                              icon: "icon-edit",
+                              "label-placeholder": "Initiating Factors",
+                              name: "factors"
+                            },
+                            model: {
+                              value: _vm.form.factors,
+                              callback: function($$v) {
+                                _vm.$set(_vm.form, "factors", $$v)
+                              },
+                              expression: "form.factors"
+                            }
+                          })
                         ],
-                        staticClass: "w-full",
-                        attrs: {
-                          danger: _vm.errors.has("email"),
-                          "danger-text": _vm.errors.first("email"),
-                          "val-icon-danger": "clear",
-                          "icon-pack": "feather",
-                          icon: "icon-mail",
-                          "label-placeholder": "Email",
-                          name: "email"
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "vs-col",
+                        {
+                          staticClass: "mb-5 pl-5",
+                          attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
                         },
-                        model: {
-                          value: _vm.form.email,
-                          callback: function($$v) {
-                            _vm.$set(_vm.form, "email", $$v)
-                          },
-                          expression: "form.email"
-                        }
-                      })
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "vs-col",
-                    {
-                      staticClass: "mb-5 pl-5",
-                      attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
-                    },
-                    [
-                      _c("vs-input", {
-                        staticClass: "w-full",
-                        attrs: {
-                          danger: _vm.errors.has("occupation"),
-                          "danger-text": _vm.errors.first("occupation"),
-                          "val-icon-danger": "clear",
-                          "icon-pack": "feather",
-                          icon: "icon-briefcase",
-                          "label-placeholder": "Occupation",
-                          name: "occupation"
+                        [
+                          _c("vs-input", {
+                            directives: [
+                              {
+                                name: "validate",
+                                rawName: "v-validate",
+                                value: "min:2",
+                                expression: "'min:2'"
+                              }
+                            ],
+                            staticClass: "w-full",
+                            attrs: {
+                              danger: _vm.errors.has("symptoms"),
+                              "danger-text": _vm.errors.first("symptoms"),
+                              "val-icon-danger": "clear",
+                              "icon-pack": "feather",
+                              icon: "icon-edit",
+                              "label-placeholder": "Associated Symptoms",
+                              name: "symptoms"
+                            },
+                            model: {
+                              value: _vm.form.associated_symptoms,
+                              callback: function($$v) {
+                                _vm.$set(_vm.form, "associated_symptoms", $$v)
+                              },
+                              expression: "form.associated_symptoms"
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "vs-col",
+                        {
+                          staticClass: "mb-5 pl-5",
+                          attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
                         },
-                        model: {
-                          value: _vm.form.occupation,
-                          callback: function($$v) {
-                            _vm.$set(_vm.form, "occupation", $$v)
-                          },
-                          expression: "form.occupation"
-                        }
-                      })
+                        [
+                          _c("vs-textarea", {
+                            attrs: {
+                              counter: "350",
+                              "counter-danger": _vm.counterDanger1,
+                              label: "Examination"
+                            },
+                            on: {
+                              "update:counterDanger": function($event) {
+                                _vm.counterDanger1 = $event
+                              },
+                              "update:counter-danger": function($event) {
+                                _vm.counterDanger1 = $event
+                              }
+                            },
+                            model: {
+                              value: _vm.form.examination,
+                              callback: function($$v) {
+                                _vm.$set(_vm.form, "examination", $$v)
+                              },
+                              expression: "form.examination"
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "vs-col",
+                        {
+                          staticClass: "mb-5 pl-5",
+                          attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
+                        },
+                        [
+                          _c("vs-textarea", {
+                            attrs: {
+                              counter: "350",
+                              "counter-danger": _vm.counterDanger2,
+                              label: "Intra Oral Examination"
+                            },
+                            on: {
+                              "update:counterDanger": function($event) {
+                                _vm.counterDanger2 = $event
+                              },
+                              "update:counter-danger": function($event) {
+                                _vm.counterDanger2 = $event
+                              }
+                            },
+                            model: {
+                              value: _vm.form.oral_examination,
+                              callback: function($$v) {
+                                _vm.$set(_vm.form, "oral_examination", $$v)
+                              },
+                              expression: "form.oral_examination"
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "vs-col",
+                        {
+                          staticClass: "mb-5 pl-5",
+                          attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
+                        },
+                        [
+                          _c("vs-textarea", {
+                            attrs: {
+                              counter: "350",
+                              "counter-danger": _vm.counterDanger3,
+                              label: "Special Test and Examination"
+                            },
+                            on: {
+                              "update:counterDanger": function($event) {
+                                _vm.counterDanger3 = $event
+                              },
+                              "update:counter-danger": function($event) {
+                                _vm.counterDanger3 = $event
+                              }
+                            },
+                            model: {
+                              value: _vm.form.special_test,
+                              callback: function($$v) {
+                                _vm.$set(_vm.form, "special_test", $$v)
+                              },
+                              expression: "form.special_test"
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "vs-col",
+                        {
+                          staticClass: "mb-5 pl-5",
+                          attrs: { "vs-lg": "6", "vs-sm": "12", "vs-xs": "12" }
+                        },
+                        [
+                          _c("vs-textarea", {
+                            attrs: {
+                              counter: "350",
+                              "counter-danger": _vm.counterDanger4,
+                              label: "Diagnosis"
+                            },
+                            on: {
+                              "update:counterDanger": function($event) {
+                                _vm.counterDanger4 = $event
+                              },
+                              "update:counter-danger": function($event) {
+                                _vm.counterDanger4 = $event
+                              }
+                            },
+                            model: {
+                              value: _vm.form.diagnosis,
+                              callback: function($$v) {
+                                _vm.$set(_vm.form, "diagnosis", $$v)
+                              },
+                              expression: "form.diagnosis"
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "vs-col",
+                        {
+                          staticClass: "mb-5 pl-5",
+                          attrs: { "vs-lg": "12", "vs-sm": "12", "vs-xs": "12" }
+                        },
+                        [
+                          _c("label", { staticClass: "mb-3" }, [
+                            _c("b", [_vm._v("Treatment Plan: ")])
+                          ]),
+                          _vm._v(" "),
+                          _c("quill-editor", {
+                            model: {
+                              value: _vm.form.treatment_plan,
+                              callback: function($$v) {
+                                _vm.$set(_vm.form, "treatment_plan", $$v)
+                              },
+                              expression: "form.treatment_plan"
+                            }
+                          })
+                        ],
+                        1
+                      )
                     ],
                     1
                   )
-                ],
-                1
-              ),
+                : _vm._e(),
               _vm._v(" "),
               _c("vs-divider"),
               _vm._v(" "),
-              _c(
-                "vs-row",
-                { attrs: { "vs-justify": "center", "vs-align": "center" } },
-                [
-                  _c(
-                    "vs-button",
-                    {
-                      attrs: {
-                        id: "btn-create",
-                        disabled: !_vm.validateForm,
-                        "icon-pack": "feather",
-                        icon: "icon-save"
-                      },
-                      on: {
-                        click: function($event) {
-                          _vm.is_requesting
-                            ? _vm.$store.dispatch("viewWaitMessage", _vm.$vs)
-                            : _vm.create()
-                        }
-                      }
-                    },
-                    [_vm._v("Create Patient")]
+              _vm.form
+                ? _c(
+                    "vs-row",
+                    { attrs: { "vs-justify": "center", "vs-align": "center" } },
+                    [
+                      _c(
+                        "vs-button",
+                        {
+                          attrs: {
+                            id: "btn-edit",
+                            disabled: !_vm.validateForm,
+                            "icon-pack": "feather",
+                            icon: "icon-save"
+                          },
+                          on: {
+                            click: function($event) {
+                              _vm.is_requesting
+                                ? _vm.$store.dispatch(
+                                    "viewWaitMessage",
+                                    _vm.$vs
+                                  )
+                                : _vm.edit()
+                            }
+                          }
+                        },
+                        [_vm._v("Edit Medical Report")]
+                      )
+                    ],
+                    1
                   )
-                ],
-                1
-              )
+                : _vm._e()
             ],
             1
           )
@@ -782,18 +889,18 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/src/views/patient/create.vue":
-/*!***************************************************!*\
-  !*** ./resources/js/src/views/patient/create.vue ***!
-  \***************************************************/
+/***/ "./resources/js/src/views/medicalReport/edit.vue":
+/*!*******************************************************!*\
+  !*** ./resources/js/src/views/medicalReport/edit.vue ***!
+  \*******************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _create_vue_vue_type_template_id_85c61460___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./create.vue?vue&type=template&id=85c61460& */ "./resources/js/src/views/patient/create.vue?vue&type=template&id=85c61460&");
-/* harmony import */ var _create_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./create.vue?vue&type=script&lang=js& */ "./resources/js/src/views/patient/create.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _create_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./create.vue?vue&type=style&index=0&lang=css& */ "./resources/js/src/views/patient/create.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _edit_vue_vue_type_template_id_6c76313e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./edit.vue?vue&type=template&id=6c76313e& */ "./resources/js/src/views/medicalReport/edit.vue?vue&type=template&id=6c76313e&");
+/* harmony import */ var _edit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./edit.vue?vue&type=script&lang=js& */ "./resources/js/src/views/medicalReport/edit.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _edit_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./edit.vue?vue&type=style&index=0&lang=css& */ "./resources/js/src/views/medicalReport/edit.vue?vue&type=style&index=0&lang=css&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -804,9 +911,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
-  _create_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _create_vue_vue_type_template_id_85c61460___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _create_vue_vue_type_template_id_85c61460___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _edit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _edit_vue_vue_type_template_id_6c76313e___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _edit_vue_vue_type_template_id_6c76313e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -816,54 +923,54 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/src/views/patient/create.vue"
+component.options.__file = "resources/js/src/views/medicalReport/edit.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/src/views/patient/create.vue?vue&type=script&lang=js&":
-/*!****************************************************************************!*\
-  !*** ./resources/js/src/views/patient/create.vue?vue&type=script&lang=js& ***!
-  \****************************************************************************/
+/***/ "./resources/js/src/views/medicalReport/edit.vue?vue&type=script&lang=js&":
+/*!********************************************************************************!*\
+  !*** ./resources/js/src/views/medicalReport/edit.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_create_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./create.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/patient/create.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_create_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_edit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./edit.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/medicalReport/edit.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_edit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/src/views/patient/create.vue?vue&type=style&index=0&lang=css&":
-/*!************************************************************************************!*\
-  !*** ./resources/js/src/views/patient/create.vue?vue&type=style&index=0&lang=css& ***!
-  \************************************************************************************/
+/***/ "./resources/js/src/views/medicalReport/edit.vue?vue&type=style&index=0&lang=css&":
+/*!****************************************************************************************!*\
+  !*** ./resources/js/src/views/medicalReport/edit.vue?vue&type=style&index=0&lang=css& ***!
+  \****************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_create_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader!../../../../../node_modules/css-loader??ref--7-1!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--7-2!../../../../../node_modules/vue-loader/lib??vue-loader-options!./create.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/patient/create.vue?vue&type=style&index=0&lang=css&");
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_create_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_create_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_create_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_create_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
- /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_create_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_edit_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader!../../../../../node_modules/css-loader??ref--7-1!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--7-2!../../../../../node_modules/vue-loader/lib??vue-loader-options!./edit.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/medicalReport/edit.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_edit_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_edit_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_edit_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_edit_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_edit_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
-/***/ "./resources/js/src/views/patient/create.vue?vue&type=template&id=85c61460&":
-/*!**********************************************************************************!*\
-  !*** ./resources/js/src/views/patient/create.vue?vue&type=template&id=85c61460& ***!
-  \**********************************************************************************/
+/***/ "./resources/js/src/views/medicalReport/edit.vue?vue&type=template&id=6c76313e&":
+/*!**************************************************************************************!*\
+  !*** ./resources/js/src/views/medicalReport/edit.vue?vue&type=template&id=6c76313e& ***!
+  \**************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_create_vue_vue_type_template_id_85c61460___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./create.vue?vue&type=template&id=85c61460& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/patient/create.vue?vue&type=template&id=85c61460&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_create_vue_vue_type_template_id_85c61460___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_edit_vue_vue_type_template_id_6c76313e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./edit.vue?vue&type=template&id=6c76313e& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/medicalReport/edit.vue?vue&type=template&id=6c76313e&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_edit_vue_vue_type_template_id_6c76313e___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_create_vue_vue_type_template_id_85c61460___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_edit_vue_vue_type_template_id_6c76313e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
