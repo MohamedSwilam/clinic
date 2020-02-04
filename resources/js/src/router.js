@@ -490,7 +490,7 @@ function can(permission) {
 }
 
 function guard(to, from, next) {
-    if (store.state.auth.accessToken) {
+    if (store.state.auth.accessToken && store.state.auth.AppActiveUser) {
         axios.defaults.headers.common['Authorization'] = `Bearer ${store.state.auth.accessToken.accessToken}`;
         if (new Date(Date.now()) < new Date(store.state.auth.accessToken.token.expires_at)){
             to.meta.permission===undefined||can(to.meta.permission)?next():next('/dashboard/error-403');
