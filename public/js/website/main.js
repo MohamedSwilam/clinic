@@ -15,21 +15,21 @@
                 $(this).collapse('hide');
             }
         });
-		
+
 		$('.navbar .navbar-nav li a').on('click', function(){
 			$('.navbar-collapse').collapse('hide');
 		});
-		
+
         // Header Sticky
 		$(window).on('scroll',function() {
-            if ($(this).scrollTop() > 120){  
+            if ($(this).scrollTop() > 120){
                 $('.navbar-light').addClass("is-sticky");
             }
             else{
                 $('.navbar-light').removeClass("is-sticky");
             }
         });
-        
+
         // Hero Slides
         $(".hero-slides").owlCarousel({
             items: 1,
@@ -45,12 +45,12 @@
             "<i class='icofont-rounded-right'></i>"
             ]
         });
-        
+
         // Tabs
         (function ($) {
             $('.tab ul.tabs').addClass('active').find('> li:eq(0)').addClass('current');
             $('.tab ul.tabs li a').on('click', function (g) {
-                var tab = $(this).closest('.tab'), 
+                var tab = $(this).closest('.tab'),
                 index = $(this).closest('li').index();
                 tab.find('ul.tabs > li').removeClass('current');
                 $(this).closest('li').addClass('current');
@@ -59,7 +59,7 @@
                 g.preventDefault();
             });
 	    })(jQuery);
-        
+
         // FAQ Accordion
         $(function() {
             $('.accordion').find('.accordion-title').on('click', function(){
@@ -70,26 +70,26 @@
                 // Hide The Other Panels
                 $('.accordion-content').not($(this).next()).slideUp('fast');
                 // Removes Active Class From Other Titles
-                $('.accordion-title').not($(this)).removeClass('active');		
+                $('.accordion-title').not($(this)).removeClass('active');
             });
         });
-        
+
         // Date Picker
         $( function() {
             $( "#datepicker" ).datepicker();
         });
-        
+
         // Counter
         $(".count").counterUp({
             delay: 20,
             time: 1500
         });
-        
+
         // Shorting
 		$(function(){
             $('.shorting').mixItUp();
         });
-        
+
         // Popup Gallery
 		$('.popup-btn').magnificPopup({
             type: 'image',
@@ -97,7 +97,7 @@
                 enabled:true
             }
         });
-        
+
         // Popup Video
         $('.popup-video').magnificPopup({
             disableOn: 320,
@@ -107,7 +107,7 @@
             preloader: false,
             fixedContentPos: false
         });
-		
+
 		// Go to Top
         $(function(){
             //Scroll event
@@ -115,16 +115,20 @@
                 var scrolled = $(window).scrollTop();
                 if (scrolled > 300) $('.go-top').fadeIn('slow');
                 if (scrolled < 300) $('.go-top').fadeOut('slow');
-            });  
+            });
             //Click event
             $('.go-top').on('click', function() {
                 $("html, body").animate({ scrollTop: "0" },  500);
             });
         });
     });
-    
+
     // Preloader
     jQuery(window).on('load', function() {
         $('.preloader-area').fadeOut();
+
+        $( document ).ready(function(){
+            $("#first-bitch").click();
+        });
     });
 }(jQuery));

@@ -54,7 +54,7 @@
                 </div>
                 <div class="vx-row">
                     <div class="vx-col w-full mb-6">
-                        <vs-input name="title" v-validate="'required|alpha_dash|min:3'" :danger="errors.has('title')" val-icon-danger="clear" :danger-text="errors.first('title')" class="w-full" icon-pack="feather" icon="icon-underline" label-placeholder="Title" v-model="form.title" />
+                        <vs-input name="title" v-validate="'required|min:3'" :danger="errors.has('title')" val-icon-danger="clear" :danger-text="errors.first('title')" class="w-full" icon-pack="feather" icon="icon-underline" label-placeholder="Title" v-model="form.title" />
                     </div>
                 </div>
                 <div class="vx-row">
