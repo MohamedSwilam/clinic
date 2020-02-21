@@ -44,6 +44,7 @@
             </vx-card>
         </div>
 
+        <browse-plan></browse-plan>
 
         <div class="vx-col w-full mb-base" v-if="can('browse-payment')">
             <vx-card title='Payments Information' collapseAction>
@@ -115,30 +116,13 @@
 
 
         <prescription></prescription>
-        <!--<div class="vx-col w-full mb-base" v-for="i in 12" :key="i">-->
-            <!--<vx-card :title='`Medical Report ${i}`' :subtitle="`10th, Oct 2019 2:16 PM`" collapseAction>-->
-                <!--<vs-row>-->
-                    <!--<vs-col vs-lg="6" vs-sm="12" vs-xs="12" class="mb-5 pl-5">-->
-                        <!--Medcal Info 1-->
-                    <!--</vs-col>-->
-                    <!--<vs-col vs-lg="6" vs-sm="12" vs-xs="12" class="mb-5 pl-5">-->
-                        <!--Medcal Info 2-->
-                    <!--</vs-col>-->
-                    <!--<vs-col vs-lg="6" vs-sm="12" vs-xs="12" class="mb-5 pl-5">-->
-                        <!--Medcal Info 3-->
-                    <!--</vs-col>-->
-                    <!--<vs-col vs-lg="6" vs-sm="12" vs-xs="12" class="mb-5 pl-5">-->
-                        <!--Medcal Info 4-->
-                    <!--</vs-col>-->
-                <!--</vs-row>-->
-            <!--</vx-card>-->
-        <!--</div>-->
     </div>
 </template>
 
 <script>
     import browseMedicalReport from '../medicalReport/browse';
     import prescription from '../prescription/browse';
+    import browsePlan from '../patientPlan/browse';
     export default {
         name: "profile",
         mounted() {
@@ -147,7 +131,8 @@
         },
         components: {
             browseMedicalReport: browseMedicalReport,
-            prescription: prescription
+            prescription: prescription,
+            browsePlan: browsePlan
         },
         data: () => {
             return {

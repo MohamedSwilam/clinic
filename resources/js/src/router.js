@@ -214,6 +214,24 @@ const router = new Router({
 
 
                 {
+                    path: '/dashboard/patient/:id/create-plan',
+                    name: 'plan-create',
+                    component: () => import('./views/patientPlan/create'),
+                    beforeEnter: guard,
+                    meta: {
+                        breadcrumb: [
+                            { title: 'Home', url: '/dashboard'},
+                            { title: 'Patient', i18n: 'Patient', url: '/dashboard/patient' },
+                            { title: 'Profile'},
+                            { title: 'Create Plan', active: true}
+                        ],
+                        pageTitle: "Create Plan",
+                        permission: 'create-plan'
+                    }
+                },
+
+
+                {
                     path: '/dashboard/patient/:id/create-report',
                     name: 'report-create',
                     component: () => import('./views/prescription/create'),
@@ -435,6 +453,28 @@ const router = new Router({
                 },
 
             ],
+        },
+        {
+            path: '/dashboard',
+            component: () => import('./layouts/pdf/Pdf'),
+            children: [
+                {
+                    path: '/dashboard/medical-report/:id/pdf',
+                    name: 'medical-report-pdf',
+                    component: () => import('./views/medicalReport/pdf'),
+                    beforeEnter: guard,
+                    meta: {
+                        breadcrumb: [
+                            { title: 'Home', url: '/dashboard'},
+                            { title: 'Patient', i18n: 'Patient', url: '/dashboard/patient' },
+                            { title: 'Profile'},
+                            { title: 'View Medical Report', active: true}
+                        ],
+                        pageTitle: "View Medical Report",
+                        permission: 'view-medical-report'
+                    }
+                },
+            ]
         },
         // =============================================================================
         // FULL PAGE LAYOUTS

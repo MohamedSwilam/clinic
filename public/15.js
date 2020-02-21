@@ -95,6 +95,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -427,18 +429,32 @@ var render = function() {
                               : _vm._e(),
                             _vm._v(" "),
                             _c(
-                              "vs-button",
+                              "router-link",
                               {
-                                staticClass: "ml-5",
                                 attrs: {
-                                  size: "small",
-                                  color: "primary",
-                                  "icon-pack": "feather",
-                                  icon: "icon-file"
-                                },
-                                on: { click: _vm.exportPdf }
+                                  to:
+                                    "/dashboard/medical-report/" +
+                                    _vm.$route.params.id +
+                                    "/pdf",
+                                  target: "_blank"
+                                }
                               },
-                              [_vm._v("Export PDF")]
+                              [
+                                _c(
+                                  "vs-button",
+                                  {
+                                    staticClass: "ml-5",
+                                    attrs: {
+                                      size: "small",
+                                      color: "primary",
+                                      "icon-pack": "feather",
+                                      icon: "icon-file"
+                                    }
+                                  },
+                                  [_vm._v("Export PDF")]
+                                )
+                              ],
+                              1
                             )
                           ],
                           1

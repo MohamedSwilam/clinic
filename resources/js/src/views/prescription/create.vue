@@ -2,6 +2,9 @@
     <div>
         <vx-card v-if="can('create-prescription')" ref="create" title='Create Report' collapse-action>
             <vs-row>
+                <vs-col vs-w="12" vs-type="flex" vs-justify="flex-end" vs-align="flex-end">
+                    <vs-button v-if="patient" class="arabic-font" @click="addTemplate1">وثيقة ضمان</vs-button>
+                </vs-col>
                 <vs-col vs-w="12">
                     <label class="mb-3"><b>Report: </b></label>
                     <editor
@@ -10,16 +13,16 @@
                         initialValue=""
                         :init="{
                          height: 500,
-                         menubar: false,
+                         menubar: true,
                          plugins: [
                            'advlist autolink lists link image charmap print preview anchor',
                            'searchreplace visualblocks code fullscreen',
-                           'insertdatetime media table paste code help wordcount'
+                           'insertdatetime media table paste code help wordcount print'
                          ],
                          toolbar:
-                           'undo redo | formatselect | bold italic backcolor | \
+                           'undo redo | print | formatselect | bold italic backcolor | \
                            alignleft aligncenter alignright alignjustify | \
-                           bullist numlist outdent indent | removeformat | help'
+                           bullist numlist outdent indent | removeformat | help '
                        }"></editor>
                 </vs-col>
             </vs-row>
@@ -37,6 +40,7 @@
     export default {
         name: "create",
         mounted() {
+            this.getPatientData();
             this.form.patient_id = this.$route.params.id;
             this.form.creator_id = this.$store.getters['auth/userData'].id;
         },
@@ -52,6 +56,7 @@
                     patient_id: null,
                     creator_id: null,
                 },
+                patient: null,
                 is_requesting: false,
             }
         },
@@ -61,6 +66,23 @@
             }
         },
         methods: {
+            getPatientData()
+            {
+                this.$store.dispatch('patient/view', this.$route.params.id)
+                    .then(response => {
+                        this.patient = response.data.data.data;
+                    })
+                    .catch(error => {
+                        this.$vs.notify({
+                            title: 'Error',
+                            text: error.response.data.error,
+                            iconPack: 'feather',
+                            icon: 'icon-alert-circle',
+                            color: 'danger'
+                        });
+                    });
+            },
+
             create() {
                 if (!this.validateForm) return;
 
@@ -91,6 +113,26 @@
                             color: 'danger'
                         });
                     });
+            },
+
+            addTemplate1()
+            {
+                let temp = `<h5>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</h5>
+<h5 style="text-align: right;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Khaled Yasser&nbsp; :الاسم.&nbsp;&nbsp;</h5>
+<h5 style="text-align: right;">1&nbsp; :رقم الملف.&nbsp;</h5>
+<h5 style="text-align: right;">&nbsp;</h5>
+<h1 style="text-align: center;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;وثيقة ضمان&nbsp; &nbsp;</h1>
+<p>&nbsp;</p>
+<p style="text-align: right;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ـ ذلك لتجميل و علاج</p>
+<p style="text-align: right;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;-1</p>
+<p style="text-align: right;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; -2</p>
+<p style="text-align: right;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; نتعهد نحن المركز البريطاني للاسنان بضمان التركيبات الخاصة بالمريض/ة لمدة خمسة عشر سنة ضد&nbsp; أي&nbsp; فك للاصق أو كسر وفي حالة حدوث أي من ذلك يتم استبداله مجانا بدون اى تكاليف إضافية</p>
+<p style="text-align: right;">شاكرين لسيادتكم حسن تعاونكم معنا</p>
+<p style="text-align: right;">&nbsp;</p>
+<p style="text-align: center;">&nbsp; &nbsp; &nbsp; الختم&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;التوقيع</p>`;
+                temp = temp.replace("##name##", `${this.patient.first_name} ${this.patient.last_name}`);
+                temp = temp.replace("##id##", this.patient.id);
+                this.form.description = temp;
             }
         }
     }
@@ -120,5 +162,8 @@
     }
     .vs-input-number {
         width: fit-content;
+    }
+    .arabic-font{
+        font-family: monospace;
     }
 </style>

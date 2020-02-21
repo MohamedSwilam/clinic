@@ -519,6 +519,8 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
 
             _this7.form.payment.to_be_paid = reservationType.max_price;
             _this7.form.payment.description = "".concat(reservationType.name);
+            var patient_id = _this7.form.patient_id;
+            var patient = _this7.form.patient;
 
             if (_this7.form.new_patient) {
               delete _this7.form.patient_id;
@@ -540,7 +542,9 @@ vee_validate__WEBPACK_IMPORTED_MODULE_2__["Validator"].localize('en', dict);
               });
             })["catch"](function (error) {
               console.log(error);
-              _this7.is_requesting = false; // this.$vs.loading.close(`#btn-create > .con-vs-loading`);
+              _this7.is_requesting = false;
+              _this7.form.patient_id = patient_id;
+              _this7.form.patient = patient; // this.$vs.loading.close(`#btn-create > .con-vs-loading`);
 
               _this7.$vs.notify({
                 title: 'Error',

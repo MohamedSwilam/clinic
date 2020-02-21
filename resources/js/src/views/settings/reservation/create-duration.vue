@@ -3,7 +3,7 @@
         <vx-card v-if="can('view-reservation')" ref="create" title='Add Reservation Duration' collapse-action>
             <vs-row>
                 <vs-col vs-lg="6" vs-sm="12" vs-xs="12" class="mb-5 pl-5">
-                    <vs-select label="Reservation Type" autocomplete label-placeholder="Employee Role" icon-pack="feather" icon="icon-chevron-down"  color="primary" class="w-full" v-model="form.reservation_type_id">
+                    <vs-select label="Reservation Type" autocomplete label-placeholder="Reservation Type" icon-pack="feather" icon="icon-chevron-down"  color="primary" class="w-full" v-model="form.reservation_type_id">
                         <vs-select-item :key="index" :value="item.id" :text="item.name" v-for="(item,index) in reservation_types" />
                     </vs-select>
                  </vs-col>

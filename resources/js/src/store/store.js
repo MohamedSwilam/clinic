@@ -16,6 +16,7 @@ import moduleAuth from './auth/moduleAuth.js';
 import moduleEmployee from './employee/moduleEmployee';
 import moduleMedicalReport from './medical-report/moduleMedicalReport';
 import modulePrescription from './prescription/modulePrescription';
+import modulePlan from './plan/modulePlan';
 import moduleNotification from './notification/moduleNotification';
 import modulePatient from './patient/modulePatient';
 import modulePayment from './payment/modulePayment';
@@ -39,6 +40,7 @@ export default new Vuex.Store({
         employee: moduleEmployee,
         medicalReport: moduleMedicalReport,
         prescription: modulePrescription,
+        plan: modulePlan,
         notification: moduleNotification,
         patient: modulePatient,
         payment: modulePayment,

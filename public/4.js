@@ -163,6 +163,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _medicalReport_browse__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../medicalReport/browse */ "./resources/js/src/views/medicalReport/browse.vue");
 /* harmony import */ var _prescription_browse__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../prescription/browse */ "./resources/js/src/views/prescription/browse.vue");
+/* harmony import */ var _patientPlan_browse__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../patientPlan/browse */ "./resources/js/src/views/patientPlan/browse.vue");
 //
 //
 //
@@ -284,23 +285,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -311,7 +296,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   components: {
     browseMedicalReport: _medicalReport_browse__WEBPACK_IMPORTED_MODULE_0__["default"],
-    prescription: _prescription_browse__WEBPACK_IMPORTED_MODULE_1__["default"]
+    prescription: _prescription_browse__WEBPACK_IMPORTED_MODULE_1__["default"],
+    browsePlan: _patientPlan_browse__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   data: function data() {
     return {
@@ -441,6 +427,176 @@ __webpack_require__.r(__webpack_exports__);
         _this3.$vs.loading.close("#delete-payment-btn-".concat(params[0].id, " > .con-vs-loading"));
 
         _this3.$vs.notify({
+          title: 'Error',
+          text: error.response.data.error,
+          iconPack: 'feather',
+          icon: 'icon-alert-circle',
+          color: 'danger'
+        });
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/patientPlan/browse.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/patientPlan/browse.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "browse-plan",
+  mounted: function mounted() {
+    this.getPlans();
+  },
+  data: function data() {
+    return {
+      plans: [],
+      total: 0,
+      is_requesting: false
+    };
+  },
+  methods: {
+    getPlans: function getPlans() {
+      var _this = this;
+
+      this.$vs.loading({
+        container: this.$refs.plan.$refs.content,
+        scale: 0.5
+      });
+      this.$store.dispatch('plan/browse', "?patient=".concat(this.$route.params.id)).then(function (response) {
+        _this.$vs.loading.close(_this.$refs.plan.$refs.content);
+
+        _this.plans = response.data.data.data;
+
+        _this.calculateTotal();
+      })["catch"](function (error) {
+        console.log(error);
+
+        _this.$vs.loading.close(_this.$refs.plan.$refs.content);
+
+        _this.$vs.notify({
+          title: 'Error',
+          text: error.response.data.error,
+          iconPack: 'feather',
+          icon: 'icon-alert-circle',
+          color: 'danger'
+        });
+      });
+    },
+    calculateTotal: function calculateTotal() {
+      var total = 0;
+
+      for (var i = 0; i < this.plans.length; i++) {
+        total += this.plans[i].number * this.plans[i].cost;
+      }
+
+      this.total = total;
+    },
+    confirmToDelete: function confirmToDelete(plan) {
+      this.$vs.dialog({
+        type: 'confirm',
+        color: 'danger',
+        title: "Are you sure!",
+        text: 'This data can not be retrieved again.',
+        accept: this.deletePlan,
+        parameters: [plan]
+      });
+    },
+    deletePlan: function deletePlan(params) {
+      var _this2 = this;
+
+      this.is_requesting = true;
+      this.$vs.loading({
+        container: "#delete-plan-btn-".concat(params[0].id),
+        color: 'danger',
+        scale: 0.45
+      });
+      this.$store.dispatch('plan/delete', params[0].id).then(function (response) {
+        _this2.is_requesting = false;
+
+        _this2.$vs.loading.close("#delete-plan-btn-".concat(params[0].id, " > .con-vs-loading"));
+
+        _this2.plans = _this2.plans.filter(function (plan) {
+          return plan.id !== params[0].id;
+        });
+
+        _this2.$vs.notify({
+          title: 'Success',
+          text: response.data.message,
+          iconPack: 'feather',
+          icon: 'icon-check',
+          color: 'success'
+        });
+      })["catch"](function (error) {
+        console.log(error);
+        _this2.is_requesting = false;
+
+        _this2.$vs.loading.close("#delete-plan-btn-".concat(params[0].id, " > .con-vs-loading"));
+
+        _this2.$vs.notify({
           title: 'Error',
           text: error.response.data.error,
           iconPack: 'feather',
@@ -1201,6 +1357,8 @@ var render = function() {
         1
       ),
       _vm._v(" "),
+      _c("browse-plan"),
+      _vm._v(" "),
       _vm.can("browse-payment")
         ? _c(
             "div",
@@ -1501,6 +1659,237 @@ var render = function() {
     ],
     1
   )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/patientPlan/browse.vue?vue&type=template&id=23121ef5&scoped=true&":
+/*!********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/patientPlan/browse.vue?vue&type=template&id=23121ef5&scoped=true& ***!
+  \********************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm.can("browse-plan")
+    ? _c(
+        "div",
+        { staticClass: "vx-col w-full mb-base" },
+        [
+          _c(
+            "vx-card",
+            {
+              ref: "plan",
+              attrs: {
+                title: "Patients Plans",
+                collapseAction: "",
+                refreshContentAction: ""
+              },
+              on: { refresh: _vm.getPlans }
+            },
+            [
+              _c(
+                "vs-table",
+                {
+                  attrs: { sst: true, data: _vm.plans },
+                  scopedSlots: _vm._u(
+                    [
+                      {
+                        key: "default",
+                        fn: function(ref) {
+                          var data = ref.data
+                          return [
+                            _vm._l(_vm.plans, function(plan, index) {
+                              return _c(
+                                "vs-tr",
+                                { key: index },
+                                [
+                                  _c("vs-td", [_vm._v(_vm._s(index + 1))]),
+                                  _vm._v(" "),
+                                  _c("vs-td", [
+                                    _c(
+                                      "a",
+                                      {
+                                        attrs: { href: "#" },
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.$router.push({
+                                              name: "view-employee",
+                                              params: { id: plan.creator.id }
+                                            })
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _vm._v(
+                                          _vm._s(plan.creator.first_name) +
+                                            " " +
+                                            _vm._s(plan.creator.last_name)
+                                        )
+                                      ]
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("vs-td", [
+                                    _vm._v(
+                                      _vm._s(
+                                        _vm._f("date")(plan.created_at, true)
+                                      )
+                                    ),
+                                    _c("br"),
+                                    _vm._v(
+                                      _vm._s(_vm._f("time")(plan.created_at))
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("vs-td", [_vm._v(_vm._s(plan.plan))]),
+                                  _vm._v(" "),
+                                  _c("vs-td", [_vm._v(_vm._s(plan.number))]),
+                                  _vm._v(" "),
+                                  _c("vs-td", [_vm._v(_vm._s(plan.cost))]),
+                                  _vm._v(" "),
+                                  _c("vs-td", [
+                                    _vm._v(_vm._s(plan.cost * plan.number))
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("vs-td", [
+                                    _c(
+                                      "div",
+                                      { staticClass: "flex" },
+                                      [
+                                        _vm.can("delete-plan")
+                                          ? _c("vs-button", {
+                                              staticClass: "ml-3",
+                                              attrs: {
+                                                id:
+                                                  "delete-plan-btn-" + plan.id,
+                                                "icon-pack": "feather",
+                                                radius: "",
+                                                color: "danger",
+                                                icon: "icon-trash",
+                                                type: "border"
+                                              },
+                                              on: {
+                                                click: function($event) {
+                                                  return _vm.confirmToDelete(
+                                                    plan
+                                                  )
+                                                }
+                                              }
+                                            })
+                                          : _vm._e()
+                                      ],
+                                      1
+                                    )
+                                  ])
+                                ],
+                                1
+                              )
+                            }),
+                            _vm._v(" "),
+                            _vm.total > 0
+                              ? _c(
+                                  "vs-tr",
+                                  [
+                                    _c("vs-td"),
+                                    _vm._v(" "),
+                                    _c("vs-td", [
+                                      _c("strong", [_vm._v("TOTAL")])
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("vs-td"),
+                                    _vm._v(" "),
+                                    _c("vs-td"),
+                                    _vm._v(" "),
+                                    _c("vs-td"),
+                                    _vm._v(" "),
+                                    _c("vs-td"),
+                                    _vm._v(" "),
+                                    _c("vs-td", [_vm._v(_vm._s(_vm.total))]),
+                                    _vm._v(" "),
+                                    _c("vs-td")
+                                  ],
+                                  1
+                                )
+                              : _vm._e()
+                          ]
+                        }
+                      }
+                    ],
+                    null,
+                    false,
+                    952163607
+                  )
+                },
+                [
+                  _c(
+                    "template",
+                    { slot: "header" },
+                    [
+                      _c(
+                        "vs-button",
+                        {
+                          staticClass: "mb-5",
+                          attrs: {
+                            to:
+                              "/dashboard/patient/" +
+                              _vm.$route.params.id +
+                              "/create-plan",
+                            size: "small",
+                            "icon-pack": "feather",
+                            icon: "icon-plus",
+                            type: "filled"
+                          }
+                        },
+                        [_vm._v("Add Plan")]
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "template",
+                    { slot: "thead" },
+                    [
+                      _c("vs-th", [_vm._v("#")]),
+                      _vm._v(" "),
+                      _c("vs-th", [_vm._v("Added By")]),
+                      _vm._v(" "),
+                      _c("vs-th", [_vm._v("Created At")]),
+                      _vm._v(" "),
+                      _c("vs-th", [_vm._v("Plan")]),
+                      _vm._v(" "),
+                      _c("vs-th", [_vm._v("Number")]),
+                      _vm._v(" "),
+                      _c("vs-th", [_vm._v("Cost")]),
+                      _vm._v(" "),
+                      _c("vs-th", [_vm._v("Total")]),
+                      _vm._v(" "),
+                      _c("vs-th", [_vm._v("Action")])
+                    ],
+                    1
+                  )
+                ],
+                2
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
+    : _vm._e()
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -1892,6 +2281,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_profile_vue_vue_type_template_id_1124c705___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_profile_vue_vue_type_template_id_1124c705___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/src/views/patientPlan/browse.vue":
+/*!*******************************************************!*\
+  !*** ./resources/js/src/views/patientPlan/browse.vue ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _browse_vue_vue_type_template_id_23121ef5_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./browse.vue?vue&type=template&id=23121ef5&scoped=true& */ "./resources/js/src/views/patientPlan/browse.vue?vue&type=template&id=23121ef5&scoped=true&");
+/* harmony import */ var _browse_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./browse.vue?vue&type=script&lang=js& */ "./resources/js/src/views/patientPlan/browse.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _browse_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _browse_vue_vue_type_template_id_23121ef5_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _browse_vue_vue_type_template_id_23121ef5_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "23121ef5",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/src/views/patientPlan/browse.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/src/views/patientPlan/browse.vue?vue&type=script&lang=js&":
+/*!********************************************************************************!*\
+  !*** ./resources/js/src/views/patientPlan/browse.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_browse_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./browse.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/patientPlan/browse.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_browse_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/src/views/patientPlan/browse.vue?vue&type=template&id=23121ef5&scoped=true&":
+/*!**************************************************************************************************!*\
+  !*** ./resources/js/src/views/patientPlan/browse.vue?vue&type=template&id=23121ef5&scoped=true& ***!
+  \**************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_browse_vue_vue_type_template_id_23121ef5_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./browse.vue?vue&type=template&id=23121ef5&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/patientPlan/browse.vue?vue&type=template&id=23121ef5&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_browse_vue_vue_type_template_id_23121ef5_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_browse_vue_vue_type_template_id_23121ef5_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

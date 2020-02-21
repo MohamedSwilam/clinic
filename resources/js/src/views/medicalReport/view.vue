@@ -19,7 +19,9 @@
                 <vs-row v-if="report">
                     <vs-col vs-type="flex" vs-align="center" vs-justify="center">
                         <vs-button v-if="can('edit-medical-report')" :to="`/dashboard/medical-report/${$route.params.id}/edit`" size="small" color="warning" icon-pack="feather" icon="icon-edit">Edit Report</vs-button>
-                        <vs-button class="ml-5" @click="exportPdf"  size="small" color="primary" icon-pack="feather" icon="icon-file">Export PDF</vs-button>
+                        <router-link :to="`/dashboard/medical-report/${$route.params.id}/pdf`" target="_blank">
+                            <vs-button class="ml-5" size="small" color="primary" icon-pack="feather" icon="icon-file">Export PDF</vs-button>
+                        </router-link>
                     </vs-col>
                 </vs-row>
             </vx-card>

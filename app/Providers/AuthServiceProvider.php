@@ -6,12 +6,14 @@ use App\Appointment;
 use App\MedicalReport;
 use App\Patient;
 use App\Payment;
+use App\Plan;
 use App\Policies\EmployeePolicy;
 use App\Policies\MedicalReportPolicy;
 use App\Policies\NotificationPolicy;
 use App\Policies\PatientPolicy;
 use App\Policies\PaymentPolicy;
 use App\Policies\PermissionPolicy;
+use App\Policies\PlanPolicy;
 use App\Policies\PrescriptionPolicy;
 use App\Policies\ReservationPolicy;
 use App\Policies\ReservationTypePolicy;
@@ -45,6 +47,7 @@ class AuthServiceProvider extends ServiceProvider
         Appointment::class => ReservationPolicy::class,
         Payment::class => PaymentPolicy::class,
         Prescription::class => PrescriptionPolicy::class,
+        Plan::class => PlanPolicy::class,
         MedicalReport::class => MedicalReportPolicy::class,
         Notification::class => NotificationPolicy::class,
     ];
