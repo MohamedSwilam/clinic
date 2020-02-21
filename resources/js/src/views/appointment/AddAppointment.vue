@@ -484,6 +484,8 @@
                             })[0];
                             this.form.payment.to_be_paid = reservationType.max_price;
                             this.form.payment.description = `${reservationType.name}`;
+                            let patient_id = this.form.patient_id;
+                            let patient = this.form.patient;
                             if (this.form.new_patient) {
                                 delete this.form.patient_id;
                             } else {
@@ -505,6 +507,8 @@
                                 .catch(error => {
                                     console.log(error);
                                     this.is_requesting=false;
+                                    this.form.patient_id = patient_id;
+                                    this.form.patient = patient;
                                     // this.$vs.loading.close(`#btn-create > .con-vs-loading`);
                                     this.$vs.notify({
                                         title: 'Error',

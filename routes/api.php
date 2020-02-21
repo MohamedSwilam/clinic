@@ -80,6 +80,11 @@ Route::group(['prefix' => 'prescription', 'middleware' => 'auth:api'], function 
     Route::resource('', 'PrescriptionController');
 });
 
+Route::group(['prefix' => 'plan', 'middleware' => 'auth:api'], function () {
+    Route::delete('{id}', 'PlanController@destroy');
+    Route::resource('', 'PlanController');
+});
+
 Route::group(['prefix' => 'medical-report', 'middleware' => 'auth:api'], function () {
     Route::post('{id}', 'MedicalReportController@update');
     Route::get('{id}', 'MedicalReportController@show');

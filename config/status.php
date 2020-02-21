@@ -2,86 +2,46 @@
 return [
     [
         'name' => 'Coming',
-        'color' => '#7467F0',
+        'color' => '#7467F0'
     ],
     [
         'name' => 'Inside',
-        'color' => '#EA5455',
+        'color' => '#EA5455'
     ],
     [
         'name' => 'Postponed',
-        'color' => '#FF9F42',
+        'color' => '#FF9F42'
     ],
     [
         'name' => 'Finished',
-        'color' => '#27C76F',
+        'color' => '#27C76F'
     ],
     [
         'name' => 'Missed',
-        'color' => '#1E1E1E',
-    ],
-    [
-        'name' => 'Bone',
-        'color' => '#001f3f',
-    ],
-    [
-        'name' => 'Implants',
-        'color' => '#0074D9',
-    ],
-    [
-        'name' => 'Porcelain Crowns',
-        'color' => '#7FDBFF',
-    ],
-    [
-        'name' => 'Emax Crown',
-        'color' => '#39CCCC',
-    ],
-    [
-        'name' => 'Endo',
-        'color' => '#3D9970',
-    ],
-    [
-        'name' => 'Filling',
-        'color' => '#2ECC40',
-    ],
-    [
-        'name' => 'Scaling  Polishing',
-        'color' => '#01FF70',
-    ],
-    [
-        'name' => 'Whittening',
-        'color' => '#FF851B',
-    ],
-    [
-        'name' => 'Gum',
-        'color' => '#FF4136',
-    ],
-    [
-        'name' => 'Extraction',
-        'color' => '#85144b',
+        'color' => '#1E1E1E'
     ],
     [
         'name' => 'Denture',
-        'color' => '#F012BE',
+        'color' => '#F012BE'
     ],
     [
         'name' => 'X-ray',
-        'color' => '#111111',
+        'color' => '#0700ff'
     ],
     [
         'name' => 'Panorama',
-        'color' => '#B10DC9',
+        'color' => '#B10DC9'
     ],
     [
         'name' => 'Ct 1/4 arch',
-        'color' => '#AAAAAA',
+        'color' => '#5286aa'
     ],
     [
         'name' => 'Ct Arch',
-        'color' => '#DDDDDD',
+        'color' => '#ddba00'
     ],
     [
         'name' => 'Ct Both Arches',
-        'color' => '#2E2E2E',
-    ],
+        'color' => '#ff1e6b'
+    ]
 ];

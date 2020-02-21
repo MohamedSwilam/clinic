@@ -183,27 +183,44 @@ return [
         [
             'name' => 'create-prescription',
             'guard_name' => 'api',
-            'display_name' => 'Create Prescription',
+            'display_name' => 'Create Report',
         ],
         [
             'name' => 'browse-prescription',
             'guard_name' => 'api',
-            'display_name' => 'Browse Prescription',
+            'display_name' => 'Browse Report',
         ],
         [
             'name' => 'view-prescription',
             'guard_name' => 'api',
-            'display_name' => 'View Prescription',
+            'display_name' => 'View Report',
         ],
         [
             'name' => 'edit-prescription',
             'guard_name' => 'api',
-            'display_name' => 'Edit Prescription',
+            'display_name' => 'Edit Report',
         ],
         [
             'name' => 'delete-prescription',
             'guard_name' => 'api',
-            'display_name' => 'Delete Prescription',
+            'display_name' => 'Delete Report',
+        ],
+    ],
+    'Plan' => [
+        [
+            'name' => 'create-plan',
+            'guard_name' => 'api',
+            'display_name' => 'Create Plan',
+        ],
+        [
+            'name' => 'browse-plan',
+            'guard_name' => 'api',
+            'display_name' => 'Browse Plan',
+        ],
+        [
+            'name' => 'delete-plan',
+            'guard_name' => 'api',
+            'display_name' => 'Delete Plan',
         ],
     ],
     'Medical Report' => [

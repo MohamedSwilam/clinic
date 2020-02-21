@@ -142,10 +142,14 @@
                                             </vs-list-item>
                                             <vs-list-item icon-pack="feather" icon="icon-arrow-right" :title="`Type: ${appointment.reservation_type.name}`"></vs-list-item>
                                             <vs-list-item icon-pack="feather" icon="icon-arrow-right" :title="`Doctor: ${appointment.doctor.first_name} ${appointment.doctor.last_name}`"></vs-list-item>
+                                            <vs-list-item icon-pack="feather" icon="icon-arrow-right" :title="`Room: ${appointment.reservation_duration.room}`"></vs-list-item>
                                             <vs-list-item icon-pack="feather" icon="icon-arrow-right" :title="`Illness Description: ${appointment.illness_description}`"></vs-list-item>
-                                            <vs-list-item icon-pack="feather" icon="icon-arrow-right" :title="'Update Status'">
-                                                <vs-button class="ml-3" :key="status_index" v-for="(status, status_index) in statuses" :id="`update-status-btn-${appointment.id}-${status.id}`" @click="is_requesting?$store.dispatch('viewWaitMessage', $vs):updateStatus(index, appointment.id, status.id)" size="small" :color="status.color" :type="appointment.status.id===status.id?'filled':'border'" icon-pack="feather">{{status.name}}</vs-button>
-                                            </vs-list-item>
+                                            <vs-row class="mt-5">
+                                                <strong class="ml-5 mb-2">Update Status</strong>
+                                                <vs-col vs-w="12">
+                                                    <vs-button class="m-3" :key="status_index" v-for="(status, status_index) in statuses" :id="`update-status-btn-${appointment.id}-${status.id}`" @click="is_requesting?$store.dispatch('viewWaitMessage', $vs):updateStatus(index, appointment.id, status.id)" size="small" :color="status.color" :type="appointment.status.id===status.id?'filled':'border'" icon-pack="feather">{{status.name}}</vs-button>
+                                                </vs-col>
+                                            </vs-row>
                                         </vs-list>
                                     </div>
                                 </template>
@@ -196,6 +200,41 @@
                         id: 4,
                         name: 'Finished',
                         color: '#27C76F'
+                    },
+                    {
+                        id: 5,
+                        name: 'Missed',
+                        color: '#1E1E1E',
+                    },
+                    {
+                        id: 6,
+                        name: 'Denture',
+                        color: '#F012BE',
+                    },
+                    {
+                        id: 7,
+                        name: 'X-ray',
+                        color: '#0700ff',
+                    },
+                    {
+                        id: 8,
+                        name: 'Panorama',
+                        color: '#B10DC9',
+                    },
+                    {
+                        id: 9,
+                        name: 'Ct 1/4 arch',
+                        color: '#5286aa',
+                    },
+                    {
+                        id: 10,
+                        name: 'Ct Arch',
+                        color: '#ddba00',
+                    },
+                    {
+                        id: 11,
+                        name: 'Ct Both Arches',
+                        color: '#ff1e6b',
                     }
                 ]
             }

@@ -258,7 +258,7 @@ var render = function() {
                           attrs: {
                             label: "Reservation Type",
                             autocomplete: "",
-                            "label-placeholder": "Employee Role",
+                            "label-placeholder": "Reservation Type",
                             "icon-pack": "feather",
                             icon: "icon-chevron-down",
                             color: "primary"

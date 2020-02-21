@@ -434,10 +434,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "create",
   mounted: function mounted() {
+    this.getPatientData();
     this.form.patient_id = this.$route.params.id;
     this.form.creator_id = this.$store.getters['auth/userData'].id;
   },
@@ -453,6 +457,7 @@ __webpack_require__.r(__webpack_exports__);
         patient_id: null,
         creator_id: null
       },
+      patient: null,
       is_requesting: false
     };
   },
@@ -462,8 +467,23 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
-    create: function create() {
+    getPatientData: function getPatientData() {
       var _this = this;
+
+      this.$store.dispatch('patient/view', this.$route.params.id).then(function (response) {
+        _this.patient = response.data.data.data;
+      })["catch"](function (error) {
+        _this.$vs.notify({
+          title: 'Error',
+          text: error.response.data.error,
+          iconPack: 'feather',
+          icon: 'icon-alert-circle',
+          color: 'danger'
+        });
+      });
+    },
+    create: function create() {
+      var _this2 = this;
 
       if (!this.validateForm) return;
       this.is_requesting = true;
@@ -473,13 +493,13 @@ __webpack_require__.r(__webpack_exports__);
         scale: 0.45
       });
       this.$store.dispatch('prescription/create', this.form).then(function (response) {
-        _this.is_requesting = false;
+        _this2.is_requesting = false;
 
-        _this.$vs.loading.close("#btn-create > .con-vs-loading");
+        _this2.$vs.loading.close("#btn-create > .con-vs-loading");
 
-        _this.$router.push("/dashboard/report/".concat(response.data.data.data[0].id));
+        _this2.$router.push("/dashboard/report/".concat(response.data.data.data[0].id));
 
-        _this.$vs.notify({
+        _this2.$vs.notify({
           title: 'Success',
           text: response.data.message,
           iconPack: 'feather',
@@ -488,11 +508,11 @@ __webpack_require__.r(__webpack_exports__);
         });
       })["catch"](function (error) {
         console.log(error);
-        _this.is_requesting = false;
+        _this2.is_requesting = false;
 
-        _this.$vs.loading.close("#btn-create > .con-vs-loading");
+        _this2.$vs.loading.close("#btn-create > .con-vs-loading");
 
-        _this.$vs.notify({
+        _this2.$vs.notify({
           title: 'Error',
           text: error.response.data.errors[Object.keys(error.response.data.errors)[0]][0],
           iconPack: 'feather',
@@ -500,6 +520,12 @@ __webpack_require__.r(__webpack_exports__);
           color: 'danger'
         });
       });
+    },
+    addTemplate1: function addTemplate1() {
+      var temp = "<h5>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</h5>\n<h5 style=\"text-align: right;\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Khaled Yasser&nbsp; :\u0627\u0644\u0627\u0633\u0645.&nbsp;&nbsp;</h5>\n<h5 style=\"text-align: right;\">1&nbsp; :\u0631\u0642\u0645 \u0627\u0644\u0645\u0644\u0641.&nbsp;</h5>\n<h5 style=\"text-align: right;\">&nbsp;</h5>\n<h1 style=\"text-align: center;\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;\u0648\u062B\u064A\u0642\u0629 \u0636\u0645\u0627\u0646&nbsp; &nbsp;</h1>\n<p>&nbsp;</p>\n<p style=\"text-align: right;\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; \u0640 \u0630\u0644\u0643 \u0644\u062A\u062C\u0645\u064A\u0644 \u0648 \u0639\u0644\u0627\u062C</p>\n<p style=\"text-align: right;\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;-1</p>\n<p style=\"text-align: right;\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; -2</p>\n<p style=\"text-align: right;\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; \u0646\u062A\u0639\u0647\u062F \u0646\u062D\u0646 \u0627\u0644\u0645\u0631\u0643\u0632 \u0627\u0644\u0628\u0631\u064A\u0637\u0627\u0646\u064A \u0644\u0644\u0627\u0633\u0646\u0627\u0646 \u0628\u0636\u0645\u0627\u0646 \u0627\u0644\u062A\u0631\u0643\u064A\u0628\u0627\u062A \u0627\u0644\u062E\u0627\u0635\u0629 \u0628\u0627\u0644\u0645\u0631\u064A\u0636/\u0629 \u0644\u0645\u062F\u0629 \u062E\u0645\u0633\u0629 \u0639\u0634\u0631 \u0633\u0646\u0629 \u0636\u062F&nbsp; \u0623\u064A&nbsp; \u0641\u0643 \u0644\u0644\u0627\u0635\u0642 \u0623\u0648 \u0643\u0633\u0631 \u0648\u0641\u064A \u062D\u0627\u0644\u0629 \u062D\u062F\u0648\u062B \u0623\u064A \u0645\u0646 \u0630\u0644\u0643 \u064A\u062A\u0645 \u0627\u0633\u062A\u0628\u062F\u0627\u0644\u0647 \u0645\u062C\u0627\u0646\u0627 \u0628\u062F\u0648\u0646 \u0627\u0649 \u062A\u0643\u0627\u0644\u064A\u0641 \u0625\u0636\u0627\u0641\u064A\u0629</p>\n<p style=\"text-align: right;\">\u0634\u0627\u0643\u0631\u064A\u0646 \u0644\u0633\u064A\u0627\u062F\u062A\u0643\u0645 \u062D\u0633\u0646 \u062A\u0639\u0627\u0648\u0646\u0643\u0645 \u0645\u0639\u0646\u0627</p>\n<p style=\"text-align: right;\">&nbsp;</p>\n<p style=\"text-align: center;\">&nbsp; &nbsp; &nbsp; \u0627\u0644\u062E\u062A\u0645&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;\u0627\u0644\u062A\u0648\u0642\u064A\u0639</p>";
+      temp = temp.replace("##name##", "".concat(this.patient.first_name, " ").concat(this.patient.last_name));
+      temp = temp.replace("##id##", this.patient.id);
+      this.form.description = temp;
     }
   }
 });
@@ -518,7 +544,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, ".dob-input{\n  padding-bottom: 7px !important;\n  padding-top: 7px !important;\n}\ninput[type=date]:invalid::-webkit-datetime-edit {\n  color: rgb(220, 220, 220) !important;\n}\n.input-btn {\n  position: relative;\n  top: 17px;\n  left: -33px;\n  border-top-left-radius: 0;\n  border-bottom-left-radius: 0;\n}\n.gender-container{\n  padding-top: 9px !important;\n}\n.gender-placeholder {\n  transform: translate(-3px,-70%)!important;\n}\n.vs-input-number {\n  width: -webkit-fit-content;\n  width: -moz-fit-content;\n  width: fit-content;\n}\n", ""]);
+exports.push([module.i, ".dob-input{\n  padding-bottom: 7px !important;\n  padding-top: 7px !important;\n}\ninput[type=date]:invalid::-webkit-datetime-edit {\n  color: rgb(220, 220, 220) !important;\n}\n.input-btn {\n  position: relative;\n  top: 17px;\n  left: -33px;\n  border-top-left-radius: 0;\n  border-bottom-left-radius: 0;\n}\n.gender-container{\n  padding-top: 9px !important;\n}\n.gender-placeholder {\n  transform: translate(-3px,-70%)!important;\n}\n.vs-input-number {\n  width: -webkit-fit-content;\n  width: -moz-fit-content;\n  width: fit-content;\n}\n.arabic-font{\n  font-family: monospace;\n}\n", ""]);
 
 // exports
 
@@ -586,6 +612,31 @@ var render = function() {
                 [
                   _c(
                     "vs-col",
+                    {
+                      attrs: {
+                        "vs-w": "12",
+                        "vs-type": "flex",
+                        "vs-justify": "flex-end",
+                        "vs-align": "flex-end"
+                      }
+                    },
+                    [
+                      _vm.patient
+                        ? _c(
+                            "vs-button",
+                            {
+                              staticClass: "arabic-font",
+                              on: { click: _vm.addTemplate1 }
+                            },
+                            [_vm._v("وثيقة ضمان")]
+                          )
+                        : _vm._e()
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "vs-col",
                     { attrs: { "vs-w": "12" } },
                     [
                       _c("label", { staticClass: "mb-3" }, [
@@ -599,16 +650,16 @@ var render = function() {
                           initialValue: "",
                           init: {
                             height: 500,
-                            menubar: false,
+                            menubar: true,
                             plugins: [
                               "advlist autolink lists link image charmap print preview anchor",
                               "searchreplace visualblocks code fullscreen",
-                              "insertdatetime media table paste code help wordcount"
+                              "insertdatetime media table paste code help wordcount print"
                             ],
                             toolbar:
-                              "undo redo | formatselect | bold italic backcolor | \
+                              "undo redo | print | formatselect | bold italic backcolor | \
                        alignleft aligncenter alignright alignjustify | \
-                       bullist numlist outdent indent | removeformat | help"
+                       bullist numlist outdent indent | removeformat | help "
                           }
                         },
                         model: {

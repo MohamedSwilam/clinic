@@ -170,6 +170,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "profile",
   mounted: function mounted() {
@@ -202,6 +206,34 @@ __webpack_require__.r(__webpack_exports__);
         id: 4,
         name: 'Finished',
         color: '#27C76F'
+      }, {
+        id: 5,
+        name: 'Missed',
+        color: '#1E1E1E'
+      }, {
+        id: 6,
+        name: 'Denture',
+        color: '#F012BE'
+      }, {
+        id: 7,
+        name: 'X-ray',
+        color: '#0700ff'
+      }, {
+        id: 8,
+        name: 'Panorama',
+        color: '#B10DC9'
+      }, {
+        id: 9,
+        name: 'Ct 1/4 arch',
+        color: '#5286aa'
+      }, {
+        id: 10,
+        name: 'Ct Arch',
+        color: '#ddba00'
+      }, {
+        id: 11,
+        name: 'Ct Both Arches',
+        color: '#ff1e6b'
       }]
     };
   },
@@ -1034,77 +1066,108 @@ var render = function() {
                                                       "icon-pack": "feather",
                                                       icon: "icon-arrow-right",
                                                       title:
+                                                        "Room: " +
+                                                        appointment
+                                                          .reservation_duration
+                                                          .room
+                                                    }
+                                                  }),
+                                                  _vm._v(" "),
+                                                  _c("vs-list-item", {
+                                                    attrs: {
+                                                      "icon-pack": "feather",
+                                                      icon: "icon-arrow-right",
+                                                      title:
                                                         "Illness Description: " +
                                                         appointment.illness_description
                                                     }
                                                   }),
                                                   _vm._v(" "),
                                                   _c(
-                                                    "vs-list-item",
-                                                    {
-                                                      attrs: {
-                                                        "icon-pack": "feather",
-                                                        icon:
-                                                          "icon-arrow-right",
-                                                        title: "Update Status"
-                                                      }
-                                                    },
-                                                    _vm._l(
-                                                      _vm.statuses,
-                                                      function(
-                                                        status,
-                                                        status_index
-                                                      ) {
-                                                        return _c(
-                                                          "vs-button",
-                                                          {
-                                                            key: status_index,
-                                                            staticClass: "ml-3",
-                                                            attrs: {
-                                                              id:
-                                                                "update-status-btn-" +
-                                                                appointment.id +
-                                                                "-" +
-                                                                status.id,
-                                                              size: "small",
-                                                              color:
-                                                                status.color,
-                                                              type:
-                                                                appointment
-                                                                  .status.id ===
-                                                                status.id
-                                                                  ? "filled"
-                                                                  : "border",
-                                                              "icon-pack":
-                                                                "feather"
-                                                            },
-                                                            on: {
-                                                              click: function(
-                                                                $event
-                                                              ) {
-                                                                _vm.is_requesting
-                                                                  ? _vm.$store.dispatch(
-                                                                      "viewWaitMessage",
-                                                                      _vm.$vs
-                                                                    )
-                                                                  : _vm.updateStatus(
-                                                                      index,
-                                                                      appointment.id,
-                                                                      status.id
-                                                                    )
-                                                              }
-                                                            }
-                                                          },
-                                                          [
-                                                            _vm._v(
-                                                              _vm._s(
-                                                                status.name
-                                                              )
+                                                    "vs-row",
+                                                    { staticClass: "mt-5" },
+                                                    [
+                                                      _c(
+                                                        "strong",
+                                                        {
+                                                          staticClass:
+                                                            "ml-5 mb-2"
+                                                        },
+                                                        [
+                                                          _vm._v(
+                                                            "Update Status"
+                                                          )
+                                                        ]
+                                                      ),
+                                                      _vm._v(" "),
+                                                      _c(
+                                                        "vs-col",
+                                                        {
+                                                          attrs: {
+                                                            "vs-w": "12"
+                                                          }
+                                                        },
+                                                        _vm._l(
+                                                          _vm.statuses,
+                                                          function(
+                                                            status,
+                                                            status_index
+                                                          ) {
+                                                            return _c(
+                                                              "vs-button",
+                                                              {
+                                                                key: status_index,
+                                                                staticClass:
+                                                                  "m-3",
+                                                                attrs: {
+                                                                  id:
+                                                                    "update-status-btn-" +
+                                                                    appointment.id +
+                                                                    "-" +
+                                                                    status.id,
+                                                                  size: "small",
+                                                                  color:
+                                                                    status.color,
+                                                                  type:
+                                                                    appointment
+                                                                      .status
+                                                                      .id ===
+                                                                    status.id
+                                                                      ? "filled"
+                                                                      : "border",
+                                                                  "icon-pack":
+                                                                    "feather"
+                                                                },
+                                                                on: {
+                                                                  click: function(
+                                                                    $event
+                                                                  ) {
+                                                                    _vm.is_requesting
+                                                                      ? _vm.$store.dispatch(
+                                                                          "viewWaitMessage",
+                                                                          _vm.$vs
+                                                                        )
+                                                                      : _vm.updateStatus(
+                                                                          index,
+                                                                          appointment.id,
+                                                                          status.id
+                                                                        )
+                                                                  }
+                                                                }
+                                                              },
+                                                              [
+                                                                _vm._v(
+                                                                  _vm._s(
+                                                                    status.name
+                                                                  )
+                                                                )
+                                                              ]
                                                             )
-                                                          ]
-                                                        )
-                                                      }
-                                                    ),
+                                                          }
+                                                        ),
+                                                        1
+                                                      )
+                                                    ],
                                                     1
                                                   )
                                                 ],
@@ -1126,7 +1189,7 @@ var render = function() {
                       ],
                       null,
                       false,
-                      1214801419
+                      2061325760
                     )
                   },
                   [

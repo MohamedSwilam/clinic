@@ -87,10 +87,14 @@
                                             </vs-list-item>
                                             <vs-list-item icon-pack="feather" icon="icon-arrow-right" :title="`Type: ${appointment.reservation_type.name}`"></vs-list-item>
                                             <vs-list-item icon-pack="feather" icon="icon-arrow-right" :title="`Doctor: ${appointment.doctor.first_name} ${appointment.doctor.last_name}`"></vs-list-item>
+                                            <vs-list-item icon-pack="feather" icon="icon-arrow-right" :title="`Room: ${appointment.reservation_duration.room}`"></vs-list-item>
                                             <vs-list-item icon-pack="feather" icon="icon-arrow-right" :title="`Illness Description: ${appointment.illness_description}`"></vs-list-item>
-                                            <vs-list-item icon-pack="feather" icon="icon-arrow-right" :title="'Update Status'">
-                                                <vs-button class="m-3" :key="status_index" v-for="(status, status_index) in statuses" :id="`update-status-btn-${appointment.id}-${status.id}`" @click="is_requesting?$store.dispatch('viewWaitMessage', $vs):updateStatus(index, appointment.id, status.id)" size="small" :color="status.color" :type="appointment.status.id===status.id?'filled':'border'" icon-pack="feather">{{status.name}}</vs-button>
-                                            </vs-list-item>
+                                            <vs-row class="mt-5">
+                                                <strong class="ml-5 mb-2">Update Status</strong>
+                                                <vs-col vs-w="12">
+                                                    <vs-button class="m-3" :key="status_index" v-for="(status, status_index) in statuses" :id="`update-status-btn-${appointment.id}-${status.id}`" @click="is_requesting?$store.dispatch('viewWaitMessage', $vs):updateStatus(index, appointment.id, status.id)" size="small" :color="status.color" :type="appointment.status.id===status.id?'filled':'border'" icon-pack="feather">{{status.name}}</vs-button>
+                                                </vs-col>
+                                            </vs-row>
                                         </vs-list>
                                     </div>
                                 </template>
@@ -148,83 +152,33 @@
                     },
                     {
                         id: 6,
-                        name: 'Bone',
-                        color: '#001f3f',
-                    },
-                    {
-                        id: 7,
-                        name: 'Implants',
-                        color: '#0074D9',
-                    },
-                    {
-                        id: 8,
-                        name: 'Porcelain Crowns',
-                        color: '#7FDBFF',
-                    },
-                    {
-                        id: 9,
-                        name: 'Emax Crown',
-                        color: '#39CCCC',
-                    },
-                    {
-                        id: 10,
-                        name: 'Endo',
-                        color: '#3D9970',
-                    },
-                    {
-                        id: 11,
-                        name: 'Filling',
-                        color: '#2ECC40',
-                    },
-                    {
-                        id: 12,
-                        name: 'Scaling  Polishing',
-                        color: '#01FF70',
-                    },
-                    {
-                        id: 13,
-                        name: 'Whittening',
-                        color: '#FF851B',
-                    },
-                    {
-                        id: 14,
-                        name: 'Gum',
-                        color: '#FF4136',
-                    },
-                    {
-                        id: 15,
-                        name: 'Extraction',
-                        color: '#85144b',
-                    },
-                    {
-                        id: 16,
                         name: 'Denture',
                         color: '#F012BE',
                     },
                     {
-                        id: 17,
+                        id: 7,
                         name: 'X-ray',
-                        color: '#111111',
+                        color: '#0700ff',
                     },
                     {
-                        id: 18,
+                        id: 8,
                         name: 'Panorama',
                         color: '#B10DC9',
                     },
                     {
-                        id: 19,
+                        id: 9,
                         name: 'Ct 1/4 arch',
-                        color: '#AAAAAA',
+                        color: '#5286aa',
                     },
                     {
-                        id: 20,
+                        id: 10,
                         name: 'Ct Arch',
-                        color: '#DDDDDD',
+                        color: '#ddba00',
                     },
                     {
-                        id: 21,
+                        id: 11,
                         name: 'Ct Both Arches',
-                        color: '#2E2E2E',
+                        color: '#ff1e6b',
                     }
                 ]
             }
